@@ -10,4 +10,4 @@
 - Wu Wen Tang (40028075) - [wuwentang](https://github.com/wuwentang)
 - Tamar Merdkhanian (40030718) - [TMerdkh](https://github.com/TMerdkh)
 - Mathew Jackson (27709315) - [MatJackson](https://github.com/MatJackson)
-- Anthony Le (40001837)
+- Anthony Le (40001837) - [Anthonyle17](https://github.com/Anthonyle17)
