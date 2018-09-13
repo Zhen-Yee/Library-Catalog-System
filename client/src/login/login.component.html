@@ -1,0 +1,14 @@
+<div>
+  <h1> Welcome </h1>
+
+  <mat-form-field>
+    <input matInput placeholder="Username" [(ngModel)] ="username">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Password" [(ngModel)] ="password">
+  </mat-form-field>
+  <button mat-button (click)="get()"> Get </button>
+  <button mat-button (click)="post(this.username)"> Post </button>
+  <!-- <button mat-button (click)="put()"> Put </button> -->
+  <button mat-button (click)="delete(this.username)"> Delete </button>
+  </div>
