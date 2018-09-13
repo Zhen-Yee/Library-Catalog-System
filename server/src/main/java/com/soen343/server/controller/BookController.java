@@ -42,7 +42,7 @@ public class BookController {
         // here sonoo is database name, root is username and password
         Statement stmt = con.createStatement();
         //int ex = stmt.executeUpdate("insert into new_table (name) values (5)");
-        int rs = stmt.executeUpdate("insert into testdb.Book (name) values ('book.name')");
+        int rs = stmt.executeUpdate("insert into testdb.Book (name) values ('"+book.name+"')");
         System.out.print(book.name);
         return book;
         }
