@@ -41,7 +41,7 @@ Client application is now available at `http://localhost:4200`
 
 ## Technologies
 * Java with Spring Boot
-* AngularJS
+* Angular6
 * Maven
 * MySQL
 
