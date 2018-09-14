@@ -36,11 +36,12 @@ public class BookController {
         } catch (Exception e) {
             System.out.println(e);
         }
+        
         return listOfBook;
     }
 
     @PostMapping("/addBook")
-    public Book addBook(@RequestBody Book book){
+    public ArrayList<Book> addBook(@RequestBody Book book){
         try{
         Class.forName("com.mysql.jdbc.Driver");
         Connection con = DriverManager.getConnection("jdbc:mysql://testdbinstance.cwtjkaidrsfz.us-east-2.rds.amazonaws.com:3306/testdb", "test", "testtest");
@@ -49,16 +50,18 @@ public class BookController {
         // SQL Query to insert
         stmt.executeUpdate("insert into testdb.Book (name) values ('"+book.name+"')");
         con.close();
-        return book;
+        return this.getBooks();
         }
         catch(Exception e){
             System.out.println(e);
         }
-        return book;
+
+        // returns the updated booklist to the frontend to be displayed
+        return this.getBooks();
     }
 
     @PostMapping("/deleteBook")
-    public Book deleteBook(@RequestBody Book book){
+    public ArrayList<Book> deleteBook(@RequestBody Book book){
         try{
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://testdbinstance.cwtjkaidrsfz.us-east-2.rds.amazonaws.com:3306/testdb", "test", "testtest");
@@ -71,6 +74,8 @@ public class BookController {
         catch( Exception e){
             System.out.println(e);
         }
-        return book;
+
+        // returns the updated booklist to the frontend to be displayed
+        return this.getBooks();
     }
 }

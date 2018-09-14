@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient} from "@angular/common/http";
+
 import { Book } from "../models/Book.models";
 
 @Component({
@@ -27,8 +28,8 @@ export class LoginComponent implements OnInit {
       name: sendThis
     };
     this.http
-      .post<Book>("http://localhost:8090/addBook", book)
-      .subscribe((sent: Book) => console.log(sent));
+      .post<Book[]>("http://localhost:8090/addBook", book)
+      .subscribe(sent => this.bookArray = sent);
   }
 
   delete(deleteThis: string) {
@@ -36,8 +37,8 @@ export class LoginComponent implements OnInit {
       name: deleteThis
     };
     this.http
-      .post("http://localhost:8090/deleteBook", book)
-      .subscribe(deleted => console.log(deleted));
+      .post<Book[]>("http://localhost:8090/deleteBook", book)
+      .subscribe(deleted => this.bookArray = deleted);
   }
   update(updateThis: Book) {
    // this.http.put("http://localhost:8090/update", updateThis)
