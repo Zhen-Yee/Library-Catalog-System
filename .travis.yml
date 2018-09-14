@@ -1,8 +1,22 @@
-sudo: true
+os:
+  - linux
+
+git:
+  submodules: false
+
+dist: trusty
+
 language: java
-jdk:
- - oraclejdk8
+jdk: oraclejdk8
 install: true
-script:
+
+before_script:
 - cd server
-- ./mvnw clean install
+- mvn clean install
+
+script:
+- mvn clean verify
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -t ce486d61-bcfe-4336-9139-9be0248dbf17
+
