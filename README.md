@@ -4,8 +4,8 @@
 
 Make sure all dependencies have been installed before moving on:
 
-* [NodeJS](https://nodejs.org/en/)
-* [Maven](https://maven.apache.org/download.cgi) - or downloadable through the terminal : `npm install maven`
+* [NodeJS + npm](https://nodejs.org/en/)
+* [Maven](https://maven.apache.org/download.cgi) 
 * [JDK](https://www.oracle.com/technetwork/java/javase/downloads/jdk10-downloads-4416644.html)
 
 ## Installation
