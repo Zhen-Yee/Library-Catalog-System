@@ -8,8 +8,9 @@ import { Book } from "../models/Book.models";
   styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
-  username: string;
+  bookName: string;
   password: string;
+  bookArray;
   constructor(private http: HttpClient) {}
 
   ngOnInit() {}
@@ -17,8 +18,8 @@ export class LoginComponent implements OnInit {
   // get request,
   get() {
     this.http
-      .get<Book>("http://localhost:8090/getBook")
-      .subscribe(book => console.log(book));
+      .get<Book[]>("http://localhost:8090/getBook")
+      .subscribe(book => this.bookArray = book);
   }
 
   post(sendThis: string) {
@@ -26,8 +27,8 @@ export class LoginComponent implements OnInit {
       name: sendThis
     };
     this.http
-      .post<string>("http://localhost:8090/addBook", book)
-      .subscribe(sent => console.log(sent));
+      .post<Book>("http://localhost:8090/addBook", book)
+      .subscribe((sent: Book) => console.log(sent));
   }
 
   delete(deleteThis: string) {
