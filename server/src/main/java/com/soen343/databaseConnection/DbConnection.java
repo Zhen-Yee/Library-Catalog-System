@@ -17,6 +17,23 @@ public class DbConnection {
             System.out.println(e);
         } 
     }
+
+    public static Connector get(String query){
+        Connector conn = null;
+        try {
+            Connection con = connect();
+            // Database Connection
+            Statement stmt = con.createStatement();
+            // SQL Query to search
+            ResultSet rs = stmt.executeQuery(query);
+
+            conn = new Connector(rs, con, stmt);
+        } 
+        catch (Exception e) {
+            System.out.println(e);
+        } 
+        return conn;
+    }
     
     // opens the connection to the database
     // should only be used in this class 
