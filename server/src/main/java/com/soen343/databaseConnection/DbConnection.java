@@ -4,6 +4,8 @@ import java.sql.*;
 
 public class DbConnection {
 
+    // void function since update is a POST and we do not need to return anything
+    // to be changed if we need to use POST to read data in the future
     public static void update(String query){
         try {
             Connection con = connect();
@@ -18,6 +20,7 @@ public class DbConnection {
         } 
     }
 
+    // returns a Connector Object containing the connection, the resultset and the statement
     public static Connector get(String query){
         Connector conn = null;
         try {
