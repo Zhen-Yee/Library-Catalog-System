@@ -13,4 +13,20 @@ public class Connector {
         this.connection = connection;
         this.statement = statement;
     }
+
+    // Getters & Setters
+    public Connection getConnection(){
+        return this.connection;
+    }
+    public ResultSet getResultSet(){
+        return this.resultSet;
+    }
+
+    public void setConnection(Connection connection){
+        this.connection = connection;
+    }
+    public void setResultSet(ResultSet resultSet){
+        this.resultSet = resultSet;
+    }
+
 }
