@@ -20,7 +20,7 @@ S0EN343-Team15/                # → Root folder for the project
 └── server/                    # → Server folder where Java with SpringBoot reside
 ```
 
-1. Clone the project: `$ git clone --recursive git@github.com:Zhen-Yee/SOEN343-Team15.git`
+1. Clone the project: `$ git clone --recursive https://github.com/Zhen-Yee/SOEN343-Team15.git`
 
 ## Local development setup
 

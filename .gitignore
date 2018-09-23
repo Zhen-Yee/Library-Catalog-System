@@ -7,6 +7,8 @@
 /app/**/*.js.map
 
 # dependencies
+/client/package-lock.json
+/package-lock.json
 /client/node_modules
 /node_modules
 /bower_components
