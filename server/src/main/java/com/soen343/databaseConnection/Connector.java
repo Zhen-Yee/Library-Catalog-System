@@ -29,4 +29,16 @@ public class Connector {
         this.resultSet = resultSet;
     }
 
+    // closes all connection 
+    // mainly used in other classes after having done their queries
+    public void close(){
+        try{
+        this.statement.close();
+        this.connection.close();
+        this.resultSet.close();
+        } catch(SQLException e){
+             System.out.println(e);
+        }
+    }
+
 }
