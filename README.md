@@ -1,4 +1,7 @@
 # SOEN343 Team Project - Library Catalog System
+[![Build Status](https://travis-ci.com/Zhen-Yee/SOEN343-Team15.svg?token=7vgmUm6UsL1MSWiHzMsy&branch=dev)](https://travis-ci.com/Zhen-Yee/SOEN343-Team15)
+[![codecov](https://codecov.io/gh/Zhen-Yee/SOEN343-Team15/branch/master/graph/badge.svg?token=CUYQciSm6J)](https://codecov.io/gh/Zhen-Yee/SOEN343-Team15)
+
 
 ## Requirements
 
