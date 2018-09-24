@@ -1,5 +1,7 @@
 import { Component,  OnInit } from "@angular/core";
 import { Router } from '@angular/router';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from "@angular/material";
+import {LoginComponent} from "../login/login.component";
 
 @Component({
   selector: "header",
@@ -7,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, public dialog: MatDialog) {}
 
   ngOnInit() {}
 
@@ -19,4 +21,13 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
+  openDialog() {
+    const dialogRef = this.dialog.open(LoginComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog result: ${result}');
+    });
+  }
+
 }
+
