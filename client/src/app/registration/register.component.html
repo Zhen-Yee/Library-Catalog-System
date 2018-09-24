@@ -1,0 +1,58 @@
+<div>
+    
+        <h1> Register a User </h1>
+
+        <div class = "form">
+        <form>
+                <table><tr>
+                        <td><mat-form-field>
+                          <input matInput placeholder="First name" [formControl]="first" required>
+                        </mat-form-field></td>
+                        <td><mat-form-field>
+                          <input matInput placeholder="Last Name" required>
+                        </mat-form-field></td>
+                      </tr></table>
+                    
+                      <p>
+                        <mat-form-field>
+                          <input matInput placeholder="Phone Number" required>
+                        </mat-form-field>
+                        <mat-form-field>
+                          <input matInput type = "email" placeholder="Email Address" [formControl]="email" required>
+                        </mat-form-field>
+                      </p>
+                    
+                      <table cellspacing="0"><tr>
+                        
+                        <td><mat-form-field appereance="fill">
+                        <input matInput appereance="fill" placeholder="Address" required>
+                        </mat-form-field></td>
+
+                        <td><mat-form-field>
+                          <input matInput placeholder="City" required>
+                        </mat-form-field></td>
+
+                        <td><mat-form-field>
+                                <input matInput placeholder="Province/State" required>
+                        </mat-form-field></td>
+
+                        <td><mat-form-field>
+                          <input matInput placeholder="Country" required>
+                        </mat-form-field></td>
+
+                        <td><mat-form-field>
+                          <input matInput #postalCode maxlength="5" placeholder="Postal Code" required>
+                          <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+                        </mat-form-field></td>
+                      </tr></table>
+
+                      <div class="registerButton">
+                      <button type = "submit" mat-button (click)="register()"> Register! </button>
+                </div>
+                </form>
+
+        </div>
+
+
+    
+</div>
