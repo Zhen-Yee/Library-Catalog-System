@@ -4,11 +4,11 @@ import { HttpClient} from "@angular/common/http";
 import { Book } from "../models/Book.models";
 
 @Component({
-  selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"]
+  selector: "app-test",
+  templateUrl: "./test.component.html",
+  styleUrls: ["./test.component.css"]
 })
-export class LoginComponent implements OnInit {
+export class TestComponent implements OnInit {
   bookName: string;
   password: string;
   bookArray;
