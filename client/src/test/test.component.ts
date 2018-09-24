@@ -4,7 +4,7 @@ import { HttpClient} from "@angular/common/http";
 import { Book } from "../models/Book.models";
 
 @Component({
-  selector: "app-login",
+  selector: "app-test",
   templateUrl: "./test.component.html",
   styleUrls: ["./test.component.css"]
 })
