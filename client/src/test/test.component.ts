@@ -5,10 +5,10 @@ import { Book } from "../models/Book.models";
 
 @Component({
   selector: "app-login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"]
+  templateUrl: "./test.component.html",
+  styleUrls: ["./test.component.css"]
 })
-export class LoginComponent implements OnInit {
+export class TestComponent implements OnInit {
   bookName: string;
   password: string;
   bookArray;
