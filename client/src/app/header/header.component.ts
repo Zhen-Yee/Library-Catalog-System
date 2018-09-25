@@ -2,6 +2,7 @@ import { Component,  OnInit } from "@angular/core";
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from "@angular/material";
 import {LoginComponent} from "../login/login.component";
+import {ActiveUsersSideNavComponent} from "../active-users-side-nav/active-users-side-nav.component";
 
 @Component({
   selector: "header",
@@ -27,6 +28,10 @@ export class HeaderComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('Dialog result: ${result}');
     });
+  }
+
+  toggle() {
+    ActiveUsersSideNavComponent;
   }
 
 }
