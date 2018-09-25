@@ -3,7 +3,6 @@ package com.soen343.server.services;
 import com.soen343.databaseConnection.Connector;
 import com.soen343.databaseConnection.DbConnection;
 
-import javax.servlet.http.HttpSession;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -49,9 +48,8 @@ public class AdminService {
         }
         finally {
             connector.close();
-            return userList;
         }
-
+        return userList;
     }
 
 }
