@@ -1,15 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,  OnInit } from "@angular/core";
+import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from "@angular/material";
 import {LoginComponent} from "../login/login.component";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: "header",
+  templateUrl: "./header.component.html"
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(private router: Router, public dialog: MatDialog) {}
+
+  ngOnInit() {}
+
+  redirectRegistrationPage() {
+    this.router.navigate(['/register']);
+  }
+
+  redirectHome() {
+    this.router.navigate(['/']);
+  }
 
   openDialog() {
     const dialogRef = this.dialog.open(LoginComponent);
