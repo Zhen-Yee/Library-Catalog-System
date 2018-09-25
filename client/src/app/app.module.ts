@@ -2,15 +2,21 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 
 import { AppComponent } from "./app.component";
-import { LoginComponent } from "./../login/login.component";
-import {MatFormFieldModule, MatButtonModule, MatInputModule} from "@angular/material";
+import { TestComponent } from "../test/test.component";
+import { MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, MatMenuModule, MatDialogModule,
+MatCardModule} from "@angular/material";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
+import { HeaderComponent} from "./header/header.component";
+import { LoginComponent } from './login/login.component';
+
 @NgModule({
    declarations: [
       AppComponent,
+      HeaderComponent,
+      TestComponent,
       LoginComponent
    ],
    imports: [
@@ -19,8 +25,15 @@ import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
       MatFormFieldModule,
       MatInputModule,
       MatButtonModule,
+      MatToolbarModule,
+      MatMenuModule,
+      MatDialogModule,
+      MatCardModule,
       HttpClientModule,
       FormsModule
+   ],
+   entryComponents: [
+     LoginComponent
    ],
    providers: [],
    bootstrap: [
