@@ -12,7 +12,6 @@ public class DbConnection {
             // Database Connection
             Statement stmt = con.createStatement();
             // SQL Query to search
-            System.out.println(query);
             stmt.executeUpdate(query);
             con.close();
         } 

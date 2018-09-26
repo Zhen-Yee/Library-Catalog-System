@@ -61,7 +61,7 @@ public class RegisterController {
            else{
 
             successful = true;
-            
+
             String query = "insert into testdb.User (first_name, last_name, email_address, physical_address, phone_number, password) values ('" + user.getFirstName() + "', '"
             + user.getLastName() + "', '" 
             + user.email + "', '" 
@@ -76,7 +76,6 @@ public class RegisterController {
             System.out.println(e);
         } 
 
-        System.out.println(successful);
 
         return successful;
     }

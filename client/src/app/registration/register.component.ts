@@ -46,10 +46,9 @@ export class RegisterComponent implements OnInit {
 
     this.http
       .post<boolean>("http://localhost:8090/addUser", user)
-      .subscribe( answer=> this.successful = answer)
+      .subscribe( answer=> {this.successful = answer;
+        this.openConfirmationDialog();})
       
-      console.log(this.successful);
-      this.openConfirmationDialog();
   }
 
   generatePassword() {
