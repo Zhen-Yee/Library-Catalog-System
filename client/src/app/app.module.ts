@@ -1,13 +1,12 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-
 import { AppComponent } from "./app.component";
 import { RegisterComponent } from "./registration/register.component";
 import { HomePageComponent } from "./homepage/homepage.component";
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
-import { TestComponent } from "../test/test.component";
+import { TestComponent } from "./test/test.component";
 import { MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, MatMenuModule, MatDialogModule,
 MatCardModule} from "@angular/material";
 import { HttpClientModule } from "@angular/common/http";

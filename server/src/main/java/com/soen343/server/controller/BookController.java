@@ -39,6 +39,7 @@ public class BookController {
 
     @PostMapping("/addBook")
     public ArrayList<Book> addBook(@RequestBody Book book) {
+        System.out.println("ok");
         try {
             // for a POST method, call the DbConnection object and make the call with .update
             // DbConnection update handles the closing for POST

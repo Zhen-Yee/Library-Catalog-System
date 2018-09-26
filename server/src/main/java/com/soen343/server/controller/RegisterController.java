@@ -20,8 +20,10 @@ public class RegisterController {
     public ArrayList<User> getUsers(){
         ArrayList<User> listOfUsers = new ArrayList<User>();
         try{
+            
         Connector connector = DbConnection.get("select * from testdb.User");
         ResultSet resultSet = connector.getResultSet();
+
         while(resultSet.next()){
         String first_name = resultSet.getString("first_name");
         String last_name = resultSet.getString("last_name");
@@ -35,6 +37,7 @@ public class RegisterController {
         User user = new User(first_name,last_name, email_address, physical_address, phone_number, username, password, is_admin, is_online);
         listOfUsers.add(user);
         }
+
         }
         catch(Exception e){
             System.out.println(e);
@@ -45,10 +48,11 @@ public class RegisterController {
 
     @PostMapping("/addUser")
     public boolean addUser(@RequestBody User user) {
+        System.out.println(user.toString());
         ArrayList<User> listOfUsers;
         ArrayList<String> listOfEmails = new ArrayList<String>();
-        boolean successful=false;
-        try {
+        boolean successful=false; /*
+        try { 
             // for a POST method, call the DbConnection object and make the call with .update
             // DbConnection update handles the closing for POST
            listOfUsers = getUsers();
@@ -60,22 +64,19 @@ public class RegisterController {
             System.out.println("Email already taken");
             successful = false;
            }
-           else{
-            DbConnection.update("insert into testdb.User values ('" + user.getFirstName() + ""
-             + user.getLastName() + "" 
-             + user.getEmailAddress() + "" 
-             + user.getAddress() + ""
-             + user.getPhoneNumber() + "" 
-             + user.getUsername() + "" 
-             + user.getPassword() + ""
-             + user.getIsAdmin() + "" 
-             + user.getIsOnline() + "')");
-             System.out.println("Successful register");
+           else{ */
+            System.out.println("okkkkk" + user.first_name);
+            DbConnection.update("insert into testdb.User (first_name, last_name, email_address, physical_address, phone_number) ('" + user.getFirstName() + " "
+             + user.getLastName() + " " 
+             + user.getEmailAddress() + " " 
+             + user.getAddress() + " "
+             + user.getPhoneNumber() +" )");
+             System.out.println("Successful register"); /*
              successful = true;
            }
         } catch (Exception e) {
             System.out.println(e);
-        }
+        } */
         return successful;
     }
 

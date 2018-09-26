@@ -1,6 +1,7 @@
 package com.soen343.server.models;
+
 public class User {
-    private String first_name;
+    public String first_name;
     private String last_name;
     private String email_address;
     private String address;
@@ -9,6 +10,7 @@ public class User {
     private String password;
     private boolean is_admin;
     private boolean is_online;
+
     User(){
         this.first_name = "";
         this.last_name = "";
@@ -16,8 +18,9 @@ public class User {
         this.address = "";
         this.phone_number = "";
         this.username = "";
-        this.password = "";   
+        this.password = "";
     }
+
    public User(String first_name, String last_name, String email_address, 
    String address, String phone_number, String username, String password, boolean is_admin, boolean is_online){
         this.first_name = first_name;
@@ -59,4 +62,10 @@ public class User {
     public boolean getIsOnline(){
         return this.is_online;
     }
+
+    public String toString()
+    {
+        return ""+ this.getFirstName() + " " + this.getLastName();
+    }
 }
+ 
