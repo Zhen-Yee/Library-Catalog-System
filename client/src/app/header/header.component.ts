@@ -2,6 +2,9 @@ import { Component,  OnInit } from "@angular/core";
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from "@angular/material";
 import {LoginComponent} from "../login/login.component";
+import {AppService} from "../app.service";
+import {HttpClient} from "@angular/common/http";
+import { finalize } from "rxjs/operators";
 
 @Component({
   selector: "header",
@@ -9,7 +12,9 @@ import {LoginComponent} from "../login/login.component";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router, public dialog: MatDialog) {}
+  constructor(private router: Router, public dialog: MatDialog, private app: AppService, private http: HttpClient) {
+    this.app.authenticate(undefined, undefined);
+  }
 
   ngOnInit() {}
 
@@ -27,6 +32,15 @@ export class HeaderComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('Dialog result: ${result}');
     });
+  }
+
+  logout() {
+    this.http.post('logout', {}).pipe(
+      finalize(() => {
+        this.app.authenticated = false;
+        this.router.navigateByUrl('');
+      })
+    ).subscribe();
   }
 
 }

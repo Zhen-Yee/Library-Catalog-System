@@ -15,6 +15,7 @@ import { FormsModule, FormControl, Validators, ReactiveFormsModule } from "@angu
 import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { routing } from './app.routing';
 import { LoginComponent } from './login/login.component';
+import {AppService} from "./app.service";
 
 @NgModule({
    declarations: [
@@ -45,9 +46,7 @@ import { LoginComponent } from './login/login.component';
    entryComponents: [
      LoginComponent
    ],
-   providers: [],
-   bootstrap: [
-      AppComponent
-   ]
+   providers: [AppService],
+   bootstrap: [AppComponent]
 })
 export class AppModule { }
