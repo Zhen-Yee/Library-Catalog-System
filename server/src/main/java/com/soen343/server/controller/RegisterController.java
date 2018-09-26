@@ -47,9 +47,9 @@ public class RegisterController {
     }
 
     @PostMapping("/addUser")
-    public boolean addUser(@RequestBody User user) {
+    public Boolean addUser(@RequestBody User user) {
 
-        boolean successful=false; 
+        Boolean successful=false; 
 
         try { 
 
@@ -58,7 +58,9 @@ public class RegisterController {
                 System.out.println("Email already exists.");
            }
 
-           else{ 
+           else{
+
+            successful = true;
             
             String query = "insert into testdb.User (first_name, last_name, email_address, physical_address, phone_number, password) values ('" + user.getFirstName() + "', '"
             + user.getLastName() + "', '" 
@@ -66,13 +68,16 @@ public class RegisterController {
             + user.getAddress() + "', '"
             + user.phone +"', '"
             + user.getPassword() + "') ";
-
+            
             DbConnection.update(query); 
-             successful = true;
+             
            }
         } catch (Exception e) {
             System.out.println(e);
         } 
+
+        System.out.println(successful);
+
         return successful;
     }
 
@@ -95,8 +100,6 @@ public class RegisterController {
         } catch (Exception e) {
             System.out.println(e);
         }
-
-        System.out.println(exist);
 
         return exist;
 

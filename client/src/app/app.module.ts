@@ -16,6 +16,7 @@ import { routing } from './app.routing';
 import { LoginComponent } from './login/login.component';
 import { ConfirmationComponent } from "./registration/confirmation.component";
 import { PasswordService } from "./_services/registration/PasswordService";
+import { RegistrationErrorComponent } from "./registration/registration_error.component";
 
 @NgModule({
    declarations: [
@@ -26,7 +27,8 @@ import { PasswordService } from "./_services/registration/PasswordService";
       HomePageComponent,
       RegisterComponent,
       LoginComponent,
-      ConfirmationComponent
+      ConfirmationComponent,
+      RegistrationErrorComponent
    ],
    imports: [
       BrowserModule,
@@ -45,7 +47,9 @@ import { PasswordService } from "./_services/registration/PasswordService";
       ReactiveFormsModule
    ],
    entryComponents: [
-     LoginComponent
+     LoginComponent,
+     ConfirmationComponent,
+     RegistrationErrorComponent
    ],
    providers: [
     PasswordService

@@ -15,10 +15,6 @@ const appRoutes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
-  },
-  {
-    path: 'confirmation',
-    component: ConfirmationComponent
   }
  ];
 

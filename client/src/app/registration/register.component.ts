@@ -5,17 +5,21 @@ import { Router } from '@angular/router';
 import { MatDialog } from "@angular/material";
 import { ConfirmationComponent } from  "./confirmation.component";
 import { PasswordService } from "../_services/registration/PasswordService";
+import {ChangeDetectorRef} from '@angular/core';
+import { RegistrationErrorComponent } from "./registration_error.component";
 
 
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.css"]
+  styleUrls: ["./register.component.css"],
+  entryComponents: [RegistrationErrorComponent, ConfirmationComponent]
 })
 export class RegisterComponent implements OnInit {
   temporary_password;
-  userArray;
-  constructor(private router: Router, private http: HttpClient, public dialog: MatDialog, private password: PasswordService) {}
+  successful;
+
+  constructor(private router: Router, private http: HttpClient, public dialog: MatDialog, private password: PasswordService, private ref: ChangeDetectorRef) {}
 
   ngOnInit() {
 
@@ -24,6 +28,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register(firstName: string, lastName: string, phone: string, email: string, address: string, city: string, provState: string, country: string, postal: string) {
+    
     
     var temp = this.generatePassword();
     this.password.changePassword(temp)
@@ -40,10 +45,11 @@ export class RegisterComponent implements OnInit {
     };
 
     this.http
-      .post<User>("http://localhost:8090/addUser", user)
-      .subscribe(user => this.userArray = user);
-
-     this.openConfirmationDialog();
+      .post<boolean>("http://localhost:8090/addUser", user)
+      .subscribe( answer=> this.successful = answer)
+      
+      console.log(this.successful);
+      this.openConfirmationDialog();
   }
 
   generatePassword() {
@@ -54,16 +60,33 @@ export class RegisterComponent implements OnInit {
         tempPass += charset.charAt(Math.floor(Math.random()*n));
     }
     return tempPass;
+
+
+    
 }
 
 openConfirmationDialog() {
-  const dialogRef = this.dialog.open(ConfirmationComponent);
+
+  var dialogRef;
+  if (this.successful == true) {
+  dialogRef = this.dialog.open(ConfirmationComponent); 
 
   dialogRef.afterClosed().subscribe(result => {
-    console.log('Dialog result: ${result}');
-
+    console.log('Dialog result: ${result}'); 
   });
-}
 
-}
+  } 
+
+  else {
+  dialogRef = this.dialog.open(RegistrationErrorComponent); 
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('Dialog result: ${result}'); 
+  });}
+  } 
+
+
+}  
+
+
 
