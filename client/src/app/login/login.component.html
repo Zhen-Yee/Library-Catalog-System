@@ -1,4 +1,7 @@
 <div class="login-container">
+  <div class="alert alert-danger" [hidden]="!error">
+    There was a problem logging in. Please try again.
+  </div>
   <h2>Login</h2>
   <form role="form" (submit)="login()">
     <mat-form-field appearance="outline">
