@@ -1,6 +1,6 @@
 import { Component,  OnInit } from "@angular/core";
 import { Router } from '@angular/router';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from "@angular/material";
+import { MatDialog } from "@angular/material";
 import {LoginComponent} from "../login/login.component";
 import {AppService} from "../app.service";
 import {HttpClient} from "@angular/common/http";
@@ -38,9 +38,17 @@ export class HeaderComponent implements OnInit {
     this.http.post('logout', {}).pipe(
       finalize(() => {
         this.app.authenticated = false;
+
+        // add step to set user to inactive
+
+
         this.router.navigateByUrl('');
       })
     ).subscribe();
+  }
+
+  authenticated() {
+    return this.app.authenticated;
   }
 
 }
