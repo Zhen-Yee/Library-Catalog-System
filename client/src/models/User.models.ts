@@ -9,6 +9,6 @@ export class User {
     password: string;
     is_admin: boolean;
     is_active: boolean;
-    
+
   }
   

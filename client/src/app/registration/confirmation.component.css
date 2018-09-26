@@ -1,0 +1,14 @@
+.form 
+{ 
+    padding: 60px;
+    border: solid;
+    border-radius: 20px;
+    border-color:grey;
+    
+}
+
+mat-form-field
+{
+    padding: 20px;
+}
+

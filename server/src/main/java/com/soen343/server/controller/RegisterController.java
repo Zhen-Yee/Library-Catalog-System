@@ -20,7 +20,7 @@ public class RegisterController {
     public ArrayList<User> getUsers(){
         ArrayList<User> listOfUsers = new ArrayList<User>();
         try{
-            
+
         Connector connector = DbConnection.get("select * from testdb.User");
         ResultSet resultSet = connector.getResultSet();
 
@@ -48,36 +48,59 @@ public class RegisterController {
 
     @PostMapping("/addUser")
     public boolean addUser(@RequestBody User user) {
-        System.out.println(user.toString());
-        ArrayList<User> listOfUsers;
-        ArrayList<String> listOfEmails = new ArrayList<String>();
-        boolean successful=false; /*
+
+        boolean successful=false; 
+
         try { 
-            // for a POST method, call the DbConnection object and make the call with .update
-            // DbConnection update handles the closing for POST
-           listOfUsers = getUsers();
-         for(int i=0; i<listOfUsers.size();i++){
-            listOfEmails.add(listOfUsers.get(i).getEmailAddress());
-         }
-         //checks whether or not email address is already taken
-           if(listOfEmails.contains(user.getEmailAddress())){
-            System.out.println("Email already taken");
-            successful = false;
+
+           if (this.doesEmailExist(user.email))
+           {
+                System.out.println("Email already exists.");
            }
-           else{ */
-            System.out.println("okkkkk" + user.first_name);
-            DbConnection.update("insert into testdb.User (first_name, last_name, email_address, physical_address, phone_number) ('" + user.getFirstName() + " "
-             + user.getLastName() + " " 
-             + user.getEmailAddress() + " " 
-             + user.getAddress() + " "
-             + user.getPhoneNumber() +" )");
-             System.out.println("Successful register"); /*
+
+           else{ 
+            
+            String query = "insert into testdb.User (first_name, last_name, email_address, physical_address, phone_number, password) values ('" + user.getFirstName() + "', '"
+            + user.getLastName() + "', '" 
+            + user.email + "', '" 
+            + user.getAddress() + "', '"
+            + user.phone +"', '"
+            + user.getPassword() + "') ";
+
+            DbConnection.update(query); 
              successful = true;
            }
         } catch (Exception e) {
             System.out.println(e);
-        } */
+        } 
         return successful;
+    }
+
+    public boolean doesEmailExist(String user_email)
+    {
+
+        boolean exist = false;
+
+        try{
+
+        Connector connector = DbConnection.get("SELECT * FROM testdb.User WHERE email_address = '" + user_email + "'");
+        ResultSet resultSet = connector.getResultSet();
+    
+        if (resultSet.next() == true) {
+            exist = true;
+        }
+            
+        connector.close();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        System.out.println(exist);
+
+        return exist;
+
+
     }
 
 }

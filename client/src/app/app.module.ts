@@ -14,6 +14,8 @@ import { FormsModule, FormControl, Validators, ReactiveFormsModule } from "@angu
 import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { routing } from './app.routing';
 import { LoginComponent } from './login/login.component';
+import { ConfirmationComponent } from "./registration/confirmation.component";
+import { PasswordService } from "./_services/registration/PasswordService";
 
 @NgModule({
    declarations: [
@@ -23,7 +25,8 @@ import { LoginComponent } from './login/login.component';
       TestComponent,
       HomePageComponent,
       RegisterComponent,
-      LoginComponent
+      LoginComponent,
+      ConfirmationComponent
    ],
    imports: [
       BrowserModule,
@@ -44,9 +47,12 @@ import { LoginComponent } from './login/login.component';
    entryComponents: [
      LoginComponent
    ],
-   providers: [],
+   providers: [
+    PasswordService
+   ],
    bootstrap: [
       AppComponent
+      
    ]
 })
 export class AppModule { }
