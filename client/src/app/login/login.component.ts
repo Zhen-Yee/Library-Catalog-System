@@ -14,12 +14,11 @@ import {Credentials} from "../../models/Credentials.models";
 })
 export class LoginComponent implements OnInit {
 
-  userValidated: boolean;
   credentials = {email: '', password: ''};
 
   ngOnInit() {}
 
-  constructor(private router: Router, private http: HttpClient,) {}
+  constructor(private router: Router, private http: HttpClient, private app: AppService) {}
 
   login() {
 
@@ -28,13 +27,13 @@ export class LoginComponent implements OnInit {
 
     this.http
       .post<boolean>("http://localhost:8090/validateUser", this.credentials)
-      .subscribe( answer=> {this.userValidated = answer;
+      .subscribe( answer => {
+        if (answer) {
+          this.app.authenticated = answer;
+          console.log("User is validated!");
+        } else {
+          console.log("ERROR");
+        }
       })
-
-    if (this.userValidated) {
-      console.log("User is validated!")
-    } else {
-      console.log("ERROR")
-    }
   }
 }

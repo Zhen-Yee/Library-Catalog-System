@@ -28,6 +28,7 @@ public class UserController {
 
             if (resultSet.next()) {
                 validated = true;
+                System.out.println("USER FOUND!!");
             }
 
             connector.close();
