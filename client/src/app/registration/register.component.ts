@@ -4,7 +4,7 @@ import { User } from "../../models/User.models";
 import { Router } from '@angular/router';
 import { MatDialog } from "@angular/material";
 import { ConfirmationComponent } from  "./confirmation.component";
-import { PasswordService } from "../_services/registration/PasswordService";
+import { PasswordService } from "../_services/PasswordService";
 import {ChangeDetectorRef} from '@angular/core';
 import { RegistrationErrorComponent } from "./registration_error.component";
 

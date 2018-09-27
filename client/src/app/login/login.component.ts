@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AppService } from "../app.service";
 import { MatDialog } from "@angular/material";
+import {User} from "../../models/User.models";
+import {UserService} from "../_services/user.service";
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {}
 
-  constructor(private router: Router, private http: HttpClient, private app: AppService, private dialog: MatDialog) {}
+  constructor(private router: Router, private http: HttpClient, private app: AppService,
+              private dialog: MatDialog, private user: UserService) {}
 
   login() {
 
@@ -23,10 +26,11 @@ export class LoginComponent implements OnInit {
     console.log("input password is" + this.credentials.password);
 
     this.http
-      .post<boolean>("http://localhost:8090/validateUser", this.credentials)
+      .post<User>("http://localhost:8090/validateUser", this.credentials)
       .subscribe( answer => {
-        if (answer) {
-          this.app.authenticated = answer;
+        if (answer.email = this.credentials.email) {
+          this.app.authenticated = true;
+          this.user.setUser(answer);
           console.log("User is validated!");
           this.dialog.closeAll();
           this.router.navigateByUrl('');

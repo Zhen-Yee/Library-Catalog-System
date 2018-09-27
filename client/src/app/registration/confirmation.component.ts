@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { PasswordService } from "../_services/registration/PasswordService";
+import { PasswordService } from "../_services/PasswordService";
 
 @Component({
   selector: "app-register-confirmation",
