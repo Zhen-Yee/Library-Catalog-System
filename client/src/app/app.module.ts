@@ -17,7 +17,6 @@ import { LoginComponent } from './login/login.component';
 import { ConfirmationComponent } from "./registration/confirmation.component";
 import { PasswordService } from "./_services/registration/PasswordService";
 import { RegistrationErrorComponent } from "./registration/registration_error.component";
-import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
    declarations: [
@@ -38,7 +37,6 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
       MatInputModule,
       MatButtonModule,
       MatToolbarModule,
-      MatSnackBarModule,
       MatMenuModule,
       MatDialogModule,
       MatCardModule,
