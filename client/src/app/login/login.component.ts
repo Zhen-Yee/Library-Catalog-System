@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AppService } from "../app.service";
+import { MatDialog } from "@angular/material";
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {}
 
-  constructor(private router: Router, private http: HttpClient, private app: AppService) {}
+  constructor(private router: Router, private http: HttpClient, private app: AppService, private dialog: MatDialog) {}
 
   login() {
 
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
         if (answer) {
           this.app.authenticated = answer;
           console.log("User is validated!");
+          this.dialog.closeAll();
           this.router.navigateByUrl('');
         } else {
           console.log("ERROR");
