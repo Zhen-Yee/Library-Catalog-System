@@ -1,4 +1,10 @@
+
+
 <div>
+    <mat-form-field>
+      <input matInput placeholder="Username" [(ngModel)] ="username" required>
+    </mat-form-field>
 
-
+    <button mat-button (click)="post(this.username)"> Promote to Admin </button>
+       
 </div>
