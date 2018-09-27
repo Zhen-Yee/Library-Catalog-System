@@ -1,8 +1,8 @@
 import { Component,  OnInit } from "@angular/core";
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from "@angular/material";
-import {LoginComponent} from "../login/login.component";
 import {ActiveUsersSideNavComponent} from "../active-users-side-nav/active-users-side-nav.component";
+import { LoginComponent } from "../login/login.component";
 
 @Component({
   selector: "header",

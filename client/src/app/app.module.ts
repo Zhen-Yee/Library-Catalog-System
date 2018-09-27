@@ -1,13 +1,12 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-
 import { AppComponent } from "./app.component";
 import { RegisterComponent } from "./registration/register.component";
 import { HomePageComponent } from "./homepage/homepage.component";
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
-import { TestComponent } from "../test/test.component";
+import { TestComponent } from "./test/test.component";
 import { MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, MatMenuModule, MatDialogModule,
 MatCardModule} from "@angular/material";
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -17,6 +16,9 @@ import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { routing } from './app.routing';
 import { LoginComponent } from './login/login.component';
 import { ActiveUsersSideNavComponent } from './active-users-side-nav/active-users-side-nav.component';
+import { ConfirmationComponent } from "./registration/confirmation.component";
+import { PasswordService } from "./_services/registration/PasswordService";
+import { RegistrationErrorComponent } from "./registration/registration_error.component";
 
 @NgModule({
    declarations: [
@@ -27,7 +29,9 @@ import { ActiveUsersSideNavComponent } from './active-users-side-nav/active-user
       HomePageComponent,
       RegisterComponent,
       LoginComponent,
-      ActiveUsersSideNavComponent
+      ActiveUsersSideNavComponent,
+      ConfirmationComponent,
+      RegistrationErrorComponent
    ],
    imports: [
       BrowserModule,
@@ -48,9 +52,13 @@ import { ActiveUsersSideNavComponent } from './active-users-side-nav/active-user
    ],
    entryComponents: [
      LoginComponent,
-     ActiveUsersSideNavComponent
+     ActiveUsersSideNavComponent,
+     ConfirmationComponent,
+     RegistrationErrorComponent
    ],
-   providers: [],
+   providers: [
+    PasswordService
+   ],
    bootstrap: [
       AppComponent,
       ActiveUsersSideNavComponent
