@@ -26,7 +26,10 @@ public class UserController {
                     "SELECT * FROM testdb.User WHERE email_address = '" + credentials.getEmail() + "' AND password = '" + credentials.getPassword() + "'");
             ResultSet resultSet = connector.getResultSet();
 
+            System.out.println("FOUND IN COLUMN ROW: " + resultSet.getRow());
+
             if (resultSet.next()) {
+                setActive(credentials.getEmail());
                 validated = true;
                 System.out.println("USER FOUND!!");
             }
@@ -38,6 +41,18 @@ public class UserController {
         }
 
         return validated;
+    }
+
+    private Boolean setActive (String email) {
+        // update in future to have second parameter be the unique generated ID - see JPA
+        try {
+            String query = "UPDATE testdb.User SET is_online='0' WHERE email_address = '" + email + "'";
+            DbConnection.update(query);
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
     }
 
 }
