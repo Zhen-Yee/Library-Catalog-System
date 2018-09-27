@@ -19,6 +19,8 @@ import { ActiveUsersSideNavComponent } from './active-users-side-nav/active-user
 import { ConfirmationComponent } from "./registration/confirmation.component";
 import { PasswordService } from "./_services/registration/PasswordService";
 import { RegistrationErrorComponent } from "./registration/registration_error.component";
+import {MatListModule} from '@angular/material/list';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
    declarations: [
@@ -48,7 +50,9 @@ import { RegistrationErrorComponent } from "./registration/registration_error.co
       FormsModule,
       RouterModule.forRoot([]),
       routing,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      MatListModule,
+      MatIconModule
    ],
    entryComponents: [
      LoginComponent,

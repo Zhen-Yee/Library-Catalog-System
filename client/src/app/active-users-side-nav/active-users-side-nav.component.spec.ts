@@ -22,4 +22,5 @@ describe('ActiveUsersSideNavComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });
