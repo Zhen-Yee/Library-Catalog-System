@@ -14,7 +14,6 @@ import java.util.*;
 public class AdminController {
 
     // import com.soen343.server.models.Book to use the dbconnection class
-    //for a get request open the connector first!
 
     @PostMapping("/promoteAdmin")
     public void promoteAdmin(@RequestBody String admin) {
