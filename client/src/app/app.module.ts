@@ -1,13 +1,12 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-
 import { AppComponent } from "./app.component";
 import { RegisterComponent } from "./registration/register.component";
 import { HomePageComponent } from "./homepage/homepage.component";
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
-import { TestComponent } from "../test/test.component";
+import { TestComponent } from "./test/test.component";
 import { MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, MatMenuModule, MatDialogModule,
 MatCardModule} from "@angular/material";
 import { HttpClientModule } from "@angular/common/http";
@@ -16,6 +15,9 @@ import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { routing } from './app.routing';
 import { LoginComponent } from './login/login.component';
 import {AppService} from "./app.service";
+import { ConfirmationComponent } from "./registration/confirmation.component";
+import { PasswordService } from "./_services/registration/PasswordService";
+import { RegistrationErrorComponent } from "./registration/registration_error.component";
 
 @NgModule({
    declarations: [
@@ -25,7 +27,9 @@ import {AppService} from "./app.service";
       TestComponent,
       HomePageComponent,
       RegisterComponent,
-      LoginComponent
+      LoginComponent,
+      ConfirmationComponent,
+      RegistrationErrorComponent
    ],
    imports: [
       BrowserModule,
@@ -44,9 +48,11 @@ import {AppService} from "./app.service";
       ReactiveFormsModule
    ],
    entryComponents: [
-     LoginComponent
+     LoginComponent,
+     ConfirmationComponent,
+     RegistrationErrorComponent
    ],
-   providers: [AppService],
+   providers: [AppService, PasswordService],
    bootstrap: [AppComponent]
 })
 export class AppModule { }
