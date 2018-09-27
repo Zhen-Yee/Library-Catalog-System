@@ -1,14 +1,19 @@
 <div class="login-container">
-  <form>
-    <h2>Login</h2>
+  <div class="alert alert-danger" [hidden]="!error">
+    There was a problem logging in. Please try again.
+  </div>
+  <h2>Login</h2>
+  <form role="form" (submit)="login()">
     <mat-form-field appearance="outline">
       <mat-label>E-mail</mat-label>
-      <input matInput placeholder="E-mail" type="email">
+      <input matInput placeholder="E-mail" type="email"
+             class="form-control" id="email" name="email" [(ngModel)]="credentials.email" required/>
     </mat-form-field>
     <br>
     <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
-      <input matInput placeholder="Password" type="password">
+      <input matInput placeholder="Password" type="password"
+             class="form-control" id="password" name="password" [(ngModel)]="credentials.password" required/>
     </mat-form-field>
     <br>
     <button mat-flat-button type="submit">Login</button>
