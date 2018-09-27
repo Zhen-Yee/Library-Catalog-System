@@ -1,12 +1,5 @@
-<mat-sidenav-container class="container">
-  <mat-sidenav #sidenav mode="side">
-  Now active users:
-  <p>Anthony
-  </p>
-  Kevin
-  </mat-sidenav>
-
-  <mat-sidenav-content>
-    <p><button mat-button (click)="sidenav.toggle()">Active Users</button></p>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<mat-sidenav-container>
+    <mat-sidenav class="navbar" mode="side" opened>
+      <div class="text">Currently active users</div>
+    </mat-sidenav>
+  </mat-sidenav-container>
