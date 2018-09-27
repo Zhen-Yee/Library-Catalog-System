@@ -6,48 +6,47 @@
         <form>
                 <table><tr>
                         <td><mat-form-field>
-                          <input matInput placeholder="First name" required>
+                          <input matInput placeholder="First name" [(ngModel)] ="firstName" name = "firstName" required>
                         </mat-form-field></td>
                         <td><mat-form-field>
-                          <input matInput placeholder="Last Name" required>
+                          <input matInput placeholder="Last Name"  [(ngModel)] ="lastName" name = "lastName" required>
                         </mat-form-field></td>
                       </tr></table>
                     
                       <p>
                         <mat-form-field>
-                          <input matInput placeholder="Phone Number" required>
+                          <input matInput placeholder="Phone Number" [(ngModel)] ="phone" name = "phone" required>
                         </mat-form-field>
                         <mat-form-field>
-                          <input matInput type = "email" placeholder="Email Address" required>
+                          <input matInput placeholder="Email Address" [(ngModel)] ="email"  name = "email" required>
                         </mat-form-field>
                       </p>
                     
                       <table cellspacing="0"><tr>
                         
                         <td><mat-form-field appereance="fill">
-                        <input matInput appereance="fill" placeholder="Address" required>
+                        <input matInput placeholder="Address" [(ngModel)] ="address" name = "address" required>
                         </mat-form-field></td>
 
                         <td><mat-form-field>
-                          <input matInput placeholder="City" required>
+                          <input matInput placeholder="City" [(ngModel)] ="city" name = "city" required>
                         </mat-form-field></td>
 
                         <td><mat-form-field>
-                                <input matInput placeholder="Province/State" required>
+                                <input matInput placeholder="Province/State" [(ngModel)] ="provState" name = "prov" required>
                         </mat-form-field></td>
 
                         <td><mat-form-field>
-                          <input matInput placeholder="Country" required>
+                          <input matInput placeholder="Country" [(ngModel)] ="country" name = "country" required>
                         </mat-form-field></td>
 
                         <td><mat-form-field>
-                          <input matInput #postalCode maxlength="5" placeholder="Postal Code" required>
-                          <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+                          <input matInput placeholder="Postal Code" [(ngModel)] ="postal" name = "postal" required>
                         </mat-form-field></td>
                       </tr></table>
 
                       <div class="registerButton">
-                      <button type = "submit" mat-button (click)="register()"> Register! </button>
+                      <button type = "submit" mat-button (click)="register(this.firstName, this.lastName, this.phone, this.email, this.address, this.city, this.provState, this.country, this.postal)"> Register! </button>
                 </div>
                 </form>
 
