@@ -14,6 +14,7 @@ import { FormsModule, FormControl, Validators, ReactiveFormsModule } from "@angu
 import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { routing } from './app.routing';
 import { LoginComponent } from './login/login.component';
+import {AppService} from "./app.service";
 import { ConfirmationComponent } from "./registration/confirmation.component";
 import { PasswordService } from "./_services/registration/PasswordService";
 import { RegistrationErrorComponent } from "./registration/registration_error.component";
@@ -51,12 +52,7 @@ import { RegistrationErrorComponent } from "./registration/registration_error.co
      ConfirmationComponent,
      RegistrationErrorComponent
    ],
-   providers: [
-    PasswordService
-   ],
-   bootstrap: [
-      AppComponent
-      
-   ]
+   providers: [AppService, PasswordService],
+   bootstrap: [AppComponent]
 })
 export class AppModule { }
