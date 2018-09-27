@@ -12,10 +12,12 @@ import {Credentials} from "../../models/Credentials.models";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   userValidated: boolean;
   credentials = {email: '', password: ''};
+
+  ngOnInit() {}
 
   constructor(private router: Router, private http: HttpClient,) {}
 
