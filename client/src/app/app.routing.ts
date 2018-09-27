@@ -9,7 +9,7 @@ import { TestComponent }   from './test/test.component';
 const appRoutes: Routes = [
   { 
     path: '', 
-    component: TestComponent
+    component: HomePageComponent
 
   },
   {
