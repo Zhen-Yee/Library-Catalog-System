@@ -28,6 +28,9 @@ public class UserController {
 
             if (resultSet.next()) {
                 validated = true;
+                //update the is_online to 1 if online and 0 if not
+                System.out.println("Updating the is_online value on the database");
+                DbConnection.update("UPDATE testdb.User SET is_online = 1 WHERE email_address = '" + credentials.getEmail() + "' AND password = '" + credentials.getPassword() + "'");
                 System.out.println("USER FOUND!!");
             }
 

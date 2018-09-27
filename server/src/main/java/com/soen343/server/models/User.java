@@ -9,7 +9,7 @@ public class User {
     private String username;
     private String password;
     private boolean is_admin;
-    private boolean is_active;
+    private boolean is_online;
 
 public User(String first_name, String last_name, String email_address, 
    String address, String phone_number, String username, String password, boolean is_admin, boolean is_online){
@@ -21,7 +21,7 @@ public User(String first_name, String last_name, String email_address,
         this.username = username;
         this.password = password;
         this.is_admin = is_admin;
-        this.is_active = is_online;
+        this.is_online = is_online;
 
         System.out.println(this.email);
     }
@@ -52,7 +52,7 @@ public User(String first_name, String last_name, String email_address,
         return this.is_admin;
     }
     public boolean getIsOnline(){
-        return this.is_active;
+        return this.is_online;
     }
 
 }
