@@ -35,16 +35,20 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.http.post('logout', {}).pipe(
-      finalize(() => {
-        this.app.authenticated = false;
+    this.app.authenticated = false;
+    this.router.navigateByUrl('');
 
-        // add step to set user to inactive
-
-
-        this.router.navigateByUrl('');
-      })
-    ).subscribe();
+    // SAVE THIS FOR REMOVING USER AS ACTIVE
+    // this.http.post('logout', {}).pipe(
+    //   finalize(() => {
+    //     this.app.authenticated = false;
+    //
+    //     // add step to set user to inactive
+    //
+    //
+    //     this.router.navigateByUrl('');
+    //   })
+    // ).subscribe();
   }
 
   authenticated() {

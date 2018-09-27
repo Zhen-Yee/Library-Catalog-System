@@ -2,10 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AppService } from "../app.service";
-import { Observable } from "rxjs";
-import {ChangeDetectorRef} from '@angular/core';
-import {User} from "../../models/User.models";
-import {Credentials} from "../../models/Credentials.models";
 
 @Component({
   selector: 'app-login',
@@ -31,6 +27,7 @@ export class LoginComponent implements OnInit {
         if (answer) {
           this.app.authenticated = answer;
           console.log("User is validated!");
+          this.router.navigateByUrl('');
         } else {
           console.log("ERROR");
         }
