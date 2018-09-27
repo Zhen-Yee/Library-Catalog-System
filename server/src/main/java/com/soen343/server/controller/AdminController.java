@@ -1,6 +1,5 @@
 package com.soen343.server.controller;
 
-import com.soen343.server.models.Book;
 import com.soen343.databaseConnection.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,23 +18,16 @@ public class AdminController {
 
     @PostMapping("/promoteAdmin")
     public void promoteAdmin(@RequestBody String admin) {
-        System.out.print(".");
-        try {
-            System.out.print("OKkkkkkkkk");
-                       // DbConnection.update("insert into testdb.Book (name) values ('" + admin + "')");
 
+        try {
+            
             DbConnection.update("UPDATE testdb.User SET is_admin=1 WHERE username='"+admin+"'");
-            System.out.println("updated");
+            System.out.println("The user has been promoted to admin.");
             
         } catch (Exception e) {
             System.out.println(e);
         }
 
-    }
-
-    @GetMapping("/hi")
-    public void hi() {
-        System.out.println("hi");
     }
 
 }
