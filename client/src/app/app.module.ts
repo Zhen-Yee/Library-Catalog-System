@@ -11,17 +11,17 @@ import { MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, 
 MatCardModule} from "@angular/material";
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { HttpClientModule } from "@angular/common/http";
-import { FormsModule, FormControl, Validators, ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { routing } from './app.routing';
 import { LoginComponent } from './login/login.component';
 import { ActiveUsersSideNavComponent } from './active-users-side-nav/active-users-side-nav.component';
-import {AppService} from "./app.service";
 import { ConfirmationComponent } from "./registration/confirmation.component";
-import { PasswordService } from "./_services/registration/PasswordService";
+import { PasswordService } from "./_services/PasswordService";
 import { RegistrationErrorComponent } from "./registration/registration_error.component";
 import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
+import { UserService } from "./_services/user.service";
 
 @NgModule({
    declarations: [
@@ -62,8 +62,9 @@ import {MatIconModule} from '@angular/material/icon';
      RegistrationErrorComponent
    ],
    providers: [
-    AppService,
-    PasswordService
+    UserService, 
+    PasswordService, 
+    UserService
    ],
    bootstrap: [
       AppComponent,

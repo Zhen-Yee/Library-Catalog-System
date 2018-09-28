@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { AppService } from "../app.service";
 import { MatDialog } from "@angular/material";
+import {UserService} from "../_services/user.service";
 
 @Component({
   selector: 'app-login',
@@ -15,19 +15,21 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {}
 
-  constructor(private router: Router, private http: HttpClient, private app: AppService, private dialog: MatDialog) {}
+  constructor(private router: Router, private http: HttpClient, private dialog: MatDialog, private user: UserService) {}
 
   login() {
 
-    console.log("inputed email is" + this.credentials.email);
-    console.log("input password is" + this.credentials.password);
+    console.log("input email is " + this.credentials.email);
+    console.log("input password is " + this.credentials.password);
 
     this.http
-      .post<boolean>("http://localhost:8090/validateUser", this.credentials)
+      .post<String[]>("http://localhost:8090/validateUser", this.credentials)
       .subscribe( answer => {
-        if (answer) {
-          this.app.authenticated = answer;
-          console.log("User is validated!");
+        if (!null && (answer[1] = this.credentials.email)) {
+          // answer contains [first_name, email, is_admin]
+          this.user.authenticated = true;
+          this.user.adminStatus((answer[2] == '1'));
+          this.user.changeUser(answer[0], answer[1]);
           this.dialog.closeAll();
           this.router.navigateByUrl('');
         } else {

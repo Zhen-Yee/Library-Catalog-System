@@ -3,50 +3,76 @@
         <h1> Register a User </h1>
 
         <div class = "form">
-        <form>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                 <table><tr>
                         <td><mat-form-field>
-                          <input matInput placeholder="First name" [(ngModel)] ="firstName" name = "firstName" required>
+                          <input matInput placeholder="First name" type = "text"  name = "firstName" formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" required>
+                        <div *ngIf="submitted && f.firstName.errors">
+                            <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                        </div>
                         </mat-form-field></td>
                         <td><mat-form-field>
-                          <input matInput placeholder="Last Name"  [(ngModel)] ="lastName" name = "lastName" required>
+                          <input matInput placeholder="Last Name"   name = "lastName" formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"  required>
+                          <div *ngIf="submitted && f.lastName.errors">
+                            <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                        </div>
                         </mat-form-field></td>
                       </tr></table>
-                    
                       <p>
                         <mat-form-field>
-                          <input matInput placeholder="Phone Number" [(ngModel)] ="phone" name = "phone" required>
+                          <input matInput placeholder="Phone Number" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }"  name = "phone" required>
+                          <div *ngIf="submitted && f.phone.errors">
+                            <div *ngIf="f.phone.errors.required">Phone number is required</div>
+                        </div>
                         </mat-form-field>
                         <mat-form-field>
-                          <input matInput placeholder="Email Address" [(ngModel)] ="email"  name = "email" required>
+                          <input matInput placeholder="Email Address"  name = "email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" required>
+                          <div *ngIf="submitted && f.email.errors">
+                            <div *ngIf="f.email.errors.required">Email is required</div>
+                            <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                        </div>
                         </mat-form-field>
                       </p>
                     
                       <table cellspacing="0"><tr>
                         
                         <td><mat-form-field appereance="fill">
-                        <input matInput placeholder="Address" [(ngModel)] ="address" name = "address" required>
+                        <input matInput placeholder="Address" formControlName="address" [ngClass]="{ 'is-invalid': submitted && f.address.errors }"  name = "address" required>
+                        <div *ngIf="submitted && f.address.errors">
+                          <div *ngIf="f.address.errors.required">Address is required</div>
+                      </div> 
+                      </mat-form-field></td>
+
+                        <td><mat-form-field>
+                          <input matInput placeholder="City" formControlName="city" [ngClass]="{ 'is-invalid': submitted && f.city.errors }"  name = "city" required>
+                          <div *ngIf="submitted && f.city.errors">
+                            <div *ngIf="f.city.errors.required">City is required</div>
+                        </div>
                         </mat-form-field></td>
 
                         <td><mat-form-field>
-                          <input matInput placeholder="City" [(ngModel)] ="city" name = "city" required>
+                                <input matInput placeholder="Province/State" formControlName="provState" [ngClass]="{ 'is-invalid': submitted && f.provState.errors }"  name = "prov" required>
+                                <div *ngIf="submitted && f.provState.errors">
+                                  <div *ngIf="f.provState.errors.required">Province/State is required</div>
+                              </div>
+                              </mat-form-field></td>
+
+                        <td><mat-form-field>
+                          <input matInput placeholder="Country" formControlName="country" [ngClass]="{ 'is-invalid': submitted && f.country.errors }" name = "country" required>
+                          <div *ngIf="submitted && f.country.errors">
+                            <div *ngIf="f.country.errors.required">Country is required</div>
+                        </div>
                         </mat-form-field></td>
 
                         <td><mat-form-field>
-                                <input matInput placeholder="Province/State" [(ngModel)] ="provState" name = "prov" required>
-                        </mat-form-field></td>
-
-                        <td><mat-form-field>
-                          <input matInput placeholder="Country" [(ngModel)] ="country" name = "country" required>
-                        </mat-form-field></td>
-
-                        <td><mat-form-field>
-                          <input matInput placeholder="Postal Code" [(ngModel)] ="postal" name = "postal" required>
+                          <input matInput placeholder="Postal Code" formControlName="postal" [ngClass]="{ 'is-invalid': submitted && f.postal.errors }"  name = "postal" required>
+                          <div *ngIf="submitted && f.postal.errors">
+                            <div *ngIf="f.postal.errors.required">Postal Code is required</div>
+                        </div>
                         </mat-form-field></td>
                       </tr></table>
-
                       <div class="registerButton">
-                      <button type = "submit" mat-button (click)="register(this.firstName, this.lastName, this.phone, this.email, this.address, this.city, this.provState, this.country, this.postal)"> Register! </button>
+                      <button type = "submit" mat-button> Register! </button>
                 </div>
                 </form>
 
