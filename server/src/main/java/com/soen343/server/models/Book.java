@@ -1,11 +1,10 @@
 package com.soen343.server.models;
-public class Book {
-    public String name;
 
-    Book(){
-        this.name = "";
-    }
-   public Book(String name){
-        this.name = name;
-    }
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "book")
+public class Book extends CatalogItem {
+
 }
