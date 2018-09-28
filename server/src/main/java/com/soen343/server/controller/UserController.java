@@ -22,18 +22,18 @@ public class UserController {
         System.out.println(credentials.getPassword());
         System.out.println("-----------------------------------------------------");
 
-        try{
+        try {
 
             Connector connector = DbConnection.get(
                     "SELECT * FROM testdb.User WHERE email_address = '" + credentials.getEmail() + "' AND password = '" + credentials.getPassword() + "'");
             ResultSet resultSet = connector.getResultSet();
 
             System.out.println("FOUND IN COLUMN ROW: " + resultSet.getRow());
-            user = buildUser(resultSet);
 
             if (resultSet.next()) {
+                System.out.println("FOUND IN COLUMN ROW: " + resultSet.getRow());
+                user = buildUser(resultSet);
                 setActive(credentials.getEmail(), true);
-                System.out.println("USER FOUND!!");
             }
 
             connector.close();
@@ -72,9 +72,9 @@ public class UserController {
         String physical_address = resultSet.getString("physical_address");
         String phone_number = resultSet.getString("phone_number");
         String username = resultSet.getString("username");
-        String password = resultSet.getNString("password");
-        Boolean is_admin = resultSet.getBoolean("is_admin");
-        Boolean is_online = resultSet.getBoolean("is_online");
+        String password = "THIS IS TOTALLY SECURE!";
+        boolean is_admin = resultSet.getBoolean("is_admin");
+        boolean is_online = resultSet.getBoolean("is_online");
         return new User(first_name,last_name, email_address, physical_address, phone_number, username, password, is_admin, is_online);
     }
 

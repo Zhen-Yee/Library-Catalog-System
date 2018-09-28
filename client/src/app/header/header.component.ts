@@ -41,7 +41,8 @@ export class HeaderComponent implements OnInit {
     this.http.post<Boolean>('http://localhost:8090/logoutUser', this.user).pipe(
       finalize(() => {
         this.app.authenticated = false;
-        this.user.isAdmin = false;
+        this.user.adminStatus(false);
+        this.user.changeUser(null);
         this.router.navigateByUrl('');
       })
     ).subscribe();
@@ -49,6 +50,10 @@ export class HeaderComponent implements OnInit {
 
   authenticated() {
     return this.app.authenticated;
+  }
+
+  isAdmin() {
+    return this.user.isAdmin;
   }
 
 }

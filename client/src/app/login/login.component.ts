@@ -22,15 +22,18 @@ export class LoginComponent implements OnInit {
 
   login() {
 
-    console.log("input email is" + this.credentials.email);
-    console.log("input password is" + this.credentials.password);
+    console.log("input email is " + this.credentials.email);
+    console.log("input password is " + this.credentials.password);
 
     this.http
       .post<User>("http://localhost:8090/validateUser", this.credentials)
       .subscribe( answer => {
-        if (answer.email = this.credentials.email) {
+        if (!null && (answer.email = this.credentials.email)) {
           this.app.authenticated = true;
-          this.user.setUser(answer);
+          console.log(answer.is_admin
+          console.log(answer);
+          this.user.adminStatus(answer.is_admin);
+          this.user.changeUser(answer);
           console.log("User is validated!");
           this.dialog.closeAll();
           this.router.navigateByUrl('');

@@ -1,10 +1,10 @@
 
 <mat-toolbar color="primary">
     <span class="remaining-space"></span>
-    <span [hidden]="!authenticated()"> You are authenticated</span>
+    <span [hidden]="!authenticated()"> Welcome! </span>
     <span [hidden]="authenticated()"> You are not authenticated</span>
     <span><button mat-button (click)="redirectHome()"> Home </button> </span>
-    <span [hidden]="!authenticated()"><button mat-button (click)="redirectRegistrationPage()"> Register a User </button></span>
+    <span [hidden]="!isAdmin()"><button mat-button (click)="redirectRegistrationPage()"> Register a User </button></span>
     <span [hidden]="authenticated()"><button mat-button (click)="openDialog()">Login</button></span>
     <span [hidden]="!authenticated()"><button mat-button (click)="logout()">Logout</button></span>
 </mat-toolbar>
