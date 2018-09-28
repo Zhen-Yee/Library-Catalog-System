@@ -79,8 +79,8 @@ export class RegisterComponent implements OnInit {
 
     this.http
       .post<boolean>("http://localhost:8090/addUser", user)
-      .subscribe( answer=> {this.successful = answer;
-        this.openConfirmationDialog(); } )
+      .subscribe( answer => {this.successful = answer;
+        this.openConfirmationDialog(); });
 
   }
 
@@ -89,7 +89,7 @@ export class RegisterComponent implements OnInit {
     const  charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     let  tempPass = "";
     for (let i = 0, n = charset.length; i < length; ++i) {
-        tempPass += charset.charAt(Math.floor(Math.random()*n));
+        tempPass += charset.charAt(Math.floor(Math.random() * n));
     }
     return tempPass;
 
@@ -99,8 +99,7 @@ openConfirmationDialog() {
 
   if (this.successful === true) {
   const dialogRef = this.dialog.open(ConfirmationComponent);
-  }
-  else {
+  } else {
   const dialogRef = this.dialog.open(RegistrationErrorComponent); }
   }
 
