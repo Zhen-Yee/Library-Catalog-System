@@ -37,6 +37,8 @@ public class UserController {
                 detailsList.add(resultSet.getString("is_admin"));
 
                 setActive(credentials.getEmail(), true);
+                connector.close();
+                return detailsList;
             }
 
             connector.close();
@@ -45,12 +47,13 @@ public class UserController {
             System.out.println(e);
         }
 
-        return detailsList;
+        return null;
     }
 
-    @PostMapping("LogoutUser")
-    public Boolean logoutUser(@RequestBody User user) {
-        setActive(user.getEmailAddress(), false);
+    @PostMapping("/logoutUser")
+    public Boolean logoutUser(@RequestBody String email) {
+        System.out.println("logging out user with email: " + email);
+        setActive(email, false);
         return true;
     }
 

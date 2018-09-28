@@ -38,11 +38,11 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.app.authenticated = false;
     this.router.navigateByUrl('');
-    this.http.post<Boolean>('http://localhost:8090/logoutUser', this.user).pipe(
+    this.http.post<Boolean>('http://localhost:8090/logoutUser', this.user.userEmail).pipe(
       finalize(() => {
         this.app.authenticated = false;
         this.user.adminStatus(false);
-        this.user.changeUser(null);
+        this.user.changeUser("","");
         this.router.navigateByUrl('');
       })
     ).subscribe();

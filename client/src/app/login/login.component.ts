@@ -29,9 +29,8 @@ export class LoginComponent implements OnInit {
       .subscribe( answer => {
         if (!null && (answer[1] = this.credentials.email)) {
           this.app.authenticated = true;
-          console.log(answer[2]);
-          console.log(answer);
           this.user.adminStatus((answer[2] == '1'));
+          this.user.changeUser(answer[0], answer[1]);
           console.log("User is validated!");
           this.dialog.closeAll();
           this.router.navigateByUrl('');
