@@ -20,7 +20,7 @@ public class AdminController {
 
         try {
             
-            DbConnection.update("UPDATE testdb.User SET is_admin=1 WHERE username='"+admin+"'");
+            DbConnection.update("UPDATE testdb.User SET is_admin=1 WHERE email_address='"+admin+"'");
             System.out.println("The user has been promoted to admin.");
             
         } catch (Exception e) {
