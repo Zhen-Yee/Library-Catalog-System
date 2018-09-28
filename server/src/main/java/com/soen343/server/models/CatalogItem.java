@@ -1,6 +1,8 @@
 package com.soen343.server.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -11,14 +13,23 @@ public abstract class CatalogItem {
     @Column(name = "id", updatable = false, nullable = false)
     protected long id;
 
+    @Min(0)
     @Column
-    private String title;
+    protected int qtyInStock;
 
-    @Column
-    private int qtyInStock;
+    @Min(0)
+    @Column()
+    protected int qtyOnLoan;
 
-    @Column
-    private int qtyOnLoan;
+    @NotBlank
+    @Column(updatable = false)
+    protected String title;
+
+    public CatalogItem(String title, int qtyInStock, int qtyOnLoan) {
+        this.title = title;
+        this.qtyInStock = qtyInStock;
+        this.qtyOnLoan = qtyOnLoan;
+    }
 
     // Accessors
     public long getId() {
@@ -35,15 +46,6 @@ public abstract class CatalogItem {
 
     public int getQtyOnLoan() {
         return qtyOnLoan;
-    }
-
-    // Mutators
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setQtyInStock(int qtyInStock) {
-        this.qtyInStock = qtyInStock;
     }
 
     // Public Methods
@@ -64,4 +66,5 @@ public abstract class CatalogItem {
         }
         return false;
     }
+
 }
