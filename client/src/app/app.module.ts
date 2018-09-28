@@ -64,7 +64,6 @@ import { UserService } from "./_services/user.service";
    providers: [
     UserService, 
     PasswordService, 
-    UserService
    ],
    bootstrap: [
       AppComponent,
