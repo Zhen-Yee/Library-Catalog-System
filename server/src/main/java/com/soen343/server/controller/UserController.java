@@ -33,27 +33,24 @@ public class UserController {
             connector.close();
 
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Error Occurs in /validateUser : \n" + e);
         }
         return null;
     }
 
     @PostMapping("/logoutUser")
-    public Boolean logoutUser(@RequestBody String email) {
+    public void logoutUser(@RequestBody String email) {
         System.out.println("logging out user with email: " + email);
         setActive(email, false);
-        return true;
     }
 
-    private Boolean setActive (String email, Boolean userActive) {
+    private void setActive (String email, Boolean userActive) {
         int status = userActive ? 1 : 0;
         try {
             String query = "UPDATE testdb.User SET is_online='" + status + "' WHERE email_address = '" + email + "'";
             DbConnection.update(query);
-            return true;
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Error Occurs in setActive() : \n" + e);
         }
-        return false;
     }
 }

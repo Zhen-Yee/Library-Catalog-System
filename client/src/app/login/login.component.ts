@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
       .post<String[]>("http://localhost:8090/validateUser", this.credentials)
       .subscribe( answer => {
         if (!null && (answer[1] = this.credentials.email)) {
+          // answer contains [first_name, email, is_admin]
           this.user.authenticated = true;
           this.user.adminStatus((answer[2] == '1'));
           this.user.changeUser(answer[0], answer[1]);
