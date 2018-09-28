@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AppService } from "../app.service";
 import { MatDialog } from "@angular/material";
-import {User} from "../../models/User.models";
 import {UserService} from "../_services/user.service";
 
 @Component({
@@ -26,14 +25,13 @@ export class LoginComponent implements OnInit {
     console.log("input password is " + this.credentials.password);
 
     this.http
-      .post<User>("http://localhost:8090/validateUser", this.credentials)
+      .post<String[]>("http://localhost:8090/validateUser", this.credentials)
       .subscribe( answer => {
-        if (!null && (answer.email = this.credentials.email)) {
+        if (!null && (answer[1] = this.credentials.email)) {
           this.app.authenticated = true;
-          console.log(answer.is_admin
+          console.log(answer[2]);
           console.log(answer);
-          this.user.adminStatus(answer.is_admin);
-          this.user.changeUser(answer);
+          this.user.adminStatus((answer[2] == '1'));
           console.log("User is validated!");
           this.dialog.closeAll();
           this.router.navigateByUrl('');

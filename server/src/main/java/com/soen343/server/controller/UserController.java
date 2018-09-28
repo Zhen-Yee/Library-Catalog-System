@@ -7,15 +7,16 @@ import com.soen343.server.models.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 @RestController
 @CrossOrigin
 public class UserController {
 
     @PostMapping("/validateUser")
-    public User validateUser(@RequestBody Credentials credentials){
+    public ArrayList<String> validateUser(@RequestBody Credentials credentials){
 
-        User user = null;
+        ArrayList<String> detailsList = new ArrayList<>();
 
         System.out.println("-------------VALIDATE REQUEST RECEIVED---------------");
         System.out.println(credentials.getEmail());
@@ -28,11 +29,13 @@ public class UserController {
                     "SELECT * FROM testdb.User WHERE email_address = '" + credentials.getEmail() + "' AND password = '" + credentials.getPassword() + "'");
             ResultSet resultSet = connector.getResultSet();
 
-            System.out.println("FOUND IN COLUMN ROW: " + resultSet.getRow());
-
             if (resultSet.next()) {
-                System.out.println("FOUND IN COLUMN ROW: " + resultSet.getRow());
-                user = buildUser(resultSet);
+                System.out.println("FOUND IN ROW: " + resultSet.getRow());
+
+                detailsList.add(resultSet.getString("first_name"));
+                detailsList.add(resultSet.getString("email_address"));
+                detailsList.add(resultSet.getString("is_admin"));
+
                 setActive(credentials.getEmail(), true);
             }
 
@@ -42,7 +45,7 @@ public class UserController {
             System.out.println(e);
         }
 
-        return user;
+        return detailsList;
     }
 
     @PostMapping("LogoutUser")
