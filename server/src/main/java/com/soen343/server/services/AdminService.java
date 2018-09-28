@@ -34,7 +34,7 @@ public class AdminService {
         ResultSet resultSet = connector.getResultSet();
 
         try{
-            while(!resultSet.isClosed() && resultSet.next()){
+            while(resultSet.next()){
                 userList.add(new User(
                         resultSet.getString("first_name"),
                         resultSet.getString("last_name"),
