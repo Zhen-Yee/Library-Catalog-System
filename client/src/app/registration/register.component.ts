@@ -6,7 +6,9 @@ import { MatDialog } from "@angular/material";
 import { ConfirmationComponent } from  "./confirmation.component";
 import { PasswordService } from "../_services/PasswordService";
 import {ChangeDetectorRef} from '@angular/core';
+
 import { RegistrationErrorComponent } from "./registration_error.component";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -18,27 +20,58 @@ import { RegistrationErrorComponent } from "./registration_error.component";
 export class RegisterComponent implements OnInit {
   temporary_password;
   successful;
+  registerForm: FormGroup;
+  submitted = false;
 
-  constructor(private router: Router, private http: HttpClient, public dialog: MatDialog, private password: PasswordService, private ref: ChangeDetectorRef) {}
+  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, public dialog: MatDialog, 
+    private password: PasswordService, private ref: ChangeDetectorRef) {}
 
   ngOnInit() {
+
+
+    this.registerForm = this.formBuilder.group({
+      firstName: ["", Validators.required],
+      lastName: ["", Validators.required],
+      phone: ["", Validators.required],
+      email: ["", Validators.email],
+      address: ["", Validators.required],
+      city: ["", Validators.required],
+      provState:  ["", Validators.required],
+      country: ["", Validators.required],
+      postal: ["", Validators.required]
+
+  });
 
     this.password.currentPassword.subscribe(temporary_password => this.temporary_password = temporary_password);
 
   }
 
-  register(firstName: string, lastName: string, phone: string, email: string, address: string, city: string, provState: string, country: string, postal: string) {
-    
-    
-    var temp = this.generatePassword();
-    this.password.changePassword(temp)
+  get f() { return this.registerForm.controls; }
+
+
+  onSubmit() {
+
+    this.submitted = true;
+
+        if (this.registerForm.invalid) {
+          console.log("Form invalid");
+            return;
+        }
+
+        console.log("Form valid.");
+
+    const temp = this.generatePassword();
+    this.registerForm.get("firstName");
+    this.password.changePassword(temp);
     const user: User = {
-      firstName: firstName,
-      lastName: lastName,
-      phone: phone,
-      email: email,
-      address: address + ' ' + city + ' ' + provState + " " + country + " " + postal,
-      username: '',
+      firstName: this.registerForm.get("firstName").value,
+      lastName: this.registerForm.get("lastName").value,
+      phone: this.registerForm.get("phone").value,
+      email: this.registerForm.get("email").value,
+      address: this.registerForm.get("address").value + " " + this.registerForm.get("city").value +
+        this.registerForm.get("provState").value +
+        this.registerForm.get("country").value + " " + this.registerForm.get("postal").value,
+      username: "",
       password: temp,
       is_admin: false,
       is_active: false
@@ -47,45 +80,32 @@ export class RegisterComponent implements OnInit {
     this.http
       .post<boolean>("http://localhost:8090/addUser", user)
       .subscribe( answer=> {this.successful = answer;
-        this.openConfirmationDialog();})
-      
+        this.openConfirmationDialog(); } )
+
   }
 
   generatePassword() {
-    var length = 5,
-        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-        tempPass = "";
-    for (var i = 0, n = charset.length; i < length; ++i) {
+    const length = 5;
+    const  charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let  tempPass = "";
+    for (let i = 0, n = charset.length; i < length; ++i) {
         tempPass += charset.charAt(Math.floor(Math.random()*n));
     }
     return tempPass;
 
-
-    
-}
+  }
 
 openConfirmationDialog() {
 
-  var dialogRef;
-  if (this.successful == true) {
-  dialogRef = this.dialog.open(ConfirmationComponent); 
-
-  dialogRef.afterClosed().subscribe(result => {
-    console.log('Dialog result: ${result}'); 
-  });
-
-  } 
-
+  if (this.successful === true) {
+  const dialogRef = this.dialog.open(ConfirmationComponent);
+  }
   else {
-  dialogRef = this.dialog.open(RegistrationErrorComponent); 
-
-  dialogRef.afterClosed().subscribe(result => {
-    console.log('Dialog result: ${result}'); 
-  });}
-  } 
+  const dialogRef = this.dialog.open(RegistrationErrorComponent); }
+  }
 
 
-}  
+}
 
 
 
