@@ -21,16 +21,18 @@ public class AdminService {
 
     //language=MySQL
     private final String SQL_ACTIVE_USERS = "SELECT * from testdb.User WHERE is_online=true";
+    //language=MySQL
+    private final String SQL_INACTIVE_USERS = "SELECT * from testdb.User WHERE is_online=false";
 
     /**
      * Method that will query from db and return
-     * a list of active users
+     * a list of users
      * @return List<User>
      */
-    public List<User> getActiveUsers(){
+    public List<User> getUsers(String SQL){
         List<User> userList = new ArrayList<>();
 
-        connector = DbConnection.get(SQL_ACTIVE_USERS);
+        connector = DbConnection.get(SQL);
         ResultSet resultSet = connector.getResultSet();
 
         try{
@@ -56,5 +58,26 @@ public class AdminService {
         }
         return userList;
     }
+
+    /**
+     * Method that will query from db and return
+     * a list of active users
+     * @return List<User>
+     */
+    public List<User> getActiveUsers() {
+        return getUsers(SQL_ACTIVE_USERS);
+    }
+
+    /**
+     * Method that will query from db and return
+     * a list of inactive users
+     * @return List<User>
+     */
+    public List<User> getInactiveUsers() {
+        return getUsers(SQL_INACTIVE_USERS);
+    }
+
+
+
 
 }

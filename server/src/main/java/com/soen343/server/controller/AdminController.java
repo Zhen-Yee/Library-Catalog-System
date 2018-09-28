@@ -31,6 +31,15 @@ public class AdminController {
         return adminService.getActiveUsers();
     }
 
+    /**
+     * Returns a list of inactive users
+     * @return
+     */
+    @GetMapping("/inactive-users")
+    public List<User> displayInactiveUsers() {
+        return adminService.getInactiveUsers();
+    }
+
     @PostMapping("/promoteAdmin")
     public void promoteAdmin(@RequestBody String admin) {
         try {

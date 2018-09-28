@@ -11,6 +11,8 @@ import {User} from "../../models/User.models";
 export class ActiveUsersSideNavComponent implements OnInit {
 
   public activeUserArray;
+  public inactiveUserArray;
+
 
   constructor(private http: HttpClient) {}
 
@@ -18,6 +20,7 @@ export class ActiveUsersSideNavComponent implements OnInit {
 
     setInterval(() => {
       this.getActiveUsers();
+      this.getInactiveUsers();
     }, 2000)
 
   }
@@ -27,6 +30,14 @@ export class ActiveUsersSideNavComponent implements OnInit {
       .get<User[]>("http://localhost:8090/admin/active-users")
       .subscribe(user => {
         this.activeUserArray = user;
+      });
+  }
+
+  getInactiveUsers() {
+    this.http
+      .get<User[]>("http://localhost:8090/admin/inactive-users")
+      .subscribe(user => {
+        this.inactiveUserArray = user;
       });
   }
 

@@ -9,5 +9,13 @@
           </p>
         </mat-list-item>
       </mat-list>
+      <mat-list>
+        <mat-list-item *ngFor="let user of inactiveUserArray">
+          <mat-icon>face</mat-icon>
+          <p matLine>
+            <span> {{user.firstName}} </span>
+          </p>
+        </mat-list-item>
+      </mat-list>
     </mat-sidenav>
   </mat-sidenav-container>
