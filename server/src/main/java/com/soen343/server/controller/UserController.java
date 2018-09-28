@@ -32,7 +32,7 @@ public class UserController {
             user = buildUser(resultSet);
 
             if (resultSet.next()) {
-                setActive(credentials.getEmail());
+                setActive(credentials.getEmail(), true);
                 System.out.println("USER FOUND!!");
             }
 
@@ -45,10 +45,18 @@ public class UserController {
         return user;
     }
 
-    private Boolean setActive (String email) {
+    @PostMapping("LogoutUser")
+    public Boolean logoutUser(@RequestBody User user) {
+        setActive(user.getEmailAddress(), false);
+        return true;
+    }
+
+    private Boolean setActive (String email, Boolean userActive) {
         // update in future to have second parameter be the unique generated ID - see JPA
+
+        int status = userActive ? 1 : 0;
         try {
-            String query = "UPDATE testdb.User SET is_online='1' WHERE email_address = '" + email + "'";
+            String query = "UPDATE testdb.User SET is_online='" + status + "' WHERE email_address = '" + email + "'";
             DbConnection.update(query);
             return true;
         } catch (Exception e) {

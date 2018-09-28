@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
   login() {
 
-    console.log("inputed email is" + this.credentials.email);
+    console.log("input email is" + this.credentials.email);
     console.log("input password is" + this.credentials.password);
 
     this.http

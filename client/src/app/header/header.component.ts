@@ -5,6 +5,7 @@ import {LoginComponent} from "../login/login.component";
 import {AppService} from "../app.service";
 import {HttpClient} from "@angular/common/http";
 import { finalize } from "rxjs/operators";
+import {UserService} from "../_services/user.service";
 
 @Component({
   selector: "header",
@@ -12,8 +13,8 @@ import { finalize } from "rxjs/operators";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router, public dialog: MatDialog, private app: AppService, private http: HttpClient) {
-    this.app.authenticate(undefined, undefined);
+  constructor(private router: Router, public dialog: MatDialog, private app: AppService,
+              private http: HttpClient, private user: UserService) {
   }
 
   ngOnInit() {}
@@ -37,18 +38,13 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.app.authenticated = false;
     this.router.navigateByUrl('');
-
-    // SAVE THIS FOR REMOVING USER AS ACTIVE
-    // this.http.post('logout', {}).pipe(
-    //   finalize(() => {
-    //     this.app.authenticated = false;
-    //
-    //     // add step to set user to inactive
-    //
-    //
-    //     this.router.navigateByUrl('');
-    //   })
-    // ).subscribe();
+    this.http.post<Boolean>('http://localhost:8090/logoutUser', this.user).pipe(
+      finalize(() => {
+        this.app.authenticated = false;
+        this.user.isAdmin = false;
+        this.router.navigateByUrl('');
+      })
+    ).subscribe();
   }
 
   authenticated() {
