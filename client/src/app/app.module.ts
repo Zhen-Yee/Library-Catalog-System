@@ -10,15 +10,14 @@ import { TestComponent } from "./test/test.component";
 import { MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, MatMenuModule, MatDialogModule,
 MatCardModule} from "@angular/material";
 import { HttpClientModule } from "@angular/common/http";
-import { FormsModule, FormControl, Validators, ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { routing } from './app.routing';
 import { LoginComponent } from './login/login.component';
-import {AppService} from "./app.service";
 import { ConfirmationComponent } from "./registration/confirmation.component";
 import { PasswordService } from "./_services/PasswordService";
 import { RegistrationErrorComponent } from "./registration/registration_error.component";
-import {UserService} from "./_services/user.service";
+import { UserService } from "./_services/user.service";
 
 @NgModule({
    declarations: [
@@ -53,7 +52,7 @@ import {UserService} from "./_services/user.service";
      ConfirmationComponent,
      RegistrationErrorComponent
    ],
-   providers: [AppService, PasswordService, UserService],
+   providers: [UserService, PasswordService, UserService],
    bootstrap: [AppComponent]
 })
 export class AppModule { }

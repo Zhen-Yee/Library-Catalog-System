@@ -2,7 +2,6 @@ import { Component,  OnInit } from "@angular/core";
 import { Router } from '@angular/router';
 import { MatDialog } from "@angular/material";
 import {LoginComponent} from "../login/login.component";
-import {AppService} from "../app.service";
 import {HttpClient} from "@angular/common/http";
 import { finalize } from "rxjs/operators";
 import {UserService} from "../_services/user.service";
@@ -13,8 +12,7 @@ import {UserService} from "../_services/user.service";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router, public dialog: MatDialog, private app: AppService,
-              private http: HttpClient, private user: UserService) {
+  constructor(private router: Router, public dialog: MatDialog, private http: HttpClient, private user: UserService) {
   }
 
   ngOnInit() {}
@@ -36,11 +34,11 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.app.authenticated = false;
+    this.user.authenticated = false;
     this.router.navigateByUrl('');
     this.http.post<Boolean>('http://localhost:8090/logoutUser', this.user.userEmail).pipe(
       finalize(() => {
-        this.app.authenticated = false;
+        this.user.authenticated = false;
         this.user.adminStatus(false);
         this.user.changeUser("","");
         this.router.navigateByUrl('');
@@ -49,7 +47,7 @@ export class HeaderComponent implements OnInit {
   }
 
   authenticated() {
-    return this.app.authenticated;
+    return this.user.authenticated;
   }
 
   isAdmin() {

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { AppService } from "../app.service";
 import { MatDialog } from "@angular/material";
 import {UserService} from "../_services/user.service";
 
@@ -16,8 +15,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {}
 
-  constructor(private router: Router, private http: HttpClient, private app: AppService,
-              private dialog: MatDialog, private user: UserService) {}
+  constructor(private router: Router, private http: HttpClient, private dialog: MatDialog, private user: UserService) {}
 
   login() {
 
@@ -28,10 +26,9 @@ export class LoginComponent implements OnInit {
       .post<String[]>("http://localhost:8090/validateUser", this.credentials)
       .subscribe( answer => {
         if (!null && (answer[1] = this.credentials.email)) {
-          this.app.authenticated = true;
+          this.user.authenticated = true;
           this.user.adminStatus((answer[2] == '1'));
           this.user.changeUser(answer[0], answer[1]);
-          console.log("User is validated!");
           this.dialog.closeAll();
           this.router.navigateByUrl('');
         } else {
