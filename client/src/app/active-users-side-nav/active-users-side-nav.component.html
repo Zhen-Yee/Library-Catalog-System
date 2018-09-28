@@ -1,0 +1,13 @@
+<mat-sidenav-container>
+    <mat-sidenav class="navbar" mode="side" opened>
+      <div class="text">Currently active users</div>
+      <mat-list>
+        <mat-list-item *ngFor="let user of activeUserArray">
+          <mat-icon class="green-icon">face</mat-icon>
+          <p matLine>
+            <span> {{user.firstName}} </span>
+          </p>
+        </mat-list-item>
+      </mat-list>
+    </mat-sidenav>
+  </mat-sidenav-container>

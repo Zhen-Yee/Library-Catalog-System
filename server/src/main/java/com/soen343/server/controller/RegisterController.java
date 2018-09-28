@@ -53,7 +53,7 @@ public class RegisterController {
 
         try { 
 
-           if (this.doesEmailExist(user.email))
+           if (this.doesEmailExist(user.getEmailAddress()))
            {
                 System.out.println("Email already exists.");
            }
@@ -64,9 +64,9 @@ public class RegisterController {
 
             String query = "insert into testdb.User (first_name, last_name, email_address, physical_address, phone_number, password) values ('" + user.getFirstName() + "', '"
             + user.getLastName() + "', '" 
-            + user.email + "', '" 
-            + user.getAddress() + "', '"
-            + user.phone +"', '"
+            + user.getEmailAddress() + "', '"
+            + user.getPhysicalAddress() + "', '"
+            + user.getPhoneNumber() +"', '"
             + user.getPassword() + "') ";
             
             DbConnection.update(query); 

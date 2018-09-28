@@ -1,59 +1,113 @@
 package com.soen343.server.models;
 
+import java.util.Objects;
+
+/**
+ * User class. This class is used to store the information of a client/admin.
+ */
 public class User {
+
+    /**
+     * Private attributes
+     */
     private String firstName;
     private String lastName;
-    public String email;
-    private String address;
-    public String phone;
-    private String username;
+    private String emailAddress;
+    private String physicalAddress;
+    private String phoneNumber;
+    private String userName;
     private String password;
-    private boolean is_admin;
-    private boolean is_active;
+    private boolean isAdmin;
+    private boolean isOnline;
 
-public User(String first_name, String last_name, String email_address, 
-   String address, String phone_number, String username, String password, boolean is_admin, boolean is_online){
-        this.firstName = first_name;
-        this.lastName = last_name;
-        this.email = email_address;
-        this.address = address;
-        this.phone = phone_number;
-        this.username = username;
+    /**
+     * Constructor
+     */
+    public User(String firstName, String lastName, String emailAddress, String physicalAddress, String phoneNumber, String userName, String password, boolean isAdmin, boolean isOnline) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.physicalAddress = physicalAddress;
+        this.phoneNumber = phoneNumber;
+        this.userName = userName;
         this.password = password;
-        this.is_admin = is_admin;
-        this.is_active = is_online;
-
-        System.out.println(this.email);
-    }
-    
-    public String getFirstName(){
-        return this.firstName;
-    }
-    public String getLastName(){
-        return this.lastName;
+        this.isAdmin = isAdmin;
+        this.isOnline = isOnline;
     }
 
-    public String getEmailAddress(){
-        return this.email;
-    }
-    public String getAddress(){
-        return this.address;
-    }
-    public String getPhoneNumber(){
-        return this.phone;
-    }
-    public String getUsername(){
-        return this.username;
-    }
-    public String getPassword(){
-        return this.password;
-    }
-    public boolean getIsAdmin(){
-        return this.is_admin;
-    }
-    public boolean getIsOnline(){
-        return this.is_active;
+    /**
+     * Getter Methods
+     */
+    public String getFirstName() {
+        return firstName;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public String getPhysicalAddress() {
+        return physicalAddress;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public boolean isOnline() {
+        return isOnline;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstName='" + getFirstName() + '\'' +
+                ", lastName='" + getLastName() + '\'' +
+                ", emailAddress='" + getEmailAddress() + '\'' +
+                ", physicalAddress='" + getPhysicalAddress() + '\'' +
+                ", phoneNumber='" + getPhoneNumber() + '\'' +
+                ", userName='" + getUserName() + '\'' +
+                ", password='" + getPassword() + '\'' +
+                ", isAdmin=" + isAdmin() +
+                ", isOnline=" + isOnline() +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return isAdmin() == user.isAdmin() &&
+                isOnline() == user.isOnline() &&
+                Objects.equals(getFirstName(), user.getFirstName()) &&
+                Objects.equals(getLastName(), user.getLastName()) &&
+                Objects.equals(getEmailAddress(), user.getEmailAddress()) &&
+                Objects.equals(getPhysicalAddress(), user.getPhysicalAddress()) &&
+                Objects.equals(getPhoneNumber(), user.getPhoneNumber()) &&
+                Objects.equals(getUserName(), user.getUserName()) &&
+                Objects.equals(getPassword(), user.getPassword());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getFirstName(), getLastName(), getEmailAddress(), getPhysicalAddress(), getPhoneNumber(), getUserName(), getPassword(), isAdmin(), isOnline());
+    }
 }
- 
+
