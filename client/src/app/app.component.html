@@ -1,7 +1,9 @@
 <header></header>
 
 <div class="sidenav">
-  <active-users-side-nav></active-users-side-nav>
+  <span [hidden]="!authenticated()">
+    <active-users-side-nav></active-users-side-nav>
+  </span>
 </div>
 
 <div class="content">

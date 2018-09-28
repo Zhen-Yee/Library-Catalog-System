@@ -16,6 +16,7 @@ import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { routing } from './app.routing';
 import { LoginComponent } from './login/login.component';
 import { ActiveUsersSideNavComponent } from './active-users-side-nav/active-users-side-nav.component';
+import {AppService} from "./app.service";
 import { ConfirmationComponent } from "./registration/confirmation.component";
 import { PasswordService } from "./_services/registration/PasswordService";
 import { RegistrationErrorComponent } from "./registration/registration_error.component";
@@ -61,6 +62,7 @@ import {MatIconModule} from '@angular/material/icon';
      RegistrationErrorComponent
    ],
    providers: [
+    AppService,
     PasswordService
    ],
    bootstrap: [
