@@ -2,6 +2,7 @@ package com.soen343.server.models;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -11,7 +12,7 @@ import javax.validation.constraints.Pattern;
 public class Book extends CatalogItem {
 
     @Column
-    @NotBlank()
+    @NotBlank
     private String author;
 
     @Column
@@ -27,6 +28,11 @@ public class Book extends CatalogItem {
     private String publisher;
 
     @Column
+    @Min(value=0, message="only the books after jesus was born matters")
+    @Max(value=9999, message="year of publication can't be greater than 9999")
+    private int yearOfPublication;
+
+    @Column
     @NotBlank
     private String language;
 
@@ -38,26 +44,22 @@ public class Book extends CatalogItem {
     @Pattern(regexp = "^[0-9]{13}$", message = "ISBN-13 must have exactly 13 digits")
     private String isbn13;
 
-    public Book(String title, int qtyInStock, int qtyOnLoan, String author, String format, int pages, String publisher,
-                String language, String isbn10, String isbn13) {
+    public Book(String title, int qtyInStock, int qtyOnLoan, String author, String format, int pages,
+                int yearOfPublication, String publisher, String language, String isbn10, String isbn13) {
         super(title, qtyInStock, qtyOnLoan);
         this.author = author;
         this.format = format;
         this.pages = pages;
         this.publisher = publisher;
+        this.yearOfPublication = yearOfPublication;
         this.language = language;
         this.isbn10 = isbn10;
         this.isbn13 = isbn13;
     }
 
-    // Accessors
-    public String getAuthor() {
-        return author;
-    }
+    public String getAuthor() { return author; }
 
-    public String getFormat() {
-        return format;
-    }
+    public String getFormat() { return format; }
 
     public int getPages() {
         return pages;
@@ -65,6 +67,10 @@ public class Book extends CatalogItem {
 
     public String getPublisher() {
         return publisher;
+    }
+
+    public int getYearOfPublication() {
+        return yearOfPublication;
     }
 
     public String getLanguage() {
@@ -79,6 +85,7 @@ public class Book extends CatalogItem {
         return isbn13;
     }
 
+    @Override
     public String toString() {
         return "Book [id=" + id + ", title=" + title + "]";
     }

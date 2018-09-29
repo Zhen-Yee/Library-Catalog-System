@@ -48,7 +48,10 @@ public abstract class CatalogItem {
         return qtyOnLoan;
     }
 
-    // Public Methods
+    /**
+     * Decrements the quantity in stock by 1 while incrementing the quantity in loan
+     * @return Boolean that indicates if the checkout succeeded
+     */
     public Boolean checkoutItem() {
         if ( qtyInStock > 0 ) {
             qtyInStock = qtyInStock--;
@@ -58,6 +61,10 @@ public abstract class CatalogItem {
         return false;
     }
 
+    /**
+     * Increments the quantity in stock by 1 while decrementing the quantity on loan
+     * @return Boolean that indicates if the return succeeded
+     */
     public Boolean returnItem() {
         if (qtyOnLoan > 0) {
             qtyOnLoan = qtyOnLoan--;
