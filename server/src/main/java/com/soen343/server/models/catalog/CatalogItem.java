@@ -50,6 +50,15 @@ public abstract class CatalogItem {
         return qtyOnLoan;
     }
 
+    // Mutators
+    public void setQtyInStock(int qtyInStock) {
+        this.qtyInStock = qtyInStock;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     /**
      * Decrements the quantity in stock by 1 while incrementing the quantity in loan
      * @return Boolean that indicates if the checkout succeeded

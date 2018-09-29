@@ -58,6 +58,7 @@ public class Book extends CatalogItem {
         this.isbn13 = isbn13;
     }
 
+    // Accessors
     public String getAuthor() { return author; }
 
     public String getFormat() { return format; }
@@ -84,6 +85,41 @@ public class Book extends CatalogItem {
 
     public String getIsbn13() {
         return isbn13;
+    }
+
+    // Mutators
+
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public void setYearOfPublication(int yearOfPublication) {
+        this.yearOfPublication = yearOfPublication;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public void setIsbn10(String isbn10) {
+        this.isbn10 = isbn10;
+    }
+
+    public void setIsbn13(String isbn13) {
+        this.isbn13 = isbn13;
     }
 
     @Override

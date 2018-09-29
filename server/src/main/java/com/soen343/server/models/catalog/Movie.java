@@ -44,6 +44,8 @@ public class Movie extends CatalogItem{
     @Min(0)
     private int runTime;
 
+    public Movie() {}
+
     public Movie(String title, int qtyInStock, int qtyOnLoan, String director, Set<Producer> producers, Set<Actor> actors,
                  String language, Set<Subtitle> subtitles, Set<Dub> dubs, String releaseDate, int runTime) {
         super(title, qtyInStock, qtyOnLoan);
@@ -57,6 +59,7 @@ public class Movie extends CatalogItem{
         this.runTime = runTime;
     }
 
+    // Accessors
     public String getDirector() {
         return director;
     }
@@ -87,6 +90,23 @@ public class Movie extends CatalogItem{
 
     public int getRunTime() {
         return runTime;
+    }
+
+    // Mutators - DO NOT ADD MUTATORS FOR @MANYTOMANY associated attributes! use the Add/Remove methods!
+    public void setDirector(String director) {
+        this.director = director;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public void setRunTime(int runTime) {
+        this.runTime = runTime;
     }
 
     public void addProducer(Producer producer) {

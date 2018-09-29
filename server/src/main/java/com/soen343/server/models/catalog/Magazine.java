@@ -30,11 +30,14 @@ public class Magazine extends CatalogItem {
     @Pattern(regexp = "^[0-9]{13}$", message = "ISBN-13 must have exactly 13 digits")
     private String isbn13;
 
+    public Magazine() {}
+
     public Magazine(String title, int qtyInStock, int qtyOnLoan, String publisher, String  language,
                     String dateOfPublication, String isbn10, String isbn13) {
         super(title, qtyInStock, qtyOnLoan);
     }
 
+    // Accessors
     public String getPublisher() {
         return publisher;
     }
@@ -53,6 +56,27 @@ public class Magazine extends CatalogItem {
 
     public String getIsbn13() {
         return isbn13;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    // Mutators
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public void setDateOfPublication(String dateOfPublication) {
+        this.dateOfPublication = dateOfPublication;
+    }
+
+    public void setIsbn10(String isbn10) {
+        this.isbn10 = isbn10;
+    }
+
+    public void setIsbn13(String isbn13) {
+        this.isbn13 = isbn13;
     }
 
     @Override

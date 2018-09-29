@@ -29,6 +29,7 @@ public class Music extends CatalogItem {
     @Pattern(regexp ="/^B[\\dA-Z]{9}|\\d{9}(X|\\d)$/", message= "Non valid ASIN format - (tip)copy one from amazon")
     private String asin;
 
+    public Music() {};
 
     public Music(String title, int qtyInStock, int qtyOnLoan, String type, String artist, String label,
                  String releaseDate, String asin) {
@@ -40,6 +41,7 @@ public class Music extends CatalogItem {
         this.asin = asin;
     }
 
+    // Accessors
     public String getType() {
         return type;
     }
@@ -58,6 +60,27 @@ public class Music extends CatalogItem {
 
     public String getAsin() {
         return asin;
+    }
+
+    // Mutators
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public void setAsin(String asin) {
+        this.asin = asin;
     }
 
     @Override
