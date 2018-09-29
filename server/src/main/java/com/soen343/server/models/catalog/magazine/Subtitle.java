@@ -1,0 +1,32 @@
+package com.soen343.server.models.catalog.magazine;
+
+import com.soen343.server.models.catalog.Movie;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+public class Subtitle {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", updatable = false, nullable = false)
+    protected long id;
+
+    @Column
+    @NotBlank
+    private String subLanguage;
+
+    @ManyToMany(mappedBy = "subtitles")
+    private Set<Movie> movies = new HashSet<>();
+
+    public String getSubLanguage() {
+        return subLanguage;
+    }
+
+    public Set<Movie> getMovies() {
+        return movies;
+    }
+}

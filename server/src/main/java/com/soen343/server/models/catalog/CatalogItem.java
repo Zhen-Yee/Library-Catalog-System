@@ -1,4 +1,4 @@
-package com.soen343.server.models;
+package com.soen343.server.models.catalog;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
