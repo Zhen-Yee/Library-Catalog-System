@@ -22,6 +22,9 @@ import { RegistrationErrorComponent } from "./registration/registration_error.co
 import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import { UserService } from "./_services/user.service";
+import { CreateBookComponent } from './catalog/create-book/create-book.component';
+import { BookListComponent } from './catalog/book-list/book-list.component';
+import { BookDetailsComponent } from './catalog/book-details/book-details.component';
 
 @NgModule({
    declarations: [
@@ -34,7 +37,10 @@ import { UserService } from "./_services/user.service";
       LoginComponent,
       ActiveUsersSideNavComponent,
       ConfirmationComponent,
-      RegistrationErrorComponent
+      RegistrationErrorComponent,
+      CreateBookComponent,
+      BookListComponent,
+      BookDetailsComponent
    ],
    imports: [
       BrowserModule,

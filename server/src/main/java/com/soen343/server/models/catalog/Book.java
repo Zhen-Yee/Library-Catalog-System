@@ -43,6 +43,8 @@ public class Book extends CatalogItem {
     @Pattern(regexp = "^[0-9]{13}$", message = "ISBN-13 must have exactly 13 digits")
     private String isbn13;
 
+    public Book() {}
+
     public Book(String title, int qtyInStock, int qtyOnLoan, String author, String format, int pages,
                 int yearOfPublication, String publisher, String language, String isbn10, String isbn13) {
         super(title, qtyInStock, qtyOnLoan);

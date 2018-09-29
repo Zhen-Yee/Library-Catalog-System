@@ -31,6 +31,8 @@ public abstract class CatalogItem {
         this.qtyOnLoan = qtyOnLoan;
     }
 
+    public CatalogItem() {}
+
     // Accessors
     public long getId() {
         return id;
