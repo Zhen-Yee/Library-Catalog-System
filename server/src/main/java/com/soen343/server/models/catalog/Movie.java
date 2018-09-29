@@ -13,7 +13,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "movie")
 public class Movie extends CatalogItem{
 
     @Column
@@ -128,5 +127,10 @@ public class Movie extends CatalogItem{
     public void removeDub(Dub dub) {
         this.dubs.remove(dub);
         dub.getMovies().remove(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Movie [id=" + id + ", title=" + title + "]";
     }
 }

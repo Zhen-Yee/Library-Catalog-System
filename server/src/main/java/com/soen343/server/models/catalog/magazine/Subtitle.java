@@ -29,4 +29,9 @@ public class Subtitle {
     public Set<Movie> getMovies() {
         return movies;
     }
+
+    @Override
+    public String toString() {
+        return "Subtitle [id=" + id + ", subLanguage=" + subLanguage + "]";
+    }
 }

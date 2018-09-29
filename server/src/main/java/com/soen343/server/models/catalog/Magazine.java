@@ -7,7 +7,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 @Entity
-@Table(name = "magazine")
 public class Magazine extends CatalogItem {
 
     @Column
