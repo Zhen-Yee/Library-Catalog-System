@@ -1,4 +1,4 @@
-package com.soen343.server.models.catalog.magazine;
+package com.soen343.server.models.catalog.movie;
 
 import com.soen343.server.models.catalog.Movie;
 
@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Actor {
+public class Subtitle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,13 +17,13 @@ public class Actor {
 
     @Column
     @NotBlank
-    private String actor;
+    private String subLanguage;
 
-    @ManyToMany(mappedBy = "actors")
+    @ManyToMany(mappedBy = "subtitles")
     private Set<Movie> movies = new HashSet<>();
 
-    public String getActor() {
-        return actor;
+    public String getSubLanguage() {
+        return subLanguage;
     }
 
     public Set<Movie> getMovies() {
@@ -32,6 +32,6 @@ public class Actor {
 
     @Override
     public String toString() {
-        return "Subtitle [id=" + id + ", actor=" + actor + "]";
+        return "Subtitle [id=" + id + ", subLanguage=" + subLanguage + "]";
     }
 }

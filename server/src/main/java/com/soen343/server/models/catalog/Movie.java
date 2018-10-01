@@ -1,9 +1,9 @@
 package com.soen343.server.models.catalog;
 
-import com.soen343.server.models.catalog.magazine.Actor;
-import com.soen343.server.models.catalog.magazine.Dub;
-import com.soen343.server.models.catalog.magazine.Producer;
-import com.soen343.server.models.catalog.magazine.Subtitle;
+import com.soen343.server.models.catalog.movie.Actor;
+import com.soen343.server.models.catalog.movie.Dub;
+import com.soen343.server.models.catalog.movie.Producer;
+import com.soen343.server.models.catalog.movie.Subtitle;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
