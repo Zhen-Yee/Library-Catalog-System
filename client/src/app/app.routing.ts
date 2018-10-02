@@ -1,3 +1,4 @@
+import { AdminAuthenticateGuard } from './guards/admin-authenticate.guard';
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomePageComponent } from './homepage/homepage.component';
@@ -8,14 +9,16 @@ import {BookListComponent} from "./catalog/book-list/book-list.component";
 import {CreateBookComponent} from "./catalog/create-book/create-book.component";
 
 
+
 const appRoutes: Routes = [
-  { 
-    path: '', 
+  {
+    path: '',
     component: HomePageComponent
 
   },
   {
     path: 'register',
+    canActivate: [AdminAuthenticateGuard],
     component: RegisterComponent
   },
   {

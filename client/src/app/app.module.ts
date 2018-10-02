@@ -1,3 +1,4 @@
+import { AdminAuthenticateGuard } from './guards/admin-authenticate.guard';
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { AppComponent } from "./app.component";
@@ -35,12 +36,12 @@ import { BookDetailsComponent } from './catalog/book-details/book-details.compon
       HomePageComponent,
       RegisterComponent,
       LoginComponent,
-      ActiveUsersSideNavComponent,
       ConfirmationComponent,
       RegistrationErrorComponent,
       CreateBookComponent,
       BookListComponent,
-      BookDetailsComponent
+      BookDetailsComponent,
+      ActiveUsersSideNavComponent
    ],
    imports: [
       BrowserModule,
@@ -63,17 +64,16 @@ import { BookDetailsComponent } from './catalog/book-details/book-details.compon
    ],
    entryComponents: [
      LoginComponent,
-     ActiveUsersSideNavComponent,
      ConfirmationComponent,
      RegistrationErrorComponent
    ],
    providers: [
-    UserService, 
-    PasswordService, 
+    UserService,
+    PasswordService,
+    AdminAuthenticateGuard
    ],
    bootstrap: [
-      AppComponent,
-      ActiveUsersSideNavComponent
+      AppComponent
    ]
 })
 export class AppModule { }
