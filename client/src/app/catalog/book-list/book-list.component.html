@@ -1,0 +1,9 @@
+<h1>Books</h1>
+<div>
+  <button type="button" class="button btn-danger" (click)='deleteBooks()'>Delete All Books</button>
+</div>
+    <div *ngFor="let book of books | async">
+      <book-details [book]='book'></book-details>
+    </div>
+
+
