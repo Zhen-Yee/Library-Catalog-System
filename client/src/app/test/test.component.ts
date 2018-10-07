@@ -40,6 +40,6 @@ export class TestComponent implements OnInit {
       .subscribe(deleted => this.bookArray = deleted);
   }
   update(updateThis: Book) {
-   // this.http.put("http://localhost:8090/update", updateThis)
+    this.http.put("http://localhost:8090/update", updateThis);
   }
 }
