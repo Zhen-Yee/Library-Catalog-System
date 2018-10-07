@@ -1,12 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient} from "@angular/common/http";
-
-<<<<<<< Updated upstream
-import { Book } from "../models/Example.models";
-=======
-import { Book } from "../models/Book.models";
-import { Test } from "../models/test.model";
->>>>>>> Stashed changes
+import {Book} from "./../models/Example.models";
 
 @Component({
   selector: "app-test",
@@ -29,23 +23,23 @@ export class TestComponent implements OnInit {
   }
 
   post(sendThis: string) {
-   const book: Test = {
+   const book: Book = {
       name: sendThis
     };
     this.http
-      .post<Test[]>("http://localhost:8090/addBook", book)
+      .post<Book[]>("http://localhost:8090/addBook", book)
       .subscribe(sent => this.bookArray = sent);
   }
 
   delete(deleteThis: string) {
-    const book: Test = {
+    const book: Book = {
       name: deleteThis
     };
     this.http
-      .post<Test[]>("http://localhost:8090/deleteBook", book)
+      .post<Book[]>("http://localhost:8090/deleteBook", book)
       .subscribe(deleted => this.bookArray = deleted);
   }
-  update(updateThis: Test) {
+  update(updateThis: Book) {
    // this.http.put("http://localhost:8090/update", updateThis)
   }
 }
