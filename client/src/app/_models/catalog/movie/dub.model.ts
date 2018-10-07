@@ -4,4 +4,8 @@ export class Dub {
   id: number;
   dubLanguage: string;
   movies: Set<Movie>
+
+  public getMovies() {
+    return this.movies;
+  }
 }
