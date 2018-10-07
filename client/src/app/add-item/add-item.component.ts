@@ -11,7 +11,7 @@ export class AddItemComponent implements OnInit {
   items = [
     {value: "book", viewValue: "Book"},
     {value: "magazine", viewValue: "Magazine"},
-    {value: "cd", viewValue: "Cd"},
+    {value: "Music", viewValue: "Music"},
     {value: "movies", viewValue: "Movies"}
   ];
 
