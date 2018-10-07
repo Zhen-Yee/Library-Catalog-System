@@ -44,7 +44,7 @@ public class DbConnection {
         Connection connection = null;
         try{
         Class.forName("com.mysql.jdbc.Driver");
-         connection = DriverManager.getConnection("jdbc:mysql://testdbinstance.cwtjkaidrsfz.us-east-2.rds.amazonaws.com:3306/testdb?useSSL=false", "test", "testtest");
+         connection = DriverManager.getConnection("jdbc:mysql://testdbinstance.cwtjkaidrsfz.us-east-2.rds.amazonaws.com:3306/testdb", "test", "testtest");
         }
         catch (Exception e){
             System.out.print(e);
