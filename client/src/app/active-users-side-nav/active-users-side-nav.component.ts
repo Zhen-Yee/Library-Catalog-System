@@ -21,7 +21,7 @@ export class ActiveUsersSideNavComponent implements OnInit {
     setInterval(() => {
       this.getActiveUsers();
       this.getInactiveUsers();
-    }, 2000)
+    }, 2000);
 
   }
 

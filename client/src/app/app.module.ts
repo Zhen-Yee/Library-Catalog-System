@@ -1,27 +1,31 @@
+import { AddBookComponent } from "./add-item/add-book/add-book.component";
+import { AdminAuthenticateGuard } from "./_services/guards/admin-authenticate.guard";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { AppComponent } from "./app.component";
 import { RegisterComponent } from "./registration/register.component";
 import { HomePageComponent } from "./homepage/homepage.component";
-import { RouterModule } from '@angular/router';
+import { RouterModule } from "@angular/router";
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
 import { TestComponent } from "./test/test.component";
 import { MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, MatMenuModule, MatDialogModule,
-MatCardModule} from "@angular/material";
-import {MatSidenavModule} from '@angular/material/sidenav';
+MatCardModule, MatSelectModule} from "@angular/material";
+import {MatSidenavModule} from "@angular/material/sidenav";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import { routing } from './app.routing';
-import { LoginComponent } from './login/login.component';
-import { ActiveUsersSideNavComponent } from './active-users-side-nav/active-users-side-nav.component';
+import { routing } from "./app.routing";
+import { LoginComponent } from "./login/login.component";
+import { ActiveUsersSideNavComponent } from "./active-users-side-nav/active-users-side-nav.component";
 import { ConfirmationComponent } from "./registration/confirmation.component";
 import { PasswordService } from "./_services/PasswordService";
 import { RegistrationErrorComponent } from "./registration/registration_error.component";
-import {MatListModule} from '@angular/material/list';
-import {MatIconModule} from '@angular/material/icon';
+import {MatListModule} from "@angular/material/list";
+import {MatIconModule} from "@angular/material/icon";
 import { UserService } from "./_services/user.service";
+import { AddItemComponent } from "./add-item/add-item.component";
+
 
 @NgModule({
    declarations: [
@@ -32,9 +36,11 @@ import { UserService } from "./_services/user.service";
       HomePageComponent,
       RegisterComponent,
       LoginComponent,
-      ActiveUsersSideNavComponent,
       ConfirmationComponent,
-      RegistrationErrorComponent
+      RegistrationErrorComponent,
+      ActiveUsersSideNavComponent,
+      AddItemComponent,
+      AddBookComponent
    ],
    imports: [
       BrowserModule,
@@ -46,6 +52,7 @@ import { UserService } from "./_services/user.service";
       MatMenuModule,
       MatDialogModule,
       MatCardModule,
+      MatSelectModule,
       MatSidenavModule,
       HttpClientModule,
       FormsModule,
@@ -56,18 +63,17 @@ import { UserService } from "./_services/user.service";
       MatIconModule
    ],
    entryComponents: [
-     LoginComponent,
-     ActiveUsersSideNavComponent,
-     ConfirmationComponent,
-     RegistrationErrorComponent
+      LoginComponent,
+      ConfirmationComponent,
+      RegistrationErrorComponent
    ],
    providers: [
-    UserService, 
-    PasswordService, 
+      UserService,
+      PasswordService,
+      AdminAuthenticateGuard
    ],
    bootstrap: [
-      AppComponent,
-      ActiveUsersSideNavComponent
+      AppComponent
    ]
 })
 export class AppModule { }
