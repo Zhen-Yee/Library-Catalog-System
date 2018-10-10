@@ -1,4 +1,4 @@
-export class MusicModel extends CatalogItem {
+export class Music extends CatalogItem {
   type: string;
   artist: string;
   label: string;
