@@ -1,7 +1,8 @@
 <mat-toolbar class="toolbar">
-    <span><button mat-button (click)="redirectHome()"> Home </button> </span>
-    <span class="remaining-space"></span>
-    <span [hidden]="!isAdmin()"><button mat-button (click)="redirectRegistrationPage()"> Register a User </button></span>
-    <span [hidden]="authenticated()"><button mat-button (click)="openDialog()">Login</button></span>
-    <span [hidden]="!authenticated()"><button mat-button (click)="logout()">Logout</button></span>
+  <span><button mat-button (click)="redirectHome()"> Home </button> </span>
+  <span class="remaining-space"></span>
+  <span [hidden]="!isAdmin()"><button mat-button (click)="redirectCatalogPage()"> Open Catalog </button></span>
+  <span [hidden]="!isAdmin()"><button mat-button (click)="redirectRegistrationPage()"> Register a User </button></span>
+  <span [hidden]="authenticated()"><button mat-button (click)="openDialog()">Login</button></span>
+  <span [hidden]="!authenticated()"><button mat-button (click)="logout()">Logout</button></span>
 </mat-toolbar>
