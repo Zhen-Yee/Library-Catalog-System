@@ -18,6 +18,7 @@ export class UpdateBookComponent implements OnInit {
     ngOnInit() {
         // creates form on init
         this.createForm();
+        this.edit = false;
     }
 
     editMode() {

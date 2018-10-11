@@ -17,6 +17,7 @@ export class UpdateMusicComponent implements OnInit {
     ngOnInit() {
         // creates form on init
         this.createForm();
+        this.edit = false;
     }
 
     editMode() {

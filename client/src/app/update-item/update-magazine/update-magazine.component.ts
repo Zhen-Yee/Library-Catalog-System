@@ -11,12 +11,12 @@ export class UpdateMagazineComponent implements OnInit {
     edit: boolean;
     @Input() magazine;
     constructor( private fb: FormBuilder) {
-
      }
 
     ngOnInit() {
         // creates form on init
         this.createForm();
+        this.edit = false;
     }
 
     editMode() {

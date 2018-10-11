@@ -19,7 +19,16 @@ export class Music extends CatalogItem {
     this.label = param.label;
   }
 
-  public toString = (): string => {
-    return "music";
+  public toString = () : string => {
+    return "id:   " + this.id + "\n" 
+      + "Item Type:       " + this.itemType + "\n" 
+      + "Title:       " + this.titles + "\n" 
+      + "Artist:       " + this.artist + "\n" 
+      + "Release Date:       " + this.releaseDate + "\n" 
+      + "Type:     " + this.type + "\n" 
+      + "ASIN:      " + this.asin + "\n" 
+      + "Quantity in Stock:      " + this.qtyInStock.toString() + "\n" 
+      + "Quantity on Loan:      " + this.qtyOnLoan.toString();
   }
+
 }

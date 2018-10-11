@@ -54,6 +54,6 @@
 
         </div>
 
-<button (click)="editMode()"> Edit</button>
+<button *ngIf="!edit" (click)="editMode()"> Edit</button>
 <button *ngIf="edit" (click)="saveBook()">Save</button>
 
