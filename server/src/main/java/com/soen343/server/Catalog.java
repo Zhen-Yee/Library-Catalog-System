@@ -1,5 +1,6 @@
 package com.soen343.server;
 
+import com.soen343.server.models.catalog.Book;
 import com.soen343.server.models.catalog.CatalogItem;
 
 import java.util.ArrayList;
@@ -28,5 +29,18 @@ public class Catalog {
 
     public ArrayList<CatalogItem> getAllCatalogItems() {
         return catalogItems;
+    }
+
+    // an example
+    public ArrayList<Book> getAllBooks() {
+        ArrayList<Book> books = new ArrayList<>();
+
+        for (CatalogItem catalogItem : catalogItems) {
+            if (catalogItem.getClass() == Book.class) {
+                books.add((Book)catalogItem);
+            }
+        }
+
+        return books;
     }
 }
