@@ -1,3 +1,4 @@
+import { AdminAuthenticateGuard } from './guards/admin-authenticate.guard';
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { AppComponent } from "./app.component";
@@ -32,9 +33,9 @@ import { UserService } from "./_services/user.service";
       HomePageComponent,
       RegisterComponent,
       LoginComponent,
-      ActiveUsersSideNavComponent,
       ConfirmationComponent,
-      RegistrationErrorComponent
+      RegistrationErrorComponent,
+      ActiveUsersSideNavComponent
    ],
    imports: [
       BrowserModule,
@@ -57,17 +58,16 @@ import { UserService } from "./_services/user.service";
    ],
    entryComponents: [
      LoginComponent,
-     ActiveUsersSideNavComponent,
      ConfirmationComponent,
      RegistrationErrorComponent
    ],
    providers: [
-    UserService, 
-    PasswordService, 
+    UserService,
+    PasswordService,
+    AdminAuthenticateGuard
    ],
    bootstrap: [
-      AppComponent,
-      ActiveUsersSideNavComponent
+      AppComponent
    ]
 })
 export class AppModule { }

@@ -7,7 +7,7 @@ import { UserService } from "../_services/user.service";
   templateUrl: "./homepage.component.html"
 })
 export class HomePageComponent implements OnInit {
-
+  username;
   constructor(private http: HttpClient, private user: UserService) {}
  // constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
 
