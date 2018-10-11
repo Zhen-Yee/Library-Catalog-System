@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder,FormGroup, Validators} from "@angular/forms";
-import {MusicModel} from "../../_models/catalog/music.model";
+import { Component, OnInit } from "@angular/core";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Music} from "../../_models/catalog/music.model";
 
 @Component({
-  selector: 'app-add-music',
-  templateUrl: './add-music.component.html',
-  styleUrls: ['./add-music.component.css']
+  selector: "app-add-music",
+  templateUrl: "./add-music.component.html",
+  styleUrls: ["./add-music.component.css"]
 })
 export class AddMusicComponent implements OnInit {
-   Fg: FormGroup
-  constructor(private Form :FormBuilder) { }
+   Fg: FormGroup;
+  constructor(private Form: FormBuilder) { }
 
   ngOnInit() {
      this.Fg = this.Form.group({
@@ -22,13 +22,13 @@ export class AddMusicComponent implements OnInit {
      });
   }
 
-  //addMusic Function
-    addmusic(){
+  // addMusic Function
+    addmusic() {
        if (this.Fg.valid){
-           const Music: MusicModel ={
+           const music: Music = {
              ...this.Fg.value
            };
-           console.log(Music);
+           console.log(music);
        }
     }
 }
