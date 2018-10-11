@@ -3,9 +3,9 @@ import {CatalogItemType} from "../../enums/catalogItemType";
 
 export class Book extends CatalogItem {
 
-  constructor(id: number, qtyInStock: number, qtyOnLoan: number, titles: string, itemType: CatalogItemType,
+  constructor(itemType: CatalogItemType, id: number, qtyInStock: number, qtyOnLoan: number, titles: string,
               param: {author: string; format: string; pages: number; publisher: string; yearOfPublication: number; language: string; isbn10: string; isbn13: string }) {
-    super(id, qtyInStock, qtyOnLoan, titles, itemType);
+    super(itemType, id, qtyInStock, qtyOnLoan, titles);
     this.author = param.author;
     this.format = param.format;
     this.pages = param.pages;

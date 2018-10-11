@@ -40,6 +40,7 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .example-element-description {
   padding: 16px;
+  white-space: pre-line;
 }
 
 .example-element-description-attribution {

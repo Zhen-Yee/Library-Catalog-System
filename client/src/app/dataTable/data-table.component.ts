@@ -3,11 +3,19 @@ import {Book} from "../_models/catalog/book.model";
 import {Magazine} from "../_models/catalog/magazine.model";
 import {CatalogItemType} from "../enums/catalogItemType";
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-data-table',
   templateUrl: './data-table.component.html',
-  styleUrls: ['./data-table.component.css']
+  styleUrls: ['./data-table.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0', display: 'none'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class DataTableComponent implements OnInit {
 
@@ -15,26 +23,25 @@ export class DataTableComponent implements OnInit {
 
   //Generated Data
   dataArray: CatalogItem[];
-  columnsToDisplay: CatalogItemType[];
+  columnsToDisplay: string[]= ['itemType', 'id', 'qtyInStock', 'qtyInLoan', 'titles'];
   expandedElement: CatalogItem;
 
-  initialize(){
+  initialize() {
     this.dataArray = [new Book(
-      13,13,23,"Hello",CatalogItemType.Book,{
+      CatalogItemType.Book,13, 13, 23, "Hello", {
         author: 'james',
         format: "paperback",
         pages: 30,
-        publisher:"Steve Shih",
+        publisher: "Steve Shih",
         yearOfPublication: 193,
         language: "english",
-        isbn10:"123213",
-        isbn13:"2134"}),
-      new Magazine(13,13,23,"Hello",CatalogItemType.Magazine,
-        {publisher: "Travis", language: "Spanish", dateOfPublication: "August 2012", isbn10: "21321", isbn13: "lol"})] ;
-
-    this.columnsToDisplay = Object.values(CatalogItemType);
-
+        isbn10: "123213",
+        isbn13: "2134"
+      }),
+      new Magazine(CatalogItemType.Magazine,13, 13, 23, "Hello",
+        {publisher: "Travis", language: "Spanish", dateOfPublication: "August 2012", isbn10: "21321", isbn13: "lol"})];
   }
+
   ngOnInit() {
     this.initialize();
   }
