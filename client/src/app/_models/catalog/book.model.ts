@@ -26,8 +26,7 @@ export class Book extends CatalogItem {
   isbn13: string;
 
   public toString = () : string => {
-    return "id:   " + this.id + "\n" 
-      + "Item Type:       " + this.itemType + "\n" 
+    return "id:   " + this.id + "\n\n" 
       + "Title:       " + this.titles + "\n" 
       + "Author:       " + this.author + "\n" 
       + "Publisher:       " + this.publisher + "\n" 
@@ -36,7 +35,7 @@ export class Book extends CatalogItem {
       + "Year of Publication:       " + this.yearOfPublication + "\n" 
       + "Language:     " + this.language + "\n" 
       + "ISBN10:      " + this.isbn10 + "\n" 
-      + "ISBN13:     " + this.isbn13 + "\n" 
+      + "ISBN13:     " + this.isbn13 + "\n\n" 
       + "Quantity in Stock:      " + this.qtyInStock.toString() + "\n" 
       + "Quantity on Loan:      " + this.qtyOnLoan.toString();
   }

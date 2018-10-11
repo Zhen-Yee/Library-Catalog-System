@@ -20,14 +20,13 @@ export class Magazine extends CatalogItem {
   }
 
   public toString = () : string => {
-    return "id:   " + this.id + "\n" 
-      + "Item Type:       " + this.itemType + "\n" 
+    return "id:   " + this.id + "\n\n" 
       + "Title:       " + this.titles + "\n" 
       + "Publisher:       " + this.publisher + "\n" 
       + "Date of Publication:       " + this.dateOfPublication + "\n" 
       + "Language:     " + this.language + "\n" 
       + "ISBN10:      " + this.isbn10 + "\n" 
-      + "ISBN13:     " + this.isbn13 + "\n" 
+      + "ISBN13:     " + this.isbn13 + "\n\n" 
       + "Quantity in Stock:      " + this.qtyInStock.toString() + "\n" 
       + "Quantity on Loan:      " + this.qtyOnLoan.toString();
   }

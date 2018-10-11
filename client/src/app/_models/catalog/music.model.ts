@@ -20,13 +20,12 @@ export class Music extends CatalogItem {
   }
 
   public toString = () : string => {
-    return "id:   " + this.id + "\n" 
-      + "Item Type:       " + this.itemType + "\n" 
+    return "id:   " + this.id + "\n\n" 
       + "Title:       " + this.titles + "\n" 
       + "Artist:       " + this.artist + "\n" 
       + "Release Date:       " + this.releaseDate + "\n" 
       + "Type:     " + this.type + "\n" 
-      + "ASIN:      " + this.asin + "\n" 
+      + "ASIN:      " + this.asin + "\n\n" 
       + "Quantity in Stock:      " + this.qtyInStock.toString() + "\n" 
       + "Quantity on Loan:      " + this.qtyOnLoan.toString();
   }
