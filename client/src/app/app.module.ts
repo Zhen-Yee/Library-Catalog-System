@@ -24,6 +24,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import { UserService } from "./_services/user.service";
 import { DataTableComponent } from './dataTable/data-table.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
    declarations: [
@@ -56,7 +57,8 @@ import { DataTableComponent } from './dataTable/data-table.component';
       routing,
       ReactiveFormsModule,
       MatListModule,
-      MatIconModule
+      MatIconModule,
+      MatTableModule,
    ],
    entryComponents: [
      LoginComponent,
