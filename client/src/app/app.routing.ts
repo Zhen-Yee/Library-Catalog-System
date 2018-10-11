@@ -23,7 +23,7 @@ const appRoutes: Routes = [
     component: AddItemComponent,
   },
   {
-    path: 'catalog',
+    path: "catalog",
     canActivate: [AdminAuthenticateGuard],
     component: DataTableComponent
   }

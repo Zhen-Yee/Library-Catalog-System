@@ -25,11 +25,11 @@ import {MatListModule} from "@angular/material/list";
 import {MatIconModule} from "@angular/material/icon";
 import { UserService } from "./_services/user.service";
 import { AddItemComponent } from "./add-item/add-item.component";
-import { AddMusicComponent } from './add-item/add-music/add-music.component';
-import { AddMoviesComponent } from './add-item/add-movies/add-movies.component';
+import { AddMusicComponent } from "./add-item/add-music/add-music.component";
+import { AddMoviesComponent } from "./add-item/add-movies/add-movies.component";
 import { AddMagazineComponent } from "./add-item/add-magazine/add-magazine.component";
-import { DataTableComponent } from './dataTable/data-table.component';
-import { MatTableModule } from '@angular/material/table';
+import { DataTableComponent } from "./dataTable/data-table.component";
+import { MatTableModule } from "@angular/material/table";
 
 @NgModule({
    declarations: [
@@ -47,8 +47,8 @@ import { MatTableModule } from '@angular/material/table';
       AddBookComponent,
       AddMusicComponent,
       AddMoviesComponent,
-      AddMagazineComponent
-      DataTableComponent,
+      AddMagazineComponent,
+      DataTableComponent
    ],
    imports: [
       BrowserModule,
