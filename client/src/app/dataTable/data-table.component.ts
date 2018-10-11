@@ -49,12 +49,12 @@ export class DataTableComponent implements OnInit {
 
   ngOnInit() {
     this.initialize();
+    this.createForm();
   }
 
   editMode() {
     // allows input to change book fields
     this.edit = true;
-    this.createForm();
     // maps Book object value to the input fields
     this.form.patchValue({...this.dataArray[0]});
 
@@ -68,13 +68,13 @@ export class DataTableComponent implements OnInit {
 
   // save book to later send new Book object to update in backend
   saveBook() {
-      if (this.form.valid) {
-        this.dataArray[0] = {
-         ...this.form.value
-        };
-        this.edit = false;
-        console.log(this.dataArray[0]);
-      }
+      // if (this.form.valid) {
+      //   this.dataArray[0] = {
+      //    ...this.form.value
+      //   };
+      //   this.edit = false;
+      //   console.log(this.dataArray[0]);
+      // }
     }
 
 }
