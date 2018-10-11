@@ -3,16 +3,30 @@ import {Producer} from "./movie/producer.model";
 import {Subtitle} from "./movie/subtitle.model";
 import {Dub} from "./movie/dub.model";
 import {CatalogItem} from "./catalogItem.model";
+import { CatalogItemType } from "src/app/enums/catalogItemType";
 
 export class Movie extends CatalogItem {
   director: string;
-  private producers: Set<Producer>;
-  private actors: Set<Actor>;
+  producers: Set<Producer>;
+  actors: Set<Actor>;
   language: string;
-  private subtitles: Set<Subtitle>;
-  private dubs: Set<Dub>;
+  subtitles: Set<Subtitle>;
+  dubs: Set<Dub>;
   releaseDate: String;
   runTime: number;
+  
+  constructor(itemType: CatalogItemType, id: number, qtyInStock: number, qtyOnLoan: number, titles: string,
+    param: {director: string; producers: Set<Producer>;actors: Set<Actor>; language: string; subtitles: Set<Subtitle>; dubs: Set<Dub>; releaseDate: String; runTime: number; }) {
+super(itemType, id, qtyInStock, qtyOnLoan, titles);
+this.director = param.director;
+this.dubs = param.dubs;
+this.actors = param.actors;
+this.language = param.language;
+this.producers = param.producers;
+this.releaseDate = param.releaseDate;
+this.runTime = param.runTime;
+this.subtitles = param.subtitles;
+}
 
   public addProducer(producer: Producer) {
     this.producers.add(producer);
@@ -53,4 +67,20 @@ export class Movie extends CatalogItem {
     this.dubs.delete(dub);
     dub.getMovies().delete(this);
   }
+
+    public toString = () : string => {
+    return "Product Details" + "\n" +
+      "You are viewing a " + this.itemType + "." +
+      this.itemType + " is derived from" + CatalogItem.name + "." + "\n\n" +
+      
+      "Director: "
+      + this.director + "," + "\n" + "Producers: "
+      + this.producers + "," + "\n" + "Actors: "
+      + this.actors + "," + "\n" + "Language: "
+      + this.language + "," + "\n" + "Subtitles: "
+      + this.subtitles + "," + '\n' + "Release Date: "
+      + this.releaseDate + "," + "\n" + "Run-time: "
+      + this.runTime + " ";
+  }
+
 }

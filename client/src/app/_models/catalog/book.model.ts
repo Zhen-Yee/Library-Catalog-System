@@ -24,4 +24,20 @@ export class Book extends CatalogItem {
   language: string;
   isbn10: string;
   isbn13: string;
+
+  public toString = () : string => {
+    return "Product Details" + "\n\n" +
+      "You are viewing a " + this.itemType + "." +
+      this.itemType + " is derived from" + CatalogItem.name + "." + "\n\n" +
+      "Author: "
+      + this.author + "," + "\n" + "Format: "
+      + this.format + "," + "\n" + "Pages: "
+      + this.pages + "," + "\n" + "Publisher: "
+      + this.publisher + "," + "\n" + "Language: "
+      + this.language + "," + '\n' + "Year Of Publication: "
+      + this.yearOfPublication + "," + "\n" + "ISBN10: "
+      + this.isbn10  + "," + "\n" + "ISBN13: "
+      + this.isbn13 + " ";
+  }
+
 }
