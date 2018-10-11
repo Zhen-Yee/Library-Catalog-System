@@ -3,7 +3,6 @@ import {Book} from "../_models/catalog/book.model";
 import {Magazine} from "../_models/catalog/magazine.model";
 import {CatalogItemType} from "../enums/catalogItemType";
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
@@ -20,16 +19,14 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 })
 export class DataTableComponent implements OnInit {
 
-  constructor( private fb: FormBuilder) {
-
+  constructor() {
+    
   }
 
   //Generated Data
   dataArray: CatalogItem[];
   columnsToDisplay: string[] = ['itemType', 'id', 'qtyInStock', 'qtyInLoan', 'titles'];
   expandedElement: CatalogItem;
-  form: FormGroup;
-  edit: boolean;
 
   initialize() {
     this.dataArray = [new Book(
@@ -49,32 +46,6 @@ export class DataTableComponent implements OnInit {
 
   ngOnInit() {
     this.initialize();
-    this.createForm();
   }
-
-  editMode() {
-    // allows input to change book fields
-    this.edit = true;
-    // maps Book object value to the input fields
-    this.form.patchValue({...this.dataArray[0]});
-
-  }
-  createForm() {
-    this.form = this.fb.group({
-      // book formgroup matching a book object with validators
-        name: ["", Validators.required],
-    });
-  }
-
-  // save book to later send new Book object to update in backend
-  saveBook() {
-      // if (this.form.valid) {
-      //   this.dataArray[0] = {
-      //    ...this.form.value
-      //   };
-      //   this.edit = false;
-      //   console.log(this.dataArray[0]);
-      // }
-    }
 
 }
