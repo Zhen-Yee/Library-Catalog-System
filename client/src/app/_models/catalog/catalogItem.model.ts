@@ -3,4 +3,5 @@ abstract class CatalogItem{
   qtyInStock: number;
   qtyOnLoan: number;
   titles: string;
+  itemType: CatalogItemType;
 }
