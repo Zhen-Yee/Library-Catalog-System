@@ -45,7 +45,7 @@ import { AddMagazineComponent } from "./add-item/add-magazine/add-magazine.compo
       AddItemComponent,
       AddBookComponent,
       AddMusicComponent,
-      AddMoviesComponent
+      AddMoviesComponent,
       AddMagazineComponent
    ],
    imports: [
