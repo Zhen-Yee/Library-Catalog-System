@@ -9,7 +9,7 @@ import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
 import { TestComponent } from "./test/test.component";
 import { MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, MatMenuModule, MatDialogModule,
-MatCardModule} from "@angular/material";
+MatCardModule, MatSelectModule} from "@angular/material";
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -23,6 +23,7 @@ import { RegistrationErrorComponent } from "./registration/registration_error.co
 import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import { UserService } from "./_services/user.service";
+import { DeleteItemComponent } from './delete-item/delete-item.component';
 
 @NgModule({
    declarations: [
@@ -35,7 +36,8 @@ import { UserService } from "./_services/user.service";
       LoginComponent,
       ConfirmationComponent,
       RegistrationErrorComponent,
-      ActiveUsersSideNavComponent
+      ActiveUsersSideNavComponent,
+      DeleteItemComponent
    ],
    imports: [
       BrowserModule,
@@ -47,6 +49,7 @@ import { UserService } from "./_services/user.service";
       MatMenuModule,
       MatDialogModule,
       MatCardModule,
+      MatSelectModule,
       MatSidenavModule,
       HttpClientModule,
       FormsModule,
@@ -57,14 +60,14 @@ import { UserService } from "./_services/user.service";
       MatIconModule
    ],
    entryComponents: [
-     LoginComponent,
-     ConfirmationComponent,
-     RegistrationErrorComponent
+      LoginComponent,
+      ConfirmationComponent,
+      RegistrationErrorComponent
    ],
    providers: [
-    UserService,
-    PasswordService,
-    AdminAuthenticateGuard
+      UserService,
+      PasswordService,
+      AdminAuthenticateGuard
    ],
    bootstrap: [
       AppComponent
