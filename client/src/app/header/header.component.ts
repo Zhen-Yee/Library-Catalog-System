@@ -25,6 +25,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(["/"]);
   }
 
+  redirectCatalogPage() {
+    this.router.navigate(['/catalog']);
+  }
+
   openDialog() {
     const dialogRef = this.dialog.open(LoginComponent);
 

@@ -28,7 +28,8 @@ import { AddItemComponent } from "./add-item/add-item.component";
 import { AddMusicComponent } from './add-item/add-music/add-music.component';
 import { AddMoviesComponent } from './add-item/add-movies/add-movies.component';
 import { AddMagazineComponent } from "./add-item/add-magazine/add-magazine.component";
-
+import { DataTableComponent } from './dataTable/data-table.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
    declarations: [
@@ -47,6 +48,7 @@ import { AddMagazineComponent } from "./add-item/add-magazine/add-magazine.compo
       AddMusicComponent,
       AddMoviesComponent,
       AddMagazineComponent
+      DataTableComponent,
    ],
    imports: [
       BrowserModule,
@@ -66,7 +68,8 @@ import { AddMagazineComponent } from "./add-item/add-magazine/add-magazine.compo
       routing,
       ReactiveFormsModule,
       MatListModule,
-      MatIconModule
+      MatIconModule,
+      MatTableModule,
    ],
    entryComponents: [
       LoginComponent,
