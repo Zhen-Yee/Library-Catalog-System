@@ -19,11 +19,13 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 })
 export class DataTableComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    
+  }
 
   //Generated Data
   dataArray: CatalogItem[];
-  columnsToDisplay: string[]= ['itemType', 'id', 'qtyInStock', 'qtyInLoan', 'titles'];
+  columnsToDisplay: string[] = ['itemType', 'id', 'qtyInStock', 'qtyInLoan', 'titles'];
   expandedElement: CatalogItem;
 
   initialize() {

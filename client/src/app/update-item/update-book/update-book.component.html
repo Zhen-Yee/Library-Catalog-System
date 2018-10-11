@@ -1,0 +1,56 @@
+<!--component html goes here -->
+<div class="container" *ngIf="edit" [formGroup]="form">
+    <mat-form-field>
+        <input matInput formControlName="titles" placeholder="Title">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput formControlName="author" placeholder="Author">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput formControlName="format" placeholder="Format">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput formControlName="pages" placeholder="Pages">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput formControlName="publisher" placeholder="Publisher">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput formControlName="yearOfPublication" placeholder="Year of Publication">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput formControlName="language" placeholder="Language">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput formControlName="isbn10" placeholder="ISBN-10">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput formControlName="isbn13" placeholder="ISBN-13">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput formControlName="qtyInStock" placeholder="Quantity In Stock">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput formControlName="qtyOnLoan" placeholder="Quantity On Loan">
+    </mat-form-field>
+
+    <mat-form-field>
+            <input matInput formControlName="id" placeholder="ID">
+    </mat-form-field>
+
+    <mat-form-field>
+            <input matInput formControlName="itemType" placeholder="Item Type">
+          </mat-form-field>
+</div>
+<button (click)="editMode()">Edit</button>
+<button (click)="saveBook()">Save</button>

@@ -24,4 +24,8 @@ export class Book extends CatalogItem {
   language: string;
   isbn10: string;
   isbn13: string;
+
+  public toString = (): string => {
+    return 'Book name';
+  }
 }

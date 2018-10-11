@@ -30,6 +30,8 @@ import { AddMoviesComponent } from "./add-item/add-movies/add-movies.component";
 import { AddMagazineComponent } from "./add-item/add-magazine/add-magazine.component";
 import { DataTableComponent } from "./dataTable/data-table.component";
 import { MatTableModule } from "@angular/material/table";
+import { UpdateBookComponent } from "./update-item/update-book/update-book.component";
+import { UpdateItemComponent } from "./update-item/update-item.component";
 
 @NgModule({
    declarations: [
@@ -48,7 +50,9 @@ import { MatTableModule } from "@angular/material/table";
       AddMusicComponent,
       AddMoviesComponent,
       AddMagazineComponent,
-      DataTableComponent
+      DataTableComponent,
+      UpdateItemComponent,
+      UpdateBookComponent,
    ],
    imports: [
       BrowserModule,
