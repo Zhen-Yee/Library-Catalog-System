@@ -27,6 +27,7 @@ import { UserService } from "./_services/user.service";
 import { AddItemComponent } from "./add-item/add-item.component";
 import { AddMusicComponent } from './add-item/add-music/add-music.component';
 import { AddMoviesComponent } from './add-item/add-movies/add-movies.component';
+import { AddMagazineComponent } from "./add-item/add-magazine/add-magazine.component";
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { AddMoviesComponent } from './add-item/add-movies/add-movies.component';
       AddBookComponent,
       AddMusicComponent,
       AddMoviesComponent
+      AddMagazineComponent
    ],
    imports: [
       BrowserModule,
