@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder,FormGroup, Validators} from "@angular/forms";
-
+import {MusicModel} from "../../_models/catalog/music.model";
 
 @Component({
   selector: 'app-add-music',
@@ -14,14 +14,21 @@ export class AddMusicComponent implements OnInit {
   ngOnInit() {
      this.Fg = this.Form.group({
         title: ["", Validators.required],
+        type: ["", Validators.required],
         artist: ["", Validators.required],
-        asin: ["", Validators.required],
         label: ["", Validators.required],
-        release_date: ["", Validators.required],
-        type: ["", Validators.required]
+        releaseDate: ["", Validators.required],
+        asin: ["", Validators.required]
      });
   }
 
   //addMusic Function
-
+    addmusic(){
+       if (this.Fg.valid){
+           const Music: MusicModel ={
+             ...this.Fg.value
+           };
+           console.log(Music);
+       }
+    }
 }
