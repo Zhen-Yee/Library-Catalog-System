@@ -26,6 +26,6 @@ export class Book extends CatalogItem {
   isbn13: string;
 
   public toString = (): string => {
-    return 'Book name';
+    return this.itemType;
   }
 }
