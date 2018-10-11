@@ -26,6 +26,7 @@ import {MatIconModule} from "@angular/material/icon";
 import { UserService } from "./_services/user.service";
 import { AddItemComponent } from "./add-item/add-item.component";
 import { AddMusicComponent } from './add-item/add-music/add-music.component';
+import { AddMoviesComponent } from './add-item/add-movies/add-movies.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { AddMusicComponent } from './add-item/add-music/add-music.component';
       ActiveUsersSideNavComponent,
       AddItemComponent,
       AddBookComponent,
-      AddMusicComponent
+      AddMusicComponent,
+      AddMoviesComponent
    ],
    imports: [
       BrowserModule,
