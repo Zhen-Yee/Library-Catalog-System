@@ -1,0 +1,17 @@
+<mat-form-field>
+    <mat-select placeholder="Pick a type" [(ngModel)]="selectedValue">
+        <mat-option *ngFor="let item of items" [value]="item.value">
+            {{item.viewValue}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<p>
+    Selected value:
+    {{selectedValue}}
+</p>
+<div *ngIf="selectedValue === 'book'">
+    <app-add-book></app-add-book>
+</div>
+<div *ngIf="selectedValue === 'magazine'">
+    <app-add-magazine></app-add-magazine>
+</div>
