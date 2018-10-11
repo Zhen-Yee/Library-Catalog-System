@@ -58,5 +58,9 @@ export class HeaderComponent implements OnInit {
     return this.user.isAdmin;
   }
 
+  redirectToDeleteItemPage() {
+    this.router.navigate(["/deleteitem"]);
+  }
+
 }
 

@@ -22,9 +22,15 @@ export class DataTableComponent implements OnInit {
   constructor() { }
 
   //Generated Data
+  deleteNumber: number;
   dataArray: CatalogItem[];
   columnsToDisplay: string[]= ['itemType', 'id', 'qtyInStock', 'qtyInLoan', 'titles'];
   expandedElement: CatalogItem;
+
+  delete(itemType: CatalogItem){
+   itemType.qtyInStock = itemType.qtyInStock - this.deleteNumber
+   console.log(itemType.qtyInStock)
+  }
 
   initialize() {
     this.dataArray = [new Book(

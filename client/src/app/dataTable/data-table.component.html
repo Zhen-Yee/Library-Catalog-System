@@ -14,6 +14,14 @@
         <div class="example-element-description">
           {{element.toString()}}
         </div>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="Item(s) to be deleted" type = "number" [(ngModel)] ="this.deleteNumber">
+          </mat-form-field>
+          <button mat-raised-button color="white" type="submit" style="float: left" (click)="delete(element)">
+              Delete
+            </button>
+        </div>
       </div>
     </td>
   </ng-container>

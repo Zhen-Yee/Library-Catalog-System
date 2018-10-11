@@ -9,7 +9,7 @@ import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
 import { TestComponent } from "./test/test.component";
 import { MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, MatMenuModule, MatDialogModule,
-MatCardModule} from "@angular/material";
+MatCardModule, MatSelectModule} from "@angular/material";
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -25,6 +25,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { UserService } from "./_services/user.service";
 import { DataTableComponent } from './dataTable/data-table.component';
 import { MatTableModule } from '@angular/material/table';
+import { DeleteItemComponent } from './delete-item/delete-item.component';
 
 @NgModule({
    declarations: [
@@ -39,6 +40,7 @@ import { MatTableModule } from '@angular/material/table';
       RegistrationErrorComponent,
       ActiveUsersSideNavComponent,
       DataTableComponent,
+      DeleteItemComponent
    ],
    imports: [
       BrowserModule,
@@ -50,6 +52,7 @@ import { MatTableModule } from '@angular/material/table';
       MatMenuModule,
       MatDialogModule,
       MatCardModule,
+      MatSelectModule,
       MatSidenavModule,
       HttpClientModule,
       FormsModule,
@@ -61,14 +64,14 @@ import { MatTableModule } from '@angular/material/table';
       MatTableModule,
    ],
    entryComponents: [
-     LoginComponent,
-     ConfirmationComponent,
-     RegistrationErrorComponent
+      LoginComponent,
+      ConfirmationComponent,
+      RegistrationErrorComponent
    ],
    providers: [
-    UserService,
-    PasswordService,
-    AdminAuthenticateGuard
+      UserService,
+      PasswordService,
+      AdminAuthenticateGuard
    ],
    bootstrap: [
       AppComponent
