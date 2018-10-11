@@ -14,6 +14,8 @@
         <div class="example-element-description">
           {{element}}
           <update-book *ngIf="element.getType() === 'Book'" [book]="element"></update-book>
+          <update-magazine *ngIf="element.getType() === 'Magazine'" [magazine]="element"></update-magazine>
+          <update-music *ngIf="element.getType() === 'Music'" [music]="element"></update-music>
         </div>
       </div>
     </td>

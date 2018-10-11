@@ -31,10 +31,10 @@ export class UpdateMagazineComponent implements OnInit {
 
     createForm() {
         this.form = this.fb.group({
-            // Magazine formgroup matching a book object with validators
+            // Magazine formgroup matching a magazine object with validators
               titles: ["", Validators.required],
               publisher: ["", Validators.required],
-              yearOfPublication: ["", Validators.required],
+              dateOfPublication: ["", Validators.required],
               language: ["", Validators.required],
               isbn10: ["", Validators.required],
               isbn13: ["", Validators.required],
@@ -43,8 +43,8 @@ export class UpdateMagazineComponent implements OnInit {
           });
     }
 
-    // save book to later send new Magazine object to update in backend
-    saveBook() {
+    // save magazine to later send new Magazine object to update in backend
+    saveMagazine() {
         if (this.form.valid) {
           this.magazine = {
            ...this.form.value

@@ -5,23 +5,23 @@
     </mat-form-field>
 
     <mat-form-field>
-        <input matInput formControlName="publisher" placeholder="Publisher">
+        <input matInput formControlName="artist" placeholder="Artist">
     </mat-form-field>
 
     <mat-form-field>
-        <input matInput formControlName="dateOfPublication" placeholder="Date of Publication">
+        <input matInput formControlName="releaseDate" placeholder="Release Date">
     </mat-form-field>
 
     <mat-form-field>
-        <input matInput formControlName="language" placeholder="Language">
+        <input matInput formControlName="type" placeholder="Type">
     </mat-form-field>
 
     <mat-form-field>
-        <input matInput formControlName="isbn10" placeholder="ISBN-10">
+        <input matInput formControlName="label" placeholder="Label">
     </mat-form-field>
 
     <mat-form-field>
-        <input matInput formControlName="isbn13" placeholder="ISBN-13">
+        <input matInput formControlName="asin" placeholder="asin">
     </mat-form-field>
 
     <mat-form-field>
@@ -35,5 +35,5 @@
         </div>
 
 <button (click)="editMode()"> Edit</button>
-<button *ngIf="edit" (click)="saveMagazine()">Save</button>
+<button *ngIf="edit" (click)="saveMusic()">Save</button>
 

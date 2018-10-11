@@ -32,6 +32,8 @@ import { DataTableComponent } from "./dataTable/data-table.component";
 import { MatTableModule } from "@angular/material/table";
 import { UpdateBookComponent } from "./update-item/update-book/update-book.component";
 import { UpdateItemComponent } from "./update-item/update-item.component";
+import { UpdateMagazineComponent } from "./update-item/update-magazine/update-magazine.component";
+import { UpdateMusicComponent } from "./update-item/update-music/update-music.component";
 
 @NgModule({
    declarations: [
@@ -53,6 +55,8 @@ import { UpdateItemComponent } from "./update-item/update-item.component";
       DataTableComponent,
       UpdateItemComponent,
       UpdateBookComponent,
+      UpdateMagazineComponent,
+      UpdateMusicComponent
    ],
    imports: [
       BrowserModule,
