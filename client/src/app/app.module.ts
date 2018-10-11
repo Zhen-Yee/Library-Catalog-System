@@ -25,6 +25,7 @@ import {MatListModule} from "@angular/material/list";
 import {MatIconModule} from "@angular/material/icon";
 import { UserService } from "./_services/user.service";
 import { AddItemComponent } from "./add-item/add-item.component";
+import { AddMagazineComponent } from "./add-item/add-magazine/add-magazine.component";
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { AddItemComponent } from "./add-item/add-item.component";
       RegistrationErrorComponent,
       ActiveUsersSideNavComponent,
       AddItemComponent,
-      AddBookComponent
+      AddBookComponent,
+      AddMagazineComponent
    ],
    imports: [
       BrowserModule,
