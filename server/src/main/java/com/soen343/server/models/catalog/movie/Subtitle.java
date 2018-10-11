@@ -23,6 +23,21 @@ public class Subtitle {
         return movies;
     }
 
+    /**
+     * Use this constructor when it's a new subtitle
+     */
+    public Subtitle(String subLanguage) {
+        this.subLanguage = subLanguage;
+    }
+
+    /**
+     * Use this constructor when the subtitle already exists in db
+     */
+    public Subtitle(String subLanguage, Set<Movie> movies) {
+        this.subLanguage = subLanguage;
+        this.movies = movies;
+    }
+
     @Override
     public String toString() {
         return "Subtitle [id=" + id + ", subLanguage=" + subLanguage + "]";

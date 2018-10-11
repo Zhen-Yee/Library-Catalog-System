@@ -34,6 +34,9 @@ public class Movie extends CatalogItem{
     @Min(0)
     private int runTime;
 
+    /**
+     * use this constructor when building movie from database.
+     */
     public Movie(String title, int qtyInStock, int qtyOnLoan, String director, Set<Producer> producers, Set<Actor> actors,
                  String language, Set<Subtitle> subtitles, Set<Dub> dubs, String releaseDate, int runTime) {
         super(title, qtyInStock, qtyOnLoan);
@@ -43,6 +46,17 @@ public class Movie extends CatalogItem{
         this.language = language;
         this.subtitles = subtitles;
         this.dubs = dubs;
+        this.releaseDate = releaseDate;
+        this.runTime = runTime;
+    }
+
+    /**
+     * For new movies, make sure to use the add methods to add actors, dubs, producers, subs
+     */
+    public Movie(String title, int qtyInStock, int qtyOnLoan, String director, String language, String releaseDate, int runTime) {
+        super(title, qtyInStock, qtyOnLoan);
+        this.director = director;
+        this.language = language;
         this.releaseDate = releaseDate;
         this.runTime = runTime;
     }
