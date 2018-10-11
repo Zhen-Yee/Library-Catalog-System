@@ -3,8 +3,8 @@ import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomePageComponent } from './homepage/homepage.component';
 import { RegisterComponent }   from './registration/register.component';
-import { ConfirmationComponent }   from './registration/confirmation.component';
-import { TestComponent }   from './test/test.component';
+import {DataTableComponent} from "./dataTable/data-table.component";
+
 
 
 
@@ -18,6 +18,11 @@ const appRoutes: Routes = [
     path: 'register',
     canActivate: [AdminAuthenticateGuard],
     component: RegisterComponent
+  },
+  {
+    path: 'catalog',
+    canActivate: [AdminAuthenticateGuard],
+    component: DataTableComponent
   }
  ];
 

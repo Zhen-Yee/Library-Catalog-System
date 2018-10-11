@@ -23,6 +23,8 @@ import { RegistrationErrorComponent } from "./registration/registration_error.co
 import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
 import { UserService } from "./_services/user.service";
+import { DataTableComponent } from './dataTable/data-table.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
    declarations: [
@@ -35,7 +37,8 @@ import { UserService } from "./_services/user.service";
       LoginComponent,
       ConfirmationComponent,
       RegistrationErrorComponent,
-      ActiveUsersSideNavComponent
+      ActiveUsersSideNavComponent,
+      DataTableComponent,
    ],
    imports: [
       BrowserModule,
@@ -54,7 +57,8 @@ import { UserService } from "./_services/user.service";
       routing,
       ReactiveFormsModule,
       MatListModule,
-      MatIconModule
+      MatIconModule,
+      MatTableModule,
    ],
    entryComponents: [
      LoginComponent,
