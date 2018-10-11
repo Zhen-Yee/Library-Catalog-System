@@ -17,6 +17,7 @@ public class User {
     private String phoneNumber;
     private String userName;
     private String password;
+
     private boolean isAdmin;
     private boolean isOnline;
 
@@ -34,6 +35,7 @@ public class User {
         this.isAdmin = isAdmin;
         this.isOnline = isOnline;
     }
+
 
     /**
      * Getter Methods
@@ -88,6 +90,7 @@ public class User {
                 ", isOnline=" + isOnline() +
                 '}';
     }
+
 
     @Override
     public boolean equals(Object o) {

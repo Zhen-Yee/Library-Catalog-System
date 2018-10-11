@@ -1,0 +1,29 @@
+<div class="container" [formGroup]="form">
+
+  <mat-form-field>
+    <input matInput formControlName="title" placeholder="Title">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput formControlName="type" placeholder="Type">
+  </mat-form-field>
+
+  <mat-form-field>
+      <input matInput formControlName="artist" placeholder="Artist">
+  </mat-form-field>
+
+  <mat-form-field>
+      <input matInput formControlName="label" placeholder="Label">
+  </mat-form-field>
+
+  <mat-form-field>
+      <input matInput formControlName="releaseDate" placeholder="Release Date">
+  </mat-form-field>
+
+  <mat-form-field>
+      <input matInput formControlName="asin" placeholder="ASIN">
+  </mat-form-field>      
+</div>
+<button color="primary"  mat-raised-button (click) = "addMusic()">
+            Add Music
+</button>
