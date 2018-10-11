@@ -3,7 +3,7 @@ import {Book} from "../_models/catalog/book.model";
 import {Magazine} from "../_models/catalog/magazine.model";
 import {Movie} from "../_models/catalog/movie.model";
 import {Music} from "../_models/catalog/music.model";
-import {CatalogItemType} from "../enums/catalogItemType";
+import {CatalogItem} from "../_models/catalog/catalogItem.model";
 
 @Component({
   selector: 'app-data-table',
@@ -16,11 +16,12 @@ export class DataTableComponent implements OnInit {
 
   //Generated Data
   dataArray = [];
-  columnsToDisplay: CatalogItemType[];
+  columnNames = [];
+  columnsToDisplay: string[]= ['title', 'author', 'quantity', 'catalog type'];//{title, author, quantity, catalog_type};
   expandedElement: CatalogItem;
 
   initialize(){
-    this.columnsToDisplay = Object.values(CatalogItemType);
+    this.columnsToDisplay = this.columnsToDisplay;
   }
   ngOnInit() {
     this.initialize();
