@@ -2,6 +2,7 @@ import {Actor} from "./movie/actor.model";
 import {Producer} from "./movie/producer.model";
 import {Subtitle} from "./movie/subtitle.model";
 import {Dub} from "./movie/dub.model";
+import {CatalogItem} from "./catalogItem.model";
 
 export class Movie extends CatalogItem {
   director: string;
