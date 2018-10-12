@@ -7,6 +7,8 @@ import { RegisterComponent } from "./registration/register.component";
 import { TestComponent } from "./test/test.component";
 import { AddItemComponent } from "./add-item/add-item.component";
 import {DataTableComponent} from "./dataTable/data-table.component";
+import { ConfirmationComponent }   from './registration/confirmation.component';
+
 
 const appRoutes: Routes = [
   {
@@ -32,7 +34,8 @@ const appRoutes: Routes = [
     path: "catalog",
     canActivate: [AdminAuthenticateGuard],
     component: DataTableComponent
-  }
+  },
+
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

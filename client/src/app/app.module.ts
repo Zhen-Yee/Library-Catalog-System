@@ -10,7 +10,7 @@ import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
 import { TestComponent } from "./test/test.component";
 import { MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, MatMenuModule, MatDialogModule,
-MatCardModule, MatSelectModule} from "@angular/material";
+MatCardModule, MatSelectModule, MatSnackBarModule,} from "@angular/material";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -24,6 +24,7 @@ import { RegistrationErrorComponent } from "./registration/registration_error.co
 import {MatListModule} from "@angular/material/list";
 import {MatIconModule} from "@angular/material/icon";
 import { UserService } from "./_services/user.service";
+import { DeleteItemComponent } from './delete-item/delete-item.component';
 import { AddItemComponent } from "./add-item/add-item.component";
 import { AddMusicComponent } from "./add-item/add-music/add-music.component";
 import { AddMoviesComponent } from "./add-item/add-movies/add-movies.component";
@@ -34,6 +35,7 @@ import { UpdateBookComponent } from "./update-item/update-book/update-book.compo
 import { UpdateMagazineComponent } from "./update-item/update-magazine/update-magazine.component";
 import { UpdateMusicComponent } from "./update-item/update-music/update-music.component";
 import { PromoteUserComponent } from "./promote-user/promote-user.component";
+import { DeleteItemErrorBoxComponent } from './delete-item-error-box/delete-item-error-box.component';
 
 @NgModule({
    declarations: [
@@ -53,10 +55,12 @@ import { PromoteUserComponent } from "./promote-user/promote-user.component";
       AddMoviesComponent,
       AddMagazineComponent,
       DataTableComponent,
+      DeleteItemComponent,
       UpdateBookComponent,
       UpdateMagazineComponent,
       UpdateMusicComponent,
-      PromoteUserComponent
+      PromoteUserComponent,
+      DeleteItemErrorBoxComponent
    ],
    imports: [
       BrowserModule,
@@ -78,11 +82,13 @@ import { PromoteUserComponent } from "./promote-user/promote-user.component";
       MatListModule,
       MatIconModule,
       MatTableModule,
+      MatSnackBarModule
    ],
    entryComponents: [
       LoginComponent,
       ConfirmationComponent,
-      RegistrationErrorComponent
+      RegistrationErrorComponent,
+      DeleteItemErrorBoxComponent
    ],
    providers: [
       UserService,
