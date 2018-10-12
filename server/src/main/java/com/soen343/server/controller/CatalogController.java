@@ -52,8 +52,13 @@ public class CatalogController {
     }
 
     @PostMapping("/updateMusic")
-    public void updateMusic(@RequestBody Book music) {
+    public void updateMusic(@RequestBody Music music) {
         System.out.println(music);
+    }
+
+    @PostMapping("/updateMagazine")
+    public void updateMagazine(@RequestBody Magazine magazine) {
+        System.out.println(magazine);
     }
 
 }
