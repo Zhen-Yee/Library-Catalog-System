@@ -3,7 +3,6 @@ package com.soen343.server.controller;
 import com.soen343.server.Catalog;
 import com.soen343.server.models.catalog.*;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 
 @RestController
@@ -31,7 +30,7 @@ public class CatalogController {
     }
 
     @PostMapping("/addMusic")
-    public void addMagazine(@RequestBody Music music){
+    public void addMusic(@RequestBody Music music){
         catalog.addCatalogItem(music);
     }
 
