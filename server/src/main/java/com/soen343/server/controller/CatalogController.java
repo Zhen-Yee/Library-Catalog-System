@@ -39,8 +39,9 @@ public class CatalogController {
         catalog.addCatalogItem(movie);
     }
 
-    @PutMapping("updateBook")
+    @PostMapping("/updateBook")
     public void updateBook(@RequestBody Book book) {
         System.out.println(book);
+        System.out.print("JESUSEUSUESUEU");
     }
 }

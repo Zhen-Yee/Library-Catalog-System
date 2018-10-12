@@ -13,7 +13,7 @@ export class UpdateBookComponent implements OnInit {
     form: FormGroup;
     edit: boolean;
     @Input() book;
-    constructor( private fb: FormBuilder) {
+    constructor( private fb: FormBuilder, private http: HttpClient) {
 
      }
 
@@ -76,7 +76,8 @@ export class UpdateBookComponent implements OnInit {
                 })
             this.edit = false;
             console.log(updatedBook)
-            
+            this.http.post<Book>("http://localhost:8090/catalog/updateBook", updatedBook)
+                .subscribe();
         }
       }
 }
