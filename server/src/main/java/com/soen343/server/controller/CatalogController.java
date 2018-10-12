@@ -38,4 +38,9 @@ public class CatalogController {
     public void addMovie(@RequestBody Movie movie) {
         catalog.addCatalogItem(movie);
     }
+
+    @PutMapping("updateBook")
+    public void updateBook(@RequestBody Book book) {
+        System.out.println(book);
+    }
 }

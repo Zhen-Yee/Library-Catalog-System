@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { Book } from "src/models/Example.models";
+import { Book } from "../../_models/catalog/book.model";
+import { HttpClient } from "@angular/common/http";
+
 
 @Component({
     selector: "update-book",
@@ -58,11 +60,23 @@ export class UpdateBookComponent implements OnInit {
     // save book to later send new Book object to update in backend
     saveBook() {
         if (this.form.valid) {
-          this.book = {
-           ...this.form.value
-          };
-          this.edit = false;
-          console.log(this.book);
+            this.book = {
+                ...this.form.value
+            };
+            const updatedBook = new Book(
+                this.book.itemType, this.book.id, this.book.qtyInStock, this.book.qtyOnLoan, this.book.title, {
+                  author: this.book.author,
+                  format: this.book.format,
+                  pages: this.book.pages,
+                  publisher: this.book.publisher,
+                  yearOfPublication: this.book.yearOfPublication,
+                  language: this.book.language,
+                  isbn10: this.book.isbn10,
+                  isbn13: this.book.isbn13
+                })
+            this.edit = false;
+            console.log(updatedBook)
+            
         }
       }
 }
