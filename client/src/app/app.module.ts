@@ -31,7 +31,6 @@ import { AddMagazineComponent } from "./add-item/add-magazine/add-magazine.compo
 import { DataTableComponent } from "./dataTable/data-table.component";
 import { MatTableModule } from "@angular/material/table";
 import { UpdateBookComponent } from "./update-item/update-book/update-book.component";
-import { UpdateItemComponent } from "./update-item/update-item.component";
 import { UpdateMagazineComponent } from "./update-item/update-magazine/update-magazine.component";
 import { UpdateMusicComponent } from "./update-item/update-music/update-music.component";
 
@@ -53,7 +52,6 @@ import { UpdateMusicComponent } from "./update-item/update-music/update-music.co
       AddMoviesComponent,
       AddMagazineComponent,
       DataTableComponent,
-      UpdateItemComponent,
       UpdateBookComponent,
       UpdateMagazineComponent,
       UpdateMusicComponent
