@@ -6,7 +6,7 @@ import {CatalogItemType} from "../enums/catalogItemType";
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {ViewChild} from '@angular/core';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatPaginator} from '@angular/material';
 
 @Component({
   selector: 'app-data-table',
@@ -42,19 +42,18 @@ export class DataTableComponent implements OnInit {
         isbn13: "2134"
       }),
       new Magazine(CatalogItemType.Magazine, 13, 13, 23, "Hello", {
-        publisher: "Travis", 
-        language: "Spanish", 
-        dateOfPublication: "August 2012", 
-        isbn10: "21321", 
+        publisher: "Travis",
+        language: "Spanish",
+        dateOfPublication: "August 2012",
+        isbn10: "21321",
         isbn13: "lol"
       }),
       new Music(CatalogItemType.Music, 13, 13, 23, "Hello",{
-    artist: 'ok',
-    label: 'ok',
-    releaseDate: 'ok',
-    asin: 'ok'
+        artist: 'ok',
+        label: 'ok',
+        releaseDate: 'ok',
+        asin: 'ok'
       }),];
-      
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
