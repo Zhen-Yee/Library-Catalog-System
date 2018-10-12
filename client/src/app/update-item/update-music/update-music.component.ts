@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { HttpClient } from "@angular/common/http";
-=======
 import { Component, Input, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
->>>>>>> e47229b0604c26029e2d75c94e86c143f2037770
+import { HttpClient } from "@angular/common/http";
 
 @Component({
     selector: "update-music",

@@ -20,8 +20,15 @@ public class CatalogController {
     }
 
     @PostMapping("/addBook")
-    public void addBook(@RequestBody Book book){
+    public boolean addBook(@RequestBody Book book){
+        // checks if book object is good or not
+        if(book != null){
         catalog.addCatalogItem(book);
+        return true;
+        }
+        else {
+            return false;
+        }
     }
 
     @PostMapping("/addMagazine")
