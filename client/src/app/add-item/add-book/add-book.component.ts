@@ -22,9 +22,9 @@ export class AddBookComponent implements OnInit {
       title: ["", Validators.required],
       author: ["", Validators.required],
       format: ["", Validators.required],
-      pages: ["", Validators.required],
+      pages: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
       publisher: ["", Validators.required],
-      yearOfPublication: ["", Validators.required],
+      yearOfPublication: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
       language: ["", Validators.required],
       isbn10: ["", Validators.required],
       isbn13: ["", Validators.required]
@@ -39,8 +39,8 @@ export class AddBookComponent implements OnInit {
       };
       console.log(book);
       this.http
-        .post<boolean>("http://localhost:8090/catalog/addBook", book)
-        .subscribe();
+        .post("http://localhost:8090/catalog/addBook", book)
+        .subscribe((confirmation) => console.log(confirmation));
     }
   }
 }
