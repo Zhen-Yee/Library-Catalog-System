@@ -10,7 +10,7 @@ import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
 import { TestComponent } from "./test/test.component";
 import { MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, MatMenuModule, MatDialogModule,
-MatCardModule, MatSelectModule} from "@angular/material";
+MatCardModule, MatSelectModule, MatSnackBarModule,} from "@angular/material";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -35,6 +35,7 @@ import { UpdateBookComponent } from "./update-item/update-book/update-book.compo
 import { UpdateMagazineComponent } from "./update-item/update-magazine/update-magazine.component";
 import { UpdateMusicComponent } from "./update-item/update-music/update-music.component";
 import { PromoteUserComponent } from "./promote-user/promote-user.component";
+import { DeleteItemErrorBoxComponent } from './delete-item-error-box/delete-item-error-box.component';
 
 @NgModule({
    declarations: [
@@ -58,7 +59,8 @@ import { PromoteUserComponent } from "./promote-user/promote-user.component";
       UpdateBookComponent,
       UpdateMagazineComponent,
       UpdateMusicComponent,
-      PromoteUserComponent
+      PromoteUserComponent,
+      DeleteItemErrorBoxComponent
    ],
    imports: [
       BrowserModule,
@@ -80,11 +82,13 @@ import { PromoteUserComponent } from "./promote-user/promote-user.component";
       MatListModule,
       MatIconModule,
       MatTableModule,
+      MatSnackBarModule
    ],
    entryComponents: [
       LoginComponent,
       ConfirmationComponent,
-      RegistrationErrorComponent
+      RegistrationErrorComponent,
+      DeleteItemErrorBoxComponent
    ],
    providers: [
       UserService,
