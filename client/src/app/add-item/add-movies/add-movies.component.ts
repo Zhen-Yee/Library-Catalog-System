@@ -15,17 +15,17 @@ export class AddMoviesComponent implements OnInit {
     this.f=this.ff.group({
       title: ["", Validators.required],
       director: ["", Validators.required],
-      //producers
-      //actors
-      language: ["",Validators.required],
-      //subtitles
-      //dubs
+      producers: ["", Validators.required],
+      actors: ["", Validators.required],
+      language: ["", Validators.required],
+      subtitles: ["", Validators.required],
+      dubs: ["", Validators.required],
       releaseDate: ["", Validators.required],
-      runTime: ["",Validators.required]
+      runTime: ["", Validators.required]
     });
   }
-  addMovie(){
-    
+  addMovie() {
+
   }
 
 }
