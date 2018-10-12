@@ -5,23 +5,11 @@
     </mat-form-field>
 
     <mat-form-field>
-        <input matInput formControlName="author" placeholder="Author">
-    </mat-form-field>
-
-    <mat-form-field>
-        <input matInput formControlName="format" placeholder="Format">
-    </mat-form-field>
-
-    <mat-form-field>
-        <input matInput formControlName="pages" placeholder="Pages">
-    </mat-form-field>
-
-    <mat-form-field>
         <input matInput formControlName="publisher" placeholder="Publisher">
     </mat-form-field>
 
     <mat-form-field>
-        <input matInput formControlName="yearOfPublication" placeholder="Year of Publication">
+        <input matInput formControlName="dateOfPublication" placeholder="Date of Publication">
     </mat-form-field>
 
     <mat-form-field>
@@ -44,16 +32,8 @@
         <input matInput formControlName="qtyOnLoan" placeholder="Quantity On Loan">
     </mat-form-field>
 
-    <mat-form-field>
-            <input matInput formControlName="id" placeholder="ID">
-    </mat-form-field>
-
-    <mat-form-field>
-            <input matInput formControlName="itemType" placeholder="Item Type">
-    </mat-form-field>
-
         </div>
 
 <button mat-button *ngIf="!edit" (click)="editMode()"> Edit</button>
-<button mat-button *ngIf="edit" (click)="saveBook()">Save</button>
+<button mat-button *ngIf="edit" (click)="saveMagazine()">Save</button>
 

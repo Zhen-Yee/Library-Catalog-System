@@ -14,6 +14,20 @@ export class Movie extends CatalogItem {
   releaseDate: String;
   runTime: number;
 
+  public toString = () : string => {
+    return "id:   " + this.id + "\n\n" 
+      + "Title:       " + this.titles + "\n" 
+      + "Director:       " + this.director + "\n" 
+      + "Producers:     " + this.producers + "\n" 
+      + "Actors:      " + this.actors + "\n" 
+      + "Language:      " + this.language + "\n" 
+      + "Subtitles:       " + this.subtitles + "\n" 
+      + "Release Date:      " + this.releaseDate + "\n" 
+      + "Runtime:      " + this.runTime + "\n\n" 
+      + "Quantity in Stock:      " + this.qtyInStock.toString() + "\n" 
+      + "Quantity on Loan:      " + this.qtyOnLoan.toString();
+  }
+
   public addProducer(producer: Producer) {
     this.producers.add(producer);
     producer.getMovies().add(this);

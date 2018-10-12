@@ -1,5 +1,5 @@
 table {
-  width: 100%;
+  width: 80%;
 }
 
 tr.example-detail-row {
@@ -45,4 +45,8 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .example-element-description-attribution {
   opacity: 0.5;
+}
+
+.edit {
+  margin-top: 20px;
 }
