@@ -1,13 +1,8 @@
 <div>
-  <mat-form-field>
-    <mat-select placeholder="Item(s) to be deleted">
-      <mat-option *ngFor="let delete of numDeleted" [value]="delete.value">
-        {{delete.viewValue}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
-
-<button mat-raised-button color="white" type = "submit">
-  Delete
-</button>
+    <mat-form-field >
+      <input matInput placeholder="Item(s) to be deleted" type = "number" [(ngModel)] ="this.deleteNumber">
+    </mat-form-field>
+    <button mat-raised-button color="white" type="submit" style="float: left" (click)="delete(element)">
+        Delete
+      </button>
+    </div>

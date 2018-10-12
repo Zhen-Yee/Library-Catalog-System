@@ -19,14 +19,11 @@
           <update-music *ngIf="element.getType() === 'Music'" [music]="element"></update-music>
           </div>
         </div>
+
         <div>
-          <mat-form-field>
-            <input matInput placeholder="Item(s) to be deleted" type = "number" [(ngModel)] ="this.deleteNumber">
-          </mat-form-field>
-          <button mat-raised-button color="white" type="submit" style="float: left" (click)="delete(element)">
-              Delete
-            </button>
+          <delete-item [element]="element"></delete-item>
         </div>
+
       </div>
     </td>
   </ng-container>
@@ -39,29 +36,3 @@
   </tr>
   <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
 </table>
-
-
-<!-- <mat-form-field *ngIf="edit">
-  <input matInput formControlName="author" placeholder="Author">
-</mat-form-field>
-<mat-form-field *ngIf="edit">
-  <input matInput formControlName="format" placeholder="Format">
-</mat-form-field>
-<mat-form-field *ngIf="edit">
-  <input matInput formControlName="pages" placeholder="Pages">
-</mat-form-field>
-<mat-form-field *ngIf="edit">
-  <input matInput formControlName="publisher" placeholder="Publisher">
-</mat-form-field>
-<mat-form-field *ngIf="edit">
-  <input matInput formControlName="yearOfPublication" placeholder="Year Of Publication">
-</mat-form-field>
-<mat-form-field *ngIf="edit">
-  <input matInput formControlName="language" placeholder="Language">
-</mat-form-field>
-<mat-form-field *ngIf="edit">
-  <input matInput formControlName="isbn10" placeholder="ISBN-10">
-</mat-form-field>
-<mat-form-field *ngIf="edit">
-  <input matInput formControlName="isbn13" placeholder="ISBN-13">
-</mat-form-field> -->

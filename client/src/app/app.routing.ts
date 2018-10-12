@@ -7,7 +7,6 @@ import { TestComponent } from "./test/test.component";
 import { AddItemComponent } from "./add-item/add-item.component";
 import {DataTableComponent} from "./dataTable/data-table.component";
 import { ConfirmationComponent }   from './registration/confirmation.component';
-import { DeleteItemComponent } from "./delete-item/delete-item.component";
 
 
 const appRoutes: Routes = [
@@ -30,11 +29,7 @@ const appRoutes: Routes = [
     canActivate: [AdminAuthenticateGuard],
     component: DataTableComponent
   },
-  {
-    path: "deleteitem",
-    canActivate: [AdminAuthenticateGuard],
-    component: DeleteItemComponent
-  }
+
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

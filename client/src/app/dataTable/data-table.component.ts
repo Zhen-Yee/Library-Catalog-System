@@ -5,6 +5,7 @@ import {Music} from "../_models/catalog/music.model";
 import {CatalogItemType} from "../enums/catalogItemType";
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {DeleteItemComponent} from "../delete-item/delete-item.component";
 
 @Component({
   selector: 'app-data-table',
@@ -21,7 +22,6 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 export class DataTableComponent implements OnInit {
 
   constructor() {
-    
   }
 
   //Generated Data
