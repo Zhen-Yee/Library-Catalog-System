@@ -1,3 +1,4 @@
+import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Book } from "../../_models/catalog/book.model";
@@ -9,7 +10,7 @@ import { Book } from "../../_models/catalog/book.model";
 })
 export class AddBookComponent implements OnInit {
   form: FormGroup;
-  constructor( private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private http: HttpClient) {}
 
   ngOnInit() {
     this.createForm();
@@ -18,15 +19,15 @@ export class AddBookComponent implements OnInit {
   createForm() {
     this.form = this.fb.group({
       // book formgroup matching a book object with validators
-        titles: ["", Validators.required],
-        author: ["", Validators.required],
-        format: ["", Validators.required],
-        pages: ["", Validators.required],
-        publisher: ["", Validators.required],
-        yearOfPublication: ["", Validators.required],
-        language: ["", Validators.required],
-        isbn10: ["", Validators.required],
-        isbn13: ["", Validators.required],
+      title: ["", Validators.required],
+      author: ["", Validators.required],
+      format: ["", Validators.required],
+      pages: ["", Validators.required],
+      publisher: ["", Validators.required],
+      yearOfPublication: ["", Validators.required],
+      language: ["", Validators.required],
+      isbn10: ["", Validators.required],
+      isbn13: ["", Validators.required]
     });
   }
 
@@ -34,10 +35,12 @@ export class AddBookComponent implements OnInit {
     if (this.form.valid) {
       // using spread operator to pass the values to the object
       const book: Book = {
-       ...this.form.value
+        ...this.form.value
       };
       console.log(book);
+      this.http
+        .post<boolean>("http://localhost:8090/catalog/addBook", book)
+        .subscribe();
     }
   }
-
 }

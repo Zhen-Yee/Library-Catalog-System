@@ -1,21 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { Book } from "../_models/catalog/book.model";
-import { Magazine } from "../_models/catalog/magazine.model";
-import { Music } from "../_models/catalog/music.model";
-import { Movie } from "../_models/catalog/movie.model"
-import { CatalogItemType } from "../enums/catalogItemType";
-import { CatalogItem } from "../_models/catalog/catalogItem.model";
-import { animate, state, style, transition, trigger } from "@angular/animations";
+import {Component, OnInit} from "@angular/core";
+import {Book} from "../_models/catalog/book.model";
+import {Magazine} from "../_models/catalog/magazine.model";
+import {Music} from "../_models/catalog/music.model";
+import {CatalogItemType} from "../enums/catalogItemType";
+import {CatalogItem} from "../_models/catalog/catalogItem.model";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
-  selector: 'app-data-table',
-  templateUrl: './data-table.component.html',
-  styleUrls: ['./data-table.component.css'],
+  selector: "app-data-table",
+  templateUrl: "./data-table.component.html",
+  styleUrls: ["./data-table.component.css"],
   animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0', display: 'none' })),
-      state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    trigger("detailExpand", [
+      state("collapsed", style({height: "0px", minHeight: "0", display: "none"})),
+      state("expanded", style({height: "*"})),
+      transition("expanded <=> collapsed", animate("225ms cubic-bezier(0.4, 0.0, 0.2, 1)")),
     ]),
   ],
 })
@@ -25,9 +24,9 @@ export class DataTableComponent implements OnInit {
 
   }
 
-  //Generated Data
+  // Generated Data
   dataArray: CatalogItem[];
-  columnsToDisplay: string[] = ['itemType', 'id', 'qtyInStock', 'qtyInLoan', 'titles'];
+  columnsToDisplay: string[] = ["itemType", "id", "qtyInStock", "qtyInLoan", "title"];
   expandedElement: CatalogItem;
 
   initialize() {
@@ -42,15 +41,14 @@ export class DataTableComponent implements OnInit {
         isbn10: "123213",
         isbn13: "2134"
       }),
-    new Magazine(CatalogItemType.Magazine, 13, 13, 23, "Hello",
-      { publisher: "Travis", language: "Spanish", dateOfPublication: "August 2012", isbn10: "21321", isbn13: "lol" }),
-    new Music(
-      CatalogItemType.Music, 13, 13, 23, "Best", {
-        type: "ok",
-        artist: "tamar",
-        label: "ever", releaseDate: "2", asin: "23423"
-      }),
-    ];
+      new Magazine(CatalogItemType.Magazine, 13, 13, 23, "Hello",
+        {publisher: "Travis", language: "Spanish", dateOfPublication: "August 2012", isbn10: "21321", isbn13: "lol"}),
+        new Music(
+          CatalogItemType.Music, 13, 13, 23, "Best", {
+            type: "ok",
+            artist: "tamar",
+           label: "ever", releaseDate: "2", asin: "23423"
+          })];
   }
 
   ngOnInit() {

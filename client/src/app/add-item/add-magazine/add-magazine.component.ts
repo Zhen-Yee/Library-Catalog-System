@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Magazine } from "../../_models/catalog/magazine.model";
 
 @Component({
-  selector: 'app-add-magazine',
-  templateUrl: './add-magazine.component.html',
-  styleUrls: ['./add-magazine.component.css']
+  selector: "app-add-magazine",
+  templateUrl: "./add-magazine.component.html",
+  styleUrls: ["./add-magazine.component.css"]
 })
 export class AddMagazineComponent implements OnInit {
 form: FormGroup;
@@ -17,7 +17,7 @@ form: FormGroup;
   createForm() {
     this.form = this.fb.group({
       // magazine formgroup matching a magazine object with validators
-        titles: ["", Validators.required],
+        title: ["", Validators.required],
         publisher: ["", Validators.required],
         dateOfPublication: ["", Validators.required],
         language: ["", Validators.required],
@@ -37,7 +37,3 @@ form: FormGroup;
   }
 
 }
-
-
-
-  
