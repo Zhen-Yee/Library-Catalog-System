@@ -21,12 +21,16 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(["/register"]);
   }
 
+  redirectToPromote() {
+    this.router.navigate(["/promote"]);
+  }
+
   redirectHome() {
     this.router.navigate(["/"]);
   }
 
   redirectCatalogPage() {
-    this.router.navigate(['/catalog']);
+    this.router.navigate(["/catalog"]);
   }
 
   openDialog() {

@@ -1,7 +1,7 @@
 <!--component html goes here -->
 <div class="container" *ngIf="edit" [formGroup]="form">
     <mat-form-field>
-        <input matInput formControlName="titles" placeholder="Title">
+        <input matInput formControlName="title" placeholder="Title">
     </mat-form-field>
 
     <mat-form-field>
@@ -54,6 +54,7 @@
 
         </div>
 
-<button mat-button *ngIf="!edit" (click)="editMode()"> Edit</button>
+<button mat-button *ngIf="!edit" (click)="editMode()">Edit</button>
 <button mat-button *ngIf="edit" (click)="saveBook()">Save</button>
+<button mat-button *ngIf="edit" (click)="editMode()">Cancel</button>
 

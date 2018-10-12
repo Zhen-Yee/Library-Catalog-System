@@ -5,7 +5,6 @@ import com.soen343.server.models.catalog.movie.Actor;
 import com.soen343.server.models.catalog.movie.Dub;
 import com.soen343.server.models.catalog.movie.Producer;
 import com.soen343.server.models.catalog.movie.Subtitle;
-
 import java.util.ArrayList;
 
 public class Catalog {
@@ -34,7 +33,6 @@ public class Catalog {
         return catalogItems;
     }
 
-    // an example
     public ArrayList<Book> getAllBooks() {
         ArrayList<Book> books = new ArrayList<>();
 
@@ -45,6 +43,42 @@ public class Catalog {
         }
 
         return books;
+    }
+
+    public ArrayList<Magazine> getAllMagazines() {
+        ArrayList<Magazine> magazines = new ArrayList<>();
+
+        for (CatalogItem catalogItem : catalogItems) {
+            if (catalogItem.getClass() == Magazine.class) {
+                magazines.add((Magazine)catalogItem);
+            }
+        }
+
+        return magazines;
+    }
+
+    public ArrayList<Music> getAllMusic() {
+        ArrayList<Music> music = new ArrayList<>();
+
+        for (CatalogItem catalogItem : catalogItems) {
+            if (catalogItem.getClass() == Music.class) {
+                music.add((Music)catalogItem);
+            }
+        }
+
+        return music;
+    }
+
+    public ArrayList<Movie> getAllMovies() {
+        ArrayList<Movie> movies = new ArrayList<>();
+
+        for (CatalogItem catalogItem : catalogItems) {
+            if (catalogItem.getClass() == Movie.class) {
+                movies.add((Movie)catalogItem);
+            }
+        }
+
+        return movies;
     }
 
     /**

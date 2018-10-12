@@ -4,6 +4,7 @@
   <span [hidden]="!isAdmin()"><button mat-button (click)="redirectCatalogPage()"> Open Catalog </button></span>
     <span [hidden]= "!isAdmin()"><button mat-button (click)="redirectToAddPage()"> Add </button></span>
   <span [hidden]="!isAdmin()"><button mat-button (click)="redirectRegistrationPage()"> Register a User </button></span>
+  <span [hidden]="!isAdmin()"><button mat-button (click)="redirectToPromote()">Promote User</button></span>
   <span [hidden]="authenticated()"><button mat-button (click)="openDialog()">Login</button></span>
   <span [hidden]="!authenticated()"><button mat-button (click)="logout()">Logout</button></span>
 </mat-toolbar>

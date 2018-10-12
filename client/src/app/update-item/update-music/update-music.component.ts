@@ -1,10 +1,16 @@
+<<<<<<< HEAD
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { HttpClient } from "@angular/common/http";
+=======
+import { Component, Input, OnInit } from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+>>>>>>> e47229b0604c26029e2d75c94e86c143f2037770
 
 @Component({
-    selector: 'update-music',
-    templateUrl: 'update-music.component.html',
-    styleUrls: ['update-music.component.scss']
+    selector: "update-music",
+    templateUrl: "update-music.component.html",
+    styleUrls: ["update-music.component.scss"]
 })
 export class UpdateMusicComponent implements OnInit {
     form: FormGroup;
@@ -21,19 +27,24 @@ export class UpdateMusicComponent implements OnInit {
     }
 
     editMode() {
-        // deletes toString method to properly map values to form
-        delete this.music.toString;
-        // allows input to change music fields
-        this.edit = true;
-        // maps music object value to the input fields
-        this.form.patchValue({...this.music});
+        if (this.edit === false) {
+            // deletes toString method to properly map values to form
+            delete this.music.toString;
+            // allows input to change music fields
+            this.edit = true;
+            // maps music object value to the input fields
+            this.form.patchValue({...this.music});
+        } else {
+            // when user cancels edit, set edit variable back to false
+            this.edit = false;
+        }
 
     }
 
     createForm() {
         this.form = this.fb.group({
             // Magazine formgroup matching a music object with validators
-              titles: ["", Validators.required],
+              title: ["", Validators.required],
               type: ["", Validators.required],
               artist: ["", Validators.required],
               releaseDate: ["", Validators.required],
