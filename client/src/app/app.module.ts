@@ -24,6 +24,7 @@ import { RegistrationErrorComponent } from "./registration/registration_error.co
 import {MatListModule} from "@angular/material/list";
 import {MatIconModule} from "@angular/material/icon";
 import { UserService } from "./_services/user.service";
+import { ToggleService } from "./_services/ToggleService";
 import { DeleteItemComponent } from './delete-item/delete-item.component';
 import { AddItemComponent } from "./add-item/add-item.component";
 import { AddMusicComponent } from "./add-item/add-music/add-music.component";
@@ -93,7 +94,8 @@ import { DeleteItemErrorBoxComponent } from './delete-item-error-box/delete-item
    providers: [
       UserService,
       PasswordService,
-      AdminAuthenticateGuard
+      AdminAuthenticateGuard,
+      ToggleService
    ],
    bootstrap: [
       AppComponent
