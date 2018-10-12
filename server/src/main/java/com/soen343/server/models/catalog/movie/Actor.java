@@ -1,5 +1,6 @@
 package com.soen343.server.models.catalog.movie;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.soen343.server.models.catalog.Movie;
 
 import javax.validation.constraints.NotBlank;
@@ -13,6 +14,7 @@ public class Actor {
     @NotBlank
     private String actor;
 
+    @JsonBackReference
     private Set<Movie> movies = new HashSet<>();
 
     public String getActor() {
