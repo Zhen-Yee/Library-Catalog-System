@@ -1,0 +1,9 @@
+<div>    
+  <button mat-button color="white" type="submit" style="float: left" (click)="delete(element)">
+        Delete
+  </button>
+
+  <mat-form-field>
+      <input matInput class="deletebutton" placeholder="Quantity to delete" type = "number" [(ngModel)] ="this.deleteNumber" >
+  </mat-form-field>
+</div>

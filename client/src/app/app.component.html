@@ -1,10 +1,10 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <header></header>
 
-<div class="sidenav">
-  <span [hidden]="!isAdmin()"><active-users-side-nav></active-users-side-nav>
+
+  <span *ngIf="isAdmin()"><active-users-side-nav></active-users-side-nav>
   </span>
-</div>
+
 
 <div class="content">
   <router-outlet></router-outlet>

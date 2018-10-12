@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {User} from "../../models/User.models";
+import { forkJoin, Observable, pipe} from "rxjs";
+import { concat} from "rxjs/operators";
+
 
 
 @Component({
-  selector: 'active-users-side-nav',
-  templateUrl: './active-users-side-nav.component.html',
-  styleUrls: ['./active-users-side-nav.component.css']
+  selector: "active-users-side-nav",
+  templateUrl: "./active-users-side-nav.component.html",
+  styleUrls: ["./active-users-side-nav.component.css"]
 })
 export class ActiveUsersSideNavComponent implements OnInit {
 
@@ -17,28 +20,24 @@ export class ActiveUsersSideNavComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-
+    // const example = this.getActiveUsers().pipe(concat(this.getInactiveUsers()));
     setInterval(() => {
-      this.getActiveUsers();
-      this.getInactiveUsers();
-    }, 2000)
+      this.getActiveUsers().subscribe((active) => {
+        this.activeUserArray = active;
+        this.getInactiveUsers().subscribe((inactive) => {
+          this.inactiveUserArray = inactive;
+        });
+      });
+    }, 2000);
 
   }
 
-  getActiveUsers() {
-    this.http
-      .get<User[]>("http://localhost:8090/admin/active-users")
-      .subscribe(user => {
-        this.activeUserArray = user;
-      });
+  getActiveUsers(): Observable<User[]> {
+    return this.http.get<User[]>("http://localhost:8090/admin/active-users");
   }
 
-  getInactiveUsers() {
-    this.http
-      .get<User[]>("http://localhost:8090/admin/inactive-users")
-      .subscribe(user => {
-        this.inactiveUserArray = user;
-      });
+  getInactiveUsers(): Observable<User[]> {
+    return this.http.get<User[]>("http://localhost:8090/admin/inactive-users");
   }
 
 

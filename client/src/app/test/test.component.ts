@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpClient} from "@angular/common/http";
-import { Book } from "../../models/Book.models";
+import { Book } from "../../models/Example.models";
+
 
 @Component({
   selector: "test",
@@ -40,6 +41,6 @@ export class TestComponent implements OnInit {
       .subscribe(deleted => this.bookArray = deleted);
   }
   update(updateThis: Book) {
-   // this.http.put("http://localhost:8090/update", updateThis)
+    this.http.put("http://localhost:8090/update", updateThis);
   }
 }
