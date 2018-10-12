@@ -22,12 +22,16 @@ export class UpdateBookComponent implements OnInit {
     }
 
     editMode() {
-        // deletes toString method to properly map values to form
-        delete this.book.toString;
-        // allows input to change book fields
-        this.edit = true;
-        // maps Book object value to the input fields
-        this.form.patchValue({...this.book});
+        if(this.edit === false) {
+            // deletes toString method to properly map values to form
+            delete this.book.toString;
+            // allows input to change book fields
+            this.edit = true;
+            // maps Book object value to the input fields
+            this.form.patchValue({...this.book});
+        } else {
+            this.edit = false
+        }
 
     }
 
