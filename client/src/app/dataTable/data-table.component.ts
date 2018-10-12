@@ -28,6 +28,7 @@ export class DataTableComponent implements OnInit {
   dataArray: CatalogItem[];
   columnsToDisplay: string[]= ['itemType', 'title', 'qtyInStock', 'qtyInLoan', 'titles'];
   expandedElement: CatalogItem;
+  dataSource = new MatTableDataSource<CatalogItem>(this.dataArray);
 
   initialize() {
     this.dataArray = [
@@ -61,6 +62,7 @@ export class DataTableComponent implements OnInit {
 
   ngOnInit() {
     this.initialize();
+    this.dataSource.paginator = this.paginator;
   }
 
 }
