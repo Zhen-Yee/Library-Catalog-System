@@ -47,6 +47,10 @@ tr.example-element-row:not(.example-expanded-row):active {
   opacity: 0.5;
 }
 
-.edit {
+.edit-box {
   margin-top: 20px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(218, 218, 218);
+  padding-right: 20px;
 }

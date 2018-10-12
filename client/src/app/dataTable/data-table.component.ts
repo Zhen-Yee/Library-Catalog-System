@@ -5,7 +5,6 @@ import {Music} from "../_models/catalog/music.model";
 import {CatalogItemType} from "../enums/catalogItemType";
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {DeleteItemComponent} from "../delete-item/delete-item.component";
 
 @Component({
   selector: "app-data-table",
@@ -25,15 +24,9 @@ export class DataTableComponent implements OnInit {
   }
 
   //Generated Data
-  deleteNumber: number;
   dataArray: CatalogItem[];
   columnsToDisplay: string[] = ["itemType", "id", "qtyInStock", "qtyInLoan", "title"];
   expandedElement: CatalogItem;
-
-  delete(itemType: CatalogItem){
-   itemType.qtyInStock = itemType.qtyInStock - this.deleteNumber
-   console.log(itemType.qtyInStock)
-  }
 
   initialize() {
     this.dataArray = [new Book(
