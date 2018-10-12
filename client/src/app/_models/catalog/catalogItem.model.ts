@@ -6,13 +6,13 @@ export abstract class CatalogItem{
   id: number;
   qtyInStock: number;
   qtyOnLoan: number;
-  titles: string;
+  title: string;
 
-  constructor(itemType: CatalogItemType, id: number, qtyInStock: number, qtyOnLoan: number, titles: string) {
+  constructor(itemType: CatalogItemType, id: number, qtyInStock: number, qtyOnLoan: number, title: string) {
     this.id = id;
     this.qtyInStock = qtyInStock;
     this.qtyOnLoan = qtyOnLoan;
-    this.titles = titles;
+    this.title = title;
     this.itemType = itemType;
   }
 }

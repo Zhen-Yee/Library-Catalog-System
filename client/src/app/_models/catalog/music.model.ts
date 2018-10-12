@@ -7,9 +7,9 @@ export class Music extends CatalogItem {
   releaseDate: string;
   asin: string;
 
-  constructor(itemType: CatalogItemType, id: number, qtyInStock: number, qtyOnLoan: number, titles: string, param: {
+  constructor(itemType: CatalogItemType, id: number, qtyInStock: number, qtyOnLoan: number, title: string, param: {
     artist: string; label: string; releaseDate: string; asin: string;}) {
-    super(itemType, id, qtyInStock,qtyOnLoan,titles);
+    super(itemType, id, qtyInStock,qtyOnLoan,title);
     this.artist = param.artist;
     this.label = param.label;
     this.releaseDate = param.releaseDate;

@@ -15,9 +15,9 @@ export class Movie extends CatalogItem {
   releaseDate: String;
   runTime: number;
   
-  constructor(itemType: CatalogItemType, id: number, qtyInStock: number, qtyOnLoan: number, titles: string,
+  constructor(itemType: CatalogItemType, id: number, qtyInStock: number, qtyOnLoan: number, title: string,
     param: {director: string; producers: Set<Producer>;actors: Set<Actor>; language: string; subtitles: Set<Subtitle>; dubs: Set<Dub>; releaseDate: String; runTime: number; }) {
-super(itemType, id, qtyInStock, qtyOnLoan, titles);
+super(itemType, id, qtyInStock, qtyOnLoan, title);
 this.director = param.director;
 this.dubs = param.dubs;
 this.actors = param.actors;

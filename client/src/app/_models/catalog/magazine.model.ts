@@ -9,9 +9,9 @@ export class Magazine extends CatalogItem {
   isbn10: string;
   isbn13: string;
 
-  constructor(itemType: CatalogItemType, id: number, qtyInStock: number, qtyOnLoan: number, titles: string, param: {
+  constructor(itemType: CatalogItemType, id: number, qtyInStock: number, qtyOnLoan: number, title: string, param: {
     publisher: string; language: string; dateOfPublication: string; isbn10: string; isbn13: string;}) {
-    super(itemType, id, qtyInStock,qtyOnLoan,titles);
+    super(itemType, id, qtyInStock,qtyOnLoan,title);
     this.publisher = param.publisher;
     this.language = param.language;
     this.dateOfPublication = param.dateOfPublication;
