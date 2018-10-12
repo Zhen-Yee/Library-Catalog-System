@@ -1,12 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Book} from "../_models/catalog/book.model";
 import {Magazine} from "../_models/catalog/magazine.model";
 import {Music} from "../_models/catalog/music.model";
 import {CatalogItemType} from "../enums/catalogItemType";
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {ViewChild} from '@angular/core';
-import {MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatSort, MatPaginator, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-data-table',
@@ -28,11 +27,11 @@ export class DataTableComponent implements OnInit {
   dataArray: CatalogItem[];
   columnsToDisplay: string[]= ['itemType', 'title', 'qtyInStock', 'qtyInLoan', 'titles'];
   expandedElement: CatalogItem;
-  dataSource = new MatTableDataSource<CatalogItem>(this.dataArray);
+  dataSource: MatTableDataSource<CatalogItem>;
 
   initialize() {
     this.dataArray = [
-      new Book(CatalogItemType.Book, 13, 13, 23, "Hello", {
+      new Book(CatalogItemType.Book, 13, 11, 3, "Hello", {
         author: 'james',
         format: "paperback",
         pages: 30,
@@ -42,27 +41,29 @@ export class DataTableComponent implements OnInit {
         isbn10: "123213",
         isbn13: "2134"
       }),
-      new Magazine(CatalogItemType.Magazine, 13, 13, 23, "Hello", {
+      new Magazine(CatalogItemType.Magazine, 5, 6, 12, "Hello", {
         publisher: "Travis", 
         language: "Spanish", 
-        dateOfPublication: "August 2012", 
+        dateOfPublication: "08/2012", 
         isbn10: "21321", 
         isbn13: "lol"
       }),
-      new Music(CatalogItemType.Music, 13, 13, 23, "Hello",{
-    artist: 'ok',
-    label: 'ok',
-    releaseDate: 'ok',
-    asin: 'ok'
+      new Music(CatalogItemType.Music, 2, 4, 9, "Hello",{
+        artist: 'jb',
+        label: 'ok',
+        releaseDate: '12/23',
+        asin: 'ok'
       }),];
-      
+      this.dataSource = new MatTableDataSource(this.dataArray);
+      this.dataSource.paginator = this.paginator;
   }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
     this.initialize();
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
 }
