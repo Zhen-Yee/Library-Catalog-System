@@ -30,6 +30,7 @@ export class UpdateBookComponent implements OnInit {
             // maps Book object value to the input fields
             this.form.patchValue({...this.book});
         } else {
+            // when user cancels edit, set edit variable back to false
             this.edit = false
         }
 

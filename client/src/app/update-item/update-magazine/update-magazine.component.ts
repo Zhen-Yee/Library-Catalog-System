@@ -20,12 +20,17 @@ export class UpdateMagazineComponent implements OnInit {
     }
 
     editMode() {
-        // deletes toString method to properly map values to form
-        delete this.magazine.toString;
-        // allows input to change magazine fields
-        this.edit = true;
-        // maps Magazine object value to the input fields
-        this.form.patchValue({...this.magazine});
+        if (this.edit === false) {
+            // deletes toString method to properly map values to form
+            delete this.magazine.toString;
+            // allows input to change magazine fields
+            this.edit = true;
+            // maps Magazine object value to the input fields
+            this.form.patchValue({...this.magazine});
+        } else {
+            // when user cancels edit, set edit variable back to false
+            this.edit = false;
+        }
 
     }
 

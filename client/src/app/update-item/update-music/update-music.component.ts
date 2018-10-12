@@ -21,12 +21,17 @@ export class UpdateMusicComponent implements OnInit {
     }
 
     editMode() {
-        // deletes toString method to properly map values to form
-        delete this.music.toString;
-        // allows input to change music fields
-        this.edit = true;
-        // maps music object value to the input fields
-        this.form.patchValue({...this.music});
+        if (this.edit === false) {
+            // deletes toString method to properly map values to form
+            delete this.music.toString;
+            // allows input to change music fields
+            this.edit = true;
+            // maps music object value to the input fields
+            this.form.patchValue({...this.music});
+        } else {
+            // when user cancels edit, set edit variable back to false
+            this.edit = false;
+        }
 
     }
 
