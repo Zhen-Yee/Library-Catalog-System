@@ -33,6 +33,7 @@ import { MatTableModule } from "@angular/material/table";
 import { UpdateBookComponent } from "./update-item/update-book/update-book.component";
 import { UpdateMagazineComponent } from "./update-item/update-magazine/update-magazine.component";
 import { UpdateMusicComponent } from "./update-item/update-music/update-music.component";
+import { PromoteUserComponent } from "./promote-user/promote-user.component";
 
 @NgModule({
    declarations: [
@@ -54,7 +55,8 @@ import { UpdateMusicComponent } from "./update-item/update-music/update-music.co
       DataTableComponent,
       UpdateBookComponent,
       UpdateMagazineComponent,
-      UpdateMusicComponent
+      UpdateMusicComponent,
+      PromoteUserComponent
    ],
    imports: [
       BrowserModule,

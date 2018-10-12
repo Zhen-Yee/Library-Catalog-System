@@ -1,3 +1,4 @@
+import { PromoteUserComponent } from "./promote-user/promote-user.component";
 import { AdminAuthenticateGuard } from "./_services/guards/admin-authenticate.guard";
 import { ModuleWithProviders } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
@@ -16,6 +17,11 @@ const appRoutes: Routes = [
     path: "register",
     canActivate: [AdminAuthenticateGuard],
     component: RegisterComponent
+  },
+  {
+    path: "promote",
+    canActivate: [AdminAuthenticateGuard],
+    component: PromoteUserComponent
   },
   {
     path: "add",
