@@ -12,7 +12,12 @@
       <div class="example-element-detail"
            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
         <div class="example-element-description">
-          {{element.toString()}}
+          {{element}} 
+          <div class = "edit">
+          <update-book *ngIf="element.getType() === 'Book'" [book]="element"></update-book>
+          <update-magazine *ngIf="element.getType() === 'Magazine'" [magazine]="element"></update-magazine>
+          <update-music *ngIf="element.getType() === 'Music'" [music]="element"></update-music>
+          </div>
         </div>
         <div>
           <mat-form-field>
@@ -34,3 +39,29 @@
   </tr>
   <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
 </table>
+
+
+<!-- <mat-form-field *ngIf="edit">
+  <input matInput formControlName="author" placeholder="Author">
+</mat-form-field>
+<mat-form-field *ngIf="edit">
+  <input matInput formControlName="format" placeholder="Format">
+</mat-form-field>
+<mat-form-field *ngIf="edit">
+  <input matInput formControlName="pages" placeholder="Pages">
+</mat-form-field>
+<mat-form-field *ngIf="edit">
+  <input matInput formControlName="publisher" placeholder="Publisher">
+</mat-form-field>
+<mat-form-field *ngIf="edit">
+  <input matInput formControlName="yearOfPublication" placeholder="Year Of Publication">
+</mat-form-field>
+<mat-form-field *ngIf="edit">
+  <input matInput formControlName="language" placeholder="Language">
+</mat-form-field>
+<mat-form-field *ngIf="edit">
+  <input matInput formControlName="isbn10" placeholder="ISBN-10">
+</mat-form-field>
+<mat-form-field *ngIf="edit">
+  <input matInput formControlName="isbn13" placeholder="ISBN-13">
+</mat-form-field> -->

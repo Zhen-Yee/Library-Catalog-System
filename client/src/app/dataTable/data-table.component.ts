@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Book} from "../_models/catalog/book.model";
 import {Magazine} from "../_models/catalog/magazine.model";
+import {Music} from "../_models/catalog/music.model";
 import {CatalogItemType} from "../enums/catalogItemType";
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
 import {animate, state, style, transition, trigger} from "@angular/animations";
@@ -19,12 +20,14 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 })
 export class DataTableComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    
+  }
 
   //Generated Data
   deleteNumber: number;
   dataArray: CatalogItem[];
-  columnsToDisplay: string[]= ['itemType', 'id', 'qtyInStock', 'qtyInLoan', 'titles'];
+  columnsToDisplay: string[] = ['itemType', 'id', 'qtyInStock', 'qtyInLoan', 'titles'];
   expandedElement: CatalogItem;
 
   delete(itemType: CatalogItem){
@@ -34,8 +37,8 @@ export class DataTableComponent implements OnInit {
 
   initialize() {
     this.dataArray = [new Book(
-      CatalogItemType.Book,13, 13, 23, "Hello", {
-        author: 'james',
+      CatalogItemType.Book, 13, 13, 23, "Hello", {
+        author: "james",
         format: "paperback",
         pages: 30,
         publisher: "Steve Shih",
@@ -44,8 +47,14 @@ export class DataTableComponent implements OnInit {
         isbn10: "123213",
         isbn13: "2134"
       }),
-      new Magazine(CatalogItemType.Magazine,13, 13, 23, "Hello",
-        {publisher: "Travis", language: "Spanish", dateOfPublication: "August 2012", isbn10: "21321", isbn13: "lol"})];
+      new Magazine(CatalogItemType.Magazine, 13, 13, 23, "Hello",
+        {publisher: "Travis", language: "Spanish", dateOfPublication: "August 2012", isbn10: "21321", isbn13: "lol"}),
+        new Music(
+          CatalogItemType.Music,13, 13, 23, "Best", {
+            type: "ok",
+            artist: "tamar",
+           label: "ever", releaseDate: "2", asin: "23423"
+          })];
   }
 
   ngOnInit() {

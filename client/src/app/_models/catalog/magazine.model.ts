@@ -20,16 +20,17 @@ export class Magazine extends CatalogItem {
   }
 
   public toString = () : string => {
-    return "This is a " + this.itemType +
-      " that you are viewing. " +
-      "Magazine is derived from" + CatalogItem.name + "," + "\n" +
-      "It has a {Publisher="
-      + this.publisher + "," + "\n" + "Language="
-      + this.language + "," + '\n' + "DateOfPublication="
-      + this.dateOfPublication + "," + "\n" + "ISBN10="
-      + this.isbn10  + "," + "\n" + "ISBN13="
-      + this.isbn13 + "}";
+    return "id:   " + this.id + "\n\n" 
+      + "Title:       " + this.titles + "\n" 
+      + "Publisher:       " + this.publisher + "\n" 
+      + "Date of Publication:       " + this.dateOfPublication + "\n" 
+      + "Language:     " + this.language + "\n" 
+      + "ISBN10:      " + this.isbn10 + "\n" 
+      + "ISBN13:     " + this.isbn13 + "\n\n" 
+      + "Quantity in Stock:      " + this.qtyInStock.toString() + "\n" 
+      + "Quantity on Loan:      " + this.qtyOnLoan.toString();
   }
+
 
 
 

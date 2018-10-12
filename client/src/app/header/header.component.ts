@@ -1,5 +1,5 @@
 import { Component,  OnInit } from "@angular/core";
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material";
 import {LoginComponent} from "../login/login.component";
 import {HttpClient} from "@angular/common/http";
@@ -18,11 +18,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {}
 
   redirectRegistrationPage() {
-    this.router.navigate(['/register']);
+    this.router.navigate(["/register"]);
   }
 
   redirectHome() {
-    this.router.navigate(['/']);
+    this.router.navigate(["/"]);
   }
 
   redirectCatalogPage() {
@@ -33,19 +33,19 @@ export class HeaderComponent implements OnInit {
     const dialogRef = this.dialog.open(LoginComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog result: ${result}');
+      console.log("Dialog result: ${result}");
     });
   }
 
   logout() {
     this.user.authenticated = false;
-    this.router.navigateByUrl('');
-    this.http.post<Boolean>('http://localhost:8090/logoutUser', this.user.userEmail).pipe(
+    this.router.navigateByUrl("");
+    this.http.post<Boolean>("http://localhost:8090/logoutUser", this.user.userEmail).pipe(
       finalize(() => {
         this.user.authenticated = false;
         this.user.adminStatus(false);
-        this.user.changeUser("","");
-        this.router.navigateByUrl('');
+        this.user.changeUser("", "");
+        this.router.navigateByUrl("");
       })
     ).subscribe();
   }
@@ -60,6 +60,10 @@ export class HeaderComponent implements OnInit {
 
   redirectToDeleteItemPage() {
     this.router.navigate(["/deleteitem"]);
+  }
+
+  redirectToAddPage() {
+    this.router.navigate(["/add"]);
   }
 
 }
