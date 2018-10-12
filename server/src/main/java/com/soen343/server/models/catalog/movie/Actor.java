@@ -42,4 +42,14 @@ public class Actor {
     public String toString() {
         return "Subtitle [id=" + id + ", actor=" + actor + "]";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (!(obj instanceof Actor))
+            return false;
+        if (obj == this)
+            return true;
+        return this.getActor().equalsIgnoreCase(((Actor) obj).getActor());
+    }
 }

@@ -42,4 +42,14 @@ public class Dub {
     public String toString() {
         return "Subtitle [id=" + id + ", dubLanguage=" + dubLanguage + "]";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (!(obj instanceof Dub))
+            return false;
+        if (obj == this)
+            return true;
+        return this.getDubLanguage().equalsIgnoreCase(((Dub) obj).getDubLanguage());
+    }
 }

@@ -42,4 +42,13 @@ public class Subtitle {
     public String toString() {
         return "Subtitle [id=" + id + ", subLanguage=" + subLanguage + "]";
     }
+
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (!(obj instanceof Subtitle))
+            return false;
+        if (obj == this)
+            return true;
+        return this.getSubLanguage().equalsIgnoreCase(((Subtitle) obj).getSubLanguage());
+    }
 }
