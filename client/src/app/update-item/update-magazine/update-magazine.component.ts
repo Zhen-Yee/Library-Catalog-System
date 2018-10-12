@@ -57,6 +57,8 @@ export class UpdateMagazineComponent implements OnInit {
                 ...this.form.value
             };
             this.edit = false;
+
+            // creating new Magazine object for updated Magazine to send to backend
             const updatedMagazine = new Magazine(
                 this.magazine.itemType,
                 this.magazine.id,

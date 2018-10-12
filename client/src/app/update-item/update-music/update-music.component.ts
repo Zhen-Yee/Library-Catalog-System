@@ -58,14 +58,20 @@ export class UpdateMusicComponent implements OnInit {
                 ...this.form.value
             };
             this.edit = false;
+
+            // creating new Music object for updated Music to send to backend
             const updatedMusic = new Music(
-                this.music.itemType, this.music.id, this.music.qtyInStock, this.music.qtyOnLoan, this.music.title, {
+                this.music.itemType,
+                this.music.id,
+                this.music.qtyInStock,
+                this.music.qtyOnLoan,
+                this.music.title, {
                     type: this.music.type,
                     artist: this.music.artist,
                     label: this.music.label,
                     releaseDate: this.music.releaseDate,
                     asin: this.music.asin
-                })
+                });
             this.http.post<Music>("http://localhost:8090/catalog/updateMusic", updatedMusic)
                 .subscribe();
         }
