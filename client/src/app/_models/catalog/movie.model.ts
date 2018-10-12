@@ -9,22 +9,22 @@ export class Movie extends CatalogItem {
   private producers: Set<Producer>;
   private actors: Set<Actor>;
   language: string;
-  private subtitles: Set<Subtitle>;
+  private subtitle: Set<Subtitle>;
   private dubs: Set<Dub>;
   releaseDate: String;
   runTime: number;
 
-  public toString = () : string => {
-    return "id:   " + this.id + "\n\n" 
-      + "Title:       " + this.titles + "\n" 
-      + "Director:       " + this.director + "\n" 
-      + "Producers:     " + this.producers + "\n" 
-      + "Actors:      " + this.actors + "\n" 
-      + "Language:      " + this.language + "\n" 
-      + "Subtitles:       " + this.subtitles + "\n" 
-      + "Release Date:      " + this.releaseDate + "\n" 
-      + "Runtime:      " + this.runTime + "\n\n" 
-      + "Quantity in Stock:      " + this.qtyInStock.toString() + "\n" 
+  public toString = (): string => {
+    return "id:   " + this.id + "\n\n"
+      + "Title:       " + this.title + "\n"
+      + "Director:       " + this.director + "\n"
+      + "Producers:     " + this.producers + "\n"
+      + "Actors:      " + this.actors + "\n"
+      + "Language:      " + this.language + "\n"
+      + "Subtitle:       " + this.subtitle + "\n"
+      + "Release Date:      " + this.releaseDate + "\n"
+      + "Runtime:      " + this.runTime + "\n\n"
+      + "Quantity in Stock:      " + this.qtyInStock.toString() + "\n"
       + "Quantity on Loan:      " + this.qtyOnLoan.toString();
   }
 
@@ -49,12 +49,12 @@ export class Movie extends CatalogItem {
   }
 
   public addSubtitle(sub: Subtitle) {
-    this.subtitles.add(sub);
+    this.subtitle.add(sub);
     sub.getMovies().add(this);
   }
 
   public removeSubtitle(sub: Subtitle) {
-    this.subtitles.delete(sub);
+    this.subtitle.delete(sub);
     sub.getMovies().delete(this);
   }
 

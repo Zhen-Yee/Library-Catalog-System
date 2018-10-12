@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, Input, OnInit } from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 @Component({
-    selector: 'update-music',
-    templateUrl: 'update-music.component.html',
-    styleUrls: ['update-music.component.scss']
+    selector: "update-music",
+    templateUrl: "update-music.component.html",
+    styleUrls: ["update-music.component.scss"]
 })
 export class UpdateMusicComponent implements OnInit {
     form: FormGroup;
@@ -33,7 +33,7 @@ export class UpdateMusicComponent implements OnInit {
     createForm() {
         this.form = this.fb.group({
             // Magazine formgroup matching a music object with validators
-              titles: ["", Validators.required],
+              title: ["", Validators.required],
               type: ["", Validators.required],
               artist: ["", Validators.required],
               releaseDate: ["", Validators.required],

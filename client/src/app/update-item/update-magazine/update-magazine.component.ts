@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, Input, OnInit } from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 @Component({
-    selector: 'update-magazine',
-    templateUrl: 'update-magazine.component.html',
-    styleUrls: ['update-magazine.component.scss']
+    selector: "update-magazine",
+    templateUrl: "update-magazine.component.html",
+    styleUrls: ["update-magazine.component.scss"]
 })
 export class UpdateMagazineComponent implements OnInit {
     form: FormGroup;
@@ -32,7 +32,7 @@ export class UpdateMagazineComponent implements OnInit {
     createForm() {
         this.form = this.fb.group({
             // Magazine formgroup matching a magazine object with validators
-              titles: ["", Validators.required],
+              title: ["", Validators.required],
               publisher: ["", Validators.required],
               dateOfPublication: ["", Validators.required],
               language: ["", Validators.required],

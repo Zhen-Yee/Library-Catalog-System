@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-    selector: 'update-item',
-    templateUrl: 'update-item.component.html',
-    styleUrls: ['update-item.component.scss']
+    selector: "update-item",
+    templateUrl: "update-item.component.html",
+    styleUrls: ["update-item.component.scss"]
 })
 export class UpdateItemComponent {
 

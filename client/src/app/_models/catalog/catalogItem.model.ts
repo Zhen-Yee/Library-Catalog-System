@@ -1,18 +1,18 @@
 import {CatalogItemType} from "../../enums/catalogItemType";
 
-export abstract class CatalogItem{
+export abstract class CatalogItem {
 
   itemType: CatalogItemType;
   id: number;
   qtyInStock: number;
   qtyOnLoan: number;
-  titles: string;
+  title: string;
 
-  constructor(itemType: CatalogItemType, id: number, qtyInStock: number, qtyOnLoan: number, titles: string) {
+  constructor(itemType: CatalogItemType, id: number, qtyInStock: number, qtyOnLoan: number, title: string) {
     this.id = id;
     this.qtyInStock = qtyInStock;
     this.qtyOnLoan = qtyOnLoan;
-    this.titles = titles;
+    this.title = title;
     this.itemType = itemType;
   }
 
