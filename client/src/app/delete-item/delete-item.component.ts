@@ -4,6 +4,7 @@ import {CatalogItemType} from "../enums/catalogItemType";
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
 import {MatSnackBar} from '@angular/material';
 import {DeleteItemErrorBoxComponent} from '../delete-item-error-box/delete-item-error-box.component';
+import { HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'delete-item',
@@ -14,7 +15,7 @@ export class DeleteItemComponent implements OnInit {
 
   @Input() element;
 
-  constructor(public snackBar: MatSnackBar) {
+  constructor(public snackBar: MatSnackBar, private http: HttpClient) {
 }
 
   deleteNumber: number;
@@ -33,6 +34,9 @@ export class DeleteItemComponent implements OnInit {
   }
   else{
     itemType.qtyInStock = itemType.qtyInStock - this.deleteNumber
+    this.http
+    .post("http://localhost:8090/deleteItem", itemType)
+    .subscribe();
     console.log(itemType.qtyInStock)
   }
   }
