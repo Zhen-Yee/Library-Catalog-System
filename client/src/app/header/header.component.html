@@ -1,4 +1,5 @@
 <mat-toolbar class="toolbar">
+  <span [hidden]="!isAdmin()"><button mat-button (click)="toggle()"> Toggle </button></span>
   <span><button mat-button (click)="redirectHome()"> Home </button> </span>
   <span class="remaining-space"></span>
   <span [hidden]="!isAdmin()"><button mat-button (click)="redirectCatalogPage()"> Open Catalog </button></span>
