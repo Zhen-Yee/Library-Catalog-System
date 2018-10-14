@@ -1,0 +1,12 @@
+.homepage h1
+{
+    font-family: Times;
+    font-size: 40px;
+}
+
+.homepage 
+{
+    height: 300px;
+    text-align: center;
+}
+
