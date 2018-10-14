@@ -25,8 +25,6 @@ export class AppComponent {
   }
 
   isToggle() {
-    
     return this.toggled;
   }
-
 }

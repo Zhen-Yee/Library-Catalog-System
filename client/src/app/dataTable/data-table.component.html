@@ -18,7 +18,7 @@
           <update-magazine *ngIf="element.getType() === 'Magazine'" [magazine]="element"></update-magazine>
           <update-music *ngIf="element.getType() === 'Music'" [music]="element"></update-music>
 
-        <div>
+        <div class = "delete">
           <delete-item [element]="element"></delete-item>
         </div>
 

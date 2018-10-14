@@ -3,5 +3,7 @@
 }
 
 .toolbar{
-  background: rgb(250, 250, 250);
+  background-color: #eed;
+  width: 85%;
+  border-radius: 5px;
 }
