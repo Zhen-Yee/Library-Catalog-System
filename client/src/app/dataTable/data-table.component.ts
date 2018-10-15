@@ -19,7 +19,7 @@ import {MatSort, MatPaginator, MatTableDataSource} from '@angular/material';
     ]),
   ],
 })
-export class DataTableComponent implements OnInit, AfterViewInit, OnChanges {
+export class DataTableComponent implements OnInit {
 
   constructor() { }
 
@@ -30,6 +30,13 @@ export class DataTableComponent implements OnInit, AfterViewInit, OnChanges {
   dataArray: CatalogItem[];
   columnsToDisplay: string[]= ['itemType', 'title', 'qtyInStock', 'qtyInLoan', 'titles'];
   expandedElement: CatalogItem;
+  dataSource: MatTableDataSource<CatalogItem>;
+
+
+  ngOnInit() {
+    this.initialize();
+    this.dataSource.paginator = this.paginator;
+  }
 
   initialize() {
     this.dataArray = [
