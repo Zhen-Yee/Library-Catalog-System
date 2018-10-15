@@ -25,6 +25,8 @@ import {MatIconModule} from '@angular/material/icon';
 import { UserService } from "./_services/user.service";
 import { DataTableComponent } from './dataTable/data-table.component';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material';
+import { MatSortModule } from '@angular/material';
 
 @NgModule({
    declarations: [
@@ -59,6 +61,8 @@ import { MatTableModule } from '@angular/material/table';
       MatListModule,
       MatIconModule,
       MatTableModule,
+      MatPaginatorModule,
+      MatSortModule,
    ],
    entryComponents: [
      LoginComponent,
