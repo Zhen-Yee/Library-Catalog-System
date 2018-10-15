@@ -4,5 +4,5 @@ import java.sql.ResultSet;
 
 public interface CatalogItemGateway {
 
-    public ResultSet getAll();
+    public ResultSet findAll();
 }
