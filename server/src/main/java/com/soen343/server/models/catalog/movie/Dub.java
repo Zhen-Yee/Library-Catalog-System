@@ -23,6 +23,21 @@ public class Dub {
         return movies;
     }
 
+    /**
+     * Use this constructor when it's a new dub
+     */
+    public Dub(String dubLanguage) {
+        this.dubLanguage = dubLanguage;
+    }
+
+    /**
+     * Use this constructor when the dub already exists in db
+     */
+    public Dub(String dubLanguage, Set<Movie> movies) {
+        this.dubLanguage = dubLanguage;
+        this.movies = movies;
+    }
+
     @Override
     public String toString() {
         return "Subtitle [id=" + id + ", dubLanguage=" + dubLanguage + "]";

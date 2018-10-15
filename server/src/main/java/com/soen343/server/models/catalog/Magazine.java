@@ -75,6 +75,6 @@ public class Magazine extends CatalogItem {
 
     @Override
     public String toString() {
-        return "Magazine: [id=" + id + ", title=" + title + "]";
+        return "Magazine [id=" + id + ", title=" + title + "]";
     }
 }

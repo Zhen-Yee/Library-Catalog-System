@@ -1,13 +1,10 @@
 
-<div>
 
-    <!-- temporarily place promote button on main page -->
-    <span [hidden]="!isAdmin()">
-    <mat-form-field>
-      <input matInput placeholder="Username" [(ngModel)] ="username" required>
-    </mat-form-field>
+<div class = "homepage">
 
-    <button mat-button (click)="post(this.username)"> Promote to Admin </button>
-    </span>
-       
+    <h1> Welcome to the Catalog </h1>
+
+    <p> We are happy to have you here. </p>
+    <span [hidden]="authenticated()"> <p> Login to view our catalog! </p> </span>
+
 </div>

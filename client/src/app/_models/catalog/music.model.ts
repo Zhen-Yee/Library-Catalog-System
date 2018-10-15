@@ -1,31 +1,60 @@
-import {CatalogItem} from "./catalogItem.model";
-import {CatalogItemType} from "../../enums/catalogItemType";
-export class Music extends CatalogItem {
+import { CatalogItem } from "./catalogItem.model";
+import { CatalogItemType } from "../../enums/catalogItemType";
 
+export class Music extends CatalogItem {
+  type: string;
   artist: string;
   label: string;
   releaseDate: string;
   asin: string;
 
-  constructor(itemType: CatalogItemType, id: number, qtyInStock: number, qtyOnLoan: number, title: string, param: {
-    artist: string; label: string; releaseDate: string; asin: string;}) {
-    super(itemType, id, qtyInStock,qtyOnLoan,title);
+  constructor(
+    itemType: CatalogItemType,
+    id: number,
+    qtyInStock: number,
+    qtyOnLoan: number,
+    title: string,
+    param: {
+      type: string;
+      artist: string;
+      releaseDate: string;
+      asin: string;
+      label: string;
+    }
+  ) {
+    super(itemType, id, qtyInStock, qtyOnLoan, title);
+    this.type = param.type;
     this.artist = param.artist;
-    this.label = param.label;
     this.releaseDate = param.releaseDate;
     this.asin = param.asin;
+    this.label = param.label;
   }
 
-  public toString = () : string => {
-    return "Product Details" + "\n\n" +
-      "You are viewing a " + this.itemType + "." +
-      this.itemType + " is derived from" + CatalogItem.name + "." + "\n\n" +
-      "Type: "
-      +  "," + "\n" + "Artist: "
-      + this.artist + "," + "\n" + "Label: "
-      + this.label + "," + "\n" + "Release Date: "
-      + this.releaseDate + "," + "\n" + "ASIN: "
-      + this.asin + " ";
+  public toString = (): string => {
+    return (
+      "id:   " +
+      this.id +
+      "\n\n" +
+      "Title:       " +
+      this.title +
+      "\n" +
+      "Artist:       " +
+      this.artist +
+      "\n" +
+      "Release Date:       " +
+      this.releaseDate +
+      "\n" +
+      "Type:     " +
+      this.type +
+      "\n" +
+      "ASIN:      " +
+      this.asin +
+      "\n\n" +
+      "Quantity in Stock:      " +
+      this.qtyInStock.toString() +
+      "\n" +
+      "Quantity on Loan:      " +
+      this.qtyOnLoan.toString()
+    );
   }
-
 }

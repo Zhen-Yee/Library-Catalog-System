@@ -1,6 +1,6 @@
 import {CatalogItemType} from "../../enums/catalogItemType";
 
-export abstract class CatalogItem{
+export abstract class CatalogItem {
 
   itemType: CatalogItemType;
   id: number;
@@ -14,5 +14,9 @@ export abstract class CatalogItem{
     this.qtyOnLoan = qtyOnLoan;
     this.title = title;
     this.itemType = itemType;
+  }
+
+  public getType() {
+    return this.itemType;
   }
 }

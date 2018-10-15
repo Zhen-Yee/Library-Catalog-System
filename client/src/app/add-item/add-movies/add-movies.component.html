@@ -1,0 +1,48 @@
+
+<div class="container" [formGroup]="f">
+
+    <mat-form-field>
+      <input matInput formControlName="title" placeholder="Title">
+    </mat-form-field>
+  
+    <mat-form-field>
+      <input matInput formControlName="director" placeholder="Director">
+    </mat-form-field>
+  
+    <mat-form-field>
+        <input matInput formControlName="producers" placeholder="Producers">
+        <mat-hint>Use (,) to seperate between the names of different producers</mat-hint>
+    </mat-form-field>
+  
+    <mat-form-field>
+        <input matInput formControlName="actors" placeholder="Actors">
+        <mat-hint>Use (,) to seperate between the names of different actors</mat-hint>
+    </mat-form-field>
+  
+    <mat-form-field>
+        <input matInput formControlName="language" placeholder="Language">
+    </mat-form-field>
+  
+    <mat-form-field>
+        <input matInput formControlName="subtitles" placeholder="Subtitles">
+        <mat-hint>Use (,) to seperate between the different Subtiltles languages</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput formControlName="dubs" placeholder="Dubbed">
+        <mat-hint>Use (,) to seperate between the different dubbed languages</mat-hint>
+    </mat-form-field> 
+    
+    <mat-form-field>
+        <input matInput formControlName="releaseDate" placeholder="Release Date">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput formControlName="runTime" placeholder="Run Time">
+    </mat-form-field>
+  </div>
+  <div>
+  <button color="primary"  mat-raised-button (click) = "addMovie()">
+              Add Movie
+  </button>
+  </div>

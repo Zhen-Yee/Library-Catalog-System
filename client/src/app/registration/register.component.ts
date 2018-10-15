@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from "@angular/material";
 import { ConfirmationComponent } from  "./confirmation.component";
 import { PasswordService } from "../_services/PasswordService";
-import {ChangeDetectorRef} from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 
 import { RegistrationErrorComponent } from "./registration_error.component";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';

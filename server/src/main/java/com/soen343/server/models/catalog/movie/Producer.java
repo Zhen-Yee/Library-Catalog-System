@@ -23,6 +23,21 @@ public class Producer {
         return movies;
     }
 
+    /**
+     * Use this constructor when it's a new producer
+     */
+    public Producer(String producer) {
+        this.producer = producer;
+    }
+
+    /**
+     * Use this constructor when the producer already exists in db
+     */
+    public Producer(String producer, Set<Movie> movies) {
+        this.producer = producer;
+        this.movies = movies;
+    }
+
     @Override
     public String toString() {
         return "Subtitle [id=" + id + ", producer=" + producer + "]";

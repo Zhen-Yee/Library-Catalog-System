@@ -10,8 +10,8 @@ export class Magazine extends CatalogItem {
   isbn13: string;
 
   constructor(itemType: CatalogItemType, id: number, qtyInStock: number, qtyOnLoan: number, title: string, param: {
-    publisher: string; language: string; dateOfPublication: string; isbn10: string; isbn13: string;}) {
-    super(itemType, id, qtyInStock,qtyOnLoan,title);
+    publisher: string; language: string; dateOfPublication: string; isbn10: string; isbn13: string; }) {
+    super(itemType, id, qtyInStock, qtyOnLoan, title);
     this.publisher = param.publisher;
     this.language = param.language;
     this.dateOfPublication = param.dateOfPublication;
@@ -19,17 +19,18 @@ export class Magazine extends CatalogItem {
     this.isbn13 = param.isbn13;
   }
 
-  public toString = () : string => {
-    return "Product Details" + "\n\n" +
-      "You are viewing a " + this.itemType + "." +
-      this.itemType + " is derived from" + CatalogItem.name + "." + "\n\n" +
-      "Publisher: "
-      + this.publisher + "," + "\n" + "Language: "
-      + this.language + "," + '\n' + "Date Of Publication: "
-      + this.dateOfPublication + "," + "\n" + "ISBN10: "
-      + this.isbn10  + "," + "\n" + "ISBN13: "
-      + this.isbn13 + " ";
+  public toString = (): string => {
+    return "id:   " + this.id + "\n\n"
+      + "Title:       " + this.title + "\n"
+      + "Publisher:       " + this.publisher + "\n"
+      + "Date of Publication:       " + this.dateOfPublication + "\n"
+      + "Language:     " + this.language + "\n"
+      + "ISBN10:      " + this.isbn10 + "\n"
+      + "ISBN13:     " + this.isbn13 + "\n\n"
+      + "Quantity in Stock:      " + this.qtyInStock.toString() + "\n"
+      + "Quantity on Loan:      " + this.qtyOnLoan.toString();
   }
+
 
 
 
