@@ -1,5 +1,6 @@
 package com.soen343.server.models.catalog.movie;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.soen343.server.models.catalog.Movie;
 
 import javax.validation.constraints.NotBlank;
@@ -13,6 +14,7 @@ public class Dub {
     @NotBlank
     private String dubLanguage;
 
+    @JsonBackReference
     private Set<Movie> movies = new HashSet<>();
 
     public String getDubLanguage() {
@@ -41,5 +43,15 @@ public class Dub {
     @Override
     public String toString() {
         return "Subtitle [id=" + id + ", dubLanguage=" + dubLanguage + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (!(obj instanceof Dub))
+            return false;
+        if (obj == this)
+            return true;
+        return this.getDubLanguage().equalsIgnoreCase(((Dub) obj).getDubLanguage());
     }
 }
