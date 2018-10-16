@@ -37,18 +37,19 @@ public class MovieGateway {
                 id = keys.getLong(1);
             }
 
+            movie.setId(id);
             // use movie id to populate the actor, producer, dub, sub tables
             for (String actor : movie.getActors() ) {
-                stmt.executeUpdate("INSERT INTO testdb.actor (movie_id, actor) VALUES (" + id + ", '" + actor + "'");
+                stmt.executeUpdate("INSERT INTO testdb.actor (movie_id, actor) VALUES (" + id + ", '" + actor + "')");
             }
             for (String producer : movie.getProducers() ) {
-                stmt.executeUpdate("INSERT INTO testdb.actor (movie_id, producer) VALUES (" + id + ", '" + producer + "'");
+                stmt.executeUpdate("INSERT INTO testdb.producer (movie_id, producer) VALUES (" + id + ", '" + producer + "')");
             }
             for (String sub : movie.getSubtitles() ) {
-                stmt.executeUpdate("INSERT INTO testdb.actor (movie_id, sub_language) VALUES (" + id + ", '" + sub + "'");
+                stmt.executeUpdate("INSERT INTO testdb.subtitle (movie_id, sub_language) VALUES (" + id + ", '" + sub + "')");
             }
             for (String dub : movie.getDubs() ) {
-                stmt.executeUpdate("INSERT INTO testdb.actor (movie_id, dub_language) VALUES (" + id + ", '" + dub + "'");
+                stmt.executeUpdate("INSERT INTO testdb.dub (movie_id, dub_language) VALUES (" + id + ", '" + dub + "')");
             }
 
             conn.close();
@@ -58,7 +59,7 @@ public class MovieGateway {
 
     }
 
-    public static void delete(Long id) {
+    public static void delete(long id) {
         try {
             Connection conn = connect();
             Statement stmt = conn.createStatement();
@@ -73,8 +74,6 @@ public class MovieGateway {
         } catch (Exception e) {
             System.out.println(e);
         }
-
-    }
 
     }
 
