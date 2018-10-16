@@ -11,7 +11,7 @@ import { FooterComponent } from "./footer/footer.component";
 import { TestComponent } from "./test/test.component";
 import {
   MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, MatMenuModule, MatDialogModule,
-  MatCardModule, MatSelectModule, MatSnackBarModule, MatPaginatorModule,
+  MatCardModule, MatSelectModule, MatSnackBarModule, MatPaginatorModule, MatChipsModule
 } from "@angular/material";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import { HttpClientModule } from "@angular/common/http";
@@ -70,6 +70,7 @@ import { DeleteItemErrorBoxComponent } from './delete-item-error-box/delete-item
       BrowserAnimationsModule,
       MatFormFieldModule,
       MatInputModule,
+      MatChipsModule,
       MatButtonModule,
       MatToolbarModule,
       MatMenuModule,
