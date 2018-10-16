@@ -1,5 +1,6 @@
 package com.soen343.server;
 
+import com.soen343.server.gateways.MovieGateway;
 import com.soen343.server.models.catalog.*;
 import java.util.ArrayList;
 
@@ -22,7 +23,19 @@ public class Catalog {
     }
 
     public void addCatalogItem(CatalogItem catalogItem) {
-        this.catalogItems.add(catalogItem);
+        // this.catalogItems.add(catalogItem);
+        if (catalogItem.getClass() == Book.class) {
+            // Add book to db
+        }
+        if (catalogItem.getClass() == Magazine.class) {
+            // Add magazine to db
+        }
+        if (catalogItem.getClass() == Music.class) {
+            // Add movie to db
+        }
+        if (catalogItem.getClass() == Movie.class) {
+            MovieGateway.insert((Movie)catalogItem);
+        }
     }
 
     public ArrayList<CatalogItem> getAllCatalogItems() {
@@ -75,6 +88,10 @@ public class Catalog {
         }
 
         return movies;
+    }
+
+    public void deleteMovie(long id) {
+        MovieGateway.delete(id);
     }
 
     /**
