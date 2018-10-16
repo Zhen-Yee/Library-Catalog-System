@@ -30,10 +30,17 @@ export class AddMoviesComponent implements OnInit {
     const x: Movie = {
       ...this.f.value
     };
-    x.actors = ["ok"];
-    x.dubs = [];
-    x.subtitles = [];
-    x.producers = [];
+    x.title = "FrontTitleTest";
+    x.qtyInStock = 5;
+    x.qtyOnLoan = 0;
+    x.director = "testDirector";
+    x.language = "Klingon";
+    x.releaseDate = "1973/09/15";
+    x.runTime = 90;
+    x.actors = ["Actor1", "Actor2", "Actor3"];
+    x.dubs = ["Spanish", "French"];
+    x.subtitles = ["Hindu", "Greek"];
+    x.producers = ["Producer1", "Producer2", "Producer3"];
     this.http.post("http://localhost:8090/catalog/addMovie", x)
     .subscribe((confirmation) => console.log(confirmation));
   }
