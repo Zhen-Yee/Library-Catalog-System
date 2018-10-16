@@ -1,16 +1,17 @@
 package com.soen343.server.gateways;
 
 import com.soen343.server.models.catalog.Movie;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
 public class MovieGatewayTest {
 
-    Movie movie;
+    private static Movie movie;
 
-    @Test
-    public void t001_insertTest() {
+    @BeforeClass
+    public static void buildMovie() {
         ArrayList<String> actors = new ArrayList<>();
         ArrayList<String> producers = new ArrayList<>();
         ArrayList<String> subs = new ArrayList<>();
@@ -25,6 +26,10 @@ public class MovieGatewayTest {
         dubs.add("Dutch");
 
         movie = new Movie("TestTitle", 3, 0, "TestDirector", producers, actors, "TestLanguage", subs, dubs, "1998/12/12", 120);
+    }
+
+    @Test
+    public void t001_insertTest() {
 
         MovieGateway.insert(movie);
         System.out.println("Insert Test Breakpoint line");
@@ -33,6 +38,6 @@ public class MovieGatewayTest {
     @Test
     public void t002_deleteTest() {
         // select an id to delete
-        MovieGateway.delete(14);
+        MovieGateway.delete(movie.getId());
     }
 }

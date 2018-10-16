@@ -6,20 +6,18 @@ public class DbConnection {
 
     // void function since update is a POST and we do not need to return anything
     // to be changed if we need to use POST to read data in the future
-    public static Connection update(String query){
+    public static void update(String query){
         try {
             Connection con = connect();
             // Database Connection
             Statement stmt = con.createStatement();
             // SQL Query to search
             stmt.executeUpdate(query);
-            return con;
+            con.close();
         } 
         catch (Exception e) {
             System.out.println(e);
         }
-
-        return null;
     }
 
     // returns a Connector Object containing the connection, the resultset and the statement

@@ -37,6 +37,8 @@ public class MovieGateway {
                 id = keys.getLong(1);
             }
 
+            // give the model the generate id (just in case)
+
             movie.setId(id);
             // use movie id to populate the actor, producer, dub, sub tables
             for (String actor : movie.getActors() ) {
