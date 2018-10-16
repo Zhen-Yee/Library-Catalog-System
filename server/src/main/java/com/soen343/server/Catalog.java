@@ -1,10 +1,6 @@
 package com.soen343.server;
 
 import com.soen343.server.models.catalog.*;
-import com.soen343.server.models.catalog.movie.Actor;
-import com.soen343.server.models.catalog.movie.Dub;
-import com.soen343.server.models.catalog.movie.Producer;
-import com.soen343.server.models.catalog.movie.Subtitle;
 import java.util.ArrayList;
 
 public class Catalog {
@@ -108,18 +104,11 @@ public class Catalog {
         addCatalogItem(new Music("Music5", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
 
         // Add Movies
-        Actor actor = new Actor("TestActor");
-        Dub dub = new Dub("English");
-        Producer producer = new Producer("Producer");
-        Subtitle sub = new Subtitle("Dutch");
-
+        // fill array list with a string to test actor
+        ArrayList<String> x = new ArrayList<String>();
+        x.add("ok");
         for (int i = 1; i < 6; i++) {
-            Movie movie = new Movie("Movie" + i, 8, 0, "DIRECTOR", "English", "1988/12/24", 120 );
-            movie.addActor(actor);
-            movie.addDub(dub);
-            movie.addProducer(producer);
-            movie.addSubtitle(sub);
-
+            Movie movie = new Movie("Movie" + i, 8, 0, "DIRECTOR", "English", "1988/12/24", 120, x);
             addCatalogItem(movie);
         }
         
