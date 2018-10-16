@@ -1,10 +1,11 @@
-import {Component, OnInit} from "@angular/core";
+import { Component, OnInit, ViewChild} from "@angular/core";
 import {Book} from "../_models/catalog/book.model";
 import {Magazine} from "../_models/catalog/magazine.model";
 import {Music} from "../_models/catalog/music.model";
 import {CatalogItemType} from "../enums/catalogItemType";
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {MatSort, MatPaginator, MatTableDataSource} from "@angular/material";
 
 @Component({
   selector: "app-data-table",
@@ -23,14 +24,24 @@ export class DataTableComponent implements OnInit {
   constructor() {
   }
 
-  //Generated Data
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  // Generated Data
   dataArray: CatalogItem[];
   columnsToDisplay: string[] = ["itemType", "id", "qtyInStock", "qtyInLoan", "title"];
   expandedElement: CatalogItem;
+  dataSource: MatTableDataSource<CatalogItem>;
+
+
+  ngOnInit() {
+    this.initialize();
+    this.dataSource.paginator = this.paginator;
+  }
 
   initialize() {
-    this.dataArray = [new Book(
-      CatalogItemType.Book, 13, 13, 23, "Hello", {
+    this.dataArray = [
+      new Book(CatalogItemType.Book, 13, 11, 3, "Hello", {
         author: "james",
         format: "paperback",
         pages: 30,
@@ -40,18 +51,14 @@ export class DataTableComponent implements OnInit {
         isbn10: "123213",
         isbn13: "2134"
       }),
-      new Magazine(CatalogItemType.Magazine, 13, 13, 23, "Hello",
-        {publisher: "Travis", language: "Spanish", dateOfPublication: "August 2012", isbn10: "21321", isbn13: "lol"}),
-        new Music(
-          CatalogItemType.Music, 13, 13, 23, "Best", {
-            type: "ok",
-            artist: "tamar",
-           label: "ever", releaseDate: "2", asin: "23423"
-          })];
-  }
-
-  ngOnInit() {
-    this.initialize();
+      new Magazine(CatalogItemType.Magazine, 5, 6, 12, "Hello", {
+        publisher: "Travis",
+        language: "Spanish",
+        dateOfPublication: "08/2012",
+        isbn10: "21321",
+        isbn13: "lol"
+      })];
+    this.dataSource = new MatTableDataSource(this.dataArray);
   }
 
 }
