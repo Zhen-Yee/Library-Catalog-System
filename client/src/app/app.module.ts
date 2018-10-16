@@ -9,8 +9,10 @@ import { RouterModule } from "@angular/router";
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
 import { TestComponent } from "./test/test.component";
-import { MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, MatMenuModule, MatDialogModule,
-MatCardModule, MatSelectModule, MatSnackBarModule,} from "@angular/material";
+import {
+  MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, MatMenuModule, MatDialogModule,
+  MatCardModule, MatSelectModule, MatSnackBarModule, MatPaginatorModule,
+} from "@angular/material";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -83,6 +85,7 @@ import { DeleteItemErrorBoxComponent } from './delete-item-error-box/delete-item
       MatListModule,
       MatIconModule,
       MatTableModule,
+      MatPaginatorModule,
       MatSnackBarModule
    ],
    entryComponents: [
