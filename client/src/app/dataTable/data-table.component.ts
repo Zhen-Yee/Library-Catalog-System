@@ -1,12 +1,11 @@
-import {AfterViewInit, Component, OnChanges, OnInit, ViewChild} from '@angular/core';
-import {Component, OnInit} from "@angular/core";
+import { Component, OnInit, ViewChild} from "@angular/core";
 import {Book} from "../_models/catalog/book.model";
 import {Magazine} from "../_models/catalog/magazine.model";
 import {Music} from "../_models/catalog/music.model";
 import {CatalogItemType} from "../enums/catalogItemType";
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {MatSort, MatPaginator, MatTableDataSource} from '@angular/material';
+import {MatSort, MatPaginator, MatTableDataSource} from "@angular/material";
 
 @Component({
   selector: "app-data-table",
@@ -28,7 +27,7 @@ export class DataTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  //Generated Data
+  // Generated Data
   dataArray: CatalogItem[];
   columnsToDisplay: string[] = ["itemType", "id", "qtyInStock", "qtyInLoan", "title"];
   expandedElement: CatalogItem;
@@ -43,7 +42,7 @@ export class DataTableComponent implements OnInit {
   initialize() {
     this.dataArray = [
       new Book(CatalogItemType.Book, 13, 11, 3, "Hello", {
-        author: 'james',
+        author: "james",
         format: "paperback",
         pages: 30,
         publisher: "Steve Shih",
@@ -53,18 +52,12 @@ export class DataTableComponent implements OnInit {
         isbn13: "2134"
       }),
       new Magazine(CatalogItemType.Magazine, 5, 6, 12, "Hello", {
-        publisher: "Travis", 
-        language: "Spanish", 
-        dateOfPublication: "08/2012", 
-        isbn10: "21321", 
+        publisher: "Travis",
+        language: "Spanish",
+        dateOfPublication: "08/2012",
+        isbn10: "21321",
         isbn13: "lol"
-      }),
-      new Music(CatalogItemType.Music, 2, 4, 9, "Hello",{
-        artist: 'jb',
-        label: 'ok',
-        releaseDate: '12/23',
-        asin: 'ok'
-      }),];
+      })];
     this.dataSource = new MatTableDataSource(this.dataArray);
   }
 
