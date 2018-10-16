@@ -22,6 +22,9 @@ public abstract class CatalogItem {
         this.qtyOnLoan = qtyOnLoan;
     }
 
+    // constructor used for mapping, look at Movie default constructor for more info
+    protected CatalogItem(){}
+
     // Accessors
     public long getId() {
         return id;
