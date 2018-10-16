@@ -3,6 +3,7 @@ package com.soen343.server.gateways;
 import com.soen343.server.models.catalog.Movie;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class MovieGateway {
 
@@ -11,7 +12,7 @@ public class MovieGateway {
     private static final String USERNAME = "test";
     private static final String PASSWORD = "testtest";
 
-    public static ResultSet findAll() {
+    public static ArrayList<Movie> findAll() {
         return null;
     }
 
@@ -37,19 +38,15 @@ public class MovieGateway {
             }
 
             // use movie id to populate the actor, producer, dub, sub tables
-            // add actors
             for (String actor : movie.getActors() ) {
                 stmt.executeUpdate("INSERT INTO testdb.actor (movie_id, actor) VALUES (" + id + ", '" + actor + "'");
             }
-            // add producers
             for (String producer : movie.getProducers() ) {
                 stmt.executeUpdate("INSERT INTO testdb.actor (movie_id, producer) VALUES (" + id + ", '" + producer + "'");
             }
-            // add subtitles
             for (String sub : movie.getSubtitles() ) {
                 stmt.executeUpdate("INSERT INTO testdb.actor (movie_id, sub_language) VALUES (" + id + ", '" + sub + "'");
             }
-            // add dubs
             for (String dub : movie.getDubs() ) {
                 stmt.executeUpdate("INSERT INTO testdb.actor (movie_id, dub_language) VALUES (" + id + ", '" + dub + "'");
             }
@@ -61,11 +58,23 @@ public class MovieGateway {
 
     }
 
-    public static void update(Movie movie){
+    public static void delete(Long id) {
+        try {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+
+            stmt.executeUpdate("DELETE FROM testdb.movie WHERE id=" + id);
+            stmt.executeUpdate("DELETE FROM testdb.actor WHERE movie_id=" + id);
+            stmt.executeUpdate("DELETE FROM testdb.producer WHERE movie_id=" + id);
+            stmt.executeUpdate("DELETE FROM testdb.subtitle WHERE movie_id=" + id);
+            stmt.executeUpdate("DELETE FROM testdb.dub WHERE movie_id=" + id);
+
+            conn.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
     }
-
-    public static void delete(Long id) {
 
     }
 
