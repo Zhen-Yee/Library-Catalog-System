@@ -94,7 +94,6 @@ public class Movie extends CatalogItem{
         return runTime;
     }
 
-    // Mutators - ao not add mutators to Many to Many associated attributes! use the Add/Remove methods!
     public void setDirector(String director) {
         this.director = director;
     }

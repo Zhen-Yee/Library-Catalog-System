@@ -106,7 +106,6 @@ public class Catalog {
         // Add Movies
         // fill array list with a string to test actor
         ArrayList<String> x = new ArrayList<String>();
-        x.add("ok");
         for (int i = 1; i < 6; i++) {
             Movie movie = new Movie("Movie" + i, 8, 0, "DIRECTOR", "English", "1988/12/24", 120, x);
             addCatalogItem(movie);
