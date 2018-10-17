@@ -57,7 +57,7 @@ public class Catalog {
      * @param CatalogItemType
      * @returnn List<CatalogItem>
      */
-    public List<CatalogItem> getAllCertainItem(String CatalogItemType) {
+    public List<CatalogItem> getAllCatalogItemsByType(String CatalogItemType) {
         List<CatalogItem> catalogItems = new ArrayList<>();
         switch (CatalogItemType){
             case "Book" : catalogItems.addAll(getAllBooks()); break;

@@ -19,8 +19,8 @@ public class CatalogController {
     }
 
     @GetMapping("/getAll"+"{CatalogItemType}")
-    public List<CatalogItem> getAllItems(@PathVariable String CatalogItemType) {
-        return catalog.getAllCatalogItems();
+    public List<CatalogItem> getAllCatalogItemsByType(@PathVariable String CatalogItemType) {
+        return catalog.getAllCatalogItemsByType(CatalogItemType);
     }
 
     @PostMapping("/addBook")
