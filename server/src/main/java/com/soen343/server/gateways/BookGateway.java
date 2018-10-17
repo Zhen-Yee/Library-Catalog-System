@@ -71,10 +71,14 @@ public class BookGateway {
             Connection conn = connect();
             Statement stmt = conn.createStatement();
 
-            stmt.executeUpdate("UPDATE testdb.book SET qty_in_stock = " + book.getQtyInStock() + ", qty_on_load = " + book.getQtyOnLoan() + ", title = " + book.getTitle() + 
-            ", author = " + book.getAuthor() + ", format = " + book.getFormat() + ", isbn10 = " + book.getIsbn10() + ", isbn13 = " + book.getIsbn13() + 
-            ", language = " + book.getLanguage() + ", pages = " + book.getPages() + ", publisher = " + book.getPublisher() + 
-            ", year_of_publication = " + book.getYearOfPublication() + " WHERE id = " + book.getId());
+            String query = "UPDATE testdb.book SET qty_in_stock = '" + book.getQtyInStock() + "', qty_on_loan = '" + book.getQtyOnLoan() + "', title = '" + book.getTitle() + 
+            "', author = '" + book.getAuthor() + "', format = '" + book.getFormat() + "', isbn10 = '" + book.getIsbn10() + "', isbn13 = '" + book.getIsbn13() + 
+            "', language = '" + book.getLanguage() + "', pages = '" + book.getPages() + "', publisher = '" + book.getPublisher() + 
+            "', year_of_publication = '" + book.getYearOfPublication() + "' WHERE id = " + book.getId() ;
+
+            System.out.println(query);
+
+            stmt.executeUpdate(query);
             
             conn.close();
             
@@ -108,19 +112,23 @@ public class BookGateway {
 
         try {
             while (resultSet.next()) {
-                bookArrayList.add(new Book(
-                        resultSet.getString("title"),
-                        resultSet.getInt("qty_in_stock"),
-                        resultSet.getInt("qty_on_loan"),
-                        resultSet.getString("author"),
-                        resultSet.getString("format"),
-                        resultSet.getInt("pages"),
-                        resultSet.getInt("year_of_publication"),
-                        resultSet.getString("publisher"),
-                        resultSet.getString("language"),
-                        resultSet.getString("isbn10"),
-                        resultSet.getString("isbn13")
-                ));
+                Book book = new Book(
+                    resultSet.getString("title"),
+                    resultSet.getInt("qty_in_stock"),
+                    resultSet.getInt("qty_on_loan"),
+                    resultSet.getString("author"),
+                    resultSet.getString("format"),
+                    resultSet.getInt("pages"),
+                    resultSet.getInt("year_of_publication"),
+                    resultSet.getString("publisher"),
+                    resultSet.getString("language"),
+                    resultSet.getString("isbn10"),
+                    resultSet.getString("isbn13")
+            );
+
+            book.setId(resultSet.getInt("id"));
+
+                bookArrayList.add(book);
             }
         } catch (SQLException e) {
             System.out.println("Unable to query from result set.");

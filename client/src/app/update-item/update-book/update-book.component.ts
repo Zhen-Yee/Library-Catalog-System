@@ -12,6 +12,7 @@ import { HttpClient } from "@angular/common/http";
 export class UpdateBookComponent implements OnInit {
     form: FormGroup;
     edit: boolean;
+    successful;
     @Input() book;
     constructor(private fb: FormBuilder, private http: HttpClient) {
 
@@ -81,9 +82,10 @@ export class UpdateBookComponent implements OnInit {
                     isbn10: this.book.isbn10,
                     isbn13: this.book.isbn13
                 });
+
                 
             this.http.post<Book>("http://localhost:8090/catalog/updateBook", updatedBook)
-                .subscribe();
+            .subscribe( answer => {this.successful = answer;});
         }
     }
 }

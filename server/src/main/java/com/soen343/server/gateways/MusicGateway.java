@@ -27,16 +27,20 @@ public class MusicGateway {
         System.out.println(resultSet);
         try {
             while (resultSet.next()) {
-                musicArrayList.add(new Music(
-                        resultSet.getString("title"),
-                        resultSet.getInt("qty_in_stock"),
-                        resultSet.getInt("qty_on_loan"),
-                        resultSet.getString("type"),
-                        resultSet.getString("artist"),
-                        resultSet.getString("label"),
-                        resultSet.getString("release_date"),
-                        resultSet.getString("asin")
-                ));
+                Music music = new Music(
+                    resultSet.getString("title"),
+                    resultSet.getInt("qty_in_stock"),
+                    resultSet.getInt("qty_on_loan"),
+                    resultSet.getString("type"),
+                    resultSet.getString("artist"),
+                    resultSet.getString("label"),
+                    resultSet.getString("release_date"),
+                    resultSet.getString("asin")
+            );
+
+            music.setId(resultSet.getInt("id"));
+
+                musicArrayList.add(music);
             }
         } catch (SQLException e) {
             System.out.println("Unable to query from result set.");

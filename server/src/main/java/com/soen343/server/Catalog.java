@@ -77,6 +77,7 @@ public class Catalog {
             case "Movie" :  catalogItems.addAll(getAllMovies()); break;
             default: System.out.println("Invalid CatalogItemType: " + CatalogItemType);
         }
+
         return catalogItems;
     }
 
