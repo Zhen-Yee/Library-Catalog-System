@@ -28,6 +28,7 @@ public class Catalog {
             // Add book to db
         }
         if (catalogItem.getClass() == Magazine.class) {
+            //Magazine.insert((Magazine)catalogItem);
             // Add magazine to db
         }
         if (catalogItem.getClass() == Music.class) {
