@@ -47,8 +47,18 @@ public class CatalogController {
     }
 
     @PostMapping("/updateBook")
-    public void updateBook(@RequestBody Book book) {
-        System.out.println(book);
+    public boolean updateBook(@RequestBody Book book) {
+            System.out.println("1. endpoint reached!!!");
+
+            // checks if book object is good or not
+            if(book != null){
+            catalog.updateCatalogItem(book);
+            return true;
+            }
+            else {
+                return false;
+            }
+        
     }
 
     @PostMapping("/updateMusic")

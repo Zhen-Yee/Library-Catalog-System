@@ -71,6 +71,7 @@ export class UpdateMagazineComponent implements OnInit {
                     isbn10: this.magazine.isbn10,
                     isbn13: this.magazine.isbn13
                 });
+
             this.http.post<Magazine>("http://localhost:8090/catalog/updateMagazine", updatedMagazine)
                 .subscribe();
         }
