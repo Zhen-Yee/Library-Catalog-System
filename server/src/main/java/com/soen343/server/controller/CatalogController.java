@@ -61,4 +61,9 @@ public class CatalogController {
         System.out.println(magazine);
     }
 
+    @PostMapping("/deleteMovie")
+    public void deleteMovie(@RequestBody long id) {
+        catalog.deleteMovie(id);
+    }
+
 }

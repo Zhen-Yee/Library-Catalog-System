@@ -17,7 +17,7 @@ public class DbConnection {
         } 
         catch (Exception e) {
             System.out.println(e);
-        } 
+        }
     }
 
     // returns a Connector Object containing the connection, the resultset and the statement
