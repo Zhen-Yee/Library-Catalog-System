@@ -1,8 +1,11 @@
 package com.soen343.server;
 
+import com.soen343.server.gateways.BookGateway;
+import com.soen343.server.gateways.MusicGateway;
 import com.soen343.server.gateways.MovieGateway;
 import com.soen343.server.models.catalog.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Catalog {
 
@@ -38,20 +41,28 @@ public class Catalog {
         }
     }
 
-    public ArrayList<CatalogItem> getAllCatalogItems() {
+
+    /**
+     * This method is to query from database and return a certain
+     * type of CatalogItem - in order to have 1 access point
+     * through the controller.
+     * @param CatalogItemType
+     * @returnn List<CatalogItem>
+     */
+    public List<CatalogItem> getAllCatalogItemsByType(String CatalogItemType) {
+        List<CatalogItem> catalogItems = new ArrayList<>();
+        switch (CatalogItemType){
+            case "Book" : catalogItems.addAll(getAllBooks()); break;
+            case "Music" : catalogItems.addAll(getAllMusics()); break;
+            case "Magazine" : catalogItems.addAll(getAllMagazines()); break;
+            case "Movie" :  catalogItems.addAll(getAllMovies()); break;
+            default: System.out.println("Invalid CatalogItemType: " + CatalogItemType);
+        }
         return catalogItems;
     }
 
-    public ArrayList<Book> getAllBooks() {
-        ArrayList<Book> books = new ArrayList<>();
-
-        for (CatalogItem catalogItem : catalogItems) {
-            if (catalogItem.getClass() == Book.class) {
-                books.add((Book)catalogItem);
-            }
-        }
-
-        return books;
+    public List<Book> getAllBooks() {
+        return BookGateway.getAll();
     }
 
     public ArrayList<Magazine> getAllMagazines() {
@@ -66,16 +77,8 @@ public class Catalog {
         return magazines;
     }
 
-    public ArrayList<Music> getAllMusic() {
-        ArrayList<Music> music = new ArrayList<>();
-
-        for (CatalogItem catalogItem : catalogItems) {
-            if (catalogItem.getClass() == Music.class) {
-                music.add((Music)catalogItem);
-            }
-        }
-
-        return music;
+    public List<Music> getAllMusics() {
+        return MusicGateway.getAll();
     }
 
     public ArrayList<Movie> getAllMovies() {
