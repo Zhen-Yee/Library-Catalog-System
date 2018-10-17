@@ -4,6 +4,7 @@ import com.soen343.server.Catalog;
 import com.soen343.server.models.catalog.*;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -11,12 +12,10 @@ import java.util.ArrayList;
 public class CatalogController {
 
     private Catalog catalog = Catalog.getCatalog();
-
-    @GetMapping("/getAll")
-    public ArrayList<CatalogItem> getAllCatalogItems() {
-        // Generate initial data to simulate db
-        catalog.loadFakeData();
-        return catalog.getAllCatalogItems();
+    
+    @GetMapping("/getAll"+"{CatalogItemType}")
+    public List<CatalogItem> getAllCatalogItemsByType(@PathVariable String CatalogItemType) {
+        return catalog.getAllCatalogItemsByType(CatalogItemType);
     }
 
     @PostMapping("/addBook")

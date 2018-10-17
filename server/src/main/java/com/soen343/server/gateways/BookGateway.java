@@ -1,20 +1,24 @@
 package com.soen343.server.gateways;
-
-import com.soen343.server.models.catalog.Book;
-
 import java.sql.*;
 import java.util.ArrayList;
+import com.soen343.databaseConnection.Connector;
+import com.soen343.databaseConnection.DbConnection;
+import com.soen343.server.models.catalog.Book;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
 public class BookGateway {
+    
+    private static Connector connector;
 
     // replace with property calls
     private static final String URL = "jdbc:mysql://testdbinstance.cwtjkaidrsfz.us-east-2.rds.amazonaws.com:3306/testdb?useSSL=false";
     private static final String USERNAME = "test";
     private static final String PASSWORD = "testtest";
-
-    public static ArrayList<Book> findAll() {
-        return null;
-    }
+    //language=SQL
+    private static final String SQL_GET_ALL_BOOKS = "SELECT  * from testdb.book";
 
     public static void insert(Book book){
         // generate the query
@@ -29,7 +33,7 @@ public class BookGateway {
             Connection conn = connect();
             Statement stmt = conn.createStatement();
 
-            // Add movie, get the new id
+            // Add book, get the new id
             stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
             ResultSet keys = stmt.getGeneratedKeys();
             long id = 0;
@@ -92,4 +96,39 @@ public class BookGateway {
         }
         return connection;
     }
+
+    /**
+     * Query all {@link Book} from the database
+     * @return
+     */
+    public static List<Book> getAll() {
+        List<Book> bookArrayList = new ArrayList<>();
+        connector = DbConnection.get(SQL_GET_ALL_BOOKS);
+        ResultSet resultSet = connector.getResultSet();
+
+        try {
+            while (resultSet.next()) {
+                bookArrayList.add(new Book(
+                        resultSet.getString("title"),
+                        resultSet.getInt("qty_in_stock"),
+                        resultSet.getInt("qty_on_loan"),
+                        resultSet.getString("author"),
+                        resultSet.getString("format"),
+                        resultSet.getInt("pages"),
+                        resultSet.getInt("year_of_publication"),
+                        resultSet.getString("publisher"),
+                        resultSet.getString("language"),
+                        resultSet.getString("isbn10"),
+                        resultSet.getString("isbn13")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println("Unable to query from result set.");
+            e.printStackTrace();
+        } finally {
+            connector.close();
+        }
+        return bookArrayList;
+    }
+
 }

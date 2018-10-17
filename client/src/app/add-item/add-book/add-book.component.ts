@@ -36,7 +36,7 @@ export class AddBookComponent implements OnInit {
       // using spread operator to pass the values to the object
       const book: Book = {
         ...this.form.value
-      };
+      } as Book;
       console.log(book);
       this.http
         .post("http://localhost:8090/catalog/addBook", book)
