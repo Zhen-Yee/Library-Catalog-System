@@ -1,11 +1,14 @@
 package com.soen343.server;
 
+import com.soen343.server.gateways.BookGateway;
+import com.soen343.server.gateways.MusicGateway;
 import com.soen343.server.models.catalog.*;
 import com.soen343.server.models.catalog.movie.Actor;
 import com.soen343.server.models.catalog.movie.Dub;
 import com.soen343.server.models.catalog.movie.Producer;
 import com.soen343.server.models.catalog.movie.Subtitle;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Catalog {
 
@@ -29,20 +32,17 @@ public class Catalog {
         this.catalogItems.add(catalogItem);
     }
 
-    public ArrayList<CatalogItem> getAllCatalogItems() {
+    public List<CatalogItem> getAllCatalogItems() {
+        List<CatalogItem> catalogItems = new ArrayList<>();
+        catalogItems.addAll(getAllBooks());
+        catalogItems.addAll(getAllMusics());
+        catalogItems.addAll(getAllMagazines());
+        catalogItems.addAll(getAllMovies());
         return catalogItems;
     }
 
-    public ArrayList<Book> getAllBooks() {
-        ArrayList<Book> books = new ArrayList<>();
-
-        for (CatalogItem catalogItem : catalogItems) {
-            if (catalogItem.getClass() == Book.class) {
-                books.add((Book)catalogItem);
-            }
-        }
-
-        return books;
+    public List<Book> getAllBooks() {
+        return BookGateway.getAll();
     }
 
     public ArrayList<Magazine> getAllMagazines() {
@@ -57,16 +57,8 @@ public class Catalog {
         return magazines;
     }
 
-    public ArrayList<Music> getAllMusic() {
-        ArrayList<Music> music = new ArrayList<>();
-
-        for (CatalogItem catalogItem : catalogItems) {
-            if (catalogItem.getClass() == Music.class) {
-                music.add((Music)catalogItem);
-            }
-        }
-
-        return music;
+    public List<Music> getAllMusics() {
+        return MusicGateway.getAll();
     }
 
     public ArrayList<Movie> getAllMovies() {

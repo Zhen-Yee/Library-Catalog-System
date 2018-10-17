@@ -4,6 +4,7 @@ import com.soen343.server.Catalog;
 import com.soen343.server.models.catalog.*;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -13,9 +14,7 @@ public class CatalogController {
     private Catalog catalog = Catalog.getCatalog();
 
     @GetMapping("/getAll")
-    public ArrayList<CatalogItem> getAllCatalogItems() {
-        // Generate initial data to simulate db
-        catalog.loadFakeData();
+    public List<CatalogItem> getAllCatalogItems() {
         return catalog.getAllCatalogItems();
     }
 
