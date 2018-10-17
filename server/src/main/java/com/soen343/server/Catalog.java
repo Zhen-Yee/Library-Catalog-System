@@ -50,6 +50,25 @@ public class Catalog {
         return catalogItems;
     }
 
+    /**
+     * This method is to query from database and return a certain
+     * type of CatalogItem - in order to have 1 access point
+     * through the controller.
+     * @param CatalogItemType
+     * @returnn List<CatalogItem>
+     */
+    public List<CatalogItem> getAllCertainItem(String CatalogItemType) {
+        List<CatalogItem> catalogItems = new ArrayList<>();
+        switch (CatalogItemType){
+            case "Book" : catalogItems.addAll(getAllBooks()); break;
+            case "Music" : catalogItems.addAll(getAllMusics()); break;
+            case "Magazine" : catalogItems.addAll(getAllMagazines()); break;
+            case "Movie" :  catalogItems.addAll(getAllMovies()); break;
+            default: System.out.println("Invalid CatalogItemType: " + CatalogItemType);
+        }
+        return catalogItems;
+    }
+
     public List<Book> getAllBooks() {
         return BookGateway.getAll();
     }

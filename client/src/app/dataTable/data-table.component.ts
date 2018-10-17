@@ -1,18 +1,13 @@
 import { CatalogItemType } from "./../enums/catalogItemType";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Book } from "../_models/catalog/book.model";
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger
-} from "@angular/animations";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 import { MatSort, MatPaginator, MatTableDataSource } from "@angular/material";
-import { Observable, pipe } from "rxjs";
-import { map } from "rxjs/operators";
-import { Item } from "../_models/catalog/item";
 import { HttpClient } from "@angular/common/http";
+import {CatalogItem} from "../_models/catalog/catalogItem.model";
+import {Item} from "../_models/catalog/item";
+import {Observable} from "rxjs";
+import {Music} from "../_models/catalog/music.model";
 
 @Component({
   selector: "app-data-table",
@@ -41,16 +36,10 @@ export class DataTableComponent implements OnInit {
   sort: MatSort;
 
   // Generated Data
-  dataArray: Book[];
-  columnsToDisplay: string[] = [
-    "itemType",
-    "id",
-    "qtyInStock",
-    "qtyOnLoan",
-    "title"
-  ];
-  expandedElement: Book[];
-  dataSource: MatTableDataSource<Book>;
+  dataArray: CatalogItem[];
+  columnsToDisplay: string[] = ["itemType", "id", "qtyInStock", "qtyOnLoan", "title"];
+  expandedElement: CatalogItem[];
+  dataSource: MatTableDataSource<CatalogItem>;
 
   ngOnInit() {
     this.initialize();
@@ -58,14 +47,18 @@ export class DataTableComponent implements OnInit {
   }
 
   getAll() {
-    return this.http
-      .get<Book[]>("http://localhost:8090/catalog/getAll")
-      .subscribe(x => {
-        x.map(index => {
-          index.itemType = CatalogItemType.Book;
-        });
-        this.dataArray = x;
+
+    let Book  = this.http
+      .get<Book[]>("http://localhost:8090/catalog/getAll"+CatalogItemType.Book)
+      .subscribe(x => {x.map(index => {index.itemType = CatalogItemType.Book;});
+      this.dataArray.concat(x);
       });
+    let Music  = this.http
+      .get<Music[]>("http://localhost:8090/catalog/getAll"+CatalogItemType.Music)
+      .subscribe(x => {x.map(index => {index.itemType = CatalogItemType.Music;});
+        this.dataArray.concat(x);
+      });
+
   }
 
   initialize() {
@@ -73,3 +66,4 @@ export class DataTableComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.dataArray);
   }
 }
+

@@ -18,6 +18,11 @@ public class CatalogController {
         return catalog.getAllCatalogItems();
     }
 
+    @GetMapping("/getAll"+"{CatalogItemType}")
+    public List<CatalogItem> getAllItems(@PathVariable String CatalogItemType) {
+        return catalog.getAllCatalogItems();
+    }
+
     @PostMapping("/addBook")
     public boolean addBook(@RequestBody Book book){
         // checks if book object is good or not
