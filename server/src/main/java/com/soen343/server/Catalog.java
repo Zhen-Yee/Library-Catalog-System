@@ -44,9 +44,9 @@ public class Catalog {
     public List<CatalogItem> getAllCatalogItems() {
         List<CatalogItem> catalogItems = new ArrayList<>();
         catalogItems.addAll(getAllBooks());
-        catalogItems.addAll(getAllMusics());
-        catalogItems.addAll(getAllMagazines());
-        catalogItems.addAll(getAllMovies());
+       // catalogItems.addAll(getAllMusics());
+       // catalogItems.addAll(getAllMagazines());
+      //  catalogItems.addAll(getAllMovies());
         return catalogItems;
     }
 
