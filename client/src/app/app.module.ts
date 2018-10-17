@@ -9,8 +9,10 @@ import { RouterModule } from "@angular/router";
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
 import { TestComponent } from "./test/test.component";
-import { MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, MatMenuModule, MatDialogModule,
-MatCardModule, MatSelectModule, MatSnackBarModule,} from "@angular/material";
+import {
+  MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, MatMenuModule, MatDialogModule,
+  MatCardModule, MatSelectModule, MatSnackBarModule, MatPaginatorModule, MatChipsModule
+} from "@angular/material";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -24,6 +26,7 @@ import { RegistrationErrorComponent } from "./registration/registration_error.co
 import {MatListModule} from "@angular/material/list";
 import {MatIconModule} from "@angular/material/icon";
 import { UserService } from "./_services/user.service";
+import { ToggleService } from "./_services/ToggleService";
 import { DeleteItemComponent } from './delete-item/delete-item.component';
 import { AddItemComponent } from "./add-item/add-item.component";
 import { AddMusicComponent } from "./add-item/add-music/add-music.component";
@@ -67,6 +70,7 @@ import { DeleteItemErrorBoxComponent } from './delete-item-error-box/delete-item
       BrowserAnimationsModule,
       MatFormFieldModule,
       MatInputModule,
+      MatChipsModule,
       MatButtonModule,
       MatToolbarModule,
       MatMenuModule,
@@ -82,6 +86,7 @@ import { DeleteItemErrorBoxComponent } from './delete-item-error-box/delete-item
       MatListModule,
       MatIconModule,
       MatTableModule,
+      MatPaginatorModule,
       MatSnackBarModule
    ],
    entryComponents: [
@@ -93,7 +98,8 @@ import { DeleteItemErrorBoxComponent } from './delete-item-error-box/delete-item
    providers: [
       UserService,
       PasswordService,
-      AdminAuthenticateGuard
+      AdminAuthenticateGuard,
+      ToggleService
    ],
    bootstrap: [
       AppComponent

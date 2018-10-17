@@ -1,5 +1,6 @@
-import { Component } from "@angular/core";
-import {UserService} from "./_services/user.service";
+import { Component, OnInit } from "@angular/core";
+import { UserService } from "./_services/user.service";
+import { ToggleService } from "./_services/ToggleService";
 
 @Component({
   selector: "app-root",
@@ -8,11 +9,22 @@ import {UserService} from "./_services/user.service";
 })
 export class AppComponent {
   title = "app";
+  toggled;
+  
 
-  constructor(private user: UserService) {
+  ngOnInit() {
+
+  this.toggle.currentToggle.subscribe(toggled => this.toggled = toggled) }
+
+  constructor(private user: UserService, private toggle: ToggleService) {
+    
   }
 
   isAdmin() {
     return this.user.isAdmin;
+  }
+
+  isToggle() {
+    return this.toggled;
   }
 }

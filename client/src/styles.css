@@ -4,6 +4,9 @@
 body
 {
     font-family:Roboto;
+    background-image: url("library.jpg");
+    background-repeat: no-repeat;
+    background-size: 170%;
 }
 
 h1
