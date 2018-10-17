@@ -12,12 +12,7 @@ import java.util.List;
 public class CatalogController {
 
     private Catalog catalog = Catalog.getCatalog();
-
-    @GetMapping("/getAll")
-    public List<CatalogItem> getAllCatalogItems() {
-        return catalog.getAllCatalogItems();
-    }
-
+    
     @GetMapping("/getAll"+"{CatalogItemType}")
     public List<CatalogItem> getAllCatalogItemsByType(@PathVariable String CatalogItemType) {
         return catalog.getAllCatalogItemsByType(CatalogItemType);

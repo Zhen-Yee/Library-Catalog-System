@@ -41,14 +41,6 @@ public class Catalog {
         }
     }
 
-    public List<CatalogItem> getAllCatalogItems() {
-        List<CatalogItem> catalogItems = new ArrayList<>();
-        catalogItems.addAll(getAllBooks());
-       // catalogItems.addAll(getAllMusics());
-       // catalogItems.addAll(getAllMagazines());
-      //  catalogItems.addAll(getAllMovies());
-        return catalogItems;
-    }
 
     /**
      * This method is to query from database and return a certain
