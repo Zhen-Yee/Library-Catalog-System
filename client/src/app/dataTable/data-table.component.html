@@ -12,14 +12,13 @@
         <div class="example-element-description">
           {{element}} 
           <div class = "edit-box">
-          <update-book *ngIf="element.getType() === 'Book'" [book]="element"></update-book>
-          <update-magazine *ngIf="element.getType() === 'Magazine'" [magazine]="element"></update-magazine>
-          <update-music *ngIf="element.getType() === 'Music'" [music]="element"></update-music>
+          <!--<update-book *ngIf="element.getType() === 'Book'" [book]="element"></update-book>-->
+          <!--<update-magazine *ngIf="element.getType() === 'Magazine'" [magazine]="element"></update-magazine>-->
+          <!--<update-music *ngIf="element.getType() === 'Music'" [music]="element"></update-music>-->
 
         <div class = "delete">
           <delete-item [element]="element"></delete-item>
         </div>
-
       </div>
     </div>
   </div>
