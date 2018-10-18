@@ -30,7 +30,7 @@ export class AddMusicComponent implements OnInit {
              ...this.Fg.value
            };
            console.log(music);
-           this.httpClient.post("http://localhost:8090/catalog/addMusic",music)
+           this.httpClient.post("http://localhost:8090/catalog/addMusic", music)
            .subscribe((confirmation) => console.log(confirmation));
            
        }
