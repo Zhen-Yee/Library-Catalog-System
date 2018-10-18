@@ -4,7 +4,7 @@ import com.soen343.databaseConnection.Connector;
 import com.soen343.databaseConnection.DbConnection;
 import com.soen343.server.models.catalog.Music;
 
-import java.sql.*;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
