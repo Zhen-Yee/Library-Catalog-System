@@ -158,39 +158,39 @@ public class MovieGateway {
             "'WHERE id = " + movie.getId();
         // updated movie parameters without actors, dubs, subs and producers
         stmt.executeUpdate(movieQuery);
-        
-        // updating actors
-        Statement actorStatement = conn.createStatement();
-        String checkInMovie = "SELECT * FROM testdb.actor WHERE movie_id = '"+ movie.getId()+"'";
-        actorStatement.executeQuery(checkInMovie);
-        ResultSet actorResultSet = actorStatement.getResultSet();
-        while(actorResultSet.next()){
-            boolean found = false;
-            for(String actor: movie.getActors()){
-                // compare 1 incoming actor with actors in the database
-                // if found break out of the loop
-                if(actor == actorResultSet.getString("actor")){
-                    found = true;
-                }
-            if(!found){
-                // if actor is not in the movie, check if it exists in the database
-                Statement existStatement = conn.createStatement();
-                existStatement.executeQuery("SELECT * FROM testdb.actor WHERE actor = '"+actor+"'");
-                ResultSet existsResultSet = existStatement.getResultSet();
-                // if found it exists, get its id and add it with that id
-                // otherwise add a new id
-                if(existsResultSet.next()){
-                    Statement addActorStatement = conn.createStatement();
-                    addActorStatement.executeUpdate("INSERT INTO testdb.actor (id, movie_id, actor) VALUES (" + existsResultSet.getInt("id") + ","+ movie.getId()+", '" + actor + "')");
-                } else{
-                    stmt.executeUpdate("INSERT INTO testdb.actor (movie_id, actor) VALUES (" + movie.getId() + ", '" + actor + "')");
-                }
-            }
-            }
+    
+        // delete actors for that movie
+        String deleteActors = "DELETE FROM testdb.actor WHERE movie_id = '"+ movie.getId()+"'";
+        stmt.executeUpdate(deleteActors);
+        // add each incoming actors to the db for that movie
+        for(String actor: movie.getActors()){
+            stmt.executeUpdate("INSERT INTO testdb.actor (movie_id, actor) VALUES (" + movie.getId() + ", '" + actor + "')");
         }
-        // String actorQuery = "UPDATE testdb.actor SET name = "
 
-            conn.close();
+        // delete subs for that movie
+        String deleteSubs = "DELETE FROM testdb.subtitle WHERE movie_id = '"+ movie.getId()+"'";
+        stmt.executeUpdate(deleteSubs);
+        // add each incoming subs to the db for that movie
+        for(String subs: movie.getSubtitles()){
+            stmt.executeUpdate("INSERT INTO testdb.subtitle (movie_id, sub_language) VALUES (" + movie.getId() + ", '" + subs + "')");
+        }
+
+        // delete dubs for that movie
+        String deleteDubs = "DELETE FROM testdb.dub WHERE movie_id = '"+ movie.getId()+"'";
+        stmt.executeUpdate(deleteDubs);
+        // add each incoming dubs to the db for that movie
+        for(String dubs: movie.getDubs()){
+            stmt.executeUpdate("INSERT INTO testdb.dub (movie_id, dub_language) VALUES (" + movie.getId() + ", '" + dubs + "')");
+        }
+
+        // delete producers for that movie
+        String deleteProducers = "DELETE FROM testdb.producer WHERE movie_id = '"+ movie.getId()+"'";
+        stmt.executeUpdate(deleteProducers);
+        // add each incoming subs to the db for that movie
+        for(String producer: movie.getProducers()){
+            stmt.executeUpdate("INSERT INTO testdb.producer (movie_id, producer) VALUES (" + movie.getId() + ", '" + producer + "')");
+        }
+        conn.close();
         } catch(Exception e){
             System.out.println(e);
         }
