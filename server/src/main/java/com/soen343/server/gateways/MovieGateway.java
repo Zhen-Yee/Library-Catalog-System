@@ -150,6 +150,50 @@ public class MovieGateway {
     }
 
     public static void update(Movie movie){
+        try{
+        Connection conn = connect();
+        Statement stmt = conn.createStatement();
+        String movieQuery = "UPDATE testdb.movie SET qty_in_stock = '" + movie.getQtyInStock() + "', qty_on_loan = '" + movie.getQtyOnLoan() + "', title = '" + movie.getTitle() + 
+            "', director = '" + movie.getDirector() + "', language = '" + movie.getLanguage() + "', release_date = '" + movie.getReleaseDate() + "', run_time = '" + movie.getRunTime() + 
+            "'WHERE id = " + movie.getId();
+        // updated movie parameters without actors, dubs, subs and producers
+        stmt.executeUpdate(movieQuery);
+        
+        // updating actors
+        Statement actorStatement = conn.createStatement();
+        String checkInMovie = "SELECT * FROM testdb.actor WHERE movie_id = '"+ movie.getId()+"'";
+        actorStatement.executeQuery(checkInMovie);
+        ResultSet actorResultSet = actorStatement.getResultSet();
+        while(actorResultSet.next()){
+            boolean found = false;
+            for(String actor: movie.getActors()){
+                // compare 1 incoming actor with actors in the database
+                // if found break out of the loop
+                if(actor == actorResultSet.getString("actor")){
+                    found = true;
+                }
+            if(!found){
+                // if actor is not in the movie, check if it exists in the database
+                Statement existStatement = conn.createStatement();
+                existStatement.executeQuery("SELECT * FROM testdb.actor WHERE actor = '"+actor+"'");
+                ResultSet existsResultSet = existStatement.getResultSet();
+                // if found it exists, get its id and add it with that id
+                // otherwise add a new id
+                if(existsResultSet.next()){
+                    Statement addActorStatement = conn.createStatement();
+                    addActorStatement.executeUpdate("INSERT INTO testdb.actor (id, movie_id, actor) VALUES (" + existsResultSet.getInt("id") + ","+ movie.getId()+", '" + actor + "')");
+                } else{
+                    stmt.executeUpdate("INSERT INTO testdb.actor (movie_id, actor) VALUES (" + movie.getId() + ", '" + actor + "')");
+                }
+            }
+            }
+        }
+        // String actorQuery = "UPDATE testdb.actor SET name = "
+
+            conn.close();
+        } catch(Exception e){
+            System.out.println(e);
+        }
         
     }
 
