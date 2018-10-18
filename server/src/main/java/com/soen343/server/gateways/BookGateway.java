@@ -76,8 +76,6 @@ public class BookGateway {
             "', language = '" + book.getLanguage() + "', pages = '" + book.getPages() + "', publisher = '" + book.getPublisher() + 
             "', year_of_publication = '" + book.getYearOfPublication() + "' WHERE id = " + book.getId() ;
 
-            System.out.println(query);
-
             stmt.executeUpdate(query);
             
             conn.close();

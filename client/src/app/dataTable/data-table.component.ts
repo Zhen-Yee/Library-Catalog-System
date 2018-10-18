@@ -47,7 +47,7 @@ export class DataTableComponent implements OnInit {
   }
   // Generated Data
   dataArray: CatalogItem[] = [] ;
-  columnsToDisplay: string[] = ["itemType", "id", "qtyInStock", "qtyOnLoan", "title"];
+  columnsToDisplay: string[] = ["itemType", "qtyInStock", "qtyOnLoan", "title"];
   expandedElement: CatalogItem[];
   dataSource: MatTableDataSource<CatalogItem>;
 
