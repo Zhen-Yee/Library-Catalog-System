@@ -45,7 +45,7 @@ export class UpdateMusicComponent implements OnInit {
             type: ["", Validators.required],
             artist: ["", Validators.required],
             releaseDate: ["", [Validators.required, Validators.pattern("^([0-9]{4})\/(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])$")]],
-            asin: ["", [Validators.required, Validators.pattern("^B[\dA-Z]{9}|\d{9}(X|\d)$")]],
+            asin: ["", [Validators.required, Validators.pattern("^B[\\dA-Z]{9}|\\d{9}(X|\\d)$")]],
             label: ["", Validators.required],
             qtyInStock: ["", Validators.required],
             qtyOnLoan: ["", Validators.required],
@@ -64,15 +64,15 @@ export class UpdateMusicComponent implements OnInit {
             // Updates frontend with new saved values
             item.title = this.music.title;
             item.qtyInStock = this.music.qtyInStock;
-            item.itemType = this.music.itemType;
+            item.type = this.music.type;
             item.qtyOnLoan = this.music.qtyOnLoan;
-            item.artist = this.music.author;
+            item.artist = this.music.artist;
             item.releaseDate = this.music.releaseDate;
             item.asin = this.music.asin;
             item.label = this.music.label;
 
             this.http.post<Music>("http://localhost:8090/catalog/updateMusic", this.music)
-                .subscribe(response => console.log(response));
+                .subscribe(response => response);
         }
     }
 }
