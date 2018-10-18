@@ -32,6 +32,8 @@ export class UpdateMovieComponent implements OnInit {
     this.edit = false;
     this.form = this.formBuilder.group({
       title: ["", Validators.required],
+      qtyInStock: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
+      qtyOnLoan: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
       director: ["", Validators.required],
       language: ["", Validators.required],
       releaseDate: [
@@ -55,6 +57,10 @@ export class UpdateMovieComponent implements OnInit {
       this.edit = true;
       // maps Book object value to the input fields
       this.form.patchValue({ ...this.movie });
+      this.producers = this.movie.producers;
+      this.actors = this.movie.actors;
+      this.subtitles = this.movie.subtitles;
+      this.dubs = this.movie.dubs;
     } else {
       // when user cancels edit, set edit variable back to false
       this.edit = false;
@@ -159,21 +165,20 @@ export class UpdateMovieComponent implements OnInit {
       this.movie.dubs = this.dubs;
       console.log(this.movie);
 
-      item.actors = this.movie.title;
+      item.actors = this.movie.actors;
       item.title = this.movie.title;
       item.qtyInStock = this.movie.qtyInStock;
-      item.itemType = this.movie.itemType;
       item.qtyOnLoan = this.movie.qtyOnLoan;
       item.director = this.movie.director;
       item.dubs = this.movie.dubs;
       item.language = this.movie.language;
       item.producers = this.movie.producers;
-      item.releaseDate = this.movie.releasedate;
+      item.releaseDate = this.movie.releaseDate;
       item.runTime = this.movie.runTime;
       item.subtitles = this.movie.subtitles;
 
       this.http
-        .post("http://localhost:8090/catalog/addMovie", this.movie)
+        .post("http://localhost:8090/catalog/updateMovie", this.movie)
         .subscribe(confirmation => console.log(confirmation));
     }
   }
