@@ -52,18 +52,25 @@ public class Movie extends CatalogItem{
     }
 
     // Constructor used in the test getAll()
-    public Movie(String title, int qtyInStock, int qtyOnLoan, String director, String language, String releaseDate, int runTime, ArrayList<String>actors) {
+    public Movie(String title, int qtyInStock, int qtyOnLoan, String director, String language, String releaseDate, int runTime) {
         super(title, qtyInStock, qtyOnLoan);
         this.director = director;
         this.language = language;
         this.releaseDate = releaseDate;
         this.runTime = runTime;
-        this.actors = actors;
+        this.actors = new ArrayList<String>();
+        this.dubs  = new ArrayList<String>();
+        this.producers = new ArrayList<String>();
+        this.subtitles = new ArrayList<String>();
     }
 
     // Accessors
     public String getDirector() {
         return director;
+    }
+
+    public void addProducers(String producers){
+        this.producers.add(producers);
     }
 
     public ArrayList<String> getProducers() {
@@ -74,12 +81,24 @@ public class Movie extends CatalogItem{
         return actors;
     }
 
+    public void addActors(String actor){
+        this.actors.add(actor);
+    }
+
     public String getLanguage() {
         return language;
     }
 
+    public void addSubtitles(String subs){
+        this.subtitles.add(subs);
+    }
+
     public ArrayList<String> getSubtitles() {
         return subtitles;
+    }
+
+    public void addDubs(String dubs){
+        this.dubs.add(dubs);
     }
 
     public ArrayList<String> getDubs() {
