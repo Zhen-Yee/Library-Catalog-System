@@ -1,10 +1,10 @@
 import { Component,  OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material";
-import {LoginComponent} from "../login/login.component";
-import {HttpClient} from "@angular/common/http";
+import { LoginComponent } from "../login/login.component";
+import { HttpClient } from "@angular/common/http";
 import { finalize } from "rxjs/operators";
-import {UserService} from "../_services/user.service";
+import { UserService } from "../_services/user.service";
 import { ToggleService } from "../_services/ToggleService";
 
 @Component({

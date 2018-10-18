@@ -3,7 +3,7 @@ package com.soen343.server;
 import com.soen343.server.gateways.BookGateway;
 import com.soen343.server.gateways.MusicGateway;
 import com.soen343.server.gateways.MovieGateway;
-import com.soen343.server.gateways.MusicGateway;
+import com.soen343.server.gateways.BookGateway;
 import com.soen343.server.models.catalog.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +43,24 @@ public class Catalog {
         }
     }
 
+    public void updateCatalogItem(CatalogItem catalogItem) {
+        if (catalogItem.getClass() == Book.class) {
+            BookGateway.update((Book)catalogItem);
+        }
+        if (catalogItem.getClass() == Magazine.class) {
+            // Add magazine to db
+        }
+        if (catalogItem.getClass() == Music.class) {
+            MusicGateway.update((Music)catalogItem);
+        }
+        if (catalogItem.getClass() == Movie.class) {
+            
+        }
+    }
+
+    public ArrayList<CatalogItem> getAllCatalogItems() {
+        return catalogItems;
+    }
 
     /**
      * This method is to query from database and return a certain
@@ -60,6 +78,7 @@ public class Catalog {
             case "Movie" :  catalogItems.addAll(getAllMovies()); break;
             default: System.out.println("Invalid CatalogItemType: " + CatalogItemType);
         }
+
         return catalogItems;
     }
 
@@ -83,16 +102,8 @@ public class Catalog {
         return MusicGateway.getAll();
     }
 
-    public ArrayList<Movie> getAllMovies() {
-        ArrayList<Movie> movies = new ArrayList<>();
-
-        for (CatalogItem catalogItem : catalogItems) {
-            if (catalogItem.getClass() == Movie.class) {
-                movies.add((Movie)catalogItem);
-            }
-        }
-
-        return movies;
+    public List<Movie> getAllMovies() {
+        return MovieGateway.getAll();
     }
 
     public void deleteMovie(long id) {
@@ -104,34 +115,34 @@ public class Catalog {
      */
     public void loadFakeData() {
 
-        // Add Books
-        addCatalogItem(new Book("Book1", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
-        addCatalogItem(new Book("Book2", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
-        addCatalogItem(new Book("Book3", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
-        addCatalogItem(new Book("Book4", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
-        addCatalogItem(new Book("Book5", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
+        // // Add Books
+        // addCatalogItem(new Book("Book1", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
+        // addCatalogItem(new Book("Book2", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
+        // addCatalogItem(new Book("Book3", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
+        // addCatalogItem(new Book("Book4", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
+        // addCatalogItem(new Book("Book5", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
 
-        // Add Magazines
-        addCatalogItem(new Magazine("Magazine1", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
-        addCatalogItem(new Magazine("Magazine2", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
-        addCatalogItem(new Magazine("Magazine3", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
-        addCatalogItem(new Magazine("Magazine4", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
-        addCatalogItem(new Magazine("Magazine5", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
+        // // Add Magazines
+        // addCatalogItem(new Magazine("Magazine1", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
+        // addCatalogItem(new Magazine("Magazine2", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
+        // addCatalogItem(new Magazine("Magazine3", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
+        // addCatalogItem(new Magazine("Magazine4", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
+        // addCatalogItem(new Magazine("Magazine5", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
 
-        // Add Music
-        addCatalogItem(new Music("Music1", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
-        addCatalogItem(new Music("Music2", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
-        addCatalogItem(new Music("Music3", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
-        addCatalogItem(new Music("Music4", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
-        addCatalogItem(new Music("Music5", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
+        // // Add Music
+        // addCatalogItem(new Music("Music1", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
+        // addCatalogItem(new Music("Music2", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
+        // addCatalogItem(new Music("Music3", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
+        // addCatalogItem(new Music("Music4", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
+        // addCatalogItem(new Music("Music5", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
 
-        // Add Movies
-        // fill array list with a string to test actor
-        ArrayList<String> x = new ArrayList<String>();
-        for (int i = 1; i < 6; i++) {
-            Movie movie = new Movie("Movie" + i, 8, 0, "DIRECTOR", "English", "1988/12/24", 120, x);
-            addCatalogItem(movie);
-        }
+        // // Add Movies
+        // // fill array list with a string to test actor
+        // ArrayList<String> x = new ArrayList<String>();
+        // for (int i = 1; i < 6; i++) {
+        //     Movie movie = new Movie("Movie" + i, 8, 0, "DIRECTOR", "English", "1988/12/24", 120, x);
+        //     addCatalogItem(movie);
+        // }
         
         /*
         note that by using the add methods you not only add the actor/dub/sub/producer to the movie, but you also add
