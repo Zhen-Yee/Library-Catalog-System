@@ -82,9 +82,7 @@ export class UpdateBookComponent implements OnInit {
             item.isbn13 = this.book.isbn13;
 
             this.http.post<Book>("http://localhost:8090/catalog/updateBook", this.book)
-            .subscribe( answer => {this.successful = answer;});
-
-            
+            .subscribe( answer => {this.successful = answer; });
         }
     }
 }
