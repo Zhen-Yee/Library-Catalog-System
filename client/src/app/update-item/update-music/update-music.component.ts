@@ -11,7 +11,7 @@ import { Music } from "../../_models/catalog/music.model";
 export class UpdateMusicComponent implements OnInit {
     form: FormGroup;
     edit: boolean;
-    confirmation;
+    confirmation; // used later to display if book was added sucessfully
     @Input() music;
     constructor(private fb: FormBuilder, private http: HttpClient) {
 
@@ -54,13 +54,23 @@ export class UpdateMusicComponent implements OnInit {
     }
 
     // save music to later send new Music object to update in backend
-    saveMusic() {
+    saveMusic(item: Music) {
         if (this.form.valid) {
             this.music = {
                 ...this.form.value
             };
             this.edit = false;
-            console.log(this.music)
+
+            // Updates frontend with new saved values
+            item.title = this.music.title;
+            item.qtyInStock = this.music.qtyInStock;
+            item.itemType = this.music.itemType;
+            item.qtyOnLoan = this.music.qtyOnLoan;
+            item.artist = this.music.author;
+            item.releaseDate = this.music.releaseDate;
+            item.asin = this.music.asin;
+            item.label = this.music.label;
+
             this.http.post<Music>("http://localhost:8090/catalog/updateMusic", this.music)
                 .subscribe(response => console.log(response));
         }
