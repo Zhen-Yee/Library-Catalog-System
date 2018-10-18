@@ -8,8 +8,6 @@ import java.sql.*;
 import java.util.*;
 
 public class MovieGateway {
-   // private static Connector connector;
-
     // replace with property calls
     private static final String URL = "jdbc:mysql://testdbinstance.cwtjkaidrsfz.us-east-2.rds.amazonaws.com:3306/testdb?useSSL=false";
     private static final String USERNAME = "test";
@@ -66,6 +64,7 @@ public class MovieGateway {
 
     public static List<Movie> getAll(){
         List<Movie> movieArrayList = new ArrayList<>();
+
         try {
             Connection conn = connect();
             Statement stmt = conn.createStatement();
@@ -85,41 +84,48 @@ public class MovieGateway {
             // takes the id of that movie to find actors, subs, dubs, producers
             int movieId = movieResultSet.getInt("id");
             // finds actors and adds it to the movie
-            stmt.executeQuery("SELECT  * from testdb.actor WHERE movie_id ='"+ movieId + "'");
-            ResultSet actorResultSet = stmt.getResultSet();
+            Statement stmt2 = conn.createStatement();
+            stmt2.executeQuery("SELECT  * from testdb.actor WHERE movie_id ='"+ movieId + "'");
+            ResultSet actorResultSet = stmt2.getResultSet();
+            // movieResultSet = connector.getResultSet();
             while(actorResultSet.next()){
             movie.addActors(actorResultSet.getString("actor"));
             }
 
             // finds subtitles and adds it to the movie
-            stmt.executeQuery("SELECT  * from testdb.subtitle WHERE movie_id ='"+ movieId + "'");
-            ResultSet subsResultSet = stmt.getResultSet();
+            Statement stmt3 = conn.createStatement();
+            stmt3.executeQuery("SELECT  * from testdb.subtitle WHERE movie_id ='"+ movieId + "'");
+            ResultSet subsResultSet = stmt3.getResultSet();
+            // movieResultSet = connector.getResultSet();
             while(subsResultSet.next()){
             movie.addSubtitles(subsResultSet.getString("sub_language"));
             }
 
             // finds dubs and adds it to the movie
-            stmt.executeQuery("SELECT  * from testdb.dub WHERE movie_id ='"+ movieId + "'");
-            ResultSet dubsResultSet = stmt.getResultSet();
+            Statement stmt4 = conn.createStatement();
+            stmt4.executeQuery("SELECT  * from testdb.dub WHERE movie_id ='"+ movieId + "'");
+            ResultSet dubsResultSet = stmt4.getResultSet();
+            //movieResultSet = connector.getResultSet();
             while(dubsResultSet.next()){
             movie.addDubs(dubsResultSet.getString("dub_language"));
             }
 
             // finds producer and adds it to the movie
-            stmt.executeQuery("SELECT  * from testdb.producer WHERE movie_id ='"+ movieId + "'");
-            ResultSet producerResultSet = stmt.getResultSet();
+            Statement stmt5 = conn.createStatement();
+            stmt5.executeQuery("SELECT  * from testdb.producer WHERE movie_id ='"+ movieId + "'");
+            ResultSet producerResultSet = stmt5.getResultSet();
+           // movieResultSet = connector.getResultSet();
             while(producerResultSet.next()){
             movie.addProducers(producerResultSet.getString("producer"));
             }
 
             movieArrayList.add(movie);
             }
-            // connector.close();
-            conn.close();
         } catch (SQLException e) {
             System.out.println("Unable to query from result set.");
             e.printStackTrace();
         } finally {
+            // connector.close();
         }
         return movieArrayList;
     }
