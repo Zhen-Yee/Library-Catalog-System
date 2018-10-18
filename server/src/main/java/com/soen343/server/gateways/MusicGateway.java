@@ -16,6 +16,15 @@ public class MusicGateway {
     //language=SQL
     private static final String SQL_GET_ALL_MUSICS = "SELECT  * from testdb.music";
 
+    // UPDATE METHOD FOR MUSIC
+    public static void update(Music music) {
+        try {
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
     /**
      * Query all {@link Music} from the database
      * @return List<Music>
