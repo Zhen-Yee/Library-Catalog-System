@@ -1,6 +1,7 @@
 package com.soen343.server;
 
 import com.soen343.server.gateways.MovieGateway;
+import com.soen343.server.gateways.MusicGateway;
 import com.soen343.server.models.catalog.*;
 import java.util.ArrayList;
 
@@ -31,7 +32,7 @@ public class Catalog {
             // Add magazine to db
         }
         if (catalogItem.getClass() == Music.class) {
-            //MusicGateway.insert((Music)catalogItem);
+            MusicGateway.insert((Music)catalogItem);
             // Add movie to db
         }
         if (catalogItem.getClass() == Movie.class) {
