@@ -43,7 +43,7 @@ tr.example-element-row:not(.example-expanded-row):active {
   white-space: pre-line;
   width: 100%;
   display: flex;
-  flex-direction: column;
+  margin: auto;
 }
 
 .example-element-description-attribution {
@@ -55,6 +55,7 @@ tr.example-element-row:not(.example-expanded-row):active {
   border: 1px solid rgba(0, 0, 0, 0.03);
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24), 0 0 2px rgba(0, 0, 0, 0.12);
   margin: 40px;
+  width: 70%;
 }
 
 .delete {
@@ -62,10 +63,28 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 /* This concerns the wrapper */
-.left-wrapper{
-  margin-left: auto;
+.left-wrapper {
+  float: left;
+  width:40%;
+  text-align: left;
 }
 
 .right-wrapper {
-  margin-right: auto;
+  width:60%;
+  margin-top: 40px;
+}
+
+
+.title {
+  font-size:20px;
+  font-weight: bold;
+  padding:20px;
+}
+
+.left-wrapper th { 
+  width:70%;
+}
+
+.left-wrapper table {
+  padding-top: 20px;
 }

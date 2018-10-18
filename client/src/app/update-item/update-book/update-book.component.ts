@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Book } from "../../_models/catalog/book.model";
 import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -14,7 +15,7 @@ export class UpdateBookComponent implements OnInit {
     edit: boolean;
     successful;
     @Input() book;
-    constructor(private fb: FormBuilder, private http: HttpClient) {
+    constructor(private router: Router, private fb: FormBuilder, private http: HttpClient) {
 
     }
 
@@ -86,6 +87,7 @@ export class UpdateBookComponent implements OnInit {
                 
             this.http.post<Book>("http://localhost:8090/catalog/updateBook", updatedBook)
             .subscribe( answer => {this.successful = answer;});
+
         }
     }
 }

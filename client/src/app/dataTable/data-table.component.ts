@@ -62,6 +62,7 @@ export class DataTableComponent implements OnInit {
         this.dataArray = [...this.dataArray,...x];
         this.dataSource = new MatTableDataSource(this.dataArray);
       });
+      
     let Music  = this.http
       .get<Music[]>("http://localhost:8090/catalog/getAll"+CatalogItemType.Music)
       .subscribe(y => {y.map(index => {index.itemType = CatalogItemType.Music;});

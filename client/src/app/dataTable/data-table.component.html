@@ -9,17 +9,168 @@
       <div class="example-element-detail"
            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
         <div class="example-element-description">
-          <div class="right-wrapper">
-            {{element.title}}
-          </div>
+
           <div class="left-wrapper">
+
+            <div class = "title">
+            {{element.title}}
+            
+            </div>
+
+            <table>
+                <tr>
+                    <th>id: </th>
+                    <th>{{element.id}}</th> 
+                </tr>
+                <tr>
+                  <th>Quantity in Stock: </th>
+                  <th>{{element.qtyInStock}}</th> 
+                </tr>
+                <tr>
+                  <th>Quantity on Loan: </th>
+                  <th>{{element.qtyOnLoan}}</th> 
+                </tr>
+                <tr>
+                    <th>Type: </th>
+                    <th>{{element.itemType}}</th> 
+                </tr>
+              </table>
+
+              <table *ngIf="element.itemType == 'Book'">
+                  
+                  <tr>
+                      <th>Author: </th>
+                      <th>{{element.author}}</th> 
+                  </tr>
+                  <tr>
+                    <th>Format: </th>
+                    <th>{{element.format}}</th> 
+                  </tr>
+                  <tr>
+                    <th>Pages: </th>
+                    <th>{{element.pages}}</th> 
+                  </tr>
+                  <tr>
+                      <th>Publisher: </th>
+                      <th>{{element.publisher}}</th> 
+                  </tr>
+                  <tr>
+                      <th>Year of Publication: </th>
+                      <th>{{element.yearOfPublication}}</th> 
+                  </tr>
+                  <tr>
+                      <th>Language: </th>
+                      <th>{{element.language}}</th> 
+                  </tr>
+                  <tr>
+                      <th>ISBN10: </th>
+                      <th>{{element.isbn10}}</th> 
+                  </tr>
+                  <tr>
+                      <th>ISBN13: </th>
+                      <th>{{element.isbn13}}</th> 
+                  </tr>
+                </table>
+
+                <table *ngIf="element.itemType == 'Music'">
+                  
+                    <tr>
+                        <th>Type: </th>
+                        <th>{{element.type}}</th> 
+                    </tr>
+                    <tr>
+                      <th>Artist: </th>
+                      <th>{{element.artist}}</th> 
+                    </tr>
+                    <tr>
+                      <th>Label: </th>
+                      <th>{{element.label}}</th> 
+                    </tr>
+                    <tr>
+                        <th>Release Date: </th>
+                        <th>{{element.releaseDate}}</th> 
+                    </tr>
+                    <tr>
+                        <th>ASIN: </th>
+                        <th>{{element.asin}}</th> 
+                    </tr>
+                  </table>
+
+                  <table *ngIf="element.itemType == 'Magazine'">
+                  
+                      <tr>
+                          <th>Language: </th>
+                          <th>{{element.language}}</th> 
+                      </tr>
+                      <tr>
+                      <tr>
+                          <th>Publisher: </th>
+                          <th>{{element.publisher}}</th> 
+                      </tr>
+                      <tr>
+                          <th>Date of Publication: </th>
+                          <th>{{element.dateOfPublication}}</th> 
+                      </tr>
+                      <tr>
+                          <th>ISBN10: </th>
+                          <th>{{element.isbn10}}</th> 
+                      </tr>
+                      <tr>
+                          <th>ISBN13: </th>
+                          <th>{{element.isbn13}}</th> 
+                      </tr>
+                    </table>
+
+                    <table *ngIf="element.itemType == 'Movie'">
+                  
+                        <tr>
+                            <th>Director: </th>
+                            <th>{{element.director}}</th> 
+                        </tr>
+                        <tr>
+                          <th>Actors: </th>
+                          <th>{{element.actors}}</th> 
+                        </tr>
+                        <tr>
+                          <th>Producers: </th>
+                          <th>{{element.producers}}</th> 
+                        </tr>
+                        <tr>
+                            <th>Language: </th>
+                            <th>{{element.language}}</th> 
+                        </tr>
+                        <tr>
+                            <th>Subtitles: </th>
+                            <th>{{element.subtitles}}</th> 
+                        </tr>
+                        <tr>
+                            <th>Dubs: </th>
+                            <th>{{element.dubs}}</th> 
+                        </tr>
+                        <tr>
+                            <th>Release Date: </th>
+                            <th>{{element.releaseDate}}</th> 
+                        </tr>
+                        <tr>
+                            <th>Runtime: </th>
+                            <th>{{element.runtime}}</th> 
+                        </tr>
+                      </table>
+
+          </div>
+
+          <div class="right-wrapper">
+
             <div class = "edit-box">
+
               <update-book *ngIf="element.itemType == 'Book'" [book]="element"></update-book>
               <update-magazine *ngIf="element.itemType== 'Magazine'" [magazine]="element"></update-magazine>
               <update-music *ngIf="element.itemType == 'Music'" [music]="element"></update-music>
+
               <div class = "delete">
                 <delete-item [element]="element"></delete-item>
               </div>
+
             </div>
           </div>
         </div>
