@@ -27,7 +27,7 @@ import {MatListModule} from "@angular/material/list";
 import {MatIconModule} from "@angular/material/icon";
 import { UserService } from "./_services/user.service";
 import { ToggleService } from "./_services/ToggleService";
-import { DeleteItemComponent } from './delete-item/delete-item.component';
+import { DeleteItemComponent } from "./delete-item/delete-item.component";
 import { AddItemComponent } from "./add-item/add-item.component";
 import { AddMusicComponent } from "./add-item/add-music/add-music.component";
 import { AddMoviesComponent } from "./add-item/add-movies/add-movies.component";
@@ -38,7 +38,8 @@ import { UpdateBookComponent } from "./update-item/update-book/update-book.compo
 import { UpdateMagazineComponent } from "./update-item/update-magazine/update-magazine.component";
 import { UpdateMusicComponent } from "./update-item/update-music/update-music.component";
 import { PromoteUserComponent } from "./promote-user/promote-user.component";
-import { DeleteItemErrorBoxComponent } from './delete-item-error-box/delete-item-error-box.component';
+import { DeleteItemErrorBoxComponent } from "./delete-item-error-box/delete-item-error-box.component";
+import { UpdateMovieComponent } from "./update-item/update-movie/update-movie.component";
 
 @NgModule({
    declarations: [
@@ -62,6 +63,7 @@ import { DeleteItemErrorBoxComponent } from './delete-item-error-box/delete-item
       UpdateBookComponent,
       UpdateMagazineComponent,
       UpdateMusicComponent,
+      UpdateMovieComponent,
       PromoteUserComponent,
       DeleteItemErrorBoxComponent
    ],
