@@ -18,6 +18,7 @@ export class UpdateMovieComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   edit: boolean;
+  id: number;
   producers: Array<string> = [];
   actors: Array<string> = [];
   subtitles: Array<string> = [];
@@ -31,6 +32,7 @@ export class UpdateMovieComponent implements OnInit {
   ngOnInit() {
     this.edit = false;
     this.form = this.formBuilder.group({
+      id: ["", Validators.required],
       title: ["", Validators.required],
       qtyInStock: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
       qtyOnLoan: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
@@ -155,6 +157,7 @@ export class UpdateMovieComponent implements OnInit {
   saveMovie(item: Movie) {
     if (this.form.valid) {
       this.movie = {
+        id: this.id,
         ...this.form.value
       };
       this.edit = false;

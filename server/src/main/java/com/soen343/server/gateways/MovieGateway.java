@@ -83,6 +83,7 @@ public class MovieGateway {
             );
             // takes the id of that movie to find actors, subs, dubs, producers
             int movieId = movieResultSet.getInt("id");
+            movie.setId(movieId);
             // finds actors and adds it to the movie
             Statement stmt2 = conn.createStatement();
             stmt2.executeQuery("SELECT  * from testdb.actor WHERE movie_id ='"+ movieId + "'");
@@ -146,6 +147,10 @@ public class MovieGateway {
             System.out.println(e);
         }
 
+    }
+
+    public static void update(Movie movie){
+        
     }
 
     // change for a DataSource later?
