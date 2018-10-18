@@ -69,9 +69,8 @@ public class MusicGateway {
 
     public static void insert(Music music){
         
-        String columnName = "qty_in_stock, qty_on_loan, title, artist, asin, label, release_date, type";
-        String values= music.getQtyInStock() + ", " + music.getQtyOnLoan() + ", " + music.getTitle() + ", " + 
-                         music.getArtist() + ", " + music.getAsin() + ", " + music.getLabel() + ", " + music.getReleaseDate() + ", " +music.getType();
+        String columnName = "artist, asin, label, release_date, type";
+        String values= music.getArtist() + ", " + music.getAsin() + ", " + music.getLabel() + ", " + music.getReleaseDate() + ", " +music.getType();
         
         String query = "INSERT INTO testdb.music (" + columnName + ") VALUES (" + values + ")";
         System.out.println(query);
