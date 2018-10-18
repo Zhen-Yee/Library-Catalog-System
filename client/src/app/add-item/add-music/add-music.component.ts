@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Music} from "../../_models/catalog/music.model";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "app-add-music",
@@ -9,7 +10,7 @@ import {Music} from "../../_models/catalog/music.model";
 })
 export class AddMusicComponent implements OnInit {
    Fg: FormGroup;
-  constructor(private Form: FormBuilder) { }
+  constructor(private Form: FormBuilder, private httpClient : HttpClient) { }
 
   ngOnInit() {
      this.Fg = this.Form.group({
@@ -29,6 +30,9 @@ export class AddMusicComponent implements OnInit {
              ...this.Fg.value
            };
            console.log(music);
+           this.httpClient.post("http://localhost:8090/catalog/addMusic",music)
+           .subscribe((confirmation) => console.log(confirmation));
+           
        }
     }
     //need to call the http client
