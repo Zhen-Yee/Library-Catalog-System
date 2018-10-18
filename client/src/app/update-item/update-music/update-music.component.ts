@@ -11,6 +11,7 @@ import { Music } from "../../_models/catalog/music.model";
 export class UpdateMusicComponent implements OnInit {
     form: FormGroup;
     edit: boolean;
+    confirmation;
     @Input() music;
     constructor(private fb: FormBuilder, private http: HttpClient) {
 
@@ -43,8 +44,8 @@ export class UpdateMusicComponent implements OnInit {
             title: ["", Validators.required],
             type: ["", Validators.required],
             artist: ["", Validators.required],
-            releaseDate: ["", Validators.required],
-            asin: ["", Validators.required],
+            releaseDate: ["", [Validators.required, Validators.pattern("^([0-9]{4})\/(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])$")]],
+            asin: ["", [Validators.required, Validators.pattern("^B[\dA-Z]{9}|\d{9}(X|\d)$")]],
             label: ["", Validators.required],
             qtyInStock: ["", Validators.required],
             qtyOnLoan: ["", Validators.required]
@@ -59,20 +60,7 @@ export class UpdateMusicComponent implements OnInit {
             };
             this.edit = false;
 
-            // creating new Music object for updated Music to send to backend
-            const updatedMusic = new Music(
-                this.music.itemType,
-                this.music.id,
-                this.music.qtyInStock,
-                this.music.qtyOnLoan,
-                this.music.title, {
-                    type: this.music.type,
-                    artist: this.music.artist,
-                    label: this.music.label,
-                    releaseDate: this.music.releaseDate,
-                    asin: this.music.asin
-                });
-            this.http.post<Music>("http://localhost:8090/catalog/updateMusic", updatedMusic)
+            this.http.post<Music>("http://localhost:8090/catalog/updateMusic", this.music)
                 .subscribe();
         }
     }
