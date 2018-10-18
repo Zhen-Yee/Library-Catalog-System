@@ -70,7 +70,7 @@ public class BookGateway {
         try {
             Connection conn = connect();
             Statement stmt = conn.createStatement();
-
+            // SQL QUERY STATEMENT
             String query = "UPDATE testdb.book SET qty_in_stock = '" + book.getQtyInStock() + "', qty_on_loan = '" + book.getQtyOnLoan() + "', title = '" + book.getTitle() + 
             "', author = '" + book.getAuthor() + "', format = '" + book.getFormat() + "', isbn10 = '" + book.getIsbn10() + "', isbn13 = '" + book.getIsbn13() + 
             "', language = '" + book.getLanguage() + "', pages = '" + book.getPages() + "', publisher = '" + book.getPublisher() + 
@@ -112,6 +112,8 @@ public class BookGateway {
 
         try {
             while (resultSet.next()) {
+
+                // Creates object for each row in database book table
                 Book book = new Book(
                     resultSet.getString("title"),
                     resultSet.getInt("qty_in_stock"),

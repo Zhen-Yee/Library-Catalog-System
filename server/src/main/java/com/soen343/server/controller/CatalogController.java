@@ -48,14 +48,12 @@ public class CatalogController {
     @PostMapping("/updateBook")
     public boolean updateBook(@RequestBody Book book) {
             // checks if book object is good or not
-            if(book != null){
-            catalog.updateCatalogItem(book);
-            return true;
-            }
-            else {
+            if (book != null) {
+                catalog.updateCatalogItem(book);
+                return true;
+            } else {
                 return false;
             }
-        
     }
 
     @PostMapping("/updateMusic")

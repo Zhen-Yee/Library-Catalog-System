@@ -59,21 +59,7 @@ export class UpdateMagazineComponent implements OnInit {
             };
             this.edit = false;
 
-            // creating new Magazine object for updated Magazine to send to backend
-            // const updatedMagazine = new Magazine(
-            //     this.magazine.itemType,
-            //     this.magazine.id,
-            //     this.magazine.qtyInStock,
-            //     this.magazine.qtyOnLoan,
-            //     this.magazine.title, {
-            //         publisher: this.magazine.publisher,
-            //         language: this.magazine.language,
-            //         dateOfPublication: this.magazine.dateOfPublication,
-            //         isbn10: this.magazine.isbn10,
-            //         isbn13: this.magazine.isbn13
-            //     });
-
-            this.http.post<Magazine>("http://localhost:8090/catalog/updateMagazine", this.magazine);
+            this.http.post<Magazine>("http://localhost:8090/catalog/updateMagazine", this.magazine)
                 .subscribe();
         }
     }

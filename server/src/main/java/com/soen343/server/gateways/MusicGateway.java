@@ -19,7 +19,7 @@ public class MusicGateway {
     // UPDATE METHOD FOR MUSIC
     public static void update(Music music) {
         try {
-            // SQL STATEMENT 
+            // SQL QUERY STATEMENT 
             String query = "UPDATE testdb.music SET qty_in_stock = '" + music.getQtyInStock() + "', qty_on_loan = '" + music.getQtyOnLoan() + "', title = '" + music.getTitle() + 
             "', artist = '" + music.getArtist() + "', asin = '" + music.getAsin() + "', label = '" + music.getLabel() + "', release_date = '" + music.getReleaseDate() + 
             "', type = '" + music.getType() + "' WHERE id = " + music.getId() ;
