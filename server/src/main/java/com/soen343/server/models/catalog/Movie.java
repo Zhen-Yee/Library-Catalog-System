@@ -52,13 +52,12 @@ public class Movie extends CatalogItem{
     }
 
     // Constructor used in the test getAll()
-    public Movie(String title, int qtyInStock, int qtyOnLoan, String director, String language, String releaseDate, int runTime, ArrayList<String>actors) {
+    public Movie(String title, int qtyInStock, int qtyOnLoan, String director, String language, String releaseDate, int runTime) {
         super(title, qtyInStock, qtyOnLoan);
         this.director = director;
         this.language = language;
         this.releaseDate = releaseDate;
         this.runTime = runTime;
-        this.actors = actors;
     }
 
     // Accessors

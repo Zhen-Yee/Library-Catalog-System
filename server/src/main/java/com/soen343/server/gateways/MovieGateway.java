@@ -1,11 +1,14 @@
 package com.soen343.server.gateways;
 
+import com.soen343.databaseConnection.Connector;
+import com.soen343.databaseConnection.DbConnection;
 import com.soen343.server.models.catalog.Movie;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class MovieGateway {
+    private static Connector connector;
 
     // replace with property calls
     private static final String URL = "jdbc:mysql://testdbinstance.cwtjkaidrsfz.us-east-2.rds.amazonaws.com:3306/testdb?useSSL=false";
@@ -59,6 +62,64 @@ public class MovieGateway {
             System.out.println(e);
         }
 
+    }
+
+    public static List<Movie> getAll(){
+        List<Movie> movieArrayList = new ArrayList<>();
+        connector = DbConnection.get("SELECT  * from testdb.movie");
+        ResultSet movieResultSet = connector.getResultSet();
+
+        try {
+            while (movieResultSet.next()) {
+                // creates 1 movie
+                Movie movie = new Movie(
+                    movieResultSet.getString("title"),
+                    movieResultSet.getInt("qty_in_stock"),
+                    movieResultSet.getInt("qty_on_loan"),
+                    movieResultSet.getString("director"),
+                    movieResultSet.getString("language"),
+                    movieResultSet.getString("release_date"),
+                    movieResultSet.getInt("run_time")
+            );
+            // takes the id of that movie to find actors, subs, dubs, producers
+            int movieId = movieResultSet.getInt("id");
+            // finds actors and adds it to the movie
+            connector = DbConnection.get("SELECT  * from testdb.actor WHERE movie_id ='"+ movieId + "'");
+            ResultSet actorResultSet = connector.getResultSet();
+            while(actorResultSet.next()){
+            movie.getActors().add(actorResultSet.getString("actor"));
+            }
+
+            // finds subtitles and adds it to the movie
+            connector = DbConnection.get("SELECT  * from testdb.subtitle WHERE movie_id ='"+ movieId + "'");
+            ResultSet subsResultSet = connector.getResultSet();
+            while(subsResultSet.next()){
+            movie.getActors().add(subsResultSet.getString("sub_language"));
+            }
+
+            // finds dubs and adds it to the movie
+            connector = DbConnection.get("SELECT  * from testdb.dub WHERE movie_id ='"+ movieId + "'");
+            ResultSet dubsResultSet = connector.getResultSet();
+            while(dubsResultSet.next()){
+            movie.getActors().add(dubsResultSet.getString("dub_language"));
+            }
+
+            // finds dubs and adds it to the movie
+            connector = DbConnection.get("SELECT  * from testdb.dub WHERE movie_id ='"+ movieId + "'");
+            ResultSet producerResultSet = connector.getResultSet();
+            while(producerResultSet.next()){
+            movie.getActors().add(producerResultSet.getString("producer"));
+            }
+
+            movieArrayList.add(movie);
+            }
+        } catch (SQLException e) {
+            System.out.println("Unable to query from result set.");
+            e.printStackTrace();
+        } finally {
+            connector.close();
+        }
+        return movieArrayList;
     }
 
     public static void delete(long id) {

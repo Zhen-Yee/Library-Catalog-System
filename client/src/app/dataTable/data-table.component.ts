@@ -6,6 +6,7 @@ import { MatSort, MatPaginator, MatTableDataSource } from "@angular/material";
 import { HttpClient } from "@angular/common/http";
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
 import {Music} from "../_models/catalog/music.model";
+import { Movie } from "../_models/catalog/movie.model";
 
 @Component({
   selector: "app-data-table",
@@ -56,17 +57,23 @@ export class DataTableComponent implements OnInit {
   }
 
   getAll() {
-    let Book  = this.http
+    this.http
       .get<Book[]>("http://localhost:8090/catalog/getAll"+CatalogItemType.Book)
       .subscribe(x => {x.map(index => {index.itemType = CatalogItemType.Book;});
         this.dataArray = [...this.dataArray,...x];
         this.dataSource = new MatTableDataSource(this.dataArray);
       });
-      
-    let Music  = this.http
+    this.http
       .get<Music[]>("http://localhost:8090/catalog/getAll"+CatalogItemType.Music)
       .subscribe(y => {y.map(index => {index.itemType = CatalogItemType.Music;});
         this.dataArray = [...this.dataArray,...y];
+        this.dataSource = new MatTableDataSource(this.dataArray);
+        this.isLoaded = true;
+      });
+      this.http
+      .get<Movie[]>("http://localhost:8090/catalog/getAll"+CatalogItemType.Movie)
+      .subscribe(y => {y.map(index => {index.itemType = CatalogItemType.Movie; });
+        this.dataArray = [...this.dataArray, ...y];
         this.dataSource = new MatTableDataSource(this.dataArray);
         this.isLoaded = true;
       });
