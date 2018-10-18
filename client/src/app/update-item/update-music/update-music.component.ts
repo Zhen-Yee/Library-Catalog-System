@@ -48,7 +48,8 @@ export class UpdateMusicComponent implements OnInit {
             asin: ["", [Validators.required, Validators.pattern("^B[\dA-Z]{9}|\d{9}(X|\d)$")]],
             label: ["", Validators.required],
             qtyInStock: ["", Validators.required],
-            qtyOnLoan: ["", Validators.required]
+            qtyOnLoan: ["", Validators.required],
+            id: ["", Validators.required]
         });
     }
 
@@ -59,9 +60,9 @@ export class UpdateMusicComponent implements OnInit {
                 ...this.form.value
             };
             this.edit = false;
-
+            console.log(this.music)
             this.http.post<Music>("http://localhost:8090/catalog/updateMusic", this.music)
-                .subscribe();
+                .subscribe(response => console.log(response));
         }
     }
 }

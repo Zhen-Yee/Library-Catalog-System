@@ -47,8 +47,6 @@ public class CatalogController {
 
     @PostMapping("/updateBook")
     public boolean updateBook(@RequestBody Book book) {
-            System.out.println("1. endpoint reached!!!");
-
             // checks if book object is good or not
             if(book != null){
             catalog.updateCatalogItem(book);
@@ -63,6 +61,7 @@ public class CatalogController {
     @PostMapping("/updateMusic")
     public boolean updateMusic(@RequestBody Music music) {
         // Check if Music object sent from front-end is null
+        System.out.println("Reached music Endpoint");
         if (music != null) {
             catalog.updateCatalogItem(music);
             return true;
