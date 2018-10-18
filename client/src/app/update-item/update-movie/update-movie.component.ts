@@ -23,7 +23,7 @@ export class UpdateMovieComponent implements OnInit {
  actors: Array<string> = [];
  subtitles: Array<string> = [];
  dubs: Array<string> = [];
- @Input() book;
+ @Input() movie;
  form: FormGroup;
 
  constructor(private formBuilder: FormBuilder, private http: HttpClient) {
