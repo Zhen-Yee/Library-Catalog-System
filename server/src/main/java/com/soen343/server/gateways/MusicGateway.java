@@ -70,7 +70,7 @@ public class MusicGateway {
     public static void insert(Music music){
         //check for conditions
         if(checkIfMusicExists(music.getTitle(), music.getArtist())){
-            String query="UPDATE testdb.music SET qty_in_stock = " + (music.getQtyInStock() + 1) + "WHERE title = '" + music.getTitle() +"' AND artist = '" + music.getArtist() + "'";
+            String query="UPDATE testdb.music SET qty_in_stock = " + (music.getQtyInStock() + 1) + " WHERE title = '" + music.getTitle() + "' AND artist = '" + music.getArtist() + "'";
             System.out.println(query);
             try{
                 DbConnection.update(query);
