@@ -67,6 +67,7 @@ tr.example-element-row:not(.example-expanded-row):active {
   float: left;
   width:40%;
   text-align: left;
+  margin-bottom: 40px;
 }
 
 .right-wrapper {

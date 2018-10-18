@@ -40,20 +40,20 @@ export class UpdateBookComponent implements OnInit {
 
     }
 
-    createForm() {
+   createForm() {
         this.form = this.fb.group({
             // book formgroup matching a book object with validators
             title: ["", Validators.required],
             author: ["", Validators.required],
-            format: ["", Validators.required],
-            pages: ["", Validators.required],
-            publisher: ["", Validators.required],
-            yearOfPublication: ["", Validators.required],
-            language: ["", Validators.required],
-            isbn10: ["", Validators.required],
-            isbn13: ["", Validators.required],
-            qtyInStock: ["", Validators.required],
-            qtyOnLoan: ["", Validators.required],
+            format: ["", [Validators.required, Validators.pattern("^Paperback$|^Hardcover$")]],
+            pages: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
+            publisher: ["", [Validators.required]],
+            yearOfPublication: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
+            language: ["", [Validators.required]],
+            isbn10: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+            isbn13: ["", [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
+            qtyInStock: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
+            qtyOnLoan: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
             itemType: ["", Validators.required],
             id: ["", Validators.required],
         });
