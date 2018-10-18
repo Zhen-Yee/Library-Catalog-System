@@ -74,15 +74,15 @@ public class MusicGateway {
                          music.getArtist() + ", " + music.getAsin() + ", " + music.getLabel() + ", " + music.getReleaseDate() + ", " +music.getType();
         
         String query = "INSERT INTO testdb.music (" + columnName + ") VALUES (" + values + ")";
-
+        System.out.println(query);
         try{
             //need to add conditions 
-            Connection conn = DbConnection.connect();
-            Statement stmt = conn.createStatement();
+           // Connection conn = DbConnection.connect();
+           // Statement stmt = conn.createStatement();
 
-            stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
-
-            conn.close();
+           // stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+            DbConnection.update(query);
+           // conn.close();
 
         }catch(Exception e){
             e.printStackTrace();
