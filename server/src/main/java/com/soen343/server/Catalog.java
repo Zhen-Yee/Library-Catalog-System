@@ -50,7 +50,7 @@ public class Catalog {
             // Add magazine to db
         }
         if (catalogItem.getClass() == Music.class) {
-            // Add movie to db
+            MusicGateway.update((Music)catalogItem);
         }
         if (catalogItem.getClass() == Movie.class) {
             

@@ -11,6 +11,7 @@ import { Music } from "../../_models/catalog/music.model";
 export class UpdateMusicComponent implements OnInit {
     form: FormGroup;
     edit: boolean;
+    confirmation; // used later to display if book was added sucessfully
     @Input() music;
     constructor(private fb: FormBuilder, private http: HttpClient) {
 
@@ -43,37 +44,35 @@ export class UpdateMusicComponent implements OnInit {
             title: ["", Validators.required],
             type: ["", Validators.required],
             artist: ["", Validators.required],
-            releaseDate: ["", Validators.required],
-            asin: ["", Validators.required],
+            releaseDate: ["", [Validators.required, Validators.pattern("^([0-9]{4})\/(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])$")]],
+            asin: ["", [Validators.required, Validators.pattern("^B[\\dA-Z]{9}|\\d{9}(X|\\d)$")]],
             label: ["", Validators.required],
             qtyInStock: ["", Validators.required],
-            qtyOnLoan: ["", Validators.required]
+            qtyOnLoan: ["", Validators.required],
+            id: ["", Validators.required]
         });
     }
 
     // save music to later send new Music object to update in backend
-    saveMusic() {
+    saveMusic(item: Music) {
         if (this.form.valid) {
             this.music = {
                 ...this.form.value
             };
             this.edit = false;
 
-            // creating new Music object for updated Music to send to backend
-            const updatedMusic = new Music(
-                this.music.itemType,
-                this.music.id,
-                this.music.qtyInStock,
-                this.music.qtyOnLoan,
-                this.music.title, {
-                    type: this.music.type,
-                    artist: this.music.artist,
-                    label: this.music.label,
-                    releaseDate: this.music.releaseDate,
-                    asin: this.music.asin
-                });
-            this.http.post<Music>("http://localhost:8090/catalog/updateMusic", updatedMusic)
-                .subscribe();
+            // Updates frontend with new saved values
+            item.title = this.music.title;
+            item.qtyInStock = this.music.qtyInStock;
+            item.type = this.music.type;
+            item.qtyOnLoan = this.music.qtyOnLoan;
+            item.artist = this.music.artist;
+            item.releaseDate = this.music.releaseDate;
+            item.asin = this.music.asin;
+            item.label = this.music.label;
+
+            this.http.post<Music>("http://localhost:8090/catalog/updateMusic", this.music)
+                .subscribe(response => response);
         }
     }
 }

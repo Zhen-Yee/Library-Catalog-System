@@ -67,23 +67,7 @@ export class UpdateBookComponent implements OnInit {
             };
             this.edit = false;
 
-            // creating new Book object for updated Book to send to backend
-            const updatedBook = new Book(
-                this.book.itemType,
-                this.book.id,
-                this.book.qtyInStock,
-                this.book.qtyOnLoan,
-                this.book.title, {
-                    author: this.book.author,
-                    format: this.book.format,
-                    pages: this.book.pages,
-                    publisher: this.book.publisher,
-                    yearOfPublication: this.book.yearOfPublication,
-                    language: this.book.language,
-                    isbn10: this.book.isbn10,
-                    isbn13: this.book.isbn13
-                });
-
+            // Updates frontend with new saved book values
             item.title = this.book.title;
             item.qtyInStock = this.book.qtyInStock;
             item.itemType = this.book.itemType;
@@ -97,7 +81,7 @@ export class UpdateBookComponent implements OnInit {
             item.isbn10 = this.book.isbn10;
             item.isbn13 = this.book.isbn13;
 
-            this.http.post<Book>("http://localhost:8090/catalog/updateBook", updatedBook)
+            this.http.post<Book>("http://localhost:8090/catalog/updateBook", this.book)
             .subscribe( answer => {this.successful = answer;});
 
             

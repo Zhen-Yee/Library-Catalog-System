@@ -16,6 +16,21 @@ public class MusicGateway {
     //language=SQL
     private static final String SQL_GET_ALL_MUSICS = "SELECT  * from testdb.music";
 
+    // UPDATE METHOD FOR MUSIC
+    public static void update(Music music) {
+        try {
+            // SQL QUERY STATEMENT 
+            String query = "UPDATE testdb.music SET qty_in_stock = '" + music.getQtyInStock() + "', qty_on_loan = '" + music.getQtyOnLoan() + "', title = '" + music.getTitle() + 
+            "', artist = '" + music.getArtist() + "', asin = '" + music.getAsin() + "', label = '" + music.getLabel() + "', release_date = '" + music.getReleaseDate() + 
+            "', type = '" + music.getType() + "' WHERE id = " + music.getId() ;
+            System.out.println(query);
+            // Pass in SQL statement to DbConnection update function to execute query
+            DbConnection.update(query);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
     /**
      * Query all {@link Music} from the database
      * @return List<Music>
