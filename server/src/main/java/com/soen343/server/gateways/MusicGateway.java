@@ -69,19 +69,45 @@ public class MusicGateway {
 
     public static void insert(Music music){
         //check for conditions
+        if(checkIfMusicExists(music.getTitle(), music.getArtist())){
+            String query="UPDATE testdb.music SET qty_in_stock = " + (music.getQtyInStock() + 1) + "WHERE title = '" + music.getTitle() +"' AND artist = '" + music.getArtist() + "'";
+            System.out.println(query);
+            try{
+                DbConnection.update(query);
+            }catch(Exception e){
+               e.printStackTrace();
+            }
+        }else{
         music.setQtyInStock(1);
         String columnName = "qty_in_stock, qty_on_loan, title, artist, asin, label, release_date, type";
         String values= music.getQtyInStock()+ ", "+ music.getQtyOnLoan()+ ", '" + music.getTitle()+"', '"+ music.getArtist() + "', '" + music.getAsin() + "', '" + music.getLabel() + "', '" + music.getReleaseDate() + "', '" +music.getType()+"'";
         
         String query = "INSERT INTO testdb.music (" + columnName + ") VALUES (" + values + ")";
         System.out.println(query);
+        
         try{
             DbConnection.update(query);
 
         }catch(Exception e){
             e.printStackTrace();
         }
+      }
+    }
 
+    public static boolean checkIfMusicExists(String title, String artist){
+         boolean check=false;
+         try{
+          String query="SELECT * FROM testdb.music WHERE title = '" + title + "' AND artist = '" + artist + "'";
+          connector=DbConnection.get(query);
+          ResultSet r=connector.getResultSet();
+          if(r.next()==true){
+              check=true;
+          }
+          connector.close();
+         }catch(Exception e){
+             e.printStackTrace();
+         }
+         return check;
     }
 
 }
