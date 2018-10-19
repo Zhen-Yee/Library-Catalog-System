@@ -52,18 +52,37 @@ public class BookGateway {
 
     }
 
-    public static void delete(long id) {
-        try {
+    // public static void delete(long id) {
+    //     try {
+    //         Connection conn = connect();
+    //         Statement stmt = conn.createStatement();
+
+    //         stmt.executeUpdate("DELETE FROM testdb.book WHERE id=" + id);
+
+    //         conn.close();
+    //     } catch (Exception e) {
+    //         System.out.println(e);
+    //     }
+
+    // }
+
+    public static void delete(Book book){
+        try{
             Connection conn = connect();
             Statement stmt = conn.createStatement();
-
-            stmt.executeUpdate("DELETE FROM testdb.book WHERE id=" + id);
-
-            conn.close();
-        } catch (Exception e) {
-            System.out.println(e);
+            
+            
+            if(book.getQtyInStock() == 0){
+                String query = "DELETE FROM testdb.book WHERE id=" + book.getId();
+                stmt.executeUpdate(query);
+            }
+            else{
+                update(book);
+            }
         }
-
+        catch(Exception e){
+        
+        }
     }
 
     public static void update(Book book) {
