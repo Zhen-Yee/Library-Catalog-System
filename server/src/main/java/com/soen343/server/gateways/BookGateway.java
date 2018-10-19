@@ -68,6 +68,8 @@ public class BookGateway {
 
     public static void update(Book book) {
         try {
+
+            System.out.println(book.getAuthor());
             Connection conn = connect();
             Statement stmt = conn.createStatement();
             // SQL QUERY STATEMENT

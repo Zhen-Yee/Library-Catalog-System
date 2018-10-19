@@ -16,7 +16,6 @@ public class MagazineGateway {
 
     private static Connector connector;
     
-
     // replace with property calls
     private static final String URL = "jdbc:mysql://testdbinstance.cwtjkaidrsfz.us-east-2.rds.amazonaws.com:3306/testdb?useSSL=false";
     private static final String USERNAME = "test";
@@ -37,7 +36,9 @@ public class MagazineGateway {
             String query = "UPDATE testdb.magazine SET qty_in_stock = '" + magazine.getQtyInStock() + "', qty_on_loan = '" + magazine.getQtyOnLoan() + "', title = '" + magazine.getTitle() + 
             "',  isbn10 = '" + magazine.getIsbn10() + "', isbn13 = '" + magazine.getIsbn13() + 
             "', language = '" + magazine.getLanguage() + "', publisher = '" + magazine.getPublisher() + 
-            "', year_of_publication = '" + magazine.getDateOfPublication() + "' WHERE id = " + magazine.getId() ;
+            "', date_of_publication = '" + magazine.getDateOfPublication() + "' WHERE id = " + magazine.getId() ;
+
+            System.out.println(query);
 
             stmt.executeUpdate(query);
             

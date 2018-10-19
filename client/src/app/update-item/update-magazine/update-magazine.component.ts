@@ -61,7 +61,13 @@ export class UpdateMagazineComponent implements OnInit {
             };
             this.edit = false;
 
-            // Updates frontend with new saved book values
+            console.log(this.magazine);
+
+
+    // creating new Magazine object for updated Magazine to send to backend
+    
+
+            // Updates frontend with new saved magazine values
             item.title = this.magazine.title;
             item.qtyInStock = this.magazine.qtyInStock;
             item.itemType = this.magazine.itemType;
@@ -72,7 +78,7 @@ export class UpdateMagazineComponent implements OnInit {
             item.isbn10 = this.magazine.isbn10;
             item.isbn13 = this.magazine.isbn13;
 
-            this.http.post<Magazine>("http://localhost:8090/catalog/updateBook", this.magazine)
+            this.http.post<Magazine>("http://localhost:8090/catalog/updateMagazine", this.magazine)
             .subscribe( answer => {this.successful = answer;});
 
             

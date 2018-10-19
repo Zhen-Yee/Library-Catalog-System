@@ -49,6 +49,7 @@ public class Catalog {
         }
         if (catalogItem.getClass() == Magazine.class) {
             MagazineGateway.update((Magazine)catalogItem);
+            System.out.println("itsa magazine");
         }
         if (catalogItem.getClass() == Music.class) {
             MusicGateway.update((Music)catalogItem);
