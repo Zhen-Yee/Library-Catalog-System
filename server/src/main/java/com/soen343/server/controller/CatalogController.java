@@ -69,8 +69,15 @@ public class CatalogController {
     }
 
     @PostMapping("/updateMagazine")
-    public void updateMagazine(@RequestBody Magazine magazine) {
-        System.out.println(magazine);
+    public boolean updateMagazine(@RequestBody Magazine magazine) {
+        
+            // checks if magazine object is good or not
+            if (magazine != null) {
+                catalog.updateCatalogItem(magazine);
+                return true;
+            } else {
+                return false;
+            }
     }
 
     @PostMapping("/deleteMovie")
