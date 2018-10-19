@@ -4,6 +4,9 @@
 
 .toolbar{
   background-color: #eed;
-  width: 85%;
   border-radius: 5px;
+}
+
+.toggled {
+  width: 85%;
 }

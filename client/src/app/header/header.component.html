@@ -1,4 +1,4 @@
-<mat-toolbar class="toolbar">
+<mat-toolbar class="toolbar" [ngClass]="{'toggled': isToggle()}">
   <span [hidden]="!isAdmin()"><button mat-button (click)="toggle()"><mat-icon>menu</mat-icon></button></span>
   <span><button mat-button (click)="redirectHome()"> Home </button> </span>
   <span class="remaining-space"></span>
