@@ -61,9 +61,6 @@ export class UpdateMagazineComponent implements OnInit {
             };
             this.edit = false;
 
-            console.log(this.magazine);
-
-
     // creating new Magazine object for updated Magazine to send to backend
     
 

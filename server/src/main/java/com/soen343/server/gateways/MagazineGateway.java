@@ -38,8 +38,6 @@ public class MagazineGateway {
             "', language = '" + magazine.getLanguage() + "', publisher = '" + magazine.getPublisher() + 
             "', date_of_publication = '" + magazine.getDateOfPublication() + "' WHERE id = " + magazine.getId() ;
 
-            System.out.println(query);
-
             stmt.executeUpdate(query);
             
             conn.close();
