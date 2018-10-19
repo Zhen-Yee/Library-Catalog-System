@@ -33,13 +33,11 @@ public class MagazineGateway {
                         resultSet.getInt("qty_on_loan"),
                         resultSet.getString("publisher"),
                         resultSet.getString("language"),
-                        resultSet.getString("dateOfPublication"),
+                        resultSet.getString("date_of_publication"),
                         resultSet.getString("isbn10"),
                         resultSet.getString("isbn13")
                 );
-
                 magazine.setId(resultSet.getInt("id"));
-
                 magazineArrayList.add(magazine);
             }
         } catch (SQLException e) {
