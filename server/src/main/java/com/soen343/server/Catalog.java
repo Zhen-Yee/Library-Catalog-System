@@ -1,11 +1,12 @@
 package com.soen343.server;
 
+import com.soen343.server.gateways.BookGateway;
+import com.soen343.server.gateways.MusicGateway;
+import com.soen343.server.gateways.MovieGateway;
+import com.soen343.server.gateways.BookGateway;
 import com.soen343.server.models.catalog.*;
-import com.soen343.server.models.catalog.movie.Actor;
-import com.soen343.server.models.catalog.movie.Dub;
-import com.soen343.server.models.catalog.movie.Producer;
-import com.soen343.server.models.catalog.movie.Subtitle;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Catalog {
 
@@ -26,23 +27,62 @@ public class Catalog {
     }
 
     public void addCatalogItem(CatalogItem catalogItem) {
-        this.catalogItems.add(catalogItem);
+        // this.catalogItems.add(catalogItem);
+        if (catalogItem.getClass() == Book.class) {
+            // Add book to db
+        }
+        if (catalogItem.getClass() == Magazine.class) {
+            // Add magazine to db
+        }
+        if (catalogItem.getClass() == Music.class) {
+            // Add movie to db
+        }
+        if (catalogItem.getClass() == Movie.class) {
+            MovieGateway.insert((Movie)catalogItem);
+        }
+    }
+
+    public void updateCatalogItem(CatalogItem catalogItem) {
+        if (catalogItem.getClass() == Book.class) {
+            BookGateway.update((Book)catalogItem);
+        }
+        if (catalogItem.getClass() == Magazine.class) {
+            // Add magazine to db
+        }
+        if (catalogItem.getClass() == Music.class) {
+            MusicGateway.update((Music)catalogItem);
+        }
+        if (catalogItem.getClass() == Movie.class) {
+            
+        }
     }
 
     public ArrayList<CatalogItem> getAllCatalogItems() {
         return catalogItems;
     }
 
-    public ArrayList<Book> getAllBooks() {
-        ArrayList<Book> books = new ArrayList<>();
-
-        for (CatalogItem catalogItem : catalogItems) {
-            if (catalogItem.getClass() == Book.class) {
-                books.add((Book)catalogItem);
-            }
+    /**
+     * This method is to query from database and return a certain
+     * type of CatalogItem - in order to have 1 access point
+     * through the controller.
+     * @param CatalogItemType
+     * @returnn List<CatalogItem>
+     */
+    public List<CatalogItem> getAllCatalogItemsByType(String CatalogItemType) {
+        List<CatalogItem> catalogItems = new ArrayList<>();
+        switch (CatalogItemType){
+            case "Book" : catalogItems.addAll(getAllBooks()); break;
+            case "Music" : catalogItems.addAll(getAllMusics()); break;
+            case "Magazine" : catalogItems.addAll(getAllMagazines()); break;
+            case "Movie" :  catalogItems.addAll(getAllMovies()); break;
+            default: System.out.println("Invalid CatalogItemType: " + CatalogItemType);
         }
 
-        return books;
+        return catalogItems;
+    }
+
+    public List<Book> getAllBooks() {
+        return BookGateway.getAll();
     }
 
     public ArrayList<Magazine> getAllMagazines() {
@@ -57,28 +97,16 @@ public class Catalog {
         return magazines;
     }
 
-    public ArrayList<Music> getAllMusic() {
-        ArrayList<Music> music = new ArrayList<>();
-
-        for (CatalogItem catalogItem : catalogItems) {
-            if (catalogItem.getClass() == Music.class) {
-                music.add((Music)catalogItem);
-            }
-        }
-
-        return music;
+    public List<Music> getAllMusics() {
+        return MusicGateway.getAll();
     }
 
-    public ArrayList<Movie> getAllMovies() {
-        ArrayList<Movie> movies = new ArrayList<>();
+    public List<Movie> getAllMovies() {
+        return MovieGateway.getAll();
+    }
 
-        for (CatalogItem catalogItem : catalogItems) {
-            if (catalogItem.getClass() == Movie.class) {
-                movies.add((Movie)catalogItem);
-            }
-        }
-
-        return movies;
+    public void deleteMovie(long id) {
+        MovieGateway.delete(id);
     }
 
     /**
@@ -86,42 +114,34 @@ public class Catalog {
      */
     public void loadFakeData() {
 
-        // Add Books
-        addCatalogItem(new Book("Book1", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
-        addCatalogItem(new Book("Book2", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
-        addCatalogItem(new Book("Book3", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
-        addCatalogItem(new Book("Book4", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
-        addCatalogItem(new Book("Book5", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
+        // // Add Books
+        // addCatalogItem(new Book("Book1", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
+        // addCatalogItem(new Book("Book2", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
+        // addCatalogItem(new Book("Book3", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
+        // addCatalogItem(new Book("Book4", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
+        // addCatalogItem(new Book("Book5", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
 
-        // Add Magazines
-        addCatalogItem(new Magazine("Magazine1", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
-        addCatalogItem(new Magazine("Magazine2", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
-        addCatalogItem(new Magazine("Magazine3", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
-        addCatalogItem(new Magazine("Magazine4", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
-        addCatalogItem(new Magazine("Magazine5", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
+        // // Add Magazines
+        // addCatalogItem(new Magazine("Magazine1", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
+        // addCatalogItem(new Magazine("Magazine2", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
+        // addCatalogItem(new Magazine("Magazine3", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
+        // addCatalogItem(new Magazine("Magazine4", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
+        // addCatalogItem(new Magazine("Magazine5", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
 
-        // Add Music
-        addCatalogItem(new Music("Music1", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
-        addCatalogItem(new Music("Music2", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
-        addCatalogItem(new Music("Music3", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
-        addCatalogItem(new Music("Music4", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
-        addCatalogItem(new Music("Music5", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
+        // // Add Music
+        // addCatalogItem(new Music("Music1", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
+        // addCatalogItem(new Music("Music2", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
+        // addCatalogItem(new Music("Music3", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
+        // addCatalogItem(new Music("Music4", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
+        // addCatalogItem(new Music("Music5", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
 
-        // Add Movies
-        Actor actor = new Actor("TestActor");
-        Dub dub = new Dub("English");
-        Producer producer = new Producer("Producer");
-        Subtitle sub = new Subtitle("Dutch");
-
-        for (int i = 1; i < 6; i++) {
-            Movie movie = new Movie("Movie" + i, 8, 0, "DIRECTOR", "English", "1988/12/24", 120 );
-            movie.addActor(actor);
-            movie.addDub(dub);
-            movie.addProducer(producer);
-            movie.addSubtitle(sub);
-
-            addCatalogItem(movie);
-        }
+        // // Add Movies
+        // // fill array list with a string to test actor
+        // ArrayList<String> x = new ArrayList<String>();
+        // for (int i = 1; i < 6; i++) {
+        //     Movie movie = new Movie("Movie" + i, 8, 0, "DIRECTOR", "English", "1988/12/24", 120, x);
+        //     addCatalogItem(movie);
+        // }
         
         /*
         note that by using the add methods you not only add the actor/dub/sub/producer to the movie, but you also add

@@ -1,44 +1,45 @@
 package com.soen343.server.models.catalog;
 
-import com.soen343.server.models.catalog.movie.Actor;
-import com.soen343.server.models.catalog.movie.Dub;
-import com.soen343.server.models.catalog.movie.Producer;
-import com.soen343.server.models.catalog.movie.Subtitle;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Movie extends CatalogItem{
 
-    @NotBlank
+   @NotBlank
     private String director;
 
-    private Set<Producer> producers = new HashSet<>();
+    private ArrayList<String> producers;
 
-    private Set<Actor> actors = new HashSet<>();
+    private ArrayList<String> actors;
 
     @NotBlank
     private String language;
 
-    private Set<Subtitle> subtitles = new HashSet<>();
+    private ArrayList<String> subtitles;
 
-    private Set<Dub> dubs = new HashSet<>();
+    private ArrayList<String> dubs;
 
-    @Pattern(regexp = "^([0-9]{4})\\/(0[1-9]|1[0-2])\\/(0[1-9]|[1-2][0-9]|3[0-1])$",
+   @Pattern(regexp = "^([0-9]{4})\\/(0[1-9]|1[0-2])\\/(0[1-9]|[1-2][0-9]|3[0-1])$",
             message = "Date must have the following format 'YYYY/MM/DD")
     private String releaseDate;
 
-    @Min(0)
+   @Min(0)
     private int runTime;
+
+    // default constructor used to handle mapping for the ArrayList from
+    // frontend to backend
+    private Movie(){
+        super();
+    }
 
     /**
      * use this constructor when building movie from database.
      */
-    public Movie(String title, int qtyInStock, int qtyOnLoan, String director, Set<Producer> producers, Set<Actor> actors,
-                 String language, Set<Subtitle> subtitles, Set<Dub> dubs, String releaseDate, int runTime) {
+    public Movie(String title, int qtyInStock, int qtyOnLoan, String director, ArrayList<String> producers, ArrayList<String> actors,
+                 String language, ArrayList<String> subtitles, ArrayList<String> dubs, String releaseDate, int runTime) {
         super(title, qtyInStock, qtyOnLoan);
         this.director = director;
         this.producers = producers;
@@ -50,15 +51,17 @@ public class Movie extends CatalogItem{
         this.runTime = runTime;
     }
 
-    /**
-     * For new movies, make sure to use the add methods to add actors, dubs, producers, subs
-     */
+    // Constructor used in the test getAll()
     public Movie(String title, int qtyInStock, int qtyOnLoan, String director, String language, String releaseDate, int runTime) {
         super(title, qtyInStock, qtyOnLoan);
         this.director = director;
         this.language = language;
         this.releaseDate = releaseDate;
         this.runTime = runTime;
+        this.actors = new ArrayList<String>();
+        this.dubs  = new ArrayList<String>();
+        this.producers = new ArrayList<String>();
+        this.subtitles = new ArrayList<String>();
     }
 
     // Accessors
@@ -66,23 +69,39 @@ public class Movie extends CatalogItem{
         return director;
     }
 
-    public Set<Producer> getProducers() {
+    public void addProducers(String producers){
+        this.producers.add(producers);
+    }
+
+    public ArrayList<String> getProducers() {
         return producers;
     }
 
-    public Set<Actor> getActors() {
+    public ArrayList<String> getActors() {
         return actors;
+    }
+
+    public void addActors(String actor){
+        this.actors.add(actor);
     }
 
     public String getLanguage() {
         return language;
     }
 
-    public Set<Subtitle> getSubtitles() {
+    public void addSubtitles(String subs){
+        this.subtitles.add(subs);
+    }
+
+    public ArrayList<String> getSubtitles() {
         return subtitles;
     }
 
-    public Set<Dub> getDubs() {
+    public void addDubs(String dubs){
+        this.dubs.add(dubs);
+    }
+
+    public ArrayList<String> getDubs() {
         return dubs;
     }
 
@@ -94,7 +113,6 @@ public class Movie extends CatalogItem{
         return runTime;
     }
 
-    // Mutators - ao not add mutators to Many to Many associated attributes! use the Add/Remove methods!
     public void setDirector(String director) {
         this.director = director;
     }
@@ -109,46 +127,6 @@ public class Movie extends CatalogItem{
 
     public void setRunTime(int runTime) {
         this.runTime = runTime;
-    }
-
-    public void addProducer(Producer producer) {
-        this.producers.add(producer);
-        producer.getMovies().add(this);
-    }
-
-    public void removeProducer(Producer producer) {
-        this.producers.remove(producer);
-        producer.getMovies().remove(this);
-    }
-
-    public void addActor(Actor actor) {
-        this.actors.add(actor);
-        actor.getMovies().add(this);
-    }
-
-    public void removeActor(Actor actor) {
-        this.actors.remove(actor);
-        actor.getMovies().remove(this);
-    }
-
-    public void addSubtitle(Subtitle subtitle) {
-        this.subtitles.add(subtitle);
-        subtitle.getMovies().remove(this);
-    }
-
-    public void removeSubtitle(Subtitle subtitle) {
-        this.subtitles.remove(subtitle);
-        subtitle.getMovies().remove(this);
-    }
-
-    public void addDub(Dub dub) {
-        this.dubs.add(dub);
-        dub.getMovies().add(this);
-    }
-
-    public void removeDub(Dub dub) {
-        this.dubs.remove(dub);
-        dub.getMovies().remove(this);
     }
 
     @Override

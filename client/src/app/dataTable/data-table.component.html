@@ -1,38 +1,184 @@
-<table mat-table
-       [dataSource]="dataArray" multiTemplateDataRows
-       class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" *ngIf="isLoaded" multiTemplateDataRows matSort class="mat-elevation-z8">
   <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-    <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
     <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
   </ng-container>
-
   <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
   <ng-container matColumnDef="expandedDetail">
     <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
       <div class="example-element-detail"
            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
         <div class="example-element-description">
-          {{element}} 
-          <div class = "edit-box">
-          <update-book *ngIf="element.getType() === 'Book'" [book]="element"></update-book>
-          <update-magazine *ngIf="element.getType() === 'Magazine'" [magazine]="element"></update-magazine>
-          <update-music *ngIf="element.getType() === 'Music'" [music]="element"></update-music>
 
-        <div>
-          <delete-item [element]="element"></delete-item>
+          <div class="left-wrapper">
+
+            <div class = "title">
+            {{element.title}}
+
+            </div>
+
+            <table>
+                <tr>
+                  <th>Quantity in Stock: </th>
+                  <th>{{element.qtyInStock}}</th>
+                </tr>
+                <tr>
+                  <th>Quantity on Loan: </th>
+                  <th>{{element.qtyOnLoan}}</th>
+                </tr>
+                <tr>
+                    <th>Type: </th>
+                    <th>{{element.itemType}}</th>
+                </tr>
+              </table>
+
+              <table *ngIf="element.itemType == 'Book'">
+
+                  <tr>
+                      <th>Author: </th>
+                      <th>{{element.author}}</th>
+                  </tr>
+                  <tr>
+                    <th>Format: </th>
+                    <th>{{element.format}}</th>
+                  </tr>
+                  <tr>
+                    <th>Pages: </th>
+                    <th>{{element.pages}}</th>
+                  </tr>
+                  <tr>
+                      <th>Publisher: </th>
+                      <th>{{element.publisher}}</th>
+                  </tr>
+                  <tr>
+                      <th>Year of Publication: </th>
+                      <th>{{element.yearOfPublication}}</th>
+                  </tr>
+                  <tr>
+                      <th>Language: </th>
+                      <th>{{element.language}}</th>
+                  </tr>
+                  <tr>
+                      <th>ISBN10: </th>
+                      <th>{{element.isbn10}}</th>
+                  </tr>
+                  <tr>
+                      <th>ISBN13: </th>
+                      <th>{{element.isbn13}}</th>
+                  </tr>
+                </table>
+
+                <table *ngIf="element.itemType == 'Music'">
+
+                    <tr>
+                        <th>Type: </th>
+                        <th>{{element.type}}</th>
+                    </tr>
+                    <tr>
+                      <th>Artist: </th>
+                      <th>{{element.artist}}</th>
+                    </tr>
+                    <tr>
+                      <th>Label: </th>
+                      <th>{{element.label}}</th>
+                    </tr>
+                    <tr>
+                        <th>Release Date: </th>
+                        <th>{{element.releaseDate}}</th>
+                    </tr>
+                    <tr>
+                        <th>ASIN: </th>
+                        <th>{{element.asin}}</th>
+                    </tr>
+                  </table>
+
+                  <table *ngIf="element.itemType == 'Magazine'">
+
+                      <tr>
+                          <th>Language: </th>
+                          <th>{{element.language}}</th>
+                      </tr>
+                      <tr>
+                      <tr>
+                          <th>Publisher: </th>
+                          <th>{{element.publisher}}</th>
+                      </tr>
+                      <tr>
+                          <th>Date of Publication: </th>
+                          <th>{{element.dateOfPublication}}</th>
+                      </tr>
+                      <tr>
+                          <th>ISBN10: </th>
+                          <th>{{element.isbn10}}</th>
+                      </tr>
+                      <tr>
+                          <th>ISBN13: </th>
+                          <th>{{element.isbn13}}</th>
+                      </tr>
+                    </table>
+
+                    <table *ngIf="element.itemType == 'Movie'">
+
+                        <tr>
+                            <th>Director: </th>
+                            <th>{{element.director}}</th>
+                        </tr>
+                        <tr>
+                          <th>Actors: </th>
+                          <th>{{element.actors}}</th>
+                        </tr>
+                        <tr>
+                          <th>Producers: </th>
+                          <th>{{element.producers}}</th>
+                        </tr>
+                        <tr>
+                            <th>Language: </th>
+                            <th>{{element.language}}</th>
+                        </tr>
+                        <tr>
+                            <th>Subtitles: </th>
+                            <th>{{element.subtitles}}</th>
+                        </tr>
+                        <tr>
+                            <th>Dubs: </th>
+                            <th>{{element.dubs}}</th>
+                        </tr>
+                        <tr>
+                            <th>Release Date: </th>
+                            <th>{{element.releaseDate}}</th>
+                        </tr>
+                        <tr>
+                            <th>Runtime: </th>
+                            <th>{{element.runTime}}</th>
+                        </tr>
+                      </table>
+
+          </div>
+
+          <div class="right-wrapper">
+
+            <div class = "edit-box">
+
+              <update-book *ngIf="element.itemType == 'Book'" [book]="element"></update-book>
+              <update-magazine *ngIf="element.itemType== 'Magazine'" [magazine]="element"></update-magazine>
+              <update-music *ngIf="element.itemType == 'Music'" [music]="element"></update-music>
+              <update-movie *ngIf="element.itemType == 'Movie'" [movie]="element"></update-movie>
+              <div class = "delete">
+                <delete-item [element]="element"></delete-item>
+              </div>
+
+            </div>
+          </div>
         </div>
-
       </div>
-    </div>
-  </div>
-  </td>
+    </td>
   </ng-container>
-
   <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
   <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
       class="example-element-row"
       [class.example-expanded-row]="expandedElement === element"
-      (click)="expandedElement = element">
+      (click)="expandedElement === element ? expandedElement = null : expandedElement = element">
   </tr>
   <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
 </table>
+<mat-paginator *ngIf="isLoaded" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>

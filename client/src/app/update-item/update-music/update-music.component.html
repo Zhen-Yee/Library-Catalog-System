@@ -35,6 +35,6 @@
         </div>
 
 <button mat-button *ngIf="!edit" (click)="editMode()">Edit</button>
-<button mat-button *ngIf="edit" (click)="saveMusic()">Save</button>
+<button mat-button *ngIf="edit" (click)="saveMusic(music)">Save</button>
 <button mat-button *ngIf="edit" (click)="editMode()">Cancel</button>
 

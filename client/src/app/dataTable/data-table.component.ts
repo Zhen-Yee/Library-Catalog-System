@@ -1,55 +1,83 @@
-import {Component, OnInit} from '@angular/core';
-import {Book} from "../_models/catalog/book.model";
-import {Magazine} from "../_models/catalog/magazine.model";
-import {CatalogItemType} from "../enums/catalogItemType";
-import {CatalogItem} from "../_models/catalog/catalogItem.model";
+import { CatalogItemType } from "./../enums/catalogItemType";
+import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import { Book } from "../_models/catalog/book.model";
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import { MatSort, MatPaginator, MatTableDataSource } from "@angular/material";
+import { HttpClient } from "@angular/common/http";
+import {CatalogItem} from "../_models/catalog/catalogItem.model";
+import {Music} from "../_models/catalog/music.model";
+import { Movie } from "../_models/catalog/movie.model";
 
 @Component({
-  selector: 'app-data-table',
-  templateUrl: './data-table.component.html',
-  styleUrls: ['./data-table.component.css'],
+  selector: "app-data-table",
+  templateUrl: "./data-table.component.html",
+  styleUrls: ["./data-table.component.css"],
   animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0', display: 'none'})),
-      state('expanded', style({height: '*'})),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
+    trigger("detailExpand", [
+      state(
+        "collapsed",
+        style({ height: "0px", minHeight: "0", display: "none" })
+      ),
+      state("expanded", style({ height: "*" })),
+      transition(
+        "expanded <=> collapsed",
+        animate("225ms cubic-bezier(0.4, 0.0, 0.2, 1)")
+      )
+    ])
+  ]
 })
 export class DataTableComponent implements OnInit {
+  constructor(private http: HttpClient) {}
 
-  constructor() { }
+  paginator;
+  sort;
+  isLoaded;
 
-  //Generated Data
-  deleteNumber: number;
-  dataArray: CatalogItem[];
-  columnsToDisplay: string[]= ['itemType', 'id', 'qtyInStock', 'qtyInLoan', 'titles'];
-  expandedElement: CatalogItem;
-
-  delete(itemType: CatalogItem){
-   itemType.qtyInStock = itemType.qtyInStock - this.deleteNumber
-   console.log(itemType.qtyInStock)
+  @ViewChild(MatSort) set content(content: ElementRef) {
+    this.sort = content;
+    if (this.sort){
+      this.dataSource.sort = this.sort;
+    }
   }
 
-  initialize() {
-    this.dataArray = [new Book(
-      CatalogItemType.Book,13, 13, 23, "Hello", {
-        author: 'james',
-        format: "paperback",
-        pages: 30,
-        publisher: "Steve Shih",
-        yearOfPublication: 193,
-        language: "english",
-        isbn10: "123213",
-        isbn13: "2134"
-      }),
-      new Magazine(CatalogItemType.Magazine,13, 13, 23, "Hello",
-        {publisher: "Travis", language: "Spanish", dateOfPublication: "August 2012", isbn10: "21321", isbn13: "lol"})];
+  @ViewChild(MatPaginator) set paginatorContent(content: ElementRef) {
+    this.paginator = content;
+    if (this.paginator){
+      this.dataSource.paginator = this.paginator;
+    }
   }
+  // Generated Data
+  dataArray: CatalogItem[] = [] ;
+  columnsToDisplay: string[] = ["itemType", "qtyInStock", "qtyOnLoan", "title"];
+  expandedElement: CatalogItem[];
+  dataSource: MatTableDataSource<CatalogItem>;
 
   ngOnInit() {
-    this.initialize();
+    this.getAll();
+  }
+
+  getAll() {
+    this.http
+      .get<Book[]>("http://localhost:8090/catalog/getAll"+CatalogItemType.Book)
+      .subscribe(x => {x.map(index => {index.itemType = CatalogItemType.Book;});
+        this.dataArray = [...this.dataArray,...x];
+        this.dataSource = new MatTableDataSource(this.dataArray);
+      });
+    this.http
+      .get<Music[]>("http://localhost:8090/catalog/getAll"+CatalogItemType.Music)
+      .subscribe(y => {y.map(index => {index.itemType = CatalogItemType.Music;});
+        this.dataArray = [...this.dataArray,...y];
+        this.dataSource = new MatTableDataSource(this.dataArray);
+        this.isLoaded = true;
+      });
+      this.http
+      .get<Movie[]>("http://localhost:8090/catalog/getAll"+CatalogItemType.Movie)
+      .subscribe(y => {y.map(index => {index.itemType = CatalogItemType.Movie; });
+        this.dataArray = [...this.dataArray, ...y];
+        this.dataSource = new MatTableDataSource(this.dataArray);
+        this.isLoaded = true;
+      });
   }
 
 }
+
