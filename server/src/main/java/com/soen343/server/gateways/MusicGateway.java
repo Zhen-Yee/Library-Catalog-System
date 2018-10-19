@@ -68,9 +68,9 @@ public class MusicGateway {
     }
 
     public static void insert(Music music){
-        //check for conditions
         if(checkIfMusicExists(music.getTitle(), music.getArtist())){
-            String query="UPDATE testdb.music SET qty_in_stock = " + (getQty(music.getTitle(), music.getArtist()) + 1) + " WHERE title = '" + music.getTitle() + "' AND artist = '" + music.getArtist() + "'";
+            int h=(getQty(music.getTitle(), music.getArtist()) +1);
+            String query="UPDATE testdb.music SET qty_in_stock = " + h + " WHERE title = '" + music.getTitle() + "' AND artist = '" + music.getArtist() + "'";
             System.out.println(query);
             //System.out.println(music.getQtyInStock() + 1);
             try{
@@ -119,7 +119,8 @@ public class MusicGateway {
             connector=DbConnection.get(query);
             ResultSet r=connector.getResultSet();
             t=r.getInt("qty_in_stock");
-            System.out.println(t);
+            //System.out.println(t);
+            connector.close();
         }catch(Exception e){
             e.printStackTrace();
         }
