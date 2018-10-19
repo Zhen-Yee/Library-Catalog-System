@@ -81,5 +81,9 @@ export class HeaderComponent implements OnInit {
       }
   }
 
+  isToggle() {
+    return this.toggling;
+  }
+
 }
 
