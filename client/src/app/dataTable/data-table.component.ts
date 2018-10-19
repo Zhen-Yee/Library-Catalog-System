@@ -7,6 +7,7 @@ import { HttpClient } from "@angular/common/http";
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
 import {Music} from "../_models/catalog/music.model";
 import { Movie } from "../_models/catalog/movie.model";
+import {Magazine} from "../_models/catalog/magazine.model";
 
 @Component({
   selector: "app-data-table",
@@ -68,9 +69,14 @@ export class DataTableComponent implements OnInit {
       .subscribe(y => {y.map(index => {index.itemType = CatalogItemType.Music;});
         this.dataArray = [...this.dataArray,...y];
         this.dataSource = new MatTableDataSource(this.dataArray);
-        this.isLoaded = true;
       });
-      this.http
+    this.http
+      .get<Magazine[]>("http://localhost:8090/catalog/getAll"+CatalogItemType.Magazine)
+      .subscribe(y => {y.map(index => {index.itemType = CatalogItemType.Magazine; });
+        this.dataArray = [...this.dataArray, ...y];
+        this.dataSource = new MatTableDataSource(this.dataArray);
+      });
+    this.http
       .get<Movie[]>("http://localhost:8090/catalog/getAll"+CatalogItemType.Movie)
       .subscribe(y => {y.map(index => {index.itemType = CatalogItemType.Movie; });
         this.dataArray = [...this.dataArray, ...y];
