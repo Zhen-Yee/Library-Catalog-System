@@ -68,6 +68,17 @@ public class CatalogController {
         }
     }
 
+    @PostMapping("/updateMovie")
+    public boolean updateMagazine(@RequestBody Movie movie) {
+        // Check if Movie object sent from front-end is null
+        if (movie != null) {
+            catalog.updateCatalogItem(movie);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @PostMapping("/updateMagazine")
     public void updateMagazine(@RequestBody Magazine magazine) {
         System.out.println(magazine);

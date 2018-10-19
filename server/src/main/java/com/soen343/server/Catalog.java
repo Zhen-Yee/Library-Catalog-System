@@ -53,7 +53,7 @@ public class Catalog {
             MusicGateway.update((Music)catalogItem);
         }
         if (catalogItem.getClass() == Movie.class) {
-            
+            MovieGateway.update((Movie)catalogItem);
         }
     }
 

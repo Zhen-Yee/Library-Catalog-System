@@ -83,6 +83,7 @@ public class MovieGateway {
             );
             // takes the id of that movie to find actors, subs, dubs, producers
             int movieId = movieResultSet.getInt("id");
+            movie.setId(movieId);
             // finds actors and adds it to the movie
             Statement stmt2 = conn.createStatement();
             stmt2.executeQuery("SELECT  * from testdb.actor WHERE movie_id ='"+ movieId + "'");
@@ -146,6 +147,54 @@ public class MovieGateway {
             System.out.println(e);
         }
 
+    }
+
+    public static void update(Movie movie){
+        try{
+        Connection conn = connect();
+        Statement stmt = conn.createStatement();
+        String movieQuery = "UPDATE testdb.movie SET qty_in_stock = '" + movie.getQtyInStock() + "', qty_on_loan = '" + movie.getQtyOnLoan() + "', title = '" + movie.getTitle() + 
+            "', director = '" + movie.getDirector() + "', language = '" + movie.getLanguage() + "', release_date = '" + movie.getReleaseDate() + "', run_time = '" + movie.getRunTime() + 
+            "'WHERE id = " + movie.getId();
+        // updated movie parameters without actors, dubs, subs and producers
+        stmt.executeUpdate(movieQuery);
+    
+        // delete actors for that movie
+        String deleteActors = "DELETE FROM testdb.actor WHERE movie_id = '"+ movie.getId()+"'";
+        stmt.executeUpdate(deleteActors);
+        // add each incoming actors to the db for that movie
+        for(String actor: movie.getActors()){
+            stmt.executeUpdate("INSERT INTO testdb.actor (movie_id, actor) VALUES (" + movie.getId() + ", '" + actor + "')");
+        }
+
+        // delete subs for that movie
+        String deleteSubs = "DELETE FROM testdb.subtitle WHERE movie_id = '"+ movie.getId()+"'";
+        stmt.executeUpdate(deleteSubs);
+        // add each incoming subs to the db for that movie
+        for(String subs: movie.getSubtitles()){
+            stmt.executeUpdate("INSERT INTO testdb.subtitle (movie_id, sub_language) VALUES (" + movie.getId() + ", '" + subs + "')");
+        }
+
+        // delete dubs for that movie
+        String deleteDubs = "DELETE FROM testdb.dub WHERE movie_id = '"+ movie.getId()+"'";
+        stmt.executeUpdate(deleteDubs);
+        // add each incoming dubs to the db for that movie
+        for(String dubs: movie.getDubs()){
+            stmt.executeUpdate("INSERT INTO testdb.dub (movie_id, dub_language) VALUES (" + movie.getId() + ", '" + dubs + "')");
+        }
+
+        // delete producers for that movie
+        String deleteProducers = "DELETE FROM testdb.producer WHERE movie_id = '"+ movie.getId()+"'";
+        stmt.executeUpdate(deleteProducers);
+        // add each incoming subs to the db for that movie
+        for(String producer: movie.getProducers()){
+            stmt.executeUpdate("INSERT INTO testdb.producer (movie_id, producer) VALUES (" + movie.getId() + ", '" + producer + "')");
+        }
+        conn.close();
+        } catch(Exception e){
+            System.out.println(e);
+        }
+        
     }
 
     // change for a DataSource later?
