@@ -6,7 +6,7 @@
   </span>
 
 
-<div>
+<div [ngClass]="{'toggled': isToggle()}">
   <router-outlet class = "content"></router-outlet>
 </div>
 
