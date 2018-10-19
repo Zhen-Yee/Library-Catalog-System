@@ -4,6 +4,7 @@ import com.soen343.databaseConnection.Connector;
 import com.soen343.databaseConnection.DbConnection;
 import com.soen343.server.models.catalog.Music;
 
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -66,4 +67,66 @@ public class MusicGateway {
         return musicArrayList;
     }
 
+    public static void insert(Music music){
+        if(checkIfMusicExists(music.getTitle(), music.getArtist())){
+            int QtyStock=(getQty(music.getTitle(), music.getArtist()) + 1);
+            String query="UPDATE testdb.music SET qty_in_stock = " + QtyStock + " WHERE title = '" + music.getTitle() + "' AND artist = '" + music.getArtist() + "'";
+            System.out.println(query);
+            //System.out.println(music.getQtyInStock() + 1);
+            try{
+                DbConnection.update(query);
+            }catch(Exception e){
+               e.printStackTrace();
+            }
+        }else{
+        music.setQtyInStock(1);
+        String columnName = "qty_in_stock, qty_on_loan, title, artist, asin, label, release_date, type";
+        String values= music.getQtyInStock()+ ", "+ music.getQtyOnLoan()+ ", '" + music.getTitle()+"', '"+ music.getArtist() + "', '" + music.getAsin() + "', '" + music.getLabel() + "', '" + music.getReleaseDate() + "', '" +music.getType()+"'";
+        
+        String query = "INSERT INTO testdb.music (" + columnName + ") VALUES (" + values + ")";
+        System.out.println(query);
+        
+        try{
+            DbConnection.update(query);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+      }
+    }
+
+    public static boolean checkIfMusicExists(String title, String artist){
+         boolean check=false;
+         try{
+          String query="SELECT * FROM testdb.music WHERE title = '" + title + "' AND artist = '" + artist + "'";
+          connector=DbConnection.get(query);
+          ResultSet r=connector.getResultSet();
+          if(r.next()==true){
+              check=true;
+          }
+          connector.close();
+         }catch(Exception e){
+             e.printStackTrace();
+         }
+         return check;
+    }
+
+
+    public static int getQty(String title, String artist){
+        int qtyStock=0;
+        try{
+            String query="SELECT * FROM testdb.music WHERE title = '" + title + "' AND artist = '" + artist + "'";
+            connector=DbConnection.get(query);
+            ResultSet r=connector.getResultSet();
+            if(r.next()){
+            qtyStock=r.getInt("qty_in_stock");
+         } 
+            connector.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return qtyStock;
+    }
+
 }
+
