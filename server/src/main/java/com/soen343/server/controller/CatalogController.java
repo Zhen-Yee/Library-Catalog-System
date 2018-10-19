@@ -81,7 +81,6 @@ public class CatalogController {
 
     @PostMapping("/updateMagazine")
     public boolean updateMagazine(@RequestBody Magazine magazine) {
-        
             // checks if magazine object is good or not
             if (magazine != null) {
                 catalog.updateCatalogItem(magazine);
