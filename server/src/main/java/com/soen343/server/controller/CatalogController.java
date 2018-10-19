@@ -82,4 +82,9 @@ public class CatalogController {
     public void deleteBook(@RequestBody Book book){
         catalog.deleteCatalogItem(book);
     }
+
+    @PostMapping("/deleteMagazine")
+    public void deleteBook(@RequestBody Magazine magazine){
+        catalog.deleteCatalogItem(magazine);
+    }
 }
