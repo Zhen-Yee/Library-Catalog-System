@@ -35,5 +35,4 @@ export class AddMusicComponent implements OnInit {
            
        }
     }
-    //need to call the http client
 }

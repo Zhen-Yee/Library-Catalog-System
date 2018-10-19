@@ -69,8 +69,8 @@ public class MusicGateway {
 
     public static void insert(Music music){
         if(checkIfMusicExists(music.getTitle(), music.getArtist())){
-            int h=(getQty(music.getTitle(), music.getArtist()) + 1);
-            String query="UPDATE testdb.music SET qty_in_stock = " + h + " WHERE title = '" + music.getTitle() + "' AND artist = '" + music.getArtist() + "'";
+            int QtyStock=(getQty(music.getTitle(), music.getArtist()) + 1);
+            String query="UPDATE testdb.music SET qty_in_stock = " + QtyStock + " WHERE title = '" + music.getTitle() + "' AND artist = '" + music.getArtist() + "'";
             System.out.println(query);
             //System.out.println(music.getQtyInStock() + 1);
             try{
@@ -113,19 +113,19 @@ public class MusicGateway {
 
 
     public static int getQty(String title, String artist){
-        int t=0;
+        int qtyStock=0;
         try{
             String query="SELECT * FROM testdb.music WHERE title = '" + title + "' AND artist = '" + artist + "'";
             connector=DbConnection.get(query);
             ResultSet r=connector.getResultSet();
-            if(r.next()==true){
-            t=r.getInt("qty_in_stock");
-         } //System.out.println(t);
+            if(r.next()){
+            qtyStock=r.getInt("qty_in_stock");
+         } 
             connector.close();
         }catch(Exception e){
             e.printStackTrace();
         }
-        return t;
+        return qtyStock;
     }
 
 }
