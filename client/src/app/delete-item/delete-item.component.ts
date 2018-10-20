@@ -32,21 +32,21 @@ export class DeleteItemComponent implements OnInit {
     this.openSnackBar()
     console.log("ERROR")
   }
-  else if(element.getType() === CatalogItemType.Book){
+  else if(element.itemType === CatalogItemType.Book){
     element.qtyInStock = element.qtyInStock - this.deleteNumber
     this.http
     .post<CatalogItem>("http://localhost:8090/catalog/deleteBook", element)
     .subscribe(confirmation => console.log(confirmation));
     console.log(element.qtyInStock)
   }
-  else if(element.getType() === CatalogItemType.Magazine){
+  else if(element.itemType === CatalogItemType.Magazine){
     element.qtyInStock = element.qtyInStock - this.deleteNumber
     this.http
     .post<CatalogItem>("http://localhost:8090/catalog/deleteMagazine", element)
     .subscribe(confirmation => console.log(confirmation));
     console.log(element.qtyInStock)
   }
-  else if(element.getType() === CatalogItemType.Music)
+  else if(element.itemType === CatalogItemType.Music)
   element.qtyInStock = element.qtyInStock - this.deleteNumber
     this.http
     .post<CatalogItem>("http://localhost:8090/catalog/deleteMusic", element)
