@@ -28,6 +28,7 @@ public class Catalog {
         // this.catalogItems.add(catalogItem);
         if (catalogItem.getClass() == Book.class) {
             // Add book to db
+            BookGateway.insert((Book)catalogItem);
         }
         if (catalogItem.getClass() == Magazine.class) {
             // Add magazine to db

@@ -20,6 +20,36 @@ public class BookGateway {
     //language=SQL
     private static final String SQL_GET_ALL_BOOKS = "SELECT  * from testdb.book";
 
+    public static void insert(Book book){
+        //generate query
+        String columns = "qty_in_stock, qty_on_loan, title, author, format, isbn10, isbn13, language, pages, publisher, year_of_publication";
+        String values = "'" + book.getQtyInStock() + "','" + book.getQtyOnLoan() + "', '" + book.getTitle() + "', '"
+                + book.getAuthor() + "', '" + book.getFormat() + "', '" + book.getIsbn10() + "', '" 
+                + book.getIsbn13()+ "', '" + book.getLanguage() + "', " + book.getPages() + ", '" 
+                + book.getPublisher() + "', " + book.getYearOfPublication();
+        String query = "INSERT INTO testdb.book (" + columns + ") VALUES (" + values + ")";
+        System.out.println("INSERT QUERY: " + query);
+
+        try {
+            //connect to DB
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+
+            //add book and get new id
+            stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+            ResultSet keys = stmt.getGeneratedKeys();
+            long id = 0;
+            while (keys.next()){
+                id = keys.getLong(1);
+            }
+            // give the model the generate id (just in case)
+            book.setId(id);
+
+            conn.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 
     public static void update(Book book) {
         try {
