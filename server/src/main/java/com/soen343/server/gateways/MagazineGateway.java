@@ -16,14 +16,8 @@ import java.util.List;
 public class MagazineGateway {
     public static void delete(Magazine magazine){
         try{        
-            if(magazine.getQtyInStock() == 0){
-                String query = "DELETE FROM testdb.magazine WHERE id=" + magazine.getId();
+               String query = "DELETE FROM testdb.magazine WHERE id=" + magazine.getId();
                DbConnection.update(query);
-            }
-            else{
-                String query = "UPDATE testdb.magazine SET qty_in_stock = '" + magazine.getQtyInStock()+ "' WHERE id = " + magazine.getId() ;
-                DbConnection.update(query); 
-            }
         }
         catch(Exception e){
 

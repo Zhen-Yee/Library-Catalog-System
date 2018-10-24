@@ -54,13 +54,8 @@ public class BookGateway {
 
     public static void delete(Book book){
         try{
-            if(book.getQtyInStock() == 0){
                 String query = "DELETE FROM testdb.book WHERE id=" + book.getId();
                 DbConnection.update(query);
-            }
-            else{
-                update(book);
-            }
         }
         catch(Exception e){
         
