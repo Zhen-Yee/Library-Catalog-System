@@ -15,43 +15,27 @@ export class DeleteItemComponent implements OnInit {
 
   @Input() element;
 
-  constructor(public snackBar: MatSnackBar,private http: HttpClient) {
+  constructor(private http: HttpClient) {
 }
-
-  deleteNumber: number;
-  dataArray: CatalogItem[];
-
-  openSnackBar() {
-    this.snackBar.openFromComponent(DeleteItemErrorBoxComponent, {
-      duration: 2000,
-    });
-  }
-
+ 
   delete(element: CatalogItem){
-  if(this.deleteNumber<0 || this.deleteNumber>element.qtyInStock){
-    this.openSnackBar()
-    console.log("ERROR")
-  }
-  else if(element.itemType === CatalogItemType.Book){
-    element.qtyInStock = element.qtyInStock - this.deleteNumber
+  if(element.itemType === CatalogItemType.Book){
     this.http
     .post<CatalogItem>("http://localhost:8090/catalog/deleteBook", element)
     .subscribe(confirmation => console.log(confirmation));
-    console.log(element.qtyInStock)
+    console.log(element)
   }
   else if(element.itemType === CatalogItemType.Magazine){
-    element.qtyInStock = element.qtyInStock - this.deleteNumber
     this.http
     .post<CatalogItem>("http://localhost:8090/catalog/deleteMagazine", element)
     .subscribe(confirmation => console.log(confirmation));
-    console.log(element.qtyInStock)
+    console.log(element)
   }
   else if(element.itemType === CatalogItemType.Music)
-  element.qtyInStock = element.qtyInStock - this.deleteNumber
     this.http
     .post<CatalogItem>("http://localhost:8090/catalog/deleteMusic", element)
     .subscribe(confirmation => console.log(confirmation));
-    console.log(element.qtyInStock)
+    console.log(element)
   }
 
   ngOnInit() {
