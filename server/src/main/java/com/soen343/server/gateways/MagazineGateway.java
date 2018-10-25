@@ -16,6 +16,22 @@ public class MagazineGateway {
     //language=SQL
     private static final String SQL_GET_ALL_MAGAZINES = "SELECT * from testdb.magazine";
 
+    //update method for magazine
+    public static void update(Magazine magazine){
+
+        try{
+            //SQL Query Statement
+            String query = "UPDATE testdb.music SET qty_in_stock = '"+ magazine.getQtyInStock() + "',qty_on_loan = '" + magazine.getQtyOnLoan() + "', title = '" + magazine.getTitle() +
+            "', publisher = '" + magazine.getPublisher() + "', language = '" + magazine.getLanguage() + "', date_of_publication = '" + magazine.getDateOfPublication() +  "', isbn10 = '" + magazine.getIsbn10() +  "', isbn13 = '" + magazine.getIsbn13() + "'WHERE id ='" +magazine.getId();
+            System.out.println(query);
+
+            //Pass in SQL statement to DbConnection update function to execute query
+            DbConnection.update(query);
+        } catch(Exception e){
+            System.out.println(e);
+        
+        }
+    }
     /**
      * Query all {@link Magazine} from the database
      * @return
