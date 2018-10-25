@@ -52,7 +52,7 @@ public class MagazineGateway {
     }
 
     public static void insert(Magazine magazine){
-        if(checkIfMagazineExists(magazine.getTitle()){
+        if(checkIfMagazineExists(magazine.getTitle())){
             int QtyStock=(getQty(magazine.getTitle()) + 1);
             String query="UPDATE testdb.magazine SET qty_in_stock = " + QtyStock + " WHERE title = '" + magazine.getTitle() + "'";
             System.out.println(query);
@@ -79,7 +79,7 @@ public class MagazineGateway {
       }
     }
 
-}
+
 public static boolean checkIfMagazineExists(String title){
          boolean check=false;
          try{
