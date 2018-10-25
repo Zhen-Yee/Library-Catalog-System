@@ -2,9 +2,9 @@ import {Component, OnInit, Input} from '@angular/core';
 import {Book} from "../_models/catalog/book.model";
 import {CatalogItemType} from "../enums/catalogItemType";
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
-import {MatSnackBar} from '@angular/material';
-import {DeleteItemErrorBoxComponent} from '../delete-item-error-box/delete-item-error-box.component';
-import { HttpClient} from "@angular/common/http";
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {DeleteItemPromptDialogComponent} from '../delete-item-prompt-dialog/delete-item-prompt-dialog.component';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'delete-item',
@@ -15,8 +15,18 @@ export class DeleteItemComponent implements OnInit {
 
   @Input() element;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public dialog: MatDialog) {
 }
+
+  openDialog(): void {
+  const dialogRef = this.dialog.open(DeleteItemPromptDialogComponent, {
+    width: '250px'
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+  });
+  }
  
   delete(element: CatalogItem){
   if(element.itemType === CatalogItemType.Book){
