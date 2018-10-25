@@ -62,16 +62,6 @@ export class UpdateMusicComponent implements OnInit {
             };
             this.edit = false;
 
-            // Updates frontend with new saved values
-            item.title = this.music.title;
-            item.qtyInStock = this.music.qtyInStock;
-            item.type = this.music.type;
-            item.qtyOnLoan = this.music.qtyOnLoan;
-            item.artist = this.music.artist;
-            item.releaseDate = this.music.releaseDate;
-            item.asin = this.music.asin;
-            item.label = this.music.label;
-
             this.http.post<Music>("http://localhost:8090/catalog/updateMusic", this.music)
                 .subscribe(updateSuccess => {
                     if (updateSuccess) {

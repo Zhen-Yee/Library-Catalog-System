@@ -169,19 +169,6 @@ export class UpdateMovieComponent implements OnInit {
       this.movie.dubs = this.dubs;
       console.log(this.movie);
 
-      item.title = this.movie.title;
-      item.qtyInStock = this.movie.qtyInStock;
-      item.qtyOnLoan = this.movie.qtyOnLoan;
-      item.director = this.movie.director;
-      item.releaseDate = this.movie.releaseDate;
-      item.runTime = this.movie.runTime;
-      item.language = this.movie.language;
-      // without ... it won't map properly and update the frontend
-      item.dubs = [...this.movie.dubs];
-      item.producers = [...this.movie.producers];
-      item.actors = [...this.movie.actors];
-      item.subtitles = [...this.movie.subtitles];
-
       this.http
         .post("http://localhost:8090/catalog/updateMovie", this.movie)
         .subscribe(updateSuccess => {

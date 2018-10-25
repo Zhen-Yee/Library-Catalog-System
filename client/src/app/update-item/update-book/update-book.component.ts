@@ -60,26 +60,12 @@ export class UpdateBookComponent implements OnInit {
     }
 
     // save book to later send new Book object to update in backend
-    saveBook(item: Book) {
+    saveBook() {
         if (this.form.valid) {
             this.book = {
                 ...this.form.value
             };
             this.edit = false;
-
-            // Updates frontend with new saved book values
-            item.title = this.book.title;
-            item.qtyInStock = this.book.qtyInStock;
-            item.itemType = this.book.itemType;
-            item.qtyOnLoan = this.book.qtyOnLoan;
-            item.author = this.book.author;
-            item.format = this.book.format;
-            item.pages = this.book.pages;
-            item.publisher = this.book.publisher;
-            item.yearOfPublication = this.book.yearOfPublication;
-            item.language = this.book.language;
-            item.isbn10 = this.book.isbn10;
-            item.isbn13 = this.book.isbn13;
 
             this.http.post<Book>("http://localhost:8090/catalog/updateBook", this.book)
                 .subscribe(updateSuccess => {
