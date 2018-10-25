@@ -40,6 +40,7 @@ public class MagazineGateway {
         List<Magazine> magazineArrayList = new ArrayList<>();
         connector = DbConnection.get(SQL_GET_ALL_MAGAZINES);
         ResultSet resultSet = connector.getResultSet();
+        System.out.println(resultSet);
 
         try {
             while (resultSet.next()) {
@@ -64,4 +65,33 @@ public class MagazineGateway {
         }
         return magazineArrayList;
     }
+
+    public static void insert(Magazine magazine){
+        if(checkIfMagazineExists(magazine.getTitle()){
+            int QtyStock=(getQty(magazine.getTitle()) + 1);
+            String query="UPDATE testdb.music SET qty_in_stock = " + QtyStock + " WHERE title = '" + magazine.getTitle() + "'";
+            System.out.println(query);
+            //System.out.println(magazine.getQtyInStock() + 1);
+            try{
+                DbConnection.update(query);
+            }catch(Exception e){
+               e.printStackTrace();
+            }
+        }else{
+        magazine.setQtyInStock(1);
+        String columnName = "qty_in_stock, qty_on_loan, title, publisher, language, isbn10, isbn13, date_of_publisher";
+        String values= magazine.getQtyInStock()+ ", "+ magazine.getQtyOnLoan()+ ", '" + magazine.getTitle()+"', '"+ magazine.getLanguage() + "', '" + magazine.getPublisher() + "', '" + magazine.getDateOfPublication() + "', '" + magazine.getIsbn10() + "', '" +magazine.getIsbn13()+"'";
+        
+        String query = "INSERT INTO testdb.music (" + columnName + ") VALUES (" + values + ")";
+        System.out.println(query);
+        
+        try{
+            DbConnection.update(query);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+      }
+    }
+
 }
