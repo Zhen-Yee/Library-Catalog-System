@@ -95,3 +95,18 @@ public class MagazineGateway {
     }
 
 }
+public static boolean checkIfMagazineExists(String title){
+         boolean check=false;
+         try{
+          String query="SELECT * FROM testdb.magazine WHERE title = '" + title +"'";
+          connector=DbConnection.get(query);
+          ResultSet r=connector.getResultSet();
+          if(r.next()==true){
+              check=true;
+          }
+          connector.close();
+         }catch(Exception e){
+             e.printStackTrace();
+         }
+         return check;
+    }
