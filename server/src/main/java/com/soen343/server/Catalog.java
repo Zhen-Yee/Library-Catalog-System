@@ -36,10 +36,12 @@ public class Catalog {
             // Add magazine to db
         }
         if (catalogItem.getClass() == Music.class) {
-            // Add movie to db
+            // Add music to db
         }
+        
         if (catalogItem.getClass() == Movie.class) {
             MovieGateway.insert((Movie)catalogItem);
+             // Add movie to db
         }
     }
 
@@ -113,10 +115,14 @@ public class Catalog {
     public void deleteCatalogItem(CatalogItem catalogItem){
         if(catalogItem.getClass() == Book.class){
             BookGateway.delete((Book)catalogItem);
+        }        
+        else if(catalogItem.getClass() == Music.class){
+            MusicGateway.delete((Music)catalogItem);
         }
         else if(catalogItem.getClass() == Magazine.class){
             MagazineGateway.delete((Magazine)catalogItem);
         }
+
     }
 
     /**
