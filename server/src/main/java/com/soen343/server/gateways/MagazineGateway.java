@@ -110,3 +110,23 @@ public static boolean checkIfMagazineExists(String title){
          }
          return check;
     }
+
+    public static int getQty(String title){
+        int qtyStock=0;
+        try{
+            String query="SELECT * FROM testdb.magazine WHERE title = '" + title +"'";
+            connector=DbConnection.get(query);
+            ResultSet r=connector.getResultSet();
+            if(r.next()){
+            qtyStock=r.getInt("qty_in_stock");
+         } 
+            connector.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return qtyStock;
+    }
+
+}
+
+
