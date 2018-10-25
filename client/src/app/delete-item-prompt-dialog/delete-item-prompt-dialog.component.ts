@@ -1,10 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject} from '@angular/core';
 import { DeleteItemComponent } from "../delete-item/delete-item.component";
-
-import {Book} from "../_models/catalog/book.model";
 import {CatalogItemType} from "../enums/catalogItemType";
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
 import {HttpClient} from "@angular/common/http";
+import {Music} from "../_models/catalog/music.model";
+import { Movie } from "../_models/catalog/movie.model";
+import {Book} from "../_models/catalog/book.model";
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-delete-item-prompt-dialog',
@@ -13,30 +15,30 @@ import {HttpClient} from "@angular/common/http";
 })
 export class DeleteItemPromptDialogComponent implements OnInit {
 
-  @Input() element;
+  constructor(private http: HttpClient, 
+    @Inject(MAT_DIALOG_DATA) public data) 
+    {}
 
-  constructor(private http: HttpClient) {}
-
-  delete(element: CatalogItem){
-    if(element.itemType === CatalogItemType.Book){
-      this.http
-      .post<CatalogItem>("http://localhost:8090/catalog/deleteBook", element)
-      .subscribe(confirmation => console.log());
-      console.log("Item successfully deleted")
+    delete(data: CatalogItem){
+      if(this.data.element.itemType === CatalogItemType.Book){
+        this.http
+        .post<CatalogItem>("http://localhost:8090/catalog/deleteBook", this.data.element)
+        .subscribe(confirmation => console.log());
+        console.log("Item successfully deleted")
+      }
+      else if(this.data.element.itemType === CatalogItemType.Magazine){
+        this.http
+        .post<CatalogItem>("http://localhost:8090/catalog/deleteMagazine", this.data.element)
+        .subscribe(confirmation => console.log());
+        console.log("Item successfully deleted")
+      }
+      else if(this.data.element.itemType === CatalogItemType.Music){
+        this.http
+        .post<CatalogItem>("http://localhost:8090/catalog/deleteMusic", this.data.element)
+        .subscribe(confirmation => console.log());
+        console.log("Item successfully deleted")
+      }
     }
-    else if(element.itemType === CatalogItemType.Magazine){
-      this.http
-      .post<CatalogItem>("http://localhost:8090/catalog/deleteMagazine", element)
-      .subscribe(confirmation => console.log());
-      console.log("Item successfully deleted")
-    }
-    else if(element.itemType === CatalogItemType.Music){
-      this.http
-      .post<CatalogItem>("http://localhost:8090/catalog/deleteMusic", element)
-      .subscribe(confirmation => console.log());
-      console.log("Item successfully deleted")
-    }
-  }
 
   ngOnInit() {
   }

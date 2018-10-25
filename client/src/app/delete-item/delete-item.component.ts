@@ -15,39 +15,20 @@ export class DeleteItemComponent implements OnInit {
 
   @Input() element;
 
-  constructor(private http: HttpClient, public dialog: MatDialog) {
+  constructor(public dialog: MatDialog) {
 }
 
   openDialog(): void {
-  const dialogRef = this.dialog.open(DeleteItemPromptDialogComponent, {
-    width: '250px'
+  const dialogRef = this.dialog.open(DeleteItemPromptDialogComponent, 
+    {
+      width: '250px',
+      data: {element: this.element}
   });
 
   dialogRef.afterClosed().subscribe(result => {
     console.log('The dialog was closed');
   });
   }
- 
-  delete(element: CatalogItem){
-  if(element.itemType === CatalogItemType.Book){
-    this.http
-    .post<CatalogItem>("http://localhost:8090/catalog/deleteBook", element)
-    .subscribe(confirmation => console.log());
-    console.log("Item successfully deleted")
-  }
-  else if(element.itemType === CatalogItemType.Magazine){
-    this.http
-    .post<CatalogItem>("http://localhost:8090/catalog/deleteMagazine", element)
-    .subscribe(confirmation => console.log());
-    console.log("Item successfully deleted")
-  }
-  else if(element.itemType === CatalogItemType.Music){
-    this.http
-    .post<CatalogItem>("http://localhost:8090/catalog/deleteMusic", element)
-    .subscribe(confirmation => console.log());
-    console.log("Item successfully deleted")
-  }
-}
 
   ngOnInit() {
   }
