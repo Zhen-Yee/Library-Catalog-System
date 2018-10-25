@@ -82,13 +82,13 @@ export class UpdateBookComponent implements OnInit {
             item.isbn13 = this.book.isbn13;
 
             this.http.post<Book>("http://localhost:8090/catalog/updateBook", this.book)
-                .subscribe(answer => {
-                    if (answer) {
-                        // Reloads page for updated changes to book (Should add validation)
+                .subscribe(updateSuccess => {
+                    if (updateSuccess) {
+                        // Reloads page for updated changes to book
                         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
                             this.router.navigate(["/catalog"]));
                     } else {
-                        console.log(answer);
+                        console.log("Failed to update book.");
                     }
                 });
 

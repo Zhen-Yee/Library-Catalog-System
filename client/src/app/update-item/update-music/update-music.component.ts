@@ -73,11 +73,17 @@ export class UpdateMusicComponent implements OnInit {
             item.label = this.music.label;
 
             this.http.post<Music>("http://localhost:8090/catalog/updateMusic", this.music)
-                .subscribe(response => response);
+                .subscribe(updateSuccess => {
+                    if (updateSuccess) {
+                        // Reloads page for updated changes to music
+                        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                            this.router.navigate(["/catalog"]));
+                    } else {
+                        console.log("Failed to update music.")
+                    }
+                });
 
-            // Reloads page for updated changes to music (Should add validation)
-            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                this.router.navigate(["/catalog"]));
+
         }
     }
 }

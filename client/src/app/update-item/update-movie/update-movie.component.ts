@@ -184,11 +184,17 @@ export class UpdateMovieComponent implements OnInit {
 
       this.http
         .post("http://localhost:8090/catalog/updateMovie", this.movie)
-        .subscribe(confirmation => console.log(confirmation));
+        .subscribe(updateSuccess => {
+          if (updateSuccess) {
+            // Reloads page for updated changes to movies
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+              this.router.navigate(["/catalog"]));
+          } else {
+            console.log("Failed to update movie.")
+          }
+        });
 
-      // Reloads page for updated changes to movies (Should add validation)
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-        this.router.navigate(["/catalog"]));
+
     }
   }
 }
