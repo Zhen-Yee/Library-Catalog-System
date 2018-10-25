@@ -32,20 +32,20 @@ export class DeleteItemComponent implements OnInit {
   if(element.itemType === CatalogItemType.Book){
     this.http
     .post<CatalogItem>("http://localhost:8090/catalog/deleteBook", element)
-    .subscribe(confirmation => console.log(confirmation));
-    console.log(element)
+    .subscribe(confirmation => console.log());
+    console.log("Item successfully deleted")
   }
   else if(element.itemType === CatalogItemType.Magazine){
     this.http
     .post<CatalogItem>("http://localhost:8090/catalog/deleteMagazine", element)
-    .subscribe(confirmation => console.log(confirmation));
-    console.log(element)
+    .subscribe(confirmation => console.log());
+    console.log("Item successfully deleted")
   }
   else if(element.itemType === CatalogItemType.Music){
     this.http
     .post<CatalogItem>("http://localhost:8090/catalog/deleteMusic", element)
-    .subscribe(confirmation => console.log(confirmation));
-    console.log(element)
+    .subscribe(confirmation => console.log());
+    console.log("Item successfully deleted")
   }
 }
 
