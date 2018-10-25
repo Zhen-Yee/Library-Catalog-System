@@ -40,7 +40,7 @@ export class UpdateBookComponent implements OnInit {
 
     }
 
-   createForm() {
+    createForm() {
         this.form = this.fb.group({
             // book formgroup matching a book object with validators
             title: ["", Validators.required],
@@ -82,10 +82,17 @@ export class UpdateBookComponent implements OnInit {
             item.isbn13 = this.book.isbn13;
 
             this.http.post<Book>("http://localhost:8090/catalog/updateBook", this.book)
-                .subscribe( answer => {this.successful = answer; });
+                .subscribe(answer => {
+                    if (answer) {
+                        // Reloads page for updated changes to book (Should add validation)
+                        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                            this.router.navigate(["/catalog"]));
+                    } else {
+                        console.log(answer);
+                    }
+                });
 
-            this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
-                this.router.navigate(["/catalog"]));
+
         }
     }
 }

@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatChipInputEvent } from "@angular/material";
 import { Movie } from "../../_models/catalog/movie.model";
 import { COMMA, ENTER } from "@angular/cdk/keycodes";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "update-movie",
@@ -27,7 +28,7 @@ export class UpdateMovieComponent implements OnInit {
   movie;
   form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
+  constructor(private router: Router, private formBuilder: FormBuilder, private http: HttpClient) { }
 
   ngOnInit() {
     this.edit = false;
@@ -184,6 +185,10 @@ export class UpdateMovieComponent implements OnInit {
       this.http
         .post("http://localhost:8090/catalog/updateMovie", this.movie)
         .subscribe(confirmation => console.log(confirmation));
+
+      // Reloads page for updated changes to movies (Should add validation)
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+        this.router.navigate(["/catalog"]));
     }
   }
 }
