@@ -30,7 +30,7 @@ public class Catalog {
             // Add book to db
         }
         if (catalogItem.getClass() == Magazine.class) {
-            // Add magazine to db
+            MagazineGateway.insert((Magazine)catalogItem);
         }
         if (catalogItem.getClass() == Music.class) {
             MusicGateway.insert((Music)catalogItem);
