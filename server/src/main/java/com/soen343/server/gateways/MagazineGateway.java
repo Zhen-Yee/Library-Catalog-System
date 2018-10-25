@@ -54,7 +54,7 @@ public class MagazineGateway {
     public static void insert(Magazine magazine){
         if(checkIfMagazineExists(magazine.getTitle()){
             int QtyStock=(getQty(magazine.getTitle()) + 1);
-            String query="UPDATE testdb.music SET qty_in_stock = " + QtyStock + " WHERE title = '" + magazine.getTitle() + "'";
+            String query="UPDATE testdb.magazine SET qty_in_stock = " + QtyStock + " WHERE title = '" + magazine.getTitle() + "'";
             System.out.println(query);
             //System.out.println(magazine.getQtyInStock() + 1);
             try{
@@ -67,7 +67,7 @@ public class MagazineGateway {
         String columnName = "qty_in_stock, qty_on_loan, title, publisher, language, isbn10, isbn13, date_of_publisher";
         String values= magazine.getQtyInStock()+ ", "+ magazine.getQtyOnLoan()+ ", '" + magazine.getTitle()+"', '"+ magazine.getLanguage() + "', '" + magazine.getPublisher() + "', '" + magazine.getDateOfPublication() + "', '" + magazine.getIsbn10() + "', '" +magazine.getIsbn13()+"'";
         
-        String query = "INSERT INTO testdb.music (" + columnName + ") VALUES (" + values + ")";
+        String query = "INSERT INTO testdb.magazine (" + columnName + ") VALUES (" + values + ")";
         System.out.println(query);
         
         try{
