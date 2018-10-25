@@ -41,12 +41,13 @@ export class DeleteItemComponent implements OnInit {
     .subscribe(confirmation => console.log(confirmation));
     console.log(element)
   }
-  else if(element.itemType === CatalogItemType.Music)
+  else if(element.itemType === CatalogItemType.Music){
     this.http
     .post<CatalogItem>("http://localhost:8090/catalog/deleteMusic", element)
     .subscribe(confirmation => console.log(confirmation));
     console.log(element)
   }
+}
 
   ngOnInit() {
   }

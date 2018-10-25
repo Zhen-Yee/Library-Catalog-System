@@ -74,8 +74,8 @@ public class CatalogController {
     }
 
     @PostMapping("/deleteMovie")
-    public void deleteMovie(@RequestBody long id) {
-        catalog.deleteMovie(id);
+    public void deleteMovie(@RequestBody long movie) {
+        catalog.deleteMovie(movie);
     }
     
     @PostMapping("/deleteBook")
@@ -86,5 +86,10 @@ public class CatalogController {
     @PostMapping("/deleteMagazine")
     public void deleteBook(@RequestBody Magazine magazine){
         catalog.deleteCatalogItem(magazine);
+    }
+
+    @PostMapping("/deleteMusic")
+    public void deleteMusic(@RequestBody Music music){
+        catalog.deleteCatalogItem(music);
     }
 }
