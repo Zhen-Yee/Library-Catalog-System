@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatChipInputEvent } from "@angular/material";
 import { Movie } from "../../_models/catalog/movie.model";
 import { COMMA, ENTER } from "@angular/cdk/keycodes";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "update-movie",
@@ -27,7 +28,7 @@ export class UpdateMovieComponent implements OnInit {
   movie;
   form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
+  constructor(private router: Router, private formBuilder: FormBuilder, private http: HttpClient) { }
 
   ngOnInit() {
     this.edit = false;
@@ -168,22 +169,19 @@ export class UpdateMovieComponent implements OnInit {
       this.movie.dubs = this.dubs;
       console.log(this.movie);
 
-      item.title = this.movie.title;
-      item.qtyInStock = this.movie.qtyInStock;
-      item.qtyOnLoan = this.movie.qtyOnLoan;
-      item.director = this.movie.director;
-      item.releaseDate = this.movie.releaseDate;
-      item.runTime = this.movie.runTime;
-      item.language = this.movie.language;
-      // without ... it won't map properly and update the frontend
-      item.dubs = [...this.movie.dubs];
-      item.producers = [...this.movie.producers];
-      item.actors = [...this.movie.actors];
-      item.subtitles = [...this.movie.subtitles];
-
       this.http
         .post("http://localhost:8090/catalog/updateMovie", this.movie)
-        .subscribe(confirmation => console.log(confirmation));
+        .subscribe(updateSuccess => {
+          if (updateSuccess) {
+            // Reloads page for updated changes to movies
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+              this.router.navigate(["/catalog"]));
+          } else {
+            console.log("Failed to update movie.")
+          }
+        });
+
+
     }
   }
 }

@@ -1,7 +1,10 @@
 package com.soen343.server;
 
-import com.soen343.server.gateways.*;
 import com.soen343.server.gateways.BookGateway;
+import com.soen343.server.gateways.MusicGateway;
+import com.soen343.server.gateways.MovieGateway;
+import com.soen343.server.gateways.MagazineGateway;
+import com.soen343.server.gateways.*;
 import com.soen343.server.models.catalog.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,7 @@ public class Catalog {
         // this.catalogItems.add(catalogItem);
         if (catalogItem.getClass() == Book.class) {
             // Add book to db
+            BookGateway.insert((Book)catalogItem);
         }
         if (catalogItem.getClass() == Magazine.class) {
             MagazineGateway.insert((Magazine)catalogItem);
@@ -47,7 +51,7 @@ public class Catalog {
             BookGateway.update((Book)catalogItem);
         }
         if (catalogItem.getClass() == Magazine.class) {
-            
+            MagazineGateway.update((Magazine)catalogItem);
         }
         if (catalogItem.getClass() == Music.class) {
             MusicGateway.update((Music)catalogItem);
