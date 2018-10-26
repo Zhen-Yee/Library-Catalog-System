@@ -1,3 +1,4 @@
+import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Magazine } from "../../_models/catalog/magazine.model";
@@ -9,7 +10,7 @@ import { Magazine } from "../../_models/catalog/magazine.model";
 })
 export class AddMagazineComponent implements OnInit {
 form: FormGroup;
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private httpClient : HttpClient) { }
 
   ngOnInit() {
     this.createForm();
@@ -33,6 +34,10 @@ form: FormGroup;
        ...this.form.value
       };
       console.log(magazine);
+
+      this.httpClient.post("http://localhost:8090/catalog/addMagazine", magazine)
+        .subscribe((confirmation) => console.log(confirmation));
+
     }
   }
 

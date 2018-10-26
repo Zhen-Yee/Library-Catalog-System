@@ -34,6 +34,7 @@ public class Catalog {
             BookGateway.insert((Book)catalogItem);
         }
         if (catalogItem.getClass() == Magazine.class) {
+            MagazineGateway.insert((Magazine)catalogItem);
             // Add magazine to db
         }
         if (catalogItem.getClass() == Music.class) {

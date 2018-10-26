@@ -21,9 +21,7 @@ public class MagazineGateway {
     private static final String USERNAME = "test";
     private static final String PASSWORD = "testtest";
 
-    public static void insert(Magazine magazine){
 
-    }
 
     public static void delete(long id) {
     }
@@ -64,6 +62,7 @@ public class MagazineGateway {
     //language=SQL
     private static final String SQL_GET_ALL_MAGAZINES = "SELECT * from testdb.magazine";
 
+    
     /**
      * Query all {@link Magazine} from the database
      * @return
@@ -72,6 +71,7 @@ public class MagazineGateway {
         List<Magazine> magazineArrayList = new ArrayList<>();
         connector = DbConnection.get(SQL_GET_ALL_MAGAZINES);
         ResultSet resultSet = connector.getResultSet();
+      
 
         try {
             while (resultSet.next()) {
@@ -96,4 +96,68 @@ public class MagazineGateway {
         }
         return magazineArrayList;
     }
+
+    public static void insert(Magazine magazine){
+        if(checkIfMagazineExists(magazine.getTitle())){
+            int QtyStock=(getQty(magazine.getTitle()) + 1);
+            String query="UPDATE testdb.magazine SET qty_in_stock = " + QtyStock + " WHERE title = '" + magazine.getTitle() + "'";
+            System.out.println(query);
+            //System.out.println(magazine.getQtyInStock() + 1);
+            try{
+                DbConnection.update(query);
+            }catch(Exception e){
+               e.printStackTrace();
+            }
+        }else{
+        magazine.setQtyInStock(1);
+        String columnName = "qty_in_stock, qty_on_loan, title, publisher, language, isbn10, isbn13, date_of_publication";
+        String values= magazine.getQtyInStock()+ ", "+ magazine.getQtyOnLoan()+ ", '" + magazine.getTitle()+"', '"+ magazine.getPublisher() + "', '" + magazine.getLanguage() + "', '" + magazine.getIsbn10() + "', '" +magazine.getIsbn13()+ "', '" + magazine.getDateOfPublication()+"'";
+        
+        String query = "INSERT INTO testdb.magazine (" + columnName + ") VALUES (" + values + ")";
+       
+        
+        try{
+            DbConnection.update(query);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+      }
+    }
+
+
+public static boolean checkIfMagazineExists(String title){
+         boolean check=false;
+         try{
+          String query="SELECT * FROM testdb.magazine WHERE title = '" + title +"'";
+          connector=DbConnection.get(query);
+          ResultSet r=connector.getResultSet();
+          if(r.next()){
+              check=true;
+          }
+          connector.close();
+         }catch(Exception e){
+             e.printStackTrace();
+         }
+         return check;
+    }
+
+    public static int getQty(String title){
+        int qtyStock=0;
+        try{
+            String query="SELECT * FROM testdb.magazine WHERE title = '" + title +"'";
+            connector=DbConnection.get(query);
+            ResultSet r=connector.getResultSet();
+            if(r.next()){
+            qtyStock=r.getInt("qty_in_stock");
+         } 
+            connector.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return qtyStock;
+    }
+
 }
+
+
