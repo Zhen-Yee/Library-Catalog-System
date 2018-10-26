@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { Magazine } from "../../_models/catalog/magazine.model";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "update-magazine",
@@ -13,7 +14,7 @@ export class UpdateMagazineComponent implements OnInit {
     edit: boolean;
     successful;
     @Input() magazine;
-    constructor(private fb: FormBuilder, private http: HttpClient) {
+    constructor(private router: Router, private fb: FormBuilder, private http: HttpClient) {
     }
 
     ngOnInit() {
@@ -76,7 +77,15 @@ export class UpdateMagazineComponent implements OnInit {
             item.isbn13 = this.magazine.isbn13;
 
             this.http.post<Magazine>("http://localhost:8090/catalog/updateMagazine", this.magazine)
-            .subscribe( answer => {this.successful = answer;});
+                .subscribe(updateSuccess => {
+                    if (updateSuccess) {
+                        // Reloads page for updated changes to magazine
+                        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                            this.router.navigate(["/catalog"]));
+                    } else {
+                        console.log("Failed to update magazine.")
+                    }
+                });
 
             
         }
