@@ -27,7 +27,7 @@
                   <th>{{element.qtyOnLoan}}</th>
                 </tr>
                 <tr>
-                    <th>Type: </th>
+                    <th>Item Type: </th>
                     <th>{{element.itemType}}</th>
                 </tr>
               </table>
@@ -183,3 +183,10 @@
   <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
 </table>
 <mat-paginator *ngIf="isLoaded" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+<mat-card *ngIf="!isLoaded" style="display: flex; justify-content: center; align-items: center">
+  <mat-progress-spinner
+    color="primary"
+    mode="indeterminate">
+  </mat-progress-spinner>
+</mat-card>

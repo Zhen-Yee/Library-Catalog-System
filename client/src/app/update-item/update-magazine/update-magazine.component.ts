@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { Magazine } from "../../_models/catalog/magazine.model";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "update-magazine",
@@ -11,8 +12,9 @@ import { Magazine } from "../../_models/catalog/magazine.model";
 export class UpdateMagazineComponent implements OnInit {
     form: FormGroup;
     edit: boolean;
+    successful;
     @Input() magazine;
-    constructor(private fb: FormBuilder, private http: HttpClient) {
+    constructor(private router: Router, private fb: FormBuilder, private http: HttpClient) {
     }
 
     ngOnInit() {
@@ -27,32 +29,33 @@ export class UpdateMagazineComponent implements OnInit {
             delete this.magazine.toString;
             // allows input to change magazine fields
             this.edit = true;
-            // maps Magazine object value to the input fields
+            // maps magazine object value to the input fields
             this.form.patchValue({ ...this.magazine });
         } else {
             // when user cancels edit, set edit variable back to false
-            this.edit = false;
+            this.edit = false
         }
 
     }
 
-    createForm() {
+   createForm() {
         this.form = this.fb.group({
-            // Magazine formgroup matching a magazine object with validators
+            // magazine formgroup matching a magazine object with validators
             title: ["", Validators.required],
             publisher: ["", Validators.required],
-            dateOfPublication: ["", Validators.required],
-            language: ["", Validators.required],
-            isbn10: ["", Validators.required],
-            isbn13: ["", Validators.required],
-            qtyInStock: ["", Validators.required],
-            qtyOnLoan: ["", Validators.required],
-            id: ["", Validators.required]
+            dateOfPublication: ["", [Validators.required]],
+            language: ["", [Validators.required]],
+            isbn10: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+            isbn13: ["", [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
+            qtyInStock: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
+            qtyOnLoan: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
+            itemType: ["", Validators.required],
+            id: ["", Validators.required],
         });
     }
 
     // save magazine to later send new Magazine object to update in backend
-    saveMagazine() {
+    saveMagazine(item: Magazine) {
         if (this.form.valid) {
             this.magazine = {
                 ...this.form.value
@@ -60,7 +63,15 @@ export class UpdateMagazineComponent implements OnInit {
             this.edit = false;
 
             this.http.post<Magazine>("http://localhost:8090/catalog/updateMagazine", this.magazine)
-                .subscribe();
+                .subscribe(updateSuccess => {
+                    if (updateSuccess) {
+                        // Reloads page for updated changes to magazine
+                        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                            this.router.navigate(["/catalog"]));
+                    } else {
+                        console.log("Failed to update magazine.")
+                    }
+                });
         }
     }
 }

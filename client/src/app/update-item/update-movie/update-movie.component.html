@@ -1,5 +1,12 @@
 
-<div class="container" [formGroup]="form">
+<div class="container" [formGroup]="form" *ngIf="edit">
+    <mat-form-field>
+        <input matInput formControlName="qtyInStock" placeholder="Quantity In Stock">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput formControlName="qtyOnLoan" placeholder="Quantity On Loan">
+    </mat-form-field>
 
   <mat-form-field>
     <input matInput formControlName="title" placeholder="Title">
@@ -79,7 +86,7 @@
   <br>
 </div>
 <div>
-<button color="primary"  mat-raised-button (click) = "addMovie()">
-            Add Movie
-</button>
+  <button mat-button *ngIf="!edit" (click)="editMode()">Edit</button>
+  <button mat-button *ngIf="edit" (click)="saveMovie()">Save</button>
+  <button mat-button *ngIf="edit" (click)="editMode()">Cancel</button>
 </div>

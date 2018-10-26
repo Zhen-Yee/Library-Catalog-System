@@ -4,7 +4,8 @@ import com.soen343.server.gateways.BookGateway;
 import com.soen343.server.gateways.MagazineGateway;
 import com.soen343.server.gateways.MusicGateway;
 import com.soen343.server.gateways.MovieGateway;
-import com.soen343.server.gateways.BookGateway;
+import com.soen343.server.gateways.MagazineGateway;
+import com.soen343.server.gateways.*;
 import com.soen343.server.models.catalog.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,12 +32,15 @@ public class Catalog {
         // this.catalogItems.add(catalogItem);
         if (catalogItem.getClass() == Book.class) {
             // Add book to db
+            BookGateway.insert((Book)catalogItem);
         }
         if (catalogItem.getClass() == Magazine.class) {
+            MagazineGateway.insert((Magazine)catalogItem);
             // Add magazine to db
         }
         if (catalogItem.getClass() == Music.class) {
-            // Add music to db
+            MusicGateway.insert((Music)catalogItem);
+            // Add movie to db
         }
         
         if (catalogItem.getClass() == Movie.class) {
@@ -50,13 +54,13 @@ public class Catalog {
             BookGateway.update((Book)catalogItem);
         }
         if (catalogItem.getClass() == Magazine.class) {
-            // Add magazine to db
+            MagazineGateway.update((Magazine)catalogItem);
         }
         if (catalogItem.getClass() == Music.class) {
             MusicGateway.update((Music)catalogItem);
         }
         if (catalogItem.getClass() == Movie.class) {
-            
+            MovieGateway.update((Movie)catalogItem);
         }
     }
 
@@ -88,17 +92,7 @@ public class Catalog {
         return BookGateway.getAll();
     }
 
-    public ArrayList<Magazine> getAllMagazines() {
-        ArrayList<Magazine> magazines = new ArrayList<>();
-
-        for (CatalogItem catalogItem : catalogItems) {
-            if (catalogItem.getClass() == Magazine.class) {
-                magazines.add((Magazine)catalogItem);
-            }
-        }
-
-        return magazines;
-    }
+    public List<Magazine> getAllMagazines() { return MagazineGateway.getAll(); }
 
     public List<Music> getAllMusics() {
         return MusicGateway.getAll();

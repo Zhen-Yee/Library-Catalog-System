@@ -73,12 +73,16 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(["/add"]);
   }
 
-  toggle(){
+  toggle() {
     if (this.toggling) {
       this.toggled.changeToggle(false);}
       else {
         this.toggled.changeToggle(true);
       }
+  }
+
+  isToggle() {
+    return this.toggling;
   }
 
 }

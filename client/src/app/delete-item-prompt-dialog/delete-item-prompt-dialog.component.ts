@@ -7,6 +7,7 @@ import {Music} from "../_models/catalog/music.model";
 import { Movie } from "../_models/catalog/movie.model";
 import {Book} from "../_models/catalog/book.model";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-delete-item-prompt-dialog',
@@ -15,29 +16,74 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 })
 export class DeleteItemPromptDialogComponent implements OnInit {
 
-  constructor(private http: HttpClient, 
+  constructor(private http: HttpClient, private router: Router,
     @Inject(MAT_DIALOG_DATA) public data) 
     {}
 
     delete(data: CatalogItem){
+
       if(this.data.element.itemType === CatalogItemType.Book){
         this.http
         .post<CatalogItem>("http://localhost:8090/catalog/deleteBook", this.data.element)
-        .subscribe(confirmation => console.log());
+        .subscribe(updateSuccess => {
+          console.log(updateSuccess)
+          if (updateSuccess) {
+              // Reloads page for updated changes
+              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                  this.router.navigate(["/catalog"]));
+          } else {
+              console.log("Failed to delete Book.")
+          }
+      });
         console.log("Item successfully deleted")
       }
+
       else if(this.data.element.itemType === CatalogItemType.Magazine){
         this.http
         .post<CatalogItem>("http://localhost:8090/catalog/deleteMagazine", this.data.element)
-        .subscribe(confirmation => console.log());
+        .subscribe(updateSuccess => {
+          console.log(updateSuccess)
+          if (updateSuccess) {
+              // Reloads page for updated changes
+              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                  this.router.navigate(["/catalog"]));
+          } else {
+              console.log("Failed to delete Magazine.")
+          }
+      });
         console.log("Item successfully deleted")
       }
+
       else if(this.data.element.itemType === CatalogItemType.Music){
         this.http
         .post<CatalogItem>("http://localhost:8090/catalog/deleteMusic", this.data.element)
-        .subscribe(confirmation => console.log());
+        .subscribe(updateSuccess => {
+          if (updateSuccess) {
+              // Reloads page for updated changes 
+              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                  this.router.navigate(["/catalog"]));
+          } else {
+              console.log("Failed to delete Music.")
+          }
+      });
         console.log("Item successfully deleted")
       }
+
+      else if(this.data.element.itemType === CatalogItemType.Movie){
+        this.http
+        .post<CatalogItem>("http://localhost:8090/catalog/deleteMovie", this.data.element)
+        .subscribe(updateSuccess => {
+          if (updateSuccess) {
+              // Reloads page for updated changes
+              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                  this.router.navigate(["/catalog"]));
+          } else {
+              console.log("Failed to delete Movie.")
+          }
+      });
+        console.log("Item successfully deleted")
+      }
+      
     }
 
   ngOnInit() {

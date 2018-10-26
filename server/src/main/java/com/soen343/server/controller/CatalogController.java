@@ -68,28 +68,60 @@ public class CatalogController {
         }
     }
 
+    @PostMapping("/updateMovie")
+    public boolean updateMagazine(@RequestBody Movie movie) {
+        // Check if Movie object sent from front-end is null
+        if (movie != null) {
+            catalog.updateCatalogItem(movie);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @PostMapping("/updateMagazine")
-    public void updateMagazine(@RequestBody Magazine magazine) {
-        System.out.println(magazine);
+    public boolean updateMagazine(@RequestBody Magazine magazine) {
+            // checks if magazine object is good or not
+            if (magazine != null) {
+                catalog.updateCatalogItem(magazine);
+                return true;
+            } else {
+                return false;
+            }
     }
 
     @PostMapping("/deleteMovie")
     public void deleteMovie(@RequestBody long movie) {
-        catalog.deleteMovie(movie);
+                catalog.deleteMovie(movie);
     }
     
     @PostMapping("/deleteBook")
-    public void deleteBook(@RequestBody Book book){
-        catalog.deleteCatalogItem(book);
+    public boolean deleteBook(@RequestBody Book book){
+            if (book != null) {
+                catalog.deleteCatalogItem(book);
+                return true;
+            } else {
+                return false;
+            }
     }
 
     @PostMapping("/deleteMagazine")
-    public void deleteBook(@RequestBody Magazine magazine){
-        catalog.deleteCatalogItem(magazine);
+    public boolean deleteBook(@RequestBody Magazine magazine){
+            if (magazine != null) {
+                catalog.deleteCatalogItem(magazine);
+                return true;
+            } else {
+                return false;
+            }
     }
 
     @PostMapping("/deleteMusic")
-    public void deleteMusic(@RequestBody Music music){
-        catalog.deleteCatalogItem(music);
+    public boolean deleteMusic(@RequestBody Music music){
+            if (music != null) {
+                catalog.deleteCatalogItem(music);
+                return true;
+            } else {
+                return false;
+            }
     }
 }

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { Music } from "../../_models/catalog/music.model";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "update-music",
@@ -13,7 +14,7 @@ export class UpdateMusicComponent implements OnInit {
     edit: boolean;
     confirmation; // used later to display if book was added sucessfully
     @Input() music;
-    constructor(private fb: FormBuilder, private http: HttpClient) {
+    constructor(private router: Router, private fb: FormBuilder, private http: HttpClient) {
 
     }
 
@@ -61,18 +62,18 @@ export class UpdateMusicComponent implements OnInit {
             };
             this.edit = false;
 
-            // Updates frontend with new saved values
-            item.title = this.music.title;
-            item.qtyInStock = this.music.qtyInStock;
-            item.type = this.music.type;
-            item.qtyOnLoan = this.music.qtyOnLoan;
-            item.artist = this.music.artist;
-            item.releaseDate = this.music.releaseDate;
-            item.asin = this.music.asin;
-            item.label = this.music.label;
-
             this.http.post<Music>("http://localhost:8090/catalog/updateMusic", this.music)
-                .subscribe(response => response);
+                .subscribe(updateSuccess => {
+                    if (updateSuccess) {
+                        // Reloads page for updated changes to music
+                        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                            this.router.navigate(["/catalog"]));
+                    } else {
+                        console.log("Failed to update music.")
+                    }
+                });
+
+
         }
     }
 }
