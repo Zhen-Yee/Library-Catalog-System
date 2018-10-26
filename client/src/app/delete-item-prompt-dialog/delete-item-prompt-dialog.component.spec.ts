@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { DeleteItemErrorBoxComponent } from './delete-item-error-box.component';
+import { DeleteItemPromptDialogComponent } from './delete-item-prompt-dialog.component';
 
-describe('DeleteItemErrorBoxComponent', () => {
-  let component: DeleteItemErrorBoxComponent;
-  let fixture: ComponentFixture<DeleteItemErrorBoxComponent>;
+describe('DeleteItemPromptDialogComponent', () => {
+  let component: DeleteItemPromptDialogComponent;
+  let fixture: ComponentFixture<DeleteItemPromptDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeleteItemErrorBoxComponent ]
+      declarations: [ DeleteItemPromptDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DeleteItemErrorBoxComponent);
+    fixture = TestBed.createComponent(DeleteItemPromptDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -175,4 +175,14 @@ public class BookGateway {
         return bookArrayList;
     }
 
+        public static void delete(Book book){
+        try{
+                String query = "DELETE FROM testdb.book WHERE id=" + book.getId();
+                DbConnection.update(query);
+        }
+        catch(Exception e){
+        
+        }
+    }
+
 }

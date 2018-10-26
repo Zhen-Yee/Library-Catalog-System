@@ -11,8 +11,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MagazineGateway {
+import java.util.ArrayList;
+import com.soen343.databaseConnection.Connector;
+import com.soen343.databaseConnection.DbConnection;
+import com.soen343.server.models.catalog.Magazine;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+
+public class MagazineGateway {
 
     private static Connector connector;
     
@@ -20,11 +29,6 @@ public class MagazineGateway {
     private static final String URL = "jdbc:mysql://testdbinstance.cwtjkaidrsfz.us-east-2.rds.amazonaws.com:3306/testdb?useSSL=false";
     private static final String USERNAME = "test";
     private static final String PASSWORD = "testtest";
-
-
-
-    public static void delete(long id) {
-    }
 
     public static void update(Magazine magazine) {
         try {
@@ -156,6 +160,16 @@ public static boolean checkIfMagazineExists(String title){
             e.printStackTrace();
         }
         return qtyStock;
+    }
+
+        public static void delete(Magazine magazine){
+        try{        
+               String query = "DELETE FROM testdb.magazine WHERE id=" + magazine.getId();
+               DbConnection.update(query);
+        }
+        catch(Exception e){
+
+        }
     }
 
 }

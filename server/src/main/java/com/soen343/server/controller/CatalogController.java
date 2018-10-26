@@ -91,8 +91,42 @@ public class CatalogController {
     }
 
     @PostMapping("/deleteMovie")
-    public void deleteMovie(@RequestBody long id) {
-        catalog.deleteMovie(id);
+    public boolean deleteMovie(@RequestBody Movie movie) {
+            if (movie != null) {
+                catalog.deleteCatalogItem(movie);
+                return true;
+            } else {
+                return false;
+            }
+    }
+    
+    @PostMapping("/deleteBook")
+    public boolean deleteBook(@RequestBody Book book){
+            if (book != null) {
+                catalog.deleteCatalogItem(book);
+                return true;
+            } else {
+                return false;
+            }
     }
 
+    @PostMapping("/deleteMagazine")
+    public boolean deleteBook(@RequestBody Magazine magazine){
+            if (magazine != null) {
+                catalog.deleteCatalogItem(magazine);
+                return true;
+            } else {
+                return false;
+            }
+    }
+
+    @PostMapping("/deleteMusic")
+    public boolean deleteMusic(@RequestBody Music music){
+            if (music != null) {
+                catalog.deleteCatalogItem(music);
+                return true;
+            } else {
+                return false;
+            }
+    }
 }

@@ -39,8 +39,8 @@ import { UpdateBookComponent } from "./update-item/update-book/update-book.compo
 import { UpdateMagazineComponent } from "./update-item/update-magazine/update-magazine.component";
 import { UpdateMusicComponent } from "./update-item/update-music/update-music.component";
 import { PromoteUserComponent } from "./promote-user/promote-user.component";
-import { DeleteItemErrorBoxComponent } from "./delete-item-error-box/delete-item-error-box.component";
 import { UpdateMovieComponent } from "./update-item/update-movie/update-movie.component";
+import { DeleteItemPromptDialogComponent } from './delete-item-prompt-dialog/delete-item-prompt-dialog.component';
 
 @NgModule({
    declarations: [
@@ -66,7 +66,7 @@ import { UpdateMovieComponent } from "./update-item/update-movie/update-movie.co
       UpdateMusicComponent,
       UpdateMovieComponent,
       PromoteUserComponent,
-      DeleteItemErrorBoxComponent
+      DeleteItemPromptDialogComponent
    ],
    imports: [
       BrowserModule,
@@ -98,7 +98,7 @@ import { UpdateMovieComponent } from "./update-item/update-movie/update-movie.co
       LoginComponent,
       ConfirmationComponent,
       RegistrationErrorComponent,
-      DeleteItemErrorBoxComponent
+      DeleteItemPromptDialogComponent
    ],
    providers: [
       UserService,

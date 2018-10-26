@@ -1,6 +1,7 @@
 package com.soen343.server;
 
 import com.soen343.server.gateways.BookGateway;
+import com.soen343.server.gateways.MagazineGateway;
 import com.soen343.server.gateways.MusicGateway;
 import com.soen343.server.gateways.MovieGateway;
 import com.soen343.server.gateways.MagazineGateway;
@@ -41,8 +42,10 @@ public class Catalog {
             MusicGateway.insert((Music)catalogItem);
             // Add movie to db
         }
+        
         if (catalogItem.getClass() == Movie.class) {
             MovieGateway.insert((Movie)catalogItem);
+             // Add movie to db
         }
     }
 
@@ -99,8 +102,20 @@ public class Catalog {
         return MovieGateway.getAll();
     }
 
-    public void deleteMovie(long id) {
-        MovieGateway.delete(id);
+    public void deleteCatalogItem(CatalogItem catalogItem){
+        if(catalogItem.getClass() == Book.class){
+            BookGateway.delete((Book)catalogItem);
+        }        
+        else if(catalogItem.getClass() == Music.class){
+            MusicGateway.delete((Music)catalogItem);
+        }
+        else if(catalogItem.getClass() == Magazine.class){
+            MagazineGateway.delete((Magazine)catalogItem);
+        }
+        else if(catalogItem.getClass() == Movie.class){
+            MovieGateway.delete((Movie)catalogItem);
+        }
+
     }
 
     /**

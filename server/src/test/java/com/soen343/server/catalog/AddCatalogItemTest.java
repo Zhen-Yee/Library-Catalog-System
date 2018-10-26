@@ -27,6 +27,6 @@ public class AddCatalogItemTest {
 
         Catalog.getCatalog().addCatalogItem(movie);
         System.out.println("Movie successfully added and given ID: "+ movie.getId());
-        MovieGateway.delete(movie.getId());
+        MovieGateway.delete(movie);
     }
 }

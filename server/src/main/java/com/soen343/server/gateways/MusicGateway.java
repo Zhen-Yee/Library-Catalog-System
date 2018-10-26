@@ -1,10 +1,8 @@
 package com.soen343.server.gateways;
-
 import com.soen343.databaseConnection.Connector;
 import com.soen343.databaseConnection.DbConnection;
 import com.soen343.server.models.catalog.Music;
-
-
+import java.sql.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -126,6 +124,16 @@ public class MusicGateway {
             e.printStackTrace();
         }
         return qtyStock;
+    }
+
+        public static void delete(Music music){
+        try{
+                String query = "DELETE FROM testdb.music WHERE id=" + music.getId();
+                DbConnection.update(query);
+        }
+        catch(Exception e){
+        
+        }
     }
 
 }
