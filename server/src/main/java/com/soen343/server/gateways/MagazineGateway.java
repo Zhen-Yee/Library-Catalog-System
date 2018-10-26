@@ -25,7 +25,7 @@ public class MagazineGateway {
         List<Magazine> magazineArrayList = new ArrayList<>();
         connector = DbConnection.get(SQL_GET_ALL_MAGAZINES);
         ResultSet resultSet = connector.getResultSet();
-        System.out.println(resultSet);
+      
 
         try {
             while (resultSet.next()) {
@@ -64,11 +64,11 @@ public class MagazineGateway {
             }
         }else{
         magazine.setQtyInStock(1);
-        String columnName = "qty_in_stock, qty_on_loan, title, publisher, language, isbn10, isbn13, date_of_publisher";
+        String columnName = "qty_in_stock, qty_on_loan, title, publisher, language, isbn10, isbn13, date_of_publication";
         String values= magazine.getQtyInStock()+ ", "+ magazine.getQtyOnLoan()+ ", '" + magazine.getTitle()+"', '"+ magazine.getLanguage() + "', '" + magazine.getPublisher() + "', '" + magazine.getDateOfPublication() + "', '" + magazine.getIsbn10() + "', '" +magazine.getIsbn13()+"'";
         
         String query = "INSERT INTO testdb.magazine (" + columnName + ") VALUES (" + values + ")";
-        System.out.println(query);
+       
         
         try{
             DbConnection.update(query);
