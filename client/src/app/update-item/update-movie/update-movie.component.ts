@@ -180,8 +180,6 @@ export class UpdateMovieComponent implements OnInit {
             console.log("Failed to update movie.")
           }
         });
-
-
     }
   }
 }
