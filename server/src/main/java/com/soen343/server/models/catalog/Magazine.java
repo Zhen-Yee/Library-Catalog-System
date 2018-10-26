@@ -22,7 +22,7 @@ public class Magazine extends CatalogItem {
     private String isbn13;
 
     public Magazine(String title, int qtyInStock, int qtyOnLoan, String publisher, String  language,
-                    String dateOfPublication, String isbn10, String isbn13) {
+                    String dateOfPublication, String isbna10, String isbn13) {
         super(title, qtyInStock, qtyOnLoan);
         this.publisher = publisher;
         this.language = language;

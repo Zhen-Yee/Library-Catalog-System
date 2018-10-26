@@ -132,7 +132,7 @@ public static boolean checkIfMagazineExists(String title){
           String query="SELECT * FROM testdb.magazine WHERE title = '" + title +"'";
           connector=DbConnection.get(query);
           ResultSet r=connector.getResultSet();
-          if(r.next()==true){
+          if(r.next()){
               check=true;
           }
           connector.close();
