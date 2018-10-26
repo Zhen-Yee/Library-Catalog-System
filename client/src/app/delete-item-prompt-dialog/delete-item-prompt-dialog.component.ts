@@ -35,7 +35,7 @@ export class DeleteItemPromptDialogComponent implements OnInit {
               console.log("Failed to delete Book.")
           }
       });
-        console.log("Item successfully deleted")
+        console.log("Book successfully deleted")
       }
 
       else if(this.data.element.itemType === CatalogItemType.Magazine){
@@ -51,7 +51,7 @@ export class DeleteItemPromptDialogComponent implements OnInit {
               console.log("Failed to delete Magazine.")
           }
       });
-        console.log("Item successfully deleted")
+        console.log("Magazine successfully deleted")
       }
 
       else if(this.data.element.itemType === CatalogItemType.Music){
@@ -66,7 +66,7 @@ export class DeleteItemPromptDialogComponent implements OnInit {
               console.log("Failed to delete Music.")
           }
       });
-        console.log("Item successfully deleted")
+        console.log("Music successfully deleted")
       }
 
       else if(this.data.element.itemType === CatalogItemType.Movie){
@@ -81,7 +81,7 @@ export class DeleteItemPromptDialogComponent implements OnInit {
               console.log("Failed to delete Movie.")
           }
       });
-        console.log("Item successfully deleted")
+        console.log("Movie successfully deleted")
       }
       
     }

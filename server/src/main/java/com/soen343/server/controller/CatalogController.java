@@ -91,8 +91,13 @@ public class CatalogController {
     }
 
     @PostMapping("/deleteMovie")
-    public void deleteMovie(@RequestBody long movie) {
-                catalog.deleteMovie(movie);
+    public boolean deleteMovie(@RequestBody Movie movie) {
+            if (movie != null) {
+                catalog.deleteCatalogItem(movie);
+                return true;
+            } else {
+                return false;
+            }
     }
     
     @PostMapping("/deleteBook")

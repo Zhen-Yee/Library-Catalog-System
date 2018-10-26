@@ -102,10 +102,6 @@ public class Catalog {
         return MovieGateway.getAll();
     }
 
-    public void deleteMovie(long id) {
-        MovieGateway.delete(id);
-    }
-
     public void deleteCatalogItem(CatalogItem catalogItem){
         if(catalogItem.getClass() == Book.class){
             BookGateway.delete((Book)catalogItem);
@@ -115,6 +111,9 @@ public class Catalog {
         }
         else if(catalogItem.getClass() == Magazine.class){
             MagazineGateway.delete((Magazine)catalogItem);
+        }
+        else if(catalogItem.getClass() == Movie.class){
+            MovieGateway.delete((Movie)catalogItem);
         }
 
     }

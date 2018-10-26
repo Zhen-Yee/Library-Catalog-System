@@ -131,16 +131,16 @@ public class MovieGateway {
         return movieArrayList;
     }
 
-    public static void delete(long id) {
+    public static void delete(Movie movie) {
         try {
             Connection conn = connect();
             Statement stmt = conn.createStatement();
 
-            stmt.executeUpdate("DELETE FROM testdb.movie WHERE id=" + id);
-            stmt.executeUpdate("DELETE FROM testdb.actor WHERE movie_id=" + id);
-            stmt.executeUpdate("DELETE FROM testdb.producer WHERE movie_id=" + id);
-            stmt.executeUpdate("DELETE FROM testdb.subtitle WHERE movie_id=" + id);
-            stmt.executeUpdate("DELETE FROM testdb.dub WHERE movie_id=" + id);
+            stmt.executeUpdate("DELETE FROM testdb.movie WHERE id=" + movie.getId());
+            stmt.executeUpdate("DELETE FROM testdb.actor WHERE movie_id=" + movie.getId());
+            stmt.executeUpdate("DELETE FROM testdb.producer WHERE movie_id=" + movie.getId());
+            stmt.executeUpdate("DELETE FROM testdb.subtitle WHERE movie_id=" + movie.getId());
+            stmt.executeUpdate("DELETE FROM testdb.dub WHERE movie_id=" + movie.getId());
 
             conn.close();
         } catch (Exception e) {

@@ -38,6 +38,8 @@ public class MovieGatewayTest {
     @Test
     public void t002_deleteTest() {
         // select an id to delete
-        MovieGateway.delete(movie.getId());
+        MovieGateway.delete(movie);
     }
+
+
 }
