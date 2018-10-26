@@ -1,7 +1,36 @@
 div 
 {
-    padding:40px;
+    margin:40px;
+    padding: 30px;
+    background-color: #eed;
+    border-radius: 5px;
+	box-shadow:  0 0 10px 5px rgba(0,0,0,0.6);
+	-moz-box-shadow: 0 0 10px  5px rgba(0,0,0,0.6);
+	-webkit-box-shadow: 0 0 10px 5px rgba(0,0,0,0.6);
+	-o-box-shadow: 0 0 10px 5px rgba(0,0,0,0.6);
+	
 }
+
+.toggled {
+  width: 75%;
+}
+
+.producer-chip-list {
+  width: 75%;
+}
+.actor-chip-list {
+  width: 75%;
+}
+.subtitle-chip-list {
+  width: 75%;
+}
+.dub-chip-list {
+  width: 75%;
+}
+
+
+
+
 
 
 

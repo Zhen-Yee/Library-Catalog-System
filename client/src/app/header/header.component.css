@@ -3,5 +3,10 @@
 }
 
 .toolbar{
-  background: rgb(250, 250, 250);
+  background-color: #eed;
+  border-radius: 5px;
+}
+
+.toggled {
+  width: 85%;
 }

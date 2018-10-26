@@ -15,6 +15,7 @@ export class ActiveUsersSideNavComponent implements OnInit {
 
   public activeUserArray;
   public inactiveUserArray;
+  isLoaded;
 
 
   constructor(private http: HttpClient) {}
@@ -24,6 +25,7 @@ export class ActiveUsersSideNavComponent implements OnInit {
     setInterval(() => {
       this.getActiveUsers().subscribe((active) => {
         this.activeUserArray = active;
+        this.isLoaded = true;
         this.getInactiveUsers().subscribe((inactive) => {
           this.inactiveUserArray = inactive;
         });

@@ -1,0 +1,92 @@
+
+<div class="container" [formGroup]="form" *ngIf="edit">
+    <mat-form-field>
+        <input matInput formControlName="qtyInStock" placeholder="Quantity In Stock">
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput formControlName="qtyOnLoan" placeholder="Quantity On Loan">
+    </mat-form-field>
+
+  <mat-form-field>
+    <input matInput formControlName="title" placeholder="Title">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput formControlName="director" placeholder="Director">
+  </mat-form-field>
+  <br>
+
+<mat-form-field>
+  <input matInput formControlName="language" placeholder="Language">
+</mat-form-field>
+<mat-form-field>
+  <input matInput formControlName="releaseDate" placeholder="Release Date">
+  <mat-hint>Format: YYYY/MM/DD</mat-hint>
+</mat-form-field>
+<mat-form-field>
+  <input matInput formControlName="runTime" placeholder="Run Time">
+</mat-form-field>
+<br>
+<mat-form-field class="producer-chip-list">
+  <mat-chip-list #producerChipList>
+    <mat-chip *ngFor="let producer of producers" [selectable]="selectable" [removable]="removable" (removed)="removeProducer(producer)">
+      {{producer}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip>
+    <input placeholder="Producers"
+           [matChipInputFor]="producerChipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="addOnBlur"
+           (matChipInputTokenEnd)="addProducer($event)">
+  </mat-chip-list>
+</mat-form-field>
+<br>
+<mat-form-field class="actor-chip-list">
+  <mat-chip-list #actorChipList>
+    <mat-chip *ngFor="let actor of actors" [selectable]="selectable" [removable]="removable" (removed)="removeActor(actor)">
+      {{actor}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip>
+    <input placeholder="Actors"
+           [matChipInputFor]="actorChipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="addOnBlur"
+           (matChipInputTokenEnd)="addActor($event)">
+  </mat-chip-list>
+</mat-form-field>
+<br>
+<mat-form-field class="subtitle-chip-list">
+  <mat-chip-list #subtitleChipList>
+    <mat-chip *ngFor="let sub of subtitles" [selectable]="selectable" [removable]="removable" (removed)="removeSubtitle(sub)">
+      {{sub}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip>
+    <input placeholder="Subtitles"
+           [matChipInputFor]="subtitleChipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="addOnBlur"
+           (matChipInputTokenEnd)="addSubtitle($event)">
+  </mat-chip-list>
+</mat-form-field>
+<br>
+<mat-form-field class="dub-chip-list">
+  <mat-chip-list #dubChipList>
+    <mat-chip *ngFor="let dub of dubs" [selectable]="selectable" [removable]="removable" (removed)="removeDub(dub)">
+      {{dub}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip>
+    <input placeholder="Dubs"
+           [matChipInputFor]="dubChipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="addOnBlur"
+           (matChipInputTokenEnd)="addDub($event)">
+  </mat-chip-list>
+</mat-form-field>
+  <br>
+</div>
+<div>
+  <button mat-button *ngIf="!edit" (click)="editMode()">Edit</button>
+  <button mat-button *ngIf="edit" (click)="saveMovie()">Save</button>
+  <button mat-button *ngIf="edit" (click)="editMode()">Cancel</button>
+</div>

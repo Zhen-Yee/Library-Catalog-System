@@ -2,8 +2,9 @@ import {Component, OnInit, Input} from '@angular/core';
 import {Book} from "../_models/catalog/book.model";
 import {CatalogItemType} from "../enums/catalogItemType";
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
-import {MatSnackBar} from '@angular/material';
-import {DeleteItemErrorBoxComponent} from '../delete-item-error-box/delete-item-error-box.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {DeleteItemPromptDialogComponent} from '../delete-item-prompt-dialog/delete-item-prompt-dialog.component';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'delete-item',
@@ -14,27 +15,19 @@ export class DeleteItemComponent implements OnInit {
 
   @Input() element;
 
-  constructor(public snackBar: MatSnackBar) {
+  constructor(public dialog: MatDialog) {
 }
 
-  deleteNumber: number;
-  dataArray: CatalogItem[];
+  openDialog(): void {
+  const dialogRef = this.dialog.open(DeleteItemPromptDialogComponent, 
+    {
+      width: '250px',
+      data: {element: this.element}
+  });
 
-  openSnackBar() {
-    this.snackBar.openFromComponent(DeleteItemErrorBoxComponent, {
-      duration: 2000,
-    });
-  }
-
-  delete(itemType: CatalogItem){
-  if(this.deleteNumber<0 || this.deleteNumber>itemType.qtyInStock){
-    this.openSnackBar()
-    console.log("ERROR")
-  }
-  else{
-    itemType.qtyInStock = itemType.qtyInStock - this.deleteNumber
-    console.log(itemType.qtyInStock)
-  }
+  dialogRef.afterClosed().subscribe(result => {
+    console.log();
+  });
   }
 
   ngOnInit() {

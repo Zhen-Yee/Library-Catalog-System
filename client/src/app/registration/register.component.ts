@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from "@angular/material";
 import { ConfirmationComponent } from  "./confirmation.component";
 import { PasswordService } from "../_services/PasswordService";
-import {ChangeDetectorRef} from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 
 import { RegistrationErrorComponent } from "./registration_error.component";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -81,7 +81,6 @@ export class RegisterComponent implements OnInit {
       .post<boolean>("http://localhost:8090/addUser", user)
       .subscribe( answer => {this.successful = answer;
         this.openConfirmationDialog(); });
-
   }
 
   generatePassword() {

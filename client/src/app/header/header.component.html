@@ -1,7 +1,8 @@
-<mat-toolbar class="toolbar">
+<mat-toolbar class="toolbar" [ngClass]="{'toggled': isToggle()}">
+  <span [hidden]="!isAdmin()"><button mat-button (click)="toggle()"><mat-icon>menu</mat-icon></button></span>
   <span><button mat-button (click)="redirectHome()"> Home </button> </span>
   <span class="remaining-space"></span>
-  <span [hidden]="!isAdmin()"><button mat-button (click)="redirectCatalogPage()"> Open Catalog </button></span>
+  <span [hidden]="!authenticated()"><button mat-button (click)="redirectCatalogPage()"> Open Catalog </button></span>
   <span [hidden]= "!isAdmin()"><button mat-button (click)="redirectToAddPage()"> Add </button></span>
   <span [hidden]="!isAdmin()"><button mat-button (click)="redirectRegistrationPage()"> Register a User </button></span>
   <span [hidden]="!isAdmin()"><button mat-button (click)="redirectToPromote()">Promote User</button></span>

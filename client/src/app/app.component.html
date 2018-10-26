@@ -2,12 +2,12 @@
 <header></header>
 
 
-  <span *ngIf="isAdmin()"><active-users-side-nav></active-users-side-nav>
+  <span *ngIf="isToggle() && isAdmin()"><active-users-side-nav></active-users-side-nav>
   </span>
 
 
-<div class="content">
-  <router-outlet></router-outlet>
+<div [ngClass]="{'toggled': isToggle()}">
+  <router-outlet class = "content"></router-outlet>
 </div>
 
 <footer></footer>

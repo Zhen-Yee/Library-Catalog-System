@@ -4,6 +4,7 @@ import com.soen343.server.Catalog;
 import com.soen343.server.models.catalog.*;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -11,12 +12,10 @@ import java.util.ArrayList;
 public class CatalogController {
 
     private Catalog catalog = Catalog.getCatalog();
-
-    @GetMapping("/getAll")
-    public ArrayList<CatalogItem> getAllCatalogItems() {
-        // Generate initial data to simulate db
-        catalog.loadFakeData();
-        return catalog.getAllCatalogItems();
+    
+    @GetMapping("/getAll"+"{CatalogItemType}")
+    public List<CatalogItem> getAllCatalogItemsByType(@PathVariable String CatalogItemType) {
+        return catalog.getAllCatalogItemsByType(CatalogItemType);
     }
 
     @PostMapping("/addBook")
@@ -47,18 +46,87 @@ public class CatalogController {
     }
 
     @PostMapping("/updateBook")
-    public void updateBook(@RequestBody Book book) {
-        System.out.println(book);
+    public boolean updateBook(@RequestBody Book book) {
+            // checks if book object is good or not
+            if (book != null) {
+                catalog.updateCatalogItem(book);
+                return true;
+            } else {
+                return false;
+            }
     }
 
     @PostMapping("/updateMusic")
-    public void updateMusic(@RequestBody Music music) {
-        System.out.println(music);
+    public boolean updateMusic(@RequestBody Music music) {
+        // Check if Music object sent from front-end is null
+        System.out.println("Reached music Endpoint");
+        if (music != null) {
+            catalog.updateCatalogItem(music);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @PostMapping("/updateMovie")
+    public boolean updateMagazine(@RequestBody Movie movie) {
+        // Check if Movie object sent from front-end is null
+        if (movie != null) {
+            catalog.updateCatalogItem(movie);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @PostMapping("/updateMagazine")
-    public void updateMagazine(@RequestBody Magazine magazine) {
-        System.out.println(magazine);
+    public boolean updateMagazine(@RequestBody Magazine magazine) {
+            // checks if magazine object is good or not
+            if (magazine != null) {
+                catalog.updateCatalogItem(magazine);
+                return true;
+            } else {
+                return false;
+            }
     }
 
+    @PostMapping("/deleteMovie")
+    public boolean deleteMovie(@RequestBody Movie movie) {
+            if (movie != null) {
+                catalog.deleteCatalogItem(movie);
+                return true;
+            } else {
+                return false;
+            }
+    }
+    
+    @PostMapping("/deleteBook")
+    public boolean deleteBook(@RequestBody Book book){
+            if (book != null) {
+                catalog.deleteCatalogItem(book);
+                return true;
+            } else {
+                return false;
+            }
+    }
+
+    @PostMapping("/deleteMagazine")
+    public boolean deleteBook(@RequestBody Magazine magazine){
+            if (magazine != null) {
+                catalog.deleteCatalogItem(magazine);
+                return true;
+            } else {
+                return false;
+            }
+    }
+
+    @PostMapping("/deleteMusic")
+    public boolean deleteMusic(@RequestBody Music music){
+            if (music != null) {
+                catalog.deleteCatalogItem(music);
+                return true;
+            } else {
+                return false;
+            }
+    }
 }

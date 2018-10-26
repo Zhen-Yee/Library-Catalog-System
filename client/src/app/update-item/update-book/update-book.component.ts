@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Book } from "../../_models/catalog/book.model";
 import { HttpClient } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -12,8 +13,9 @@ import { HttpClient } from "@angular/common/http";
 export class UpdateBookComponent implements OnInit {
     form: FormGroup;
     edit: boolean;
+    successful;
     @Input() book;
-    constructor(private fb: FormBuilder, private http: HttpClient) {
+    constructor(private router: Router, private fb: FormBuilder, private http: HttpClient) {
 
     }
 
@@ -43,15 +45,15 @@ export class UpdateBookComponent implements OnInit {
             // book formgroup matching a book object with validators
             title: ["", Validators.required],
             author: ["", Validators.required],
-            format: ["", Validators.required],
-            pages: ["", Validators.required],
-            publisher: ["", Validators.required],
-            yearOfPublication: ["", Validators.required],
-            language: ["", Validators.required],
-            isbn10: ["", Validators.required],
-            isbn13: ["", Validators.required],
-            qtyInStock: ["", Validators.required],
-            qtyOnLoan: ["", Validators.required],
+            format: ["", [Validators.required, Validators.pattern("^Paperback$|^Hardcover$")]],
+            pages: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
+            publisher: ["", [Validators.required]],
+            yearOfPublication: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
+            language: ["", [Validators.required]],
+            isbn10: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+            isbn13: ["", [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
+            qtyInStock: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
+            qtyOnLoan: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
             itemType: ["", Validators.required],
             id: ["", Validators.required],
         });
@@ -65,24 +67,18 @@ export class UpdateBookComponent implements OnInit {
             };
             this.edit = false;
 
-            // creating new Book object for updated Book to send to backend
-            const updatedBook = new Book(
-                this.book.itemType,
-                this.book.id,
-                this.book.qtyInStock,
-                this.book.qtyOnLoan,
-                this.book.title, {
-                    author: this.book.author,
-                    format: this.book.format,
-                    pages: this.book.pages,
-                    publisher: this.book.publisher,
-                    yearOfPublication: this.book.yearOfPublication,
-                    language: this.book.language,
-                    isbn10: this.book.isbn10,
-                    isbn13: this.book.isbn13
+            this.http.post<Book>("http://localhost:8090/catalog/updateBook", this.book)
+                .subscribe(updateSuccess => {
+                    if (updateSuccess) {
+                        // Reloads page for updated changes to book
+                        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                            this.router.navigate(["/catalog"]));
+                    } else {
+                        console.log("Failed to update book.");
+                    }
                 });
-            this.http.post<Book>("http://localhost:8090/catalog/updateBook", updatedBook)
-                .subscribe();
+
+
         }
     }
 }
