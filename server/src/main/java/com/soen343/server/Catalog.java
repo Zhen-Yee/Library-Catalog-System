@@ -2,22 +2,27 @@ package com.soen343.server;
 
 import com.soen343.server.gateways.BookGateway;
 import com.soen343.server.gateways.MagazineGateway;
-import com.soen343.server.gateways.MusicGateway;
 import com.soen343.server.gateways.MovieGateway;
-import com.soen343.server.gateways.MagazineGateway;
-import com.soen343.server.gateways.*;
+import com.soen343.server.gateways.MusicGateway;
 import com.soen343.server.models.catalog.*;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Catalog {
 
     private static Catalog catalog = null;
 
-    private ArrayList<CatalogItem> catalogItems;
+    private Map<Long,CatalogItem> identityMap;
+    private boolean isDatabaseChange;
 
     private Catalog() {
-        catalogItems = new ArrayList<>();
+        identityMap = new HashMap<>();
+        isDatabaseChange = false;
     }
 
     public static Catalog getCatalog() {
@@ -42,10 +47,9 @@ public class Catalog {
             MusicGateway.insert((Music)catalogItem);
             // Add movie to db
         }
-        
         if (catalogItem.getClass() == Movie.class) {
             MovieGateway.insert((Movie)catalogItem);
-             // Add movie to db
+            // Add movie to db
         }
     }
 
@@ -64,10 +68,6 @@ public class Catalog {
         }
     }
 
-    public ArrayList<CatalogItem> getAllCatalogItems() {
-        return catalogItems;
-    }
-
     /**
      * This method is to query from database and return a certain
      * type of CatalogItem - in order to have 1 access point
@@ -81,10 +81,16 @@ public class Catalog {
             case "Book" : catalogItems.addAll(getAllBooks()); break;
             case "Music" : catalogItems.addAll(getAllMusics()); break;
             case "Magazine" : catalogItems.addAll(getAllMagazines()); break;
-            case "Movie" :  catalogItems.addAll(getAllMovies()); break;
+            case "Movie" : catalogItems.addAll(getAllMovies()); break;
+            case "All" :
+                catalogItems.addAll(getAllBooks());
+                catalogItems.addAll(getAllMusics());
+                catalogItems.addAll(getAllMagazines());
+                catalogItems.addAll(getAllMovies());
+                populateIdentityMap(catalogItems);
+                break;
             default: System.out.println("Invalid CatalogItemType: " + CatalogItemType);
         }
-
         return catalogItems;
     }
 
@@ -105,7 +111,7 @@ public class Catalog {
     public void deleteCatalogItem(CatalogItem catalogItem){
         if(catalogItem.getClass() == Book.class){
             BookGateway.delete((Book)catalogItem);
-        }        
+        }
         else if(catalogItem.getClass() == Music.class){
             MusicGateway.delete((Music)catalogItem);
         }
@@ -116,6 +122,26 @@ public class Catalog {
             MovieGateway.delete((Movie)catalogItem);
         }
 
+    }
+
+    /**
+     *  Identity Map Utilities
+     *  Concerning the identity map
+     */
+
+    /**
+     *  This method populates the CatalogItem identity map
+     */
+    public void populateIdentityMap(List<CatalogItem> catalogItemList) {
+        identityMap =  catalogItemList.stream().collect(Collectors.toMap(CatalogItem::getId, Function.identity()));
+    }
+
+    /**
+     * Retrieve the current IdentityMap
+     * @return Map<Long, CatalogItem>
+     */
+    public Map<Long, CatalogItem> getIdentityMap() {
+        return identityMap;
     }
 
     /**

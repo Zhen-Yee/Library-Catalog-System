@@ -54,7 +54,7 @@ export class DataTableComponent implements OnInit {
   dataSource: MatTableDataSource<CatalogItem>;
 
   ngOnInit() {
-    this.getAll();
+      this.getAll();
   }
 
   getAll() {
