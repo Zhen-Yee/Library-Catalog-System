@@ -156,13 +156,11 @@
 
           <div class="right-wrapper">
 
-            <div class = "edit-box">
-
+            <div [hidden] = "!isAdmin()" class = "edit-box">
               <update-book *ngIf="element.itemType == 'Book'" [book]="element" (messageEvent)="receiveSaveMessage($event)"></update-book>
               <update-magazine *ngIf="element.itemType== 'Magazine'" [magazine]="element" (messageEvent)="receiveSaveMessage($event)"></update-magazine>
               <update-music *ngIf="element.itemType == 'Music'" [music]="element" (messageEvent)="receiveSaveMessage($event)"></update-music>
               <update-movie *ngIf="element.itemType == 'Movie'" [movie]="element" (messageEvent)="receiveSaveMessage($event)"></update-movie>
-             
               <div class = "delete">
                 <delete-item [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>
               </div>

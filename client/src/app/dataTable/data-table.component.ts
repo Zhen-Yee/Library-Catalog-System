@@ -7,7 +7,8 @@ import { HttpClient } from "@angular/common/http";
 import { CatalogItem } from "../_models/catalog/catalogItem.model";
 import { Music } from "../_models/catalog/music.model";
 import { Movie } from "../_models/catalog/movie.model";
-import { Magazine } from "../_models/catalog/magazine.model";
+import {Magazine} from "../_models/catalog/magazine.model";
+import { UserService } from "../_services/user.service";
 
 @Component({
   selector: "app-data-table",
@@ -29,7 +30,8 @@ import { Magazine } from "../_models/catalog/magazine.model";
 })
 
 export class DataTableComponent implements OnInit {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private user: UserService) {}
+
 
   paginator;
   sort;
@@ -59,6 +61,9 @@ export class DataTableComponent implements OnInit {
     this.getAll();
   }
 
+  isAdmin() {
+    return this.user.isAdmin;
+}
   // calls getAll function to refill catalog with updated values
   receiveSaveMessage($event) {
     this.dataArray = [];
