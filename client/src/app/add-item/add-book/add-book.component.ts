@@ -41,8 +41,11 @@ export class AddBookComponent implements OnInit {
       console.log(book);
       this.http.post("http://localhost:8090/catalog/addBook", book)
         .subscribe((confirmation) => {
-          console.log(confirmation)
-          this.openSnackBar("Book added!", "Close");
+          if (confirmation) {
+            this.openSnackBar("Book added!", "Close");
+          } else {
+            this.openSnackBar("Error adding book!", "Close");
+          }
         });
     }
   }
