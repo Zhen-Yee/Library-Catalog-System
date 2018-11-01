@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import {MatChipInputEvent} from "@angular/material";
 import {Movie} from "../../_models/catalog/movie.model";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: "app-add-movies",
@@ -25,7 +26,7 @@ export class AddMoviesComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) {
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -140,8 +141,20 @@ export class AddMoviesComponent implements OnInit {
       console.log(movie);
 
       this.http.post("http://localhost:8090/catalog/addMovie", movie)
-        .subscribe((confirmation) => console.log(confirmation));
+        .subscribe((confirmation) => {
+          if (confirmation) {
+            this.openSnackBar("Movie added!", "Close");
+          } else {
+            this.openSnackBar("Error adding movie!", "Close");
+          }
+        });
     }
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message , action, {
+      duration: 5000,
+    });
   }
 
 }
