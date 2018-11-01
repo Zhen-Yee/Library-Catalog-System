@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject} from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Inject} from '@angular/core';
 import { DeleteItemComponent } from "../delete-item/delete-item.component";
 import {CatalogItemType} from "../enums/catalogItemType";
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
@@ -20,17 +20,18 @@ export class DeleteItemPromptDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data) 
     {}
 
+    @Output() messageEvent = new EventEmitter<string>();
     delete(data: CatalogItem){
-
       if(this.data.element.itemType === CatalogItemType.Book){
         this.http
         .post<CatalogItem>("http://localhost:8090/catalog/deleteBook", this.data.element)
         .subscribe(updateSuccess => {
           console.log(updateSuccess)
           if (updateSuccess) {
+              this.messageEvent.emit("Deleting Book...")
               // Reloads page for updated changes
-              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                  this.router.navigate(["/catalog"]));
+              // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+              //     this.router.navigate(["/catalog"]));
           } else {
               console.log("Failed to delete Book.")
           }
@@ -44,9 +45,10 @@ export class DeleteItemPromptDialogComponent implements OnInit {
         .subscribe(updateSuccess => {
           console.log(updateSuccess)
           if (updateSuccess) {
+              this.messageEvent.emit("Deleting Magazine...")
               // Reloads page for updated changes
-              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                  this.router.navigate(["/catalog"]));
+              // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+              //     this.router.navigate(["/catalog"]));
           } else {
               console.log("Failed to delete Magazine.")
           }
@@ -59,9 +61,10 @@ export class DeleteItemPromptDialogComponent implements OnInit {
         .post<CatalogItem>("http://localhost:8090/catalog/deleteMusic", this.data.element)
         .subscribe(updateSuccess => {
           if (updateSuccess) {
+              this.messageEvent.emit("Deleting Music...")
               // Reloads page for updated changes 
-              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                  this.router.navigate(["/catalog"]));
+              // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+              //     this.router.navigate(["/catalog"]));
           } else {
               console.log("Failed to delete Music.")
           }
@@ -74,9 +77,10 @@ export class DeleteItemPromptDialogComponent implements OnInit {
         .post<CatalogItem>("http://localhost:8090/catalog/deleteMovie", this.data.element)
         .subscribe(updateSuccess => {
           if (updateSuccess) {
+              this.messageEvent.emit("Deleting Movie...")
               // Reloads page for updated changes
-              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                  this.router.navigate(["/catalog"]));
+              // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+              //     this.router.navigate(["/catalog"]));
           } else {
               console.log("Failed to delete Movie.")
           }
