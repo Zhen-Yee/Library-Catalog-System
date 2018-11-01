@@ -14,7 +14,6 @@
 
             <div class = "title">
             {{element.title}}
-
             </div>
 
             <table>
@@ -158,14 +157,12 @@
           <div class="right-wrapper">
 
             <div [hidden] = "!isAdmin()" class = "edit-box">
-
-              <update-book *ngIf="element.itemType == 'Book'" [book]="element"></update-book>
-              <update-magazine *ngIf="element.itemType== 'Magazine'" [magazine]="element"></update-magazine>
-              <update-music *ngIf="element.itemType == 'Music'" [music]="element"></update-music>
-              <update-movie *ngIf="element.itemType == 'Movie'" [movie]="element"></update-movie>
-
+              <update-book *ngIf="element.itemType == 'Book'" [book]="element" (messageEvent)="receiveSaveMessage($event)"></update-book>
+              <update-magazine *ngIf="element.itemType== 'Magazine'" [magazine]="element" (messageEvent)="receiveSaveMessage($event)"></update-magazine>
+              <update-music *ngIf="element.itemType == 'Music'" [music]="element" (messageEvent)="receiveSaveMessage($event)"></update-music>
+              <update-movie *ngIf="element.itemType == 'Movie'" [movie]="element" (messageEvent)="receiveSaveMessage($event)"></update-movie>
               <div class = "delete">
-                <delete-item [element]="element"></delete-item>
+                <delete-item [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>
               </div>
 
             </div>
@@ -184,9 +181,15 @@
 </table>
 <mat-paginator *ngIf="isLoaded" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
-<mat-card *ngIf="!isLoaded" style="display: flex; justify-content: center; align-items: center">
-  <mat-progress-spinner
-    color="primary"
-    mode="indeterminate">
-  </mat-progress-spinner>
-</mat-card>
+<div *ngIf="!isLoaded">
+    <mat-card *ngIf="!isLoaded" style="display: flex; justify-content: center; align-items: center">
+      <mat-progress-spinner
+        color="primary"
+        mode="indeterminate">
+      </mat-progress-spinner>
+      {{message}}
+    </mat-card>
+    <!-- <div style="position:relative; top: -20px; left: 390px;">
+        {{message}}
+    </div> -->
+</div>

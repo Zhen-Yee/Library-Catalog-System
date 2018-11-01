@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, Output, OnInit, EventEmitter } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Book } from "../../_models/catalog/book.model";
 import { HttpClient } from "@angular/common/http";
@@ -13,7 +13,7 @@ import { Router } from "@angular/router";
 export class UpdateBookComponent implements OnInit {
     form: FormGroup;
     edit: boolean;
-    successful;
+    savingMessage: string = "Saving Book...";
     @Input() book;
     constructor(private router: Router, private fb: FormBuilder, private http: HttpClient) {
 
@@ -60,6 +60,7 @@ export class UpdateBookComponent implements OnInit {
     }
 
     // save book to later send new Book object to update in backend
+    @Output() messageEvent = new EventEmitter<string>();
     saveBook() {
         if (this.form.valid) {
             this.book = {
@@ -70,9 +71,10 @@ export class UpdateBookComponent implements OnInit {
             this.http.post<Book>("http://localhost:8090/catalog/updateBook", this.book)
                 .subscribe(updateSuccess => {
                     if (updateSuccess) {
+                        this.messageEvent.emit(this.savingMessage);
                         // Reloads page for updated changes to book
-                        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                            this.router.navigate(["/catalog"]));
+                        // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                        //     this.router.navigate(["/catalog"]));
                     } else {
                         console.log("Failed to update book.");
                     }

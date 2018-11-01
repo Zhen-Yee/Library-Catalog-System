@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import {Book} from "../_models/catalog/book.model";
 import {CatalogItemType} from "../enums/catalogItemType";
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
@@ -15,19 +15,87 @@ export class DeleteItemComponent implements OnInit {
 
   @Input() element;
 
-  constructor(public dialog: MatDialog) {
+  constructor(private http: HttpClient, public dialog: MatDialog) {
 }
 
+  @Output() messageEvent = new EventEmitter<string>();
   openDialog(): void {
-  const dialogRef = this.dialog.open(DeleteItemPromptDialogComponent, 
-    {
-      width: '250px',
-      data: {element: this.element}
-  });
-
-  dialogRef.afterClosed().subscribe(result => {
-    console.log();
-  });
+    const dialogRef = this.dialog.open(DeleteItemPromptDialogComponent, 
+      {
+        width: '250px',
+    });
+    
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        if(this.element.itemType === CatalogItemType.Book){
+          this.http
+          .post<CatalogItem>("http://localhost:8090/catalog/deleteBook", this.element)
+          .subscribe(updateSuccess => {
+            console.log(updateSuccess)
+            if (updateSuccess) {
+                this.messageEvent.emit("Deleting Book...")
+                // Reloads page for updated changes
+                // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                //     this.router.navigate(["/catalog"]));
+            } else {
+                console.log("Failed to delete Book.")
+            }
+        });
+          console.log("Book successfully deleted")
+        }
+    
+        else if(this.element.itemType === CatalogItemType.Magazine){
+          this.http
+          .post<CatalogItem>("http://localhost:8090/catalog/deleteMagazine", this.element)
+          .subscribe(updateSuccess => {
+            console.log(updateSuccess)
+            if (updateSuccess) {
+                this.messageEvent.emit("Deleting Magazine...")
+                // Reloads page for updated changes
+                // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                //     this.router.navigate(["/catalog"]));
+            } else {
+                console.log("Failed to delete Magazine.")
+            }
+        });
+          console.log("Magazine successfully deleted")
+        }
+    
+        else if(this.element.itemType === CatalogItemType.Music){
+          this.http
+          .post<CatalogItem>("http://localhost:8090/catalog/deleteMusic", this.element)
+          .subscribe(updateSuccess => {
+            if (updateSuccess) {
+                this.messageEvent.emit("Deleting Music...")
+                // Reloads page for updated changes 
+                // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                //     this.router.navigate(["/catalog"]));
+            } else {
+                console.log("Failed to delete Music.")
+            }
+        });
+          console.log("Music successfully deleted")
+        }
+    
+        else if(this.element.itemType === CatalogItemType.Movie){
+          this.http
+          .post<CatalogItem>("http://localhost:8090/catalog/deleteMovie", this.element)
+          .subscribe(updateSuccess => {
+            if (updateSuccess) {
+                this.messageEvent.emit("Deleting Movie...")
+                // Reloads page for updated changes
+                // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                //     this.router.navigate(["/catalog"]));
+            } else {
+                console.log("Failed to delete Movie.")
+            }
+        });
+          console.log("Movie successfully deleted")
+        }    
+      } else {
+        console.log("Cancel Delete");
+      }
+    });
   }
 
   ngOnInit() {
