@@ -157,13 +157,13 @@
 
           <div class="right-wrapper">
 
-            <div class = "edit-box">
+            <div [hidden] = "!isAdmin()" class = "edit-box">
 
               <update-book *ngIf="element.itemType == 'Book'" [book]="element"></update-book>
               <update-magazine *ngIf="element.itemType== 'Magazine'" [magazine]="element"></update-magazine>
               <update-music *ngIf="element.itemType == 'Music'" [music]="element"></update-music>
               <update-movie *ngIf="element.itemType == 'Movie'" [movie]="element"></update-movie>
-             
+
               <div class = "delete">
                 <delete-item [element]="element"></delete-item>
               </div>
