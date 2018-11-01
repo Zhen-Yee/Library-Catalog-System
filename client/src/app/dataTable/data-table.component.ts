@@ -1,5 +1,5 @@
 import { CatalogItemType } from "./../enums/catalogItemType";
-import { Component, ElementRef, OnInit, ViewChild, Input, OnChanges, SimpleChange, SimpleChanges } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { Book } from "../_models/catalog/book.model";
 import { animate, state, style, transition, trigger } from "@angular/animations";
 import { MatSort, MatPaginator, MatTableDataSource } from "@angular/material";
@@ -8,7 +8,6 @@ import { CatalogItem } from "../_models/catalog/catalogItem.model";
 import { Music } from "../_models/catalog/music.model";
 import { Movie } from "../_models/catalog/movie.model";
 import { Magazine } from "../_models/catalog/magazine.model";
-import { UpdateBookComponent } from "../update-item/update-book/update-book.component";
 
 @Component({
   selector: "app-data-table",
@@ -29,12 +28,12 @@ import { UpdateBookComponent } from "../update-item/update-book/update-book.comp
   ],
 })
 
-export class DataTableComponent implements OnInit, OnChanges {
+export class DataTableComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   paginator;
   sort;
-  isLoaded;
+  isLoaded = false;
 
   @ViewChild(MatSort) set content(content: ElementRef) {
     this.sort = content;
@@ -60,13 +59,15 @@ export class DataTableComponent implements OnInit, OnChanges {
     this.getAll();
   }
 
+  // calls getAll function to refill catalog with updated values
   receiveSave($event) {
-    this.isLoaded = false;
+    this.dataArray = [];
     this.message = $event;
     this.getAll();
   }
 
   getAll() {
+    this.isLoaded = false;
     this.http
       .get<Book[]>("http://localhost:8090/catalog/getAll" + CatalogItemType.Book)
       .subscribe(x => {
