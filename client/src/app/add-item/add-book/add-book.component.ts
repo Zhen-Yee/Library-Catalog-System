@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Book } from "../../_models/catalog/book.model";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: "app-add-book",
@@ -10,7 +11,7 @@ import { Book } from "../../_models/catalog/book.model";
 })
 export class AddBookComponent implements OnInit {
   form: FormGroup;
-  constructor(private fb: FormBuilder, private http: HttpClient) {}
+  constructor(private fb: FormBuilder, private http: HttpClient, public snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.createForm();
@@ -39,7 +40,16 @@ export class AddBookComponent implements OnInit {
       } as Book;
       console.log(book);
       this.http.post("http://localhost:8090/catalog/addBook", book)
-        .subscribe((confirmation) => console.log(confirmation));
+        .subscribe((confirmation) => {
+          console.log(confirmation)
+          this.openSnackBar("Book added!", "Close");
+        });
     }
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message , action, {
+      duration: 3000,
+    });
   }
 }
