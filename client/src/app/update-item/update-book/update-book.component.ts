@@ -13,7 +13,7 @@ import { Router } from "@angular/router";
 export class UpdateBookComponent implements OnInit {
     form: FormGroup;
     edit: boolean;
-    isSaving: string = "Saving...";
+    savingMessage: string = "Saving Book...";
     @Input() book;
     constructor(private router: Router, private fb: FormBuilder, private http: HttpClient) {
 
@@ -71,7 +71,7 @@ export class UpdateBookComponent implements OnInit {
             this.http.post<Book>("http://localhost:8090/catalog/updateBook", this.book)
                 .subscribe(updateSuccess => {
                     if (updateSuccess) {
-                        this.messageEvent.emit(this.isSaving);
+                        this.messageEvent.emit(this.savingMessage);
                         // Reloads page for updated changes to book
                         // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
                         //     this.router.navigate(["/catalog"]));

@@ -159,9 +159,9 @@
             <div class = "edit-box">
 
               <update-book *ngIf="element.itemType == 'Book'" [book]="element" (messageEvent)="receiveSave($event)"></update-book>
-              <update-magazine *ngIf="element.itemType== 'Magazine'" [magazine]="element"></update-magazine>
-              <update-music *ngIf="element.itemType == 'Music'" [music]="element"></update-music>
-              <update-movie *ngIf="element.itemType == 'Movie'" [movie]="element"></update-movie>
+              <update-magazine *ngIf="element.itemType== 'Magazine'" [magazine]="element" (messageEvent)="receiveSave($event)"></update-magazine>
+              <update-music *ngIf="element.itemType == 'Music'" [music]="element" (messageEvent)="receiveSave($event)"></update-music>
+              <update-movie *ngIf="element.itemType == 'Movie'" [movie]="element" (messageEvent)="receiveSave($event)"></update-movie>
              
               <div class = "delete">
                 <delete-item [element]="element"></delete-item>
