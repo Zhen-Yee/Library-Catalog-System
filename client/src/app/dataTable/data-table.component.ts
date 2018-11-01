@@ -60,7 +60,13 @@ export class DataTableComponent implements OnInit {
   }
 
   // calls getAll function to refill catalog with updated values
-  receiveSave($event) {
+  receiveSaveMessage($event) {
+    this.dataArray = [];
+    this.message = $event;
+    this.getAll();
+  }
+
+  receiveDeleteMessage($event) {
     this.dataArray = [];
     this.message = $event;
     this.getAll();
