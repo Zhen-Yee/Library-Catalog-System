@@ -27,28 +27,42 @@ public class CatalogController {
     @PostMapping("/addBook")
     public boolean addBook(@RequestBody Book book){
         // checks if book object is good or not
-        if(book != null){
-        catalog.addCatalogItem(book);
-        return true;
-        }
-        else {
+        if (book != null) {
+            catalog.addCatalogItem(book);
+            return true;
+        } else {
             return false;
         }
     }
 
     @PostMapping("/addMagazine")
-    public void addMagazine(@RequestBody Magazine magazine){
-        catalog.addCatalogItem(magazine);
+    public boolean addMagazine(@RequestBody Magazine magazine){
+        if (magazine != null) {
+            catalog.addCatalogItem(magazine);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @PostMapping("/addMusic")
-    public void addMusic(@RequestBody Music music){
-        catalog.addCatalogItem(music);
+    public boolean addMusic(@RequestBody Music music){
+        if (music != null) {
+            catalog.addCatalogItem(music);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @PostMapping("/addMovie")
-    public void addMovie(@RequestBody Movie movie) {
-        catalog.addCatalogItem(movie);
+    public boolean addMovie(@RequestBody Movie movie) {
+        if (movie != null) {
+            catalog.addCatalogItem(movie);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @PostMapping("/updateBook")

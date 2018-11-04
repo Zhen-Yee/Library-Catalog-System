@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { Music } from "../../_models/catalog/music.model";
@@ -12,7 +12,7 @@ import { Router } from "@angular/router";
 export class UpdateMusicComponent implements OnInit {
     form: FormGroup;
     edit: boolean;
-    confirmation; // used later to display if book was added sucessfully
+    savingMessage: string = "Saving Music...";
     @Input() music;
     constructor(private router: Router, private fb: FormBuilder, private http: HttpClient) {
 
@@ -55,6 +55,7 @@ export class UpdateMusicComponent implements OnInit {
     }
 
     // save music to later send new Music object to update in backend
+    @Output() messageEvent = new EventEmitter<string>();
     saveMusic(item: Music) {
         if (this.form.valid) {
             this.music = {
@@ -65,9 +66,10 @@ export class UpdateMusicComponent implements OnInit {
             this.http.post<Music>("http://localhost:8090/catalog/updateMusic", this.music)
                 .subscribe(updateSuccess => {
                     if (updateSuccess) {
+                        this.messageEvent.emit(this.savingMessage);
                         // Reloads page for updated changes to music
-                        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                            this.router.navigate(["/catalog"]));
+                        // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                        //     this.router.navigate(["/catalog"]));
                     } else {
                         console.log("Failed to update music.")
                     }

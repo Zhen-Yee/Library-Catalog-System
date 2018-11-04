@@ -1,13 +1,14 @@
 import { CatalogItemType } from "./../enums/catalogItemType";
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { Book } from "../_models/catalog/book.model";
-import {animate, state, style, transition, trigger} from "@angular/animations";
+import { animate, state, style, transition, trigger } from "@angular/animations";
 import { MatSort, MatPaginator, MatTableDataSource } from "@angular/material";
 import { HttpClient } from "@angular/common/http";
-import {CatalogItem} from "../_models/catalog/catalogItem.model";
-import {Music} from "../_models/catalog/music.model";
+import { CatalogItem } from "../_models/catalog/catalogItem.model";
+import { Music } from "../_models/catalog/music.model";
 import { Movie } from "../_models/catalog/movie.model";
 import {Magazine} from "../_models/catalog/magazine.model";
+import { UserService } from "../_services/user.service";
 
 
 @Component({
@@ -28,16 +29,18 @@ import {Magazine} from "../_models/catalog/magazine.model";
     ])
   ]
 })
+
 export class DataTableComponent implements OnInit {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private user: UserService) {}
+
 
   paginator;
   sort;
-  isLoaded;
+  isLoaded = false;
 
   @ViewChild(MatSort) set content(content: ElementRef) {
     this.sort = content;
-    if (this.sort){
+    if (this.sort) {
       this.dataSource.sort = this.sort;
     }
   }
@@ -49,10 +52,11 @@ export class DataTableComponent implements OnInit {
     }
   }
   // Generated Data
-  dataArray: CatalogItem[] = [] ;
+  dataArray: CatalogItem[] = [];
   columnsToDisplay: string[] = ["itemType", "qtyInStock", "qtyOnLoan", "title"];
   expandedElement: CatalogItem[];
   dataSource: MatTableDataSource<CatalogItem>;
+  message: string = "Getting Catalog Items...";
 
   ngOnInit() {
     this.getAll();
@@ -148,9 +152,27 @@ export class DataTableComponent implements OnInit {
     }
   }
 
+
+  isAdmin() {
+    return this.user.isAdmin;
+}
+  // calls getAll function to refill catalog with updated values
+  receiveSaveMessage($event) {
+    this.dataArray = [];
+    this.message = $event;
+    this.getAll();
+  }
+
+  receiveDeleteMessage($event) {
+    this.dataArray = [];
+    this.message = $event;
+    this.getAll();
+  }
+
   getAll() {
     // go into the get map function and populate the grid instead of going through the db
     // populate the items with their item type with findType() and fill the array
+    this.isLoaded = false;
     this.http.get("http://localhost:8090/catalog/getMap").subscribe(x => { Object.keys(x).map(key => {this.findType(x[key]);
       this.dataArray = [...this.dataArray, ...x[key]];
     });
