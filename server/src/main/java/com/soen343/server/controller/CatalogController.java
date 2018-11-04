@@ -13,8 +13,7 @@ import java.util.Map;
 public class CatalogController {
 
     private Catalog catalog = Catalog.getCatalog();
-    private boolean isDatebaseChange = false;
-    
+
     @GetMapping("/getAll"+"{CatalogItemType}")
     public List<CatalogItem> getAllCatalogItemsByType(@PathVariable String CatalogItemType) {
         return catalog.getAllCatalogItemsByType(CatalogItemType);
@@ -22,7 +21,6 @@ public class CatalogController {
 
     @GetMapping("/getMap")
     public Map<Long, CatalogItem> getMapCatalogItem() {
-        catalog.getAllCatalogItemsByType("All");
         return catalog.getIdentityMap();
     }
 

@@ -20,9 +20,13 @@ public class Catalog {
     private Map<Long,CatalogItem> identityMap;
     private boolean isDatabaseChange;
 
+    /**
+     * Default constructor that initializes the identity map
+     */
     private Catalog() {
         identityMap = new HashMap<>();
         isDatabaseChange = false;
+        populateIdentityMap();
     }
 
     public static Catalog getCatalog() {
@@ -34,7 +38,6 @@ public class Catalog {
     }
 
     public void addCatalogItem(CatalogItem catalogItem) {
-        // this.catalogItems.add(catalogItem);
         if (catalogItem.getClass() == Book.class) {
             // Add book to db
             BookGateway.insert((Book)catalogItem);
@@ -51,6 +54,7 @@ public class Catalog {
             MovieGateway.insert((Movie)catalogItem);
             // Add movie to db
         }
+        isDatabaseChange = true;
     }
 
     public void updateCatalogItem(CatalogItem catalogItem) {
@@ -66,6 +70,7 @@ public class Catalog {
         if (catalogItem.getClass() == Movie.class) {
             MovieGateway.update((Movie)catalogItem);
         }
+        isDatabaseChange = true;
     }
 
     /**
@@ -87,7 +92,6 @@ public class Catalog {
                 catalogItems.addAll(getAllMusics());
                 catalogItems.addAll(getAllMagazines());
                 catalogItems.addAll(getAllMovies());
-                populateIdentityMap(catalogItems);
                 break;
             default: System.out.println("Invalid CatalogItemType: " + CatalogItemType);
         }
@@ -121,7 +125,7 @@ public class Catalog {
         else if(catalogItem.getClass() == Movie.class){
             MovieGateway.delete((Movie)catalogItem);
         }
-
+        isDatabaseChange = true;
     }
 
     /**
@@ -132,16 +136,61 @@ public class Catalog {
     /**
      *  This method populates the CatalogItem identity map
      */
-    public void populateIdentityMap(List<CatalogItem> catalogItemList) {
+    public void populateIdentityMap() {
+        List<CatalogItem> catalogItemList = getAllCatalogItemsByType("All");
         identityMap =  catalogItemList.stream().collect(Collectors.toMap(CatalogItem::getId, Function.identity()));
     }
 
     /**
      * Retrieve the current IdentityMap
+     * If a change was made to the database, it will refresh
+     * the identity map and set back the boolean to false
      * @return Map<Long, CatalogItem>
      */
     public Map<Long, CatalogItem> getIdentityMap() {
+        if(isDatabaseChange) {
+            populateIdentityMap();
+            isDatabaseChange = false;
+        }
         return identityMap;
+    }
+
+    public Long getMapKeyFromValue(CatalogItem value) {
+        for (Map.Entry<Long, CatalogItem> entry : identityMap.entrySet()){
+            if(value.equals(entry.getValue())){
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
+    public void addToIdentityMap(long uid, CatalogItem catalogItem) {
+        if (identityMap.containsValue(catalogItem)){
+            CatalogItem currentItem = identityMap.get(getMapKeyFromValue(catalogItem));
+            currentItem.setQtyInStock(currentItem.getQtyInStock()+1);
+            identityMap.replace(getMapKeyFromValue(catalogItem), currentItem);
+        } else {
+            identityMap.put(uid, catalogItem);
+        }
+    }
+
+    public void deleteFromIdentityMap(CatalogItem catalogItem) {
+        if (identityMap.containsValue(catalogItem)){
+            identityMap.remove(getMapKeyFromValue(catalogItem));
+        } else {
+            try {
+                throw new NullPointerException();
+            } catch (NullPointerException e){
+                System.out.println("Cannot find value from from map... Cannot delete.");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void updateIdentityMap(long uid, CatalogItem catalogItem){
+        if (identityMap.containsValue(catalogItem)){
+            identityMap.replace(catalogItem.getId(), catalogItem);
+        }
     }
 
     /**

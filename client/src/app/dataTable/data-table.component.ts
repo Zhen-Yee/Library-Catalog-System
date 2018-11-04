@@ -59,130 +59,104 @@ export class DataTableComponent implements OnInit {
   }
 
   findType(catalogItem: any) {
-  // create null object to represent our object type
-  // take out itemtype to have a representation of our backend object
-  const music: Music = {
-    itemType: null,
-    id: null,
-    qtyInStock: null,
-    qtyOnLoan: null,
-    title: null,
-    type: null,
-    artist: null,
-    label: null,
-    releaseDate: null,
-    asin: null,
-  };
-  delete music.itemType;
+    // create null object to represent our object type
+    // take out itemtype to have a representation of our backend object
+    const music: Music = {
+      itemType: null,
+      id: null,
+      qtyInStock: null,
+      qtyOnLoan: null,
+      title: null,
+      type: null,
+      artist: null,
+      label: null,
+      releaseDate: null,
+      asin: null,
+    };
+    delete music.itemType;
 
-  const book: Book = {
-    itemType: null,
-    id: null,
-    qtyInStock: null,
-    qtyOnLoan: null,
-    title: null,
-    author: null,
-    format: null,
-    pages: null,
-    publisher: null,
-    yearOfPublication: null,
-    language: null,
-    isbn10: null,
-    isbn13: null,
-  };
-  delete book.itemType;
+    const book: Book = {
+      itemType: null,
+      id: null,
+      qtyInStock: null,
+      qtyOnLoan: null,
+      title: null,
+      author: null,
+      format: null,
+      pages: null,
+      publisher: null,
+      yearOfPublication: null,
+      language: null,
+      isbn10: null,
+      isbn13: null,
+    };
+    delete book.itemType;
 
-  const movie: Movie = {
-    itemType: null,
-    id: null,
-    qtyInStock: null,
-    qtyOnLoan: null,
-    title: null,
-    director: null,
-    producers: null,
-    actors: null,
-   language: null,
-    subtitles: null,
-    dubs: null,
-   releaseDate: null,
-   runTime: null,
-  };
-  delete movie.itemType;
+    const movie: Movie = {
+      itemType: null,
+      id: null,
+      qtyInStock: null,
+      qtyOnLoan: null,
+      title: null,
+      director: null,
+      producers: null,
+      actors: null,
+      language: null,
+      subtitles: null,
+      dubs: null,
+      releaseDate: null,
+      runTime: null,
+    };
+    delete movie.itemType;
 
-  const magazine: Magazine = {
-    itemType: null,
-    id: null,
-    qtyInStock: null,
-    qtyOnLoan: null,
-    title: null,
-    publisher: null,
-    language: null,
-    dateOfPublication: null,
-    isbn10: null,
-    isbn13: null,
-  };
-  delete magazine.itemType;
+    const magazine: Magazine = {
+      itemType: null,
+      id: null,
+      qtyInStock: null,
+      qtyOnLoan: null,
+      title: null,
+      publisher: null,
+      language: null,
+      dateOfPublication: null,
+      isbn10: null,
+      isbn13: null,
+    };
+    delete magazine.itemType;
 
 
-  // get the properties of every object including the object coming from the backend
-  const properties = Object.getOwnPropertyNames(catalogItem);
-  const movieprop = Object.getOwnPropertyNames(movie);
-  const musicprop = Object.getOwnPropertyNames(music);
-  const bookprop = Object.getOwnPropertyNames(book);
-  const magazineprop = Object.getOwnPropertyNames(magazine);
+    // get the properties of every object including the object coming from the backend
+    const properties = Object.getOwnPropertyNames(catalogItem);
+    const movieprop = Object.getOwnPropertyNames(movie);
+    const musicprop = Object.getOwnPropertyNames(music);
+    const bookprop = Object.getOwnPropertyNames(book);
+    const magazineprop = Object.getOwnPropertyNames(magazine);
 
-  // compare the name of those properties
-  // if match give it an itemtype and return it
-  if (properties.sort().every(function(value, index) { return value === bookprop.sort()[index]; })) {
-    catalogItem.itemType = CatalogItemType.Book;
-    return catalogItem as Book;
-  } else if (properties.sort().every(function(value, index) { return value === movieprop.sort()[index]; })) {
-    catalogItem.itemType = CatalogItemType.Movie;
-    return catalogItem as Movie;
-  } else if (properties.sort().every(function(value, index) { return value === magazineprop.sort()[index]; })) {
-    catalogItem.itemType = CatalogItemType.Magazine;
-    return catalogItem as Magazine;
-  } else if (properties.sort().every(function(value, index) { return value === musicprop  .sort()[index]; })) {
-    catalogItem.itemType = CatalogItemType.Music;
-    return catalogItem as Music;
-  }
+    // compare the name of those properties
+    // if match give it an itemtype and return it
+    if (properties.sort().every(function(value, index) { return value === bookprop.sort()[index]; })) {
+      catalogItem.itemType = CatalogItemType.Book;
+      return catalogItem as Book;
+    } else if (properties.sort().every(function(value, index) { return value === movieprop.sort()[index]; })) {
+      catalogItem.itemType = CatalogItemType.Movie;
+      return catalogItem as Movie;
+    } else if (properties.sort().every(function(value, index) { return value === magazineprop.sort()[index]; })) {
+      catalogItem.itemType = CatalogItemType.Magazine;
+      return catalogItem as Magazine;
+    } else if (properties.sort().every(function(value, index) { return value === musicprop  .sort()[index]; })) {
+      catalogItem.itemType = CatalogItemType.Music;
+      return catalogItem as Music;
+    }
   }
 
   getAll() {
     // go into the get map function and populate the grid instead of going through the db
     // populate the items with their item type with findType() and fill the array
     this.http.get("http://localhost:8090/catalog/getMap").subscribe(x => { Object.keys(x).map(key => {this.findType(x[key]);
-        this.dataArray = [...this.dataArray, ...x[key]];
-   });
-    this.dataSource = new MatTableDataSource(this.dataArray);
-    this.isLoaded = true;
+      this.dataArray = [...this.dataArray, ...x[key]];
     });
-    // this.http
-    //   .get<Book[]>("http://localhost:8090/catalog/getAll" + CatalogItemType.Book)
-    //   .subscribe(x => {x.map(index => {this.findType(index); } );
-    //     this.dataArray = [...this.dataArray, ...x];
-    //     this.dataSource = new MatTableDataSource(this.dataArray);
-    //   });
-    // this.http
-    //   .get<Music[]>("http://localhost:8090/catalog/getAll" + CatalogItemType.Music)
-    //   .subscribe(y => {y.map(index => {this.findType(index); console.log(index); });
-    //     this.dataArray = [...this.dataArray, ...y];
-    //     this.dataSource = new MatTableDataSource(this.dataArray);
-    //     this.isLoaded = true;
-    //   });
-    // this.http
-    //   .get<Magazine[]>("http://localhost:8090/catalog/getAll" + CatalogItemType.Magazine)
-    //   .subscribe(y => {y.map(index => {this.findType(index); });
-    //     this.dataArray = [...this.dataArray, ...y];
-    //     this.dataSource = new MatTableDataSource(this.dataArray);
-    //   });
-    // this.http
-    //   .get<Movie[]>("http://localhost:8090/catalog/getAll" + CatalogItemType.Movie)
-    //   .subscribe(y => {y.map(index => {this.findType(index); });
-    //     this.dataArray = [...this.dataArray, ...y];
-    //     this.dataSource = new MatTableDataSource(this.dataArray);
-    //     this.isLoaded = true;
-    //   });
+      this.dataSource = new MatTableDataSource(this.dataArray);
+      this.isLoaded = true;
+    });
   }
 
 }
