@@ -41,7 +41,6 @@ import { UpdateMusicComponent } from "./update-item/update-music/update-music.co
 import { PromoteUserComponent } from "./promote-user/promote-user.component";
 import { UpdateMovieComponent } from "./update-item/update-movie/update-movie.component";
 import { DeleteItemPromptDialogComponent } from './delete-item-prompt-dialog/delete-item-prompt-dialog.component';
-import { SearchComponent} from "./search/search.component"
 import { SearchComponent } from './search/search.component';
 
 @NgModule({
@@ -87,7 +86,7 @@ import { SearchComponent } from './search/search.component';
       MatSidenavModule,
       HttpClientModule,
       FormsModule,
-      RouterModule.forRoot([),
+      RouterModule.forRoot([]),
       routing,
       ReactiveFormsModule,
       MatListModule,
