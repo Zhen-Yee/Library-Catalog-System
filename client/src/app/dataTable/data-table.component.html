@@ -1,3 +1,5 @@
+<button mat-button (click)="redirectMagazinesPage()"> Magazines </button>
+
 <mat-form-field>
     <mat-select placeholder="Select a Type" [(ngModel)]="selectedValue">
         <mat-option *ngFor="let item of items" [value]="item.value">

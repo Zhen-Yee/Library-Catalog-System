@@ -9,6 +9,7 @@ import { Music } from "../_models/catalog/music.model";
 import { Movie } from "../_models/catalog/movie.model";
 import {Magazine} from "../_models/catalog/magazine.model";
 import { UserService } from "../_services/user.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-data-table",
@@ -30,7 +31,7 @@ import { UserService } from "../_services/user.service";
 })
 
 export class DataTableComponent implements OnInit {
-  constructor(private http: HttpClient, private user: UserService) {}
+  constructor(private http: HttpClient, private user: UserService,private router: Router) {}
 
   selectedValue: string;
   items = [
@@ -114,6 +115,10 @@ export class DataTableComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.dataArray);
         this.isLoaded = true;
       });
+  }
+
+  redirectMagazinesPage() {
+    this.router.navigate(["/magazines"]);
   }
 
 }
