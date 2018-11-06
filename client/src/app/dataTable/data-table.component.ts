@@ -32,7 +32,13 @@ import { UserService } from "../_services/user.service";
 export class DataTableComponent implements OnInit {
   constructor(private http: HttpClient, private user: UserService) {}
 
-
+  selectedValue: string;
+  items = [
+    {value: "book", viewValue: "Book"},
+    {value: "magazine", viewValue: "Magazine"},
+    {value: "Music", viewValue: "Music"},
+    {value: "movies", viewValue: "Movies"}
+  ];
   paginator;
   sort;
   isLoaded = false;
