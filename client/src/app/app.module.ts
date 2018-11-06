@@ -42,6 +42,7 @@ import { PromoteUserComponent } from "./promote-user/promote-user.component";
 import { UpdateMovieComponent } from "./update-item/update-movie/update-movie.component";
 import { DeleteItemPromptDialogComponent } from './delete-item-prompt-dialog/delete-item-prompt-dialog.component';
 import { SearchComponent} from "./search/search.component"
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
    declarations: [
@@ -68,6 +69,7 @@ import { SearchComponent} from "./search/search.component"
       UpdateMovieComponent,
       PromoteUserComponent,
       DeleteItemPromptDialogComponent,
+      SearchComponent,
       SearchComponent
    ],
    imports: [
@@ -85,7 +87,7 @@ import { SearchComponent} from "./search/search.component"
       MatSidenavModule,
       HttpClientModule,
       FormsModule,
-      RouterModule.forRoot([]),
+      RouterModule.forRoot([),
       routing,
       ReactiveFormsModule,
       MatListModule,

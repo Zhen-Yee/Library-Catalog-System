@@ -1,16 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { HttpClient} from "@angular/common/http";
-import { Book } from "../../models/Example.models";
-
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: "search",
-  templateUrl: "./search.component.html",
-  styleUrls: ["./search.component.css"]
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
 
-  constructor(private http: HttpClient) {}
-  ngOnInit() {}
+  constructor() { }
+
+  ngOnInit() {
+  }
 
 }
