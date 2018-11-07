@@ -1,17 +1,17 @@
-import { Component, OnInit,ElementRef,ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef,ViewChild } from '@angular/core';
 import { MatSort, MatPaginator, MatTableDataSource } from "@angular/material";
 import { HttpClient } from "@angular/common/http";
 import { CatalogItem } from "../../_models/catalog/catalogItem.model";
-import { Music } from "../../_models/catalog/music.model";
 import { CatalogItemType } from ".././../enums/catalogItemType";
 import { UserService } from "../../_services/user.service";
 import { Router } from "@angular/router";
 import { animate, state, style, transition, trigger } from "@angular/animations";
+import { Book } from "../../_models/catalog/book.model";
 
 @Component({
-  selector: 'app-sorting-music',
-  templateUrl: './sorting-music.component.html',
-  styleUrls: ['./sorting-music.component.css'],
+  selector: 'app-sorting-book',
+  templateUrl: './sorting-book.component.html',
+  styleUrls: ['./sorting-book.component.css'],
   animations: [
     trigger("detailExpand", [
       state(
@@ -26,20 +26,17 @@ import { animate, state, style, transition, trigger } from "@angular/animations"
     ])
   ]
 })
-
-
-
-export class SortingMusicComponent implements OnInit {
+export class SortingBookComponent implements OnInit {
 
   constructor(private http: HttpClient, private user: UserService,private router: Router) { }
-
   dataArray: CatalogItem[] = [];
-  columnsToDisplay: string[] = ["title", "qtyInStock", "qtyOnLoan", "type" , "artist", "label", "releaseDate", "asin"];
+  columnsToDisplay: string[] = ["title", "qtyInStock", "qtyOnLoan", "author" , "pages", "yearOfPublication", "publisher", "language"];
   dataSource: MatTableDataSource<CatalogItem>;
   isLoaded = false;
   paginator;
   sort;
   message: string = "Getting Catalog Items...";
+   
 
   @ViewChild(MatSort) set content(content: ElementRef) {
     this.sort = content;
@@ -56,7 +53,7 @@ export class SortingMusicComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllMusic();
+    this.getAllBook();
   }
 
   isAdmin() {
@@ -66,24 +63,26 @@ export class SortingMusicComponent implements OnInit {
   receiveSaveMessage($event) {
     this.dataArray = [];
     this.message = $event;
-    this.getAllMusic();
+    this.getAllBook();
   }
 
   receiveDeleteMessage($event) {
     this.dataArray = [];
     this.message = $event;
-    this.getAllMusic();
+    this.getAllBook();
   }
 
 
-  getAllMusic(){
+
+  getAllBook(){
     this.http
-      .get<Music[]>("http://localhost:8090/catalog/getAll" + CatalogItemType.Music)
-      .subscribe(y => {
-        y.map(index => { index.itemType = CatalogItemType.Music; });
-        this.dataArray = [...this.dataArray, ...y];
+      .get<Book[]>("http://localhost:8090/catalog/getAll" + CatalogItemType.Book)
+      .subscribe(x => {
+        x.map(index => { index.itemType = CatalogItemType.Book; });
+        this.dataArray = [...this.dataArray, ...x];
         this.dataSource = new MatTableDataSource(this.dataArray);
         this.isLoaded= true;
       });
   }
+
 }

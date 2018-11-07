@@ -125,5 +125,13 @@ export class DataTableComponent implements OnInit {
     this.router.navigate(["catalog/movies"]);
   }
 
+  redirectMusicPage(){
+    this.router.navigate(["/music"]);
+  }
+
+  redirectBookPage(){
+    this.router.navigate(["/book"]);
+  }
+
 }
 

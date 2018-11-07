@@ -44,6 +44,7 @@ import { DeleteItemPromptDialogComponent } from './delete-item-prompt-dialog/del
 import { SortingMusicComponent } from './dataTable/sorting-music/sorting-music.component';
 import { SortingMagazinesComponent } from './dataTable/sorting-magazines/sorting-magazines.component';
 import { SortingMoviesComponent } from './dataTable/sorting-movies/sorting-movies.component';
+import { SortingBookComponent } from './dataTable/sorting-book/sorting-book.component';
 
 @NgModule({
    declarations: [
@@ -73,6 +74,7 @@ import { SortingMoviesComponent } from './dataTable/sorting-movies/sorting-movie
       SortingMusicComponent,
       SortingMagazinesComponent,
       SortingMoviesComponent,
+      SortingBookComponent,
    ],
    imports: [
       BrowserModule,

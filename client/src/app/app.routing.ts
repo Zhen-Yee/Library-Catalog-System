@@ -10,6 +10,8 @@ import {DataTableComponent} from "./dataTable/data-table.component";
 import { ConfirmationComponent }   from './registration/confirmation.component';
 import {SortingMagazinesComponent} from "./dataTable/sorting-magazines/sorting-magazines.component";
 import {SortingMoviesComponent} from "./dataTable/sorting-movies/sorting-movies.component";
+import { SortingMusicComponent } from "./dataTable/sorting-music/sorting-music.component";
+import {SortingBookComponent} from "./dataTable/sorting-book/sorting-book.component";
 
 
 const appRoutes: Routes = [
@@ -46,6 +48,16 @@ const appRoutes: Routes = [
     path: "catalog/movies",
     canActivate: [AdminAuthenticateGuard],
     component: SortingMoviesComponent
+  },
+  {
+    path: "music",
+    canActivate: [AdminAuthenticateGuard],
+    component: SortingMusicComponent
+  },
+  {
+    path: "book",
+    canActivate: [AdminAuthenticateGuard],
+    component: SortingBookComponent
   },
 
 ];

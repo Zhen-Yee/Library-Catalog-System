@@ -1,8 +1,11 @@
+
 <div>
     <h3>View Catalog as</h3>
     <div>
         <button mat-button (click)="redirectMagazinesPage()"> Magazines </button>
         <button mat-button (click)="redirectMoviesPage()"> Movies </button>
+        <button mat-button (click)="redirectMusicPage()"> Music</button>
+        <button mat-button (click)="redirectBookPage()"> Book</button>
     </div>
 </div>
 
@@ -12,6 +15,7 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
     <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
   </ng-container>
+  
   <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
   <ng-container matColumnDef="expandedDetail">
     <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
@@ -186,7 +190,7 @@
       [class.example-expanded-row]="expandedElement === element"
       (click)="expandedElement === element ? expandedElement = null : expandedElement = element">
   </tr>
-  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr> 
 </table>
 <mat-paginator *ngIf="isLoaded" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
