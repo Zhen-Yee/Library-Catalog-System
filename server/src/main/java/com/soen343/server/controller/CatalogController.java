@@ -5,6 +5,7 @@ import com.soen343.server.models.catalog.*;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -12,10 +13,15 @@ import java.util.List;
 public class CatalogController {
 
     private Catalog catalog = Catalog.getCatalog();
-    
+
     @GetMapping("/getAll"+"{CatalogItemType}")
     public List<CatalogItem> getAllCatalogItemsByType(@PathVariable String CatalogItemType) {
         return catalog.getAllCatalogItemsByType(CatalogItemType);
+    }
+
+    @GetMapping("/getMap")
+    public Map<Long, CatalogItem> getMapCatalogItem() {
+        return catalog.getIdentityMap();
     }
 
     @PostMapping("/addBook")
