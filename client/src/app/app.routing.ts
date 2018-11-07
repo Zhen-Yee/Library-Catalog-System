@@ -37,7 +37,7 @@ const appRoutes: Routes = [
     component: DataTableComponent
   },
   {
-    path: "magazines",
+    path: "catalog/magazines",
     canActivate: [AdminAuthenticateGuard],
     component: SortingMagazinesComponent
   },

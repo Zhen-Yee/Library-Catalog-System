@@ -118,7 +118,7 @@ export class DataTableComponent implements OnInit {
   }
 
   redirectMagazinesPage() {
-    this.router.navigate(["/magazines"]);
+    this.router.navigate(["catalog/magazines"]);
   }
 
 }

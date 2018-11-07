@@ -1,24 +1,5 @@
+<div><h3>View Catalog as</h3></div>
 <button mat-button (click)="redirectMagazinesPage()"> Magazines </button>
-
-<mat-form-field>
-    <mat-select placeholder="Select a Type" [(ngModel)]="selectedValue">
-        <mat-option *ngFor="let item of items" [value]="item.value">
-            {{item.viewValue}}
-        </mat-option>
-    </mat-select>
-</mat-form-field>
-<div *ngIf="selectedValue === 'book'">
-   
-</div>
-<div *ngIf="selectedValue === 'Music'">
-    <app-sorting-music></app-sorting-music>
-</div>
-<div *ngIf="selectedValue === 'movies'">
-    
-    </div>
-<div *ngIf="selectedValue === 'magazine'">
-   
-</div>
 
 <table mat-table [dataSource]="dataSource" *ngIf="isLoaded" multiTemplateDataRows matSort class="mat-elevation-z8">
   <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
