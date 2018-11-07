@@ -1,5 +1,11 @@
-<div><h3>View Catalog as</h3></div>
-<button mat-button (click)="redirectMagazinesPage()"> Magazines </button>
+<div>
+    <h3>View Catalog as</h3>
+    <div>
+        <button mat-button (click)="redirectMagazinesPage()"> Magazines </button>
+        <button mat-button (click)="redirectMoviesPage()"> Movies </button>
+    </div>
+</div>
+
 
 <table mat-table [dataSource]="dataSource" *ngIf="isLoaded" multiTemplateDataRows matSort class="mat-elevation-z8">
   <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">

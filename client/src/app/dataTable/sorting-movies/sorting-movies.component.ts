@@ -1,20 +1,17 @@
-import { CatalogItemType } from "./../enums/catalogItemType";
+import { CatalogItemType } from "./../../enums/catalogItemType";
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { Book } from "../_models/catalog/book.model";
 import { animate, state, style, transition, trigger } from "@angular/animations";
 import { MatSort, MatPaginator, MatTableDataSource } from "@angular/material";
 import { HttpClient } from "@angular/common/http";
-import { CatalogItem } from "../_models/catalog/catalogItem.model";
-import { Music } from "../_models/catalog/music.model";
-import { Movie } from "../_models/catalog/movie.model";
-import {Magazine} from "../_models/catalog/magazine.model";
-import { UserService } from "../_services/user.service";
+import { CatalogItem } from "../../_models/catalog/catalogItem.model";
+import {Movie} from "../../_models/catalog/movie.model";
+import { UserService } from "../../_services/user.service";
 import { Router } from "@angular/router";
 
 @Component({
-  selector: "app-data-table",
-  templateUrl: "./data-table.component.html",
-  styleUrls: ["./data-table.component.css"],
+  selector: 'app-sorting-movies',
+  templateUrl: './sorting-movies.component.html',
+  styleUrls: ['./sorting-movies.component.css'],
   animations: [
     trigger("detailExpand", [
       state(
@@ -30,15 +27,12 @@ import { Router } from "@angular/router";
   ],
 })
 
-export class DataTableComponent implements OnInit {
+export class SortingMoviesComponent implements OnInit {
   constructor(private http: HttpClient, private user: UserService,private router: Router) {}
 
   selectedValue: string;
   items = [
-    {value: "book", viewValue: "Book"},
-    {value: "magazine", viewValue: "Magazine"},
-    {value: "Music", viewValue: "Music"},
-    {value: "movies", viewValue: "Movies"}
+    {value: "movies", viewValue: "Movies"},
   ];
   paginator;
   sort;
@@ -59,7 +53,7 @@ export class DataTableComponent implements OnInit {
   }
   // Generated Data
   dataArray: CatalogItem[] = [];
-  columnsToDisplay: string[] = ["itemType","title", "qtyInStock", "qtyOnLoan", ];
+  columnsToDisplay: string[] = ["title", "qtyInStock", "qtyOnLoan", "director", "actors", "producers", "language", "subtitles","dubs","releaseDate", "runTime"];
   expandedElement: CatalogItem[];
   dataSource: MatTableDataSource<CatalogItem>;
   message: string = "Getting Catalog Items...";
@@ -86,27 +80,7 @@ export class DataTableComponent implements OnInit {
 
   getAll() {
     this.isLoaded = false;
-    this.http
-      .get<Book[]>("http://localhost:8090/catalog/getAll" + CatalogItemType.Book)
-      .subscribe(x => {
-        x.map(index => { index.itemType = CatalogItemType.Book; });
-        this.dataArray = [...this.dataArray, ...x];
-        this.dataSource = new MatTableDataSource(this.dataArray);
-      });
-    this.http
-      .get<Music[]>("http://localhost:8090/catalog/getAll" + CatalogItemType.Music)
-      .subscribe(y => {
-        y.map(index => { index.itemType = CatalogItemType.Music; });
-        this.dataArray = [...this.dataArray, ...y];
-        this.dataSource = new MatTableDataSource(this.dataArray);
-      });
-    this.http
-      .get<Magazine[]>("http://localhost:8090/catalog/getAll" + CatalogItemType.Magazine)
-      .subscribe(y => {
-        y.map(index => { index.itemType = CatalogItemType.Magazine; });
-        this.dataArray = [...this.dataArray, ...y];
-        this.dataSource = new MatTableDataSource(this.dataArray);
-      });
+
     this.http
       .get<Movie[]>("http://localhost:8090/catalog/getAll" + CatalogItemType.Movie)
       .subscribe(y => {
@@ -115,14 +89,6 @@ export class DataTableComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.dataArray);
         this.isLoaded = true;
       });
-  }
-
-  redirectMagazinesPage() {
-    this.router.navigate(["catalog/magazines"]);
-  }
-
-  redirectMoviesPage() {
-    this.router.navigate(["catalog/movies"]);
   }
 
 }

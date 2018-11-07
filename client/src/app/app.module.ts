@@ -43,6 +43,7 @@ import { UpdateMovieComponent } from "./update-item/update-movie/update-movie.co
 import { DeleteItemPromptDialogComponent } from './delete-item-prompt-dialog/delete-item-prompt-dialog.component';
 import { SortingMusicComponent } from './dataTable/sorting-music/sorting-music.component';
 import { SortingMagazinesComponent } from './dataTable/sorting-magazines/sorting-magazines.component';
+import { SortingMoviesComponent } from './dataTable/sorting-movies/sorting-movies.component';
 
 @NgModule({
    declarations: [
@@ -71,6 +72,7 @@ import { SortingMagazinesComponent } from './dataTable/sorting-magazines/sorting
       DeleteItemPromptDialogComponent,
       SortingMusicComponent,
       SortingMagazinesComponent,
+      SortingMoviesComponent,
    ],
    imports: [
       BrowserModule,
