@@ -15,27 +15,27 @@ export class SearchComponent implements OnInit {
   createForm() {
     console.log("enter Search");
     this.form = this.fb.group({
-      itemType: ["", Validators.required],
-      id: ["", Validators.required],
-      qtyInStock: ["", Validators.required],
-      qtyOnLoan: ["", Validators.required],
-      title: ["", Validators.required],
+      itemType: ["a", Validators.required],
+      id: ["b", Validators.required],
+      qtyInStock: ["c", Validators.required],
+      qtyOnLoan: ["d", Validators.required],
+      title: ["e", Validators.required],
       search: ["", Validators.required],
-      author: ["", Validators.required],
-      format: ["", Validators.required],
-          publisher: ["", Validators.required],
-          language: ["", Validators.required],
-          isbn10: ["", Validators.required],
-          isbn13: ["", Validators.required],
-          type: ["", Validators.required],
-          artist: ["", Validators.required],
-          label: ["", Validators.required],
-          asin: ["", Validators.required],
-          producers: ["", Validators.required],
-          actors: ["", Validators.required],
-          subtitles: ["", Validators.required],
-          dubs: ["", Validators.required],
-          releaseDate: ["", Validators.required],
+      author: ["g", Validators.required],
+      format: ["h", Validators.required],
+          publisher: ["i", Validators.required],
+          language: ["j", Validators.required],
+          isbn10: ["k", Validators.required],
+          isbn13: ["l", Validators.required],
+          type: ["m", Validators.required],
+          artist: ["n", Validators.required],
+          label: ["o", Validators.required],
+          asin: ["p", Validators.required],
+          producers: ["q", Validators.required],
+          actors: ["r", Validators.required],
+          subtitles: ["s", Validators.required],
+          dubs: ["t", Validators.required],
+          releaseDate: ["u", Validators.required],
     });
   }
   ngOnInit() {
@@ -51,5 +51,19 @@ export class SearchComponent implements OnInit {
     }
     
   console.log(filters);
+
+  this.http.post("http://localhost:8090/catalog/search", filters)
+  .subscribe((confirmation) => {
+    if (confirmation) {
+      this.openSnackBar("Search successful!", "Close");
+    } else {
+      this.openSnackBar("Search unsuccessful!", "Close");
+    }
+  });
+  }
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message , action, {
+      duration: 5000,
+    });
   }
 }
