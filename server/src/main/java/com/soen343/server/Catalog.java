@@ -2,22 +2,31 @@ package com.soen343.server;
 
 import com.soen343.server.gateways.BookGateway;
 import com.soen343.server.gateways.MagazineGateway;
-import com.soen343.server.gateways.MusicGateway;
 import com.soen343.server.gateways.MovieGateway;
-import com.soen343.server.gateways.MagazineGateway;
-import com.soen343.server.gateways.*;
+import com.soen343.server.gateways.MusicGateway;
 import com.soen343.server.models.catalog.*;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Catalog {
 
     private static Catalog catalog = null;
 
-    private ArrayList<CatalogItem> catalogItems;
+    private Map<Long,CatalogItem> identityMap;
+    private boolean isDatabaseChange;
 
+    /**
+     * Default constructor that initializes the identity map
+     */
     private Catalog() {
-        catalogItems = new ArrayList<>();
+        identityMap = new HashMap<>();
+        isDatabaseChange = false;
+        populateIdentityMap();
     }
 
     public static Catalog getCatalog() {
@@ -29,7 +38,6 @@ public class Catalog {
     }
 
     public void addCatalogItem(CatalogItem catalogItem) {
-        // this.catalogItems.add(catalogItem);
         if (catalogItem.getClass() == Book.class) {
             // Add book to db
             BookGateway.insert((Book)catalogItem);
@@ -42,11 +50,11 @@ public class Catalog {
             MusicGateway.insert((Music)catalogItem);
             // Add movie to db
         }
-        
         if (catalogItem.getClass() == Movie.class) {
             MovieGateway.insert((Movie)catalogItem);
-             // Add movie to db
+            // Add movie to db
         }
+        isDatabaseChange = true;
     }
 
     public void updateCatalogItem(CatalogItem catalogItem) {
@@ -62,10 +70,7 @@ public class Catalog {
         if (catalogItem.getClass() == Movie.class) {
             MovieGateway.update((Movie)catalogItem);
         }
-    }
-
-    public ArrayList<CatalogItem> getAllCatalogItems() {
-        return catalogItems;
+        isDatabaseChange = true;
     }
 
     /**
@@ -81,10 +86,15 @@ public class Catalog {
             case "Book" : catalogItems.addAll(getAllBooks()); break;
             case "Music" : catalogItems.addAll(getAllMusics()); break;
             case "Magazine" : catalogItems.addAll(getAllMagazines()); break;
-            case "Movie" :  catalogItems.addAll(getAllMovies()); break;
+            case "Movie" : catalogItems.addAll(getAllMovies()); break;
+            case "All" :
+                catalogItems.addAll(getAllBooks());
+                catalogItems.addAll(getAllMusics());
+                catalogItems.addAll(getAllMagazines());
+                catalogItems.addAll(getAllMovies());
+                break;
             default: System.out.println("Invalid CatalogItemType: " + CatalogItemType);
         }
-
         return catalogItems;
     }
 
@@ -105,7 +115,7 @@ public class Catalog {
     public void deleteCatalogItem(CatalogItem catalogItem){
         if(catalogItem.getClass() == Book.class){
             BookGateway.delete((Book)catalogItem);
-        }        
+        }
         else if(catalogItem.getClass() == Music.class){
             MusicGateway.delete((Music)catalogItem);
         }
@@ -115,7 +125,72 @@ public class Catalog {
         else if(catalogItem.getClass() == Movie.class){
             MovieGateway.delete((Movie)catalogItem);
         }
+        isDatabaseChange = true;
+    }
 
+    /**
+     *  Identity Map Utilities
+     *  Concerning the identity map
+     */
+
+    /**
+     *  This method populates the CatalogItem identity map
+     */
+    public void populateIdentityMap() {
+        List<CatalogItem> catalogItemList = getAllCatalogItemsByType("All");
+        identityMap =  catalogItemList.stream().collect(Collectors.toMap(CatalogItem::getId, Function.identity()));
+    }
+
+    /**
+     * Retrieve the current IdentityMap
+     * If a change was made to the database, it will refresh
+     * the identity map and set back the boolean to false
+     * @return Map<Long, CatalogItem>
+     */
+    public Map<Long, CatalogItem> getIdentityMap() {
+        if(isDatabaseChange) {
+            populateIdentityMap();
+            isDatabaseChange = false;
+        }
+        return identityMap;
+    }
+
+    public Long getMapKeyFromValue(CatalogItem value) {
+        for (Map.Entry<Long, CatalogItem> entry : identityMap.entrySet()){
+            if(value.equals(entry.getValue())){
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
+    public void addToIdentityMap(long uid, CatalogItem catalogItem) {
+        if (identityMap.containsValue(catalogItem)){
+            CatalogItem currentItem = identityMap.get(getMapKeyFromValue(catalogItem));
+            currentItem.setQtyInStock(currentItem.getQtyInStock()+1);
+            identityMap.replace(getMapKeyFromValue(catalogItem), currentItem);
+        } else {
+            identityMap.put(uid, catalogItem);
+        }
+    }
+
+    public void deleteFromIdentityMap(CatalogItem catalogItem) {
+        if (identityMap.containsValue(catalogItem)){
+            identityMap.remove(getMapKeyFromValue(catalogItem));
+        } else {
+            try {
+                throw new NullPointerException();
+            } catch (NullPointerException e){
+                System.out.println("Cannot find value from from map... Cannot delete.");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void updateIdentityMap(long uid, CatalogItem catalogItem){
+        if (identityMap.containsValue(catalogItem)){
+            identityMap.replace(catalogItem.getId(), catalogItem);
+        }
     }
 
     /**
