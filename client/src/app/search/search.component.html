@@ -1,7 +1,9 @@
 
-<div class = "searchpage">
-
-    <h1> Search Page </h1>
-    
+<div class="example-form" [formGroup]="form">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Search" formControlName="search">
+    </mat-form-field>
 </div>
-
+<button color="primary" [disabled]="form.pristine" mat-raised-button (click) = "getSearchedItems()">
+  Search
+</button>
