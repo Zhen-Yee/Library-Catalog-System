@@ -3,6 +3,8 @@ import { HttpClient } from "@angular/common/http";
 import { searchfilters } from "../_models/catalog/searchfilters.model";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material";
+import {DataService} from "../_services/DataService";
+import {DataTableComponent} from "../dataTable/data-table.component";
 
 @Component({
   selector: 'app-search',
@@ -10,8 +12,12 @@ import { MatSnackBar } from "@angular/material";
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  form: FormGroup
-  constructor(private http: HttpClient, private fb: FormBuilder,public snackBar: MatSnackBar) { }
+
+  form: FormGroup;
+
+    constructor(private http: HttpClient, private fb: FormBuilder,public snackBar: MatSnackBar,
+                public dataService: DataService, public dataTable: DataTableComponent) { }
+
   createForm() {
     console.log("enter Search");
     this.form = this.fb.group({
@@ -35,6 +41,7 @@ export class SearchComponent implements OnInit {
           releaseDate: ["u", Validators.required],
     });
   }
+
   ngOnInit() {
     this.createForm()
   }
@@ -42,22 +49,21 @@ export class SearchComponent implements OnInit {
   getSearchedItems(){
 
     const filters: searchfilters = {
-
     ...this.form.value,
-      
-    }
-    
-  console.log(filters);
+    };
 
-  this.http.post("http://localhost:8090/catalog/search", filters)
+    this.http.post("http://localhost:8090/catalog/search", filters)
   .subscribe((confirmation) => {
+    this.dataService.dataFromService = confirmation;
     if (confirmation) {
       this.openSnackBar("Search successful!", "Close");
+      this.dataTable.getSearch();
     } else {
       this.openSnackBar("Search unsuccessful!", "Close");
     }
   });
   }
+
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message , action, {
       duration: 5000,

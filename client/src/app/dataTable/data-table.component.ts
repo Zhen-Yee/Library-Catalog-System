@@ -9,6 +9,7 @@ import { Music } from "../_models/catalog/music.model";
 import { Movie } from "../_models/catalog/movie.model";
 import {Magazine} from "../_models/catalog/magazine.model";
 import { UserService } from "../_services/user.service";
+import {DataService} from "../_services/DataService";
 
 
 @Component({
@@ -31,7 +32,7 @@ import { UserService } from "../_services/user.service";
 })
 
 export class DataTableComponent implements OnInit {
-  constructor(private http: HttpClient, private user: UserService) {}
+  constructor(private http: HttpClient, private user: UserService, public dataService: DataService) {}
 
 
   paginator;
@@ -155,7 +156,7 @@ export class DataTableComponent implements OnInit {
 
   isAdmin() {
     return this.user.isAdmin;
-}
+  }
   // calls getAll function to refill catalog with updated values
   receiveSaveMessage($event) {
     this.dataArray = [];
@@ -174,6 +175,17 @@ export class DataTableComponent implements OnInit {
     // populate the items with their item type with findType() and fill the array
     this.isLoaded = false;
     this.http.get("http://localhost:8090/catalog/getMap").subscribe(x => { Object.keys(x).map(key => {this.findType(x[key]);
+      this.dataArray = [...this.dataArray, ...x[key]];
+    });
+      this.dataSource = new MatTableDataSource(this.dataArray);
+      this.isLoaded = true;
+    });
+  }
+
+  getSearch() {
+    this.dataSource = null;
+    this.isLoaded = false;
+    this.dataService.dataFromService.subscribe(x => { Object.keys(x).map(key => {this.findType(x[key]);
       this.dataArray = [...this.dataArray, ...x[key]];
     });
       this.dataSource = new MatTableDataSource(this.dataArray);
