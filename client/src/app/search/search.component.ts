@@ -16,9 +16,6 @@ export class SearchComponent implements OnInit {
     console.log("enter Search");
     this.form = this.fb.group({
       itemType: ["a", Validators.required],
-      id: ["b", Validators.required],
-      qtyInStock: ["c", Validators.required],
-      qtyOnLoan: ["d", Validators.required],
       title: ["e", Validators.required],
       search: ["", Validators.required],
       author: ["g", Validators.required],

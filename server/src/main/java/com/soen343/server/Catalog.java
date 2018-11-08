@@ -5,6 +5,7 @@ import com.soen343.server.gateways.MagazineGateway;
 import com.soen343.server.gateways.MovieGateway;
 import com.soen343.server.gateways.MusicGateway;
 import com.soen343.server.models.catalog.*;
+import com.soen343.server.models.SearchCriteria;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -193,6 +194,24 @@ public class Catalog {
         }
     }
 
+    // public Map<Long, CatalogItem> search(SearchCriteria searchCriteria){
+    //     List<CatalogItem> catalogItems = new ArrayList<>();
+    //             catalogItems.addAll(BookGateway.search(searchCriteria);
+    //             // catalogItems.addAll(MusicGateway.search(searchCriteria.getSearch()));
+    //             // catalogItems.addAll(MagazineGateway.search(searchCriteria.getSearch()));
+    //             // catalogItems.addAll(MovieGateway.search(searchCriteria.getSearch()));
+
+    //    return  catalogItems.stream().collect(Collectors.toMap(CatalogItem::getId, Function.identity()));
+    // }
+    public  Map<Long, CatalogItem> search(SearchCriteria searchCriteria){
+        System.out.print("entered Catalog");
+        List<CatalogItem> searchedCatalogItems = new ArrayList<>();
+             searchedCatalogItems.addAll(BookGateway.search(searchCriteria));
+                // catalogItems.addAll(MusicGateway.search(searchCriteria.getSearch()));
+                // catalogItems.addAll(MagazineGateway.search(searchCriteria.getSearch()));
+                // catalogItems.addAll(MovieGateway.search(searchCriteria.getSearch()));
+                return searchedCatalogItems.stream().collect(Collectors.toMap(CatalogItem::getId, Function.identity()));
+    }
     /**
      * used for debugging until data persists to db
      */

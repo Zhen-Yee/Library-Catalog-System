@@ -2,6 +2,7 @@ package com.soen343.server.controller;
 
 import com.soen343.server.Catalog;
 import com.soen343.server.models.catalog.*;
+import com.soen343.server.models.SearchCriteria;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -149,4 +150,15 @@ public class CatalogController {
                 return false;
             }
     }
+
+//    @PostMapping("/search")
+//     public Map<Long, CatalogItem> search(@RequestBody SearchCriteria searchCriteria) {      
+//          return catalog.search(searchCriteria);
+//     }
+    
+   @PostMapping("/search")
+   public Map<Long, CatalogItem> search(@RequestBody SearchCriteria searchCriteria) {
+     return catalog.search(searchCriteria);
+   }
+
 }

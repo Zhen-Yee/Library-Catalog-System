@@ -1,7 +1,9 @@
 import { CatalogItem } from "./catalogItem.model";
 import { CatalogItemType } from "../../enums/catalogItemType";
 
-export class searchfilters extends CatalogItem {
+export class searchfilters  {
+  iType: String;
+  title: String;
   search: string;
   author: string;
   format: string;
@@ -20,12 +22,9 @@ export class searchfilters extends CatalogItem {
   dubs: string;
   releaseDate: string;
     constructor(
-        itemType: CatalogItemType,
-        id: number,
-        qtyInStock: number,
-        qtyOnLoan: number,
-        title: string,
         param: {
+          iType: CatalogItemType,
+          title: string,
           search: string;
           author: string;
           format: string;
@@ -37,6 +36,7 @@ export class searchfilters extends CatalogItem {
           artist: string;
           label: string;
           asin: string;
+          director: string;
           producers: string;
           actors: string;
           subtitles: string;
@@ -44,7 +44,8 @@ export class searchfilters extends CatalogItem {
           releaseDate: string;
         }
       ) {
-        super(itemType, id, qtyInStock, qtyOnLoan, title);
+        this.iType = param.iType;
+        this.title = param.title;
         this.search = param.search;
         this.author = param.author;
         this.format = param.format;
@@ -56,6 +57,7 @@ export class searchfilters extends CatalogItem {
         this.artist = param. artist;
         this.label = param.label;
         this.asin = param.asin;
+        this.director = param.director;
         this.producers = param.producers;
         this.actors = param.actors;
         this.subtitles = param.subtitles;
