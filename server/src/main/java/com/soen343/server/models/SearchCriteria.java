@@ -2,7 +2,7 @@ package com.soen343.server.models;
 
 public class SearchCriteria{
     // itemType: CatalogItemType,
-    //     title: string,
+    // title: string,
     // search = string;
     // author: string;
     // format: string;
@@ -82,7 +82,82 @@ public class SearchCriteria{
     public String getSearch(){
         return this.search;
     }
+
     public String getItemType(){
         return this.iType;
     }
+
+    public String getTitle(){
+        return this.title;
+    }
+
+    public String getAuthor(){
+        return this.author;
+    }
+
+    public String getFormat(){
+        return this.format;
+    }
+ 
+    public String getPublisher(){
+        return this.publisher;
+    }
+    
+    public String getLanguage(){
+        return this.language;
+    }
+
+    public String getIsbn10(){
+        return this.isbn10;
+    }
+
+    public String getIsbn13(){
+        return this.isbn13;
+    }
+
+    public String getType(){
+        return this.type;
+    }
+
+    public String getArtist(){
+        return this.artist;
+    }
+
+    public String getLabel(){
+        return this.label;
+    }
+
+    public String getAsin(){
+        return this.asin;
+    }
+
+    public String getDirector(){
+        return this.director;
+    }
+
+    public String getProducers(){
+        return this.producers;
+    }
+
+    public String getActors(){
+        return this.actors;
+    }
+    
+    public String getSubtitles(){
+        return this.subtitles;
+    }
+    
+    public String getDubs(){
+        return this.dubs;
+    }
+
+    public String getReleaseDate(){
+        return this.releaseDate;
+    }
+
 }
+
+
+
+
+
