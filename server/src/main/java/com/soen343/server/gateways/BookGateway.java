@@ -189,7 +189,7 @@ public class BookGateway {
     public static List<Book> search(SearchCriteria search){
         System.out.print("Entered gateway");
         List<Book> bookArrayList = new ArrayList<>();
-        connector = DbConnection.get("SELECT * from testdb.book WHERE title LIKE '%" + search.getSearch() + "%' OR author LIKE '%" + search.getSearch() + "%' OR publisher LIKE '%" + search.getSearch() + "%'");
+        connector = DbConnection.get("SELECT * from testdb.book WHERE title LIKE '%" + search.getSearch() + "%' OR author LIKE '%" + search.getSearch() + "%' OR publisher LIKE '%" + search.getSearch() + "%' OR lannguage LIKE '%" + search.getSearch() + "%'");
         ResultSet resultSet = connector.getResultSet();
         try {
             while (resultSet.next()) {
