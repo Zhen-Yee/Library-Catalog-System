@@ -16,12 +16,12 @@ export class SearchComponent implements OnInit {
     console.log("enter Search");
     this.form = this.fb.group({
       itemType: ["a", Validators.required],
-      title: ["e", Validators.required],
+      title: ["title", Validators.required],
       search: ["", Validators.required],
-      author: ["g", Validators.required],
+      author: ["author", Validators.required],
       format: ["h", Validators.required],
-          publisher: ["i", Validators.required],
-          language: ["j", Validators.required],
+          publisher: ["publisher", Validators.required],
+          language: ["language", Validators.required],
           isbn10: ["k", Validators.required],
           isbn13: ["l", Validators.required],
           type: ["m", Validators.required],
