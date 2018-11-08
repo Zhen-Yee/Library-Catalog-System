@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.swing.plaf.basic.BasicTreeUI.CellEditorHandler;
 
 public class BookGateway {
     
@@ -186,11 +185,59 @@ public class BookGateway {
         }
     }
 
+    public static String buildFilterString(SearchCriteria search){
+        System.out.println(search);
+        System.out.println(search.getTitle());
+
+        int i = 0;
+        if(search.getTitle().equals("title")){
+            i++;
+        }else if(search.getAuthor().equals("author")){
+            i++;
+        }else if(search.getPublisher().equals("publisher")){
+            i++;
+        }else if(search.getLanguage().equals("language")){
+            i++;
+        }
+        String filter = "SELECT * from testdb.book WHERE";
+        System.out.println(filter);
+        if(search.getTitle().equals("title")){
+            System.out.println(filter);
+            i--;
+            filter.concat(" title LIKE '%" + search.getSearch() + "%'");
+            if(i>0){
+                filter.concat(" OR");
+            }
+        }
+        if(search.getAuthor().equals("author")){
+            i--;
+            filter.concat(" author LIKE '%" + search.getSearch() + "%'");
+            if(i>0){
+                filter.concat(" OR");   
+            }
+        }
+        if(search.getPublisher().equals("publisher")){
+            i--;
+            filter.concat(" publisher LIKE '%" + search.getSearch() + "%'");
+            if(i>0){
+                filter.concat(" OR");
+            }
+        }
+        if(search.getLanguage().equals("language")){
+            i--;
+            filter.concat(" language LIKE '%" + search.getSearch() + "%'");
+        }
+        System.out.println("END " + filter);
+        return filter;
+    }
+
     public static List<Book> search(SearchCriteria search){
         System.out.print("Entered gateway");
         List<Book> bookArrayList = new ArrayList<>();
-        connector = DbConnection.get("SELECT * from testdb.book WHERE title LIKE '%" + search.getSearch() + "%' OR author LIKE '%" + search.getSearch() + "%' OR publisher LIKE '%" + search.getSearch() + "%' OR lannguage LIKE '%" + search.getSearch() + "%'");
-        ResultSet resultSet = connector.getResultSet();
+        //  connector = DbConnection.get("SELECT * from testdb.book WHERE title LIKE '%" + search.getSearch() + "%' OR author LIKE '%" + search.getSearch() + "%' OR publisher LIKE '%" + search.getSearch() + "%' OR language LIKE '%" + search.getSearch() + "%'");
+      String filter = buildFilterString(search);
+        connector = DbConnection.get(filter); 
+      ResultSet resultSet = connector.getResultSet();
         try {
             while (resultSet.next()) {
 
