@@ -194,23 +194,18 @@ public class Catalog {
         }
     }
 
-    // public Map<Long, CatalogItem> search(SearchCriteria searchCriteria){
-    //     List<CatalogItem> catalogItems = new ArrayList<>();
-    //             catalogItems.addAll(BookGateway.search(searchCriteria);
-    //             // catalogItems.addAll(MusicGateway.search(searchCriteria.getSearch()));
-    //             // catalogItems.addAll(MagazineGateway.search(searchCriteria.getSearch()));
-    //             // catalogItems.addAll(MovieGateway.search(searchCriteria.getSearch()));
-
-    //    return  catalogItems.stream().collect(Collectors.toMap(CatalogItem::getId, Function.identity()));
-    // }
     public  Map<Long, CatalogItem> search(SearchCriteria searchCriteria){
         System.out.print("entered Catalog");
         List<CatalogItem> searchedCatalogItems = new ArrayList<>();
-             searchedCatalogItems.addAll(BookGateway.search(searchCriteria));
-                // catalogItems.addAll(MusicGateway.search(searchCriteria.getSearch()));
-                // catalogItems.addAll(MagazineGateway.search(searchCriteria.getSearch()));
-                // catalogItems.addAll(MovieGateway.search(searchCriteria.getSearch()));
+            searchedCatalogItems.addAll(BookGateway.search(searchCriteria));
+            filter(searchedCatalogItems, searchCriteria);
+ 
                 return searchedCatalogItems.stream().collect(Collectors.toMap(CatalogItem::getId, Function.identity()));
+    }
+
+    public List<CatalogItem> filter(List<CatalogItem> searchedCatalogItems, SearchCriteria searchCriteria){
+
+        return searchedCatalogItems;
     }
     /**
      * used for debugging until data persists to db
