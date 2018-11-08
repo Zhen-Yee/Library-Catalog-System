@@ -3,10 +3,20 @@ import { Music } from "../_models/catalog/music.model";
 import { Movie } from "../_models/catalog/movie.model";
 import {Magazine} from "../_models/catalog/magazine.model";
 import { Book } from "../_models/catalog/book.model";
-import { CatalogItemType } from "./../enums/catalogItemType";
+import { CatalogItemType } from "../enums/catalogItemType";
 
 @Injectable()
 export class DataService {
+  public dataFromService: Array<any>;
+
+  public getData(): Array<any>  {
+    return this.dataFromService;
+  }
+
+  public setData(data: any): void {
+    this.dataFromService = data;
+  }
+
   findType(catalogItem: any) {
     // create null object to represent our object type
     // take out itemtype to have a representation of our backend object

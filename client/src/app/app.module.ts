@@ -43,7 +43,7 @@ import { PromoteUserComponent } from "./promote-user/promote-user.component";
 import { UpdateMovieComponent } from "./update-item/update-movie/update-movie.component";
 import { DeleteItemPromptDialogComponent } from './delete-item-prompt-dialog/delete-item-prompt-dialog.component';
 import { SearchComponent } from './search/search.component';
-import { DataService } from "./_services/DataService";
+import { DataService } from "./_services/DataService.service";
 
 @NgModule({
    declarations: [

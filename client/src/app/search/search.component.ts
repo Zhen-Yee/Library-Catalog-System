@@ -3,8 +3,9 @@ import { HttpClient } from "@angular/common/http";
 import { searchfilters } from "../_models/catalog/searchfilters.model";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatSnackBar } from "@angular/material";
-import {DataService} from "../_services/DataService";
+import {DataService} from "../_services/DataService.service";
 import {DataTableComponent} from "../dataTable/data-table.component";
+import {CatalogItem} from "../_models/catalog/catalogItem.model";
 
 @Component({
   selector: 'app-search',
@@ -12,10 +13,10 @@ import {DataTableComponent} from "../dataTable/data-table.component";
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-
+  dataArray: CatalogItem[] = [];
   form: FormGroup;
 
-    constructor(private http: HttpClient, private fb: FormBuilder,public snackBar: MatSnackBar,
+    constructor(private http: HttpClient, private fb: FormBuilder, public snackBar: MatSnackBar,
                 public dataService: DataService, public dataTable: DataTableComponent) { }
 
   createForm() {
@@ -56,10 +57,11 @@ export class SearchComponent implements OnInit {
   .subscribe((confirmation) => {Object.keys(confirmation).map(
     key => {
       this.dataService.findType(confirmation[key]);
+      this.dataArray = [...this.dataArray, ...confirmation[key]];
       // if you had an array to store your stuff, you would do it like this
-     // this.dataArray = [...this.dataArray, ...confirmation[key]];
     });
 
+    this.dataService.setData(this.dataArray);
     if (confirmation) {
       this.openSnackBar("Search successful!", "Close");
       this.dataTable.getSearch();
