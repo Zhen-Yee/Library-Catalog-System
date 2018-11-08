@@ -151,13 +151,10 @@ public class CatalogController {
             }
     }
 
-//    @PostMapping("/search")
-//     public Map<Long, CatalogItem> search(@RequestBody SearchCriteria searchCriteria) {      
-//          return catalog.search(searchCriteria);
-//     }
-    
+
    @PostMapping("/search")
    public Map<Long, CatalogItem> search(@RequestBody SearchCriteria searchCriteria) {
+       System.out.print("Entered CatalogController");
      return catalog.search(searchCriteria);
    }
 
