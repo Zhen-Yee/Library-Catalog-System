@@ -43,18 +43,23 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.createForm()
+    this.createForm();
   }
 
-  getSearchedItems(){
+  getSearchedItems() {
 
     const filters: searchfilters = {
     ...this.form.value,
     };
 
     this.http.post("http://localhost:8090/catalog/search", filters)
-  .subscribe((confirmation) => {
-    this.dataService.dataFromService = confirmation;
+  .subscribe((confirmation) => {Object.keys(confirmation).map(
+    key => {
+      this.dataService.findType(confirmation[key]);
+      // if you had an array to store your stuff, you would do it like this
+     // this.dataArray = [...this.dataArray, ...confirmation[key]];
+    });
+
     if (confirmation) {
       this.openSnackBar("Search successful!", "Close");
       this.dataTable.getSearch();

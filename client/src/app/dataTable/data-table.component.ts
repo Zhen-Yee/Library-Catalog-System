@@ -185,7 +185,7 @@ export class DataTableComponent implements OnInit {
   getSearch() {
     this.dataSource = null;
     this.isLoaded = false;
-    this.dataService.dataFromService.subscribe(x => { Object.keys(x).map(key => {this.findType(x[key]);
+    this.dataService.findType().subscribe(x => { Object.keys(x).map(key => {this.findType(x[key]);
       this.dataArray = [...this.dataArray, ...x[key]];
     });
       this.dataSource = new MatTableDataSource(this.dataArray);
