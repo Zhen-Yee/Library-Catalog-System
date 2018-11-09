@@ -197,15 +197,16 @@ public class Catalog {
     public  Map<Long, CatalogItem> search(SearchCriteria searchCriteria){
         System.out.print("entered Catalog");
         List<CatalogItem> searchedCatalogItems = new ArrayList<>();
-        if(searchCriteria.getItemType().equals("book")){
+        //if(searchCriteria.getItemType().equals("book")){
         searchedCatalogItems.addAll(BookGateway.search(searchCriteria));
-        }
-        if(searchCriteria.getItemType().equals("magazine")){
-        searchedCatalogItems.addAll(MagazineGateway.search(searchCriteria));
-            }
-        if(searchCriteria.getItemType().equals("music")){
-            searchedCatalogItems.addAll(MusicGateway.search(searchCriteria));
-            }
+        searchedCatalogItems.addAll(MovieGateway.search(searchCriteria));
+       // }
+       // if(searchCriteria.getItemType().equals("magazine")){
+      //  searchedCatalogItems.addAll(MagazineGateway.search(searchCriteria));
+       //     }
+      //  if(searchCriteria.getItemType().equals("music")){
+         //   searchedCatalogItems.addAll(MusicGateway.search(searchCriteria));
+         //   }
  
                 return searchedCatalogItems.stream().collect(Collectors.toMap(CatalogItem::getId, Function.identity()));
     }
