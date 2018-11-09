@@ -24,7 +24,7 @@ export class SearchComponent implements OnInit {
     this.form = this.fb.group({
       iType: ["", Validators.required],
       title: ["", Validators.required],
-      search: ["", Validators.required],
+      search: ["a", Validators.required],
       author: ["", Validators.required],
       format: ["", Validators.required],
           publisher: ["", Validators.required],
