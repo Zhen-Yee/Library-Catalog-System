@@ -48,6 +48,7 @@ export class SearchComponent implements OnInit {
   }
 
   getSearchedItems() {
+    this.dataArray = [];
 
     const filters: searchfilters = {
     ...this.form.value,
