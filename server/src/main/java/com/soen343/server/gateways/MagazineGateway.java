@@ -5,21 +5,12 @@ import com.soen343.server.models.catalog.Magazine;
 import com.soen343.databaseConnection.Connector;
 import com.soen343.databaseConnection.DbConnection;
 import com.soen343.server.models.catalog.Magazine;
+import com.soen343.server.models.SearchCriteria;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import java.util.ArrayList;
-import com.soen343.databaseConnection.Connector;
-import com.soen343.databaseConnection.DbConnection;
-import com.soen343.server.models.catalog.Magazine;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-
 
 public class MagazineGateway {
 
@@ -172,23 +163,23 @@ public static boolean checkIfMagazineExists(String title){
         }
     }
 
-        public static String buildFilterString(SearchCriteria search){
+    public static String buildFilterString(SearchCriteria search){
         System.out.println(search);
     
         int i = 0;
         if(search.getTitle().equals("title")){
             i++;
         } 
-         
         if(search.getPublisher().equals("publisher")){
             i++;
         } 
         if(search.getLanguage().equals("language")){
             i++;
-        }
+        } 
         if(search.getIsbn10().equals("isbn10")){
             i++;
         }
+
         if(search.getIsbn13().equals("isbn13")){
             i++;
         }
@@ -196,7 +187,6 @@ public static boolean checkIfMagazineExists(String title){
         String filter = "SELECT * from testdb.magazine WHERE";
         System.out.println(filter);
         System.out.println("number of filters " + i);
-        
         if(search.getTitle().equals("title")){
             i--;
             System.out.println(filter);
@@ -204,26 +194,27 @@ public static boolean checkIfMagazineExists(String title){
             filter += " title LIKE '%" + search.getSearch() + "%'";
             if(i>0){
                 
-                filter += " OR";   
+                filter += " OR";
+                
             }
         }
-        
         if(search.getPublisher().equals("publisher")){
-            i--;
+            i--; 
             filter += " publisher LIKE '%" + search.getSearch() + "%'";
             if(i>0){
-                filter +=" OR";
-                
+
+                filter += " OR"; 
+                 
             }
         }
         if(search.getLanguage().equals("language")){
             i--;
             filter += " language LIKE '%" + search.getSearch() + "%'";
             if(i>0){
-                filter += " OR";
+                filter +=" OR";
+                
             }
         }
-        
         if(search.getIsbn10().equals("isbn10")){
             i--;
             filter += " isbn10 LIKE '%" + search.getSearch() + "%'";
@@ -231,6 +222,7 @@ public static boolean checkIfMagazineExists(String title){
                 filter += " OR";
             }
         }
+ 
         if(search.getIsbn13().equals("isbn13")){
            
             filter += " isbn13 LIKE '%" + search.getSearch() + "%'";
@@ -243,14 +235,13 @@ public static boolean checkIfMagazineExists(String title){
     public static List<Magazine> search(SearchCriteria search){
         System.out.print("Entered gateway");
         List<Magazine> magazineArrayList = new ArrayList<>();
-    
-        String filter = buildFilterString(search);
+      String filter = buildFilterString(search);
         connector = DbConnection.get(filter); 
-        ResultSet resultSet = connector.getResultSet();
-            try {
-                while (resultSet.next()) {
+      ResultSet resultSet = connector.getResultSet();
+        try {
+            while (resultSet.next()) {
 
-                // Creates object for each row in database book table
+                // Creates object for each row in database magazine table
                 Magazine magazine = new Magazine(
                     resultSet.getString("title"),
                     resultSet.getInt("qty_in_stock"),
@@ -258,10 +249,11 @@ public static boolean checkIfMagazineExists(String title){
                     resultSet.getString("publisher"),
                     resultSet.getString("language"),
                     resultSet.getString("isbn10"),
-                    resultSet.getString("isbn13")
-                );
+                    resultSet.getString("isbn13"),
+                    resultSet.getString("dateOfPublication")
+            );
 
-                magazine.setId(resultSet.getInt("id"));
+            magazine.setId(resultSet.getInt("id"));
 
                 magazineArrayList.add(magazine);
             }   
