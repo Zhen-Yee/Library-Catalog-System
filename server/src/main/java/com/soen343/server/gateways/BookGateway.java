@@ -207,6 +207,9 @@ public class BookGateway {
         if(search.getIsbn10().equals("isbn10")){
             i++;
         }
+        if(search.getIsbn13().equals("isbn13")){
+            i++;
+        }
         
         String filter = "SELECT * from testdb.book WHERE";
         System.out.println(filter);
