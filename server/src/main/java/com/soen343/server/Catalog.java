@@ -197,16 +197,13 @@ public class Catalog {
     public  Map<Long, CatalogItem> search(SearchCriteria searchCriteria){
         System.out.print("entered Catalog");
         List<CatalogItem> searchedCatalogItems = new ArrayList<>();
-            searchedCatalogItems.addAll(BookGateway.search(searchCriteria));
-            filter(searchedCatalogItems, searchCriteria);
+        
+        searchedCatalogItems.addAll(BookGateway.search(searchCriteria));
+           
  
                 return searchedCatalogItems.stream().collect(Collectors.toMap(CatalogItem::getId, Function.identity()));
     }
 
-    public List<CatalogItem> filter(List<CatalogItem> searchedCatalogItems, SearchCriteria searchCriteria){
-
-        return searchedCatalogItems;
-    }
     /**
      * used for debugging until data persists to db
      */
