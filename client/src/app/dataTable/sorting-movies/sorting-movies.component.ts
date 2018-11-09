@@ -29,14 +29,16 @@ import { Router } from "@angular/router";
 
 export class SortingMoviesComponent implements OnInit {
   constructor(private http: HttpClient, private user: UserService,private router: Router) {}
-
-  selectedValue: string;
-  items = [
-    {value: "movies", viewValue: "Movies"},
-  ];
   paginator;
   sort;
   isLoaded = false;
+
+    // Generated Data
+    dataArray: CatalogItem[] = [];
+    columnsToDisplay: string[] = ["title", "qtyInStock", "qtyOnLoan", "director", "actors", "producers", "language", "subtitles","dubs","releaseDate", "runTime"];
+    expandedElement: CatalogItem[];
+    dataSource: MatTableDataSource<CatalogItem>;
+    message: string = "Getting Catalog Items...";
 
   @ViewChild(MatSort) set content(content: ElementRef) {
     this.sort = content;
@@ -51,12 +53,6 @@ export class SortingMoviesComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     }
   }
-  // Generated Data
-  dataArray: CatalogItem[] = [];
-  columnsToDisplay: string[] = ["title", "qtyInStock", "qtyOnLoan", "director", "actors", "producers", "language", "subtitles","dubs","releaseDate", "runTime"];
-  expandedElement: CatalogItem[];
-  dataSource: MatTableDataSource<CatalogItem>;
-  message: string = "Getting Catalog Items...";
 
   ngOnInit() {
     this.getAll();

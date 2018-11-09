@@ -1,4 +1,5 @@
-<p> Sorting Music Catalog</p>
+<div><h3>Sorting Catalog by Music</h3></div>
+
 <table mat-table [dataSource]="dataSource" *ngIf="isLoaded" multiTemplateDataRows matSort class="mat-elevation-z8">
   <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>

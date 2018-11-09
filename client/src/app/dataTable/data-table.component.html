@@ -1,15 +1,15 @@
-
-<div>
+<div class = "view-box">
     <h3>View Catalog as</h3>
-    <div>
-        <button mat-button (click)="redirectMagazinesPage()"> Magazines </button>
-        <button mat-button (click)="redirectMoviesPage()"> Movies </button>
-        <button mat-button (click)="redirectMusicPage()"> Music</button>
-        <button mat-button (click)="redirectBookPage()"> Book</button>
-    </div>
+        <div>
+            <button mat-button (click)="redirectBookPage()"> Book</button>
+            <button mat-button (click)="redirectMagazinesPage()"> Magazines </button>
+            <button mat-button (click)="redirectMoviesPage()"> Movies </button>
+            <button mat-button (click)="redirectMusicPage()"> Music</button>
+            
+        </div>
 </div>
 
-
+<div>
 <table mat-table [dataSource]="dataSource" *ngIf="isLoaded" multiTemplateDataRows matSort class="mat-elevation-z8">
   <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
@@ -192,6 +192,8 @@
   </tr>
   <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr> 
 </table>
+</div>
+
 <mat-paginator *ngIf="isLoaded" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
 <div *ngIf="!isLoaded">
