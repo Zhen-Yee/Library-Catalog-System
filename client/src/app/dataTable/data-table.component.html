@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 <app-search></app-search>
-=======
 <div class = "view-box">
     <h3>
         <mat-icon>sort</mat-icon> 
@@ -15,7 +13,6 @@
 </div>
 
 <div>
->>>>>>> origin/dev
 <table mat-table [dataSource]="dataSource" *ngIf="isLoaded" multiTemplateDataRows matSort class="mat-elevation-z8">
   <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
