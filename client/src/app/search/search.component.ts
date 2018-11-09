@@ -22,7 +22,7 @@ export class SearchComponent implements OnInit {
   createForm() {
     console.log("enter Search");
     this.form = this.fb.group({
-      itemType: ["a", Validators.required],
+      iType: ["a", Validators.required],
       title: ["title", Validators.required],
       search: ["", Validators.required],
       author: ["author", Validators.required],
