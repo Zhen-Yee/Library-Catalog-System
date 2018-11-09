@@ -1,0 +1,96 @@
+<div><h3>Sorting Catalog by Music</h3></div>
+
+<table mat-table [dataSource]="dataSource" *ngIf="isLoaded" multiTemplateDataRows matSort class="mat-elevation-z8">
+  <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
+    <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="expandedDetail">
+    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+      <div class="example-element-detail"
+           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+        <div class="example-element-description">
+
+          <div class="left-wrapper">
+
+            <div class = "title">
+            {{element.title}}
+            </div>
+
+            <table>
+                <tr>
+                  <th>Quantity in Stock: </th>
+                  <th>{{element.qtyInStock}}</th>
+                </tr>
+                <tr>
+                  <th>Quantity on Loan: </th>
+                  <th>{{element.qtyOnLoan}}</th>
+                </tr>
+                <tr>
+                    <th>Item Type: </th>
+                    <th>{{element.itemType}}</th>
+                </tr>
+              </table>
+
+                <table *ngIf="element.itemType == 'Music'">
+
+                    <tr>
+                        <th>Type: </th>
+                        <th>{{element.type}}</th>
+                    </tr>
+                    <tr>
+                      <th>Artist: </th>
+                      <th>{{element.artist}}</th>
+                    </tr>
+                    <tr>
+                      <th>Label: </th>
+                      <th>{{element.label}}</th>
+                    </tr>
+                    <tr>
+                        <th>Release Date: </th>
+                        <th>{{element.releaseDate}}</th>
+                    </tr>
+                    <tr>
+                        <th>ASIN: </th>
+                        <th>{{element.asin}}</th>
+                    </tr>
+                  </table>
+                  
+          </div>
+
+          <div class="right-wrapper">
+
+            <div [hidden] = "!isAdmin()" class = "edit-box">
+              <update-music *ngIf="element.itemType == 'Music'" [music]="element" (messageEvent)="receiveSaveMessage($event)"></update-music>
+              <div class = "delete">
+                <delete-item [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+      class="example-element-row"
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement === element ? expandedElement = null : expandedElement = element">
+  </tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr> 
+</table>
+<mat-paginator *ngIf="isLoaded" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+<div *ngIf="!isLoaded">
+    <mat-card *ngIf="!isLoaded" style="display: flex; justify-content: center; align-items: center">
+      <mat-progress-spinner
+        color="primary"
+        mode="indeterminate">
+      </mat-progress-spinner>
+      {{message}}
+    </mat-card>
+</div>
+
+

@@ -9,6 +9,7 @@ import { Music } from "../_models/catalog/music.model";
 import { Movie } from "../_models/catalog/movie.model";
 import {Magazine} from "../_models/catalog/magazine.model";
 import { UserService } from "../_services/user.service";
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -31,12 +32,17 @@ import { UserService } from "../_services/user.service";
 })
 
 export class DataTableComponent implements OnInit {
-  constructor(private http: HttpClient, private user: UserService) {}
-
-
+  constructor(private http: HttpClient, private user: UserService,private router: Router) {}
   paginator;
   sort;
   isLoaded = false;
+
+    // Generated Data
+    dataArray: CatalogItem[] = [];
+    columnsToDisplay: string[] = ["itemType","title", "qtyInStock", "qtyOnLoan", ];
+    expandedElement: CatalogItem[];
+    dataSource: MatTableDataSource<CatalogItem>;
+    message: string = "Getting Catalog Items...";
 
   @ViewChild(MatSort) set content(content: ElementRef) {
     this.sort = content;
@@ -51,12 +57,6 @@ export class DataTableComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     }
   }
-  // Generated Data
-  dataArray: CatalogItem[] = [];
-  columnsToDisplay: string[] = ["itemType", "qtyInStock", "qtyOnLoan", "title"];
-  expandedElement: CatalogItem[];
-  dataSource: MatTableDataSource<CatalogItem>;
-  message: string = "Getting Catalog Items...";
 
   ngOnInit() {
     this.getAll();
@@ -179,6 +179,22 @@ export class DataTableComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.dataArray);
       this.isLoaded = true;
     });
+  }
+
+  redirectMagazinesPage() {
+    this.router.navigate(["catalog/magazines"]);
+  }
+
+  redirectMoviesPage() {
+    this.router.navigate(["catalog/movies"]);
+  }
+
+  redirectMusicPage(){
+    this.router.navigate(["catalog/music"]);
+  }
+
+  redirectBookPage(){
+    this.router.navigate(["catalog/books"]);
   }
 
 }
