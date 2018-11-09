@@ -91,7 +91,3 @@ tr.example-element-row:not(.example-expanded-row):active {
 .left-wrapper table {
   padding-top: 20px;
 }
-
-.example-chip-list {
-  width: 100%;
-}
