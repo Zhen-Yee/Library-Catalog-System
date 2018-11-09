@@ -55,7 +55,7 @@ export class SortingMagazinesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAll();
+    this.getAllMusic();
   }
 
   isAdmin() {
@@ -65,16 +65,16 @@ export class SortingMagazinesComponent implements OnInit {
   receiveSaveMessage($event) {
     this.dataArray = [];
     this.message = $event;
-    this.getAll();
+    this.getAllMusic();
   }
 
   receiveDeleteMessage($event) {
     this.dataArray = [];
     this.message = $event;
-    this.getAll();
+    this.getAllMusic();
   }
 
-  getAll() {
+  getAllMusic() {
     this.isLoaded = false;
 
     this.http

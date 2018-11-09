@@ -119,11 +119,11 @@ export class DataTableComponent implements OnInit {
   }
 
   redirectMusicPage(){
-    this.router.navigate(["/music"]);
+    this.router.navigate(["catalog/music"]);
   }
 
   redirectBookPage(){
-    this.router.navigate(["/book"]);
+    this.router.navigate(["catalog/books"]);
   }
 
 }

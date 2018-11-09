@@ -53,7 +53,7 @@ export class SortingBookComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllBook();
+    this.getAllBooks();
   }
 
   isAdmin() {
@@ -63,18 +63,16 @@ export class SortingBookComponent implements OnInit {
   receiveSaveMessage($event) {
     this.dataArray = [];
     this.message = $event;
-    this.getAllBook();
+    this.getAllBooks();
   }
 
   receiveDeleteMessage($event) {
     this.dataArray = [];
     this.message = $event;
-    this.getAllBook();
+    this.getAllBooks();
   }
 
-
-
-  getAllBook(){
+  getAllBooks(){
     this.http
       .get<Book[]>("http://localhost:8090/catalog/getAll" + CatalogItemType.Book)
       .subscribe(x => {

@@ -50,12 +50,12 @@ const appRoutes: Routes = [
     component: SortingMoviesComponent
   },
   {
-    path: "music",
+    path: "catalog/music",
     canActivate: [AdminAuthenticateGuard],
     component: SortingMusicComponent
   },
   {
-    path: "book",
+    path: "catalog/books",
     canActivate: [AdminAuthenticateGuard],
     component: SortingBookComponent
   },

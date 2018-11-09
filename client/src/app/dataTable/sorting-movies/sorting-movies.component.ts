@@ -55,7 +55,7 @@ export class SortingMoviesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAll();
+    this.getAllMovies();
   }
 
   isAdmin() {
@@ -65,16 +65,16 @@ export class SortingMoviesComponent implements OnInit {
   receiveSaveMessage($event) {
     this.dataArray = [];
     this.message = $event;
-    this.getAll();
+    this.getAllMovies();
   }
 
   receiveDeleteMessage($event) {
     this.dataArray = [];
     this.message = $event;
-    this.getAll();
+    this.getAllMovies();
   }
 
-  getAll() {
+  getAllMovies() {
     this.isLoaded = false;
 
     this.http
