@@ -42,9 +42,16 @@ import { UpdateMusicComponent } from "./update-item/update-music/update-music.co
 import { PromoteUserComponent } from "./promote-user/promote-user.component";
 import { UpdateMovieComponent } from "./update-item/update-movie/update-movie.component";
 import { DeleteItemPromptDialogComponent } from './delete-item-prompt-dialog/delete-item-prompt-dialog.component';
+<<<<<<< HEAD
 import { SearchComponent } from './search/search.component';
 import { DataService } from "./_services/DataService.service";
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+=======
+import { SortingMusicComponent } from './dataTable/sorting-music/sorting-music.component';
+import { SortingMagazinesComponent } from './dataTable/sorting-magazines/sorting-magazines.component';
+import { SortingMoviesComponent } from './dataTable/sorting-movies/sorting-movies.component';
+import { SortingBookComponent } from './dataTable/sorting-book/sorting-book.component';
+>>>>>>> origin/dev
 
 @NgModule({
    declarations: [
@@ -71,8 +78,15 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
       UpdateMovieComponent,
       PromoteUserComponent,
       DeleteItemPromptDialogComponent,
+<<<<<<< HEAD
       SearchComponent,
       SearchComponent
+=======
+      SortingMusicComponent,
+      SortingMagazinesComponent,
+      SortingMoviesComponent,
+      SortingBookComponent,
+>>>>>>> origin/dev
    ],
    imports: [
       MatCheckboxModule,

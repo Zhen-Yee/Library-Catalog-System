@@ -9,8 +9,12 @@ import { Music } from "../_models/catalog/music.model";
 import { Movie } from "../_models/catalog/movie.model";
 import {Magazine} from "../_models/catalog/magazine.model";
 import { UserService } from "../_services/user.service";
+<<<<<<< HEAD
 import {DataService} from "../_services/DataService.service";
 import {Subscription} from "rxjs";
+=======
+import { Router } from "@angular/router";
+>>>>>>> origin/dev
 
 
 @Component({
@@ -33,11 +37,22 @@ import {Subscription} from "rxjs";
 })
 
 export class DataTableComponent implements OnInit {
+<<<<<<< HEAD
   constructor(private http: HttpClient, private user: UserService, public dataService: DataService) { }
 
+=======
+  constructor(private http: HttpClient, private user: UserService,private router: Router) {}
+>>>>>>> origin/dev
   paginator;
   sort;
   isLoaded = false;
+
+    // Generated Data
+    dataArray: CatalogItem[] = [];
+    columnsToDisplay: string[] = ["itemType","title", "qtyInStock", "qtyOnLoan", ];
+    expandedElement: CatalogItem[];
+    dataSource: MatTableDataSource<CatalogItem>;
+    message: string = "Getting Catalog Items...";
 
   @ViewChild(MatSort) set content(content: ElementRef) {
     this.sort = content;
@@ -52,12 +67,6 @@ export class DataTableComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     }
   }
-  // Generated Data
-  dataArray: CatalogItem[] = [];
-  columnsToDisplay: string[] = ["itemType", "qtyInStock", "qtyOnLoan", "title"];
-  expandedElement: CatalogItem[];
-  dataSource: MatTableDataSource<CatalogItem>;
-  message: string = "Getting Catalog Items...";
 
   ngOnInit() {
     this.getAll();
@@ -182,12 +191,29 @@ export class DataTableComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
   getSearch() {
     this.dataSource = null;
     this.isLoaded = false;
     this.dataSource = new MatTableDataSource(this.dataService.getData());
     console.log(this.dataSource);
     this.isLoaded = true;
+=======
+  redirectMagazinesPage() {
+    this.router.navigate(["catalog/magazines"]);
+  }
+
+  redirectMoviesPage() {
+    this.router.navigate(["catalog/movies"]);
+  }
+
+  redirectMusicPage(){
+    this.router.navigate(["catalog/music"]);
+  }
+
+  redirectBookPage(){
+    this.router.navigate(["catalog/books"]);
+>>>>>>> origin/dev
   }
 
 }
