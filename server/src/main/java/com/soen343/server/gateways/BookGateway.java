@@ -188,44 +188,55 @@ public class BookGateway {
     public static String buildFilterString(SearchCriteria search){
         System.out.println(search);
         System.out.println(search.getTitle());
-
+        System.out.println(search.getAuthor());
+        System.out.println(search.getPublisher());
+        System.out.println(search.getLanguage());
         int i = 0;
         if(search.getTitle().equals("title")){
             i++;
-        }else if(search.getAuthor().equals("author")){
+        } 
+        if(search.getAuthor().equals("author")){
             i++;
-        }else if(search.getPublisher().equals("publisher")){
+        } 
+        if(search.getPublisher().equals("publisher")){
             i++;
-        }else if(search.getLanguage().equals("language")){
+        } 
+        if(search.getLanguage().equals("language")){
             i++;
         }
         String filter = "SELECT * from testdb.book WHERE";
         System.out.println(filter);
+        System.out.println("number of filters " + i);
         if(search.getTitle().equals("title")){
             System.out.println(filter);
-            i--;
-            filter.concat(" title LIKE '%" + search.getSearch() + "%'");
+            
+            filter += " title LIKE '%" + search.getSearch() + "%'";
             if(i>0){
-                filter.concat(" OR");
+                
+                filter += " OR";
+                i--;
             }
         }
         if(search.getAuthor().equals("author")){
-            i--;
-            filter.concat(" author LIKE '%" + search.getSearch() + "%'");
+            
+            filter += " author LIKE '%" + search.getSearch() + "%'";
             if(i>0){
-                filter.concat(" OR");   
+
+                filter += " OR"; 
+                i--;  
             }
         }
         if(search.getPublisher().equals("publisher")){
-            i--;
-            filter.concat(" publisher LIKE '%" + search.getSearch() + "%'");
+            
+            filter += " publisher LIKE '%" + search.getSearch() + "%'";
             if(i>0){
-                filter.concat(" OR");
+                filter +=" OR";
+                i--;
             }
         }
         if(search.getLanguage().equals("language")){
-            i--;
-            filter.concat(" language LIKE '%" + search.getSearch() + "%'");
+
+            filter += " language LIKE '%" + search.getSearch() + "%'";
         }
         System.out.println("END " + filter);
         return filter;
