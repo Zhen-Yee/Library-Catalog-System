@@ -1,5 +1,7 @@
 package com.soen343.server.gateways;
 import java.sql.*;
+
+import com.soen343.server.models.SearchCriteria;
 import com.soen343.server.models.catalog.Magazine;
 
 import com.soen343.databaseConnection.Connector;

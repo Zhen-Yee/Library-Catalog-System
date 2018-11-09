@@ -33,7 +33,7 @@ import {Subscription} from "rxjs";
 })
 
 export class DataTableComponent implements OnInit {
-  constructor(private http: HttpClient, private user: UserService, public dataService: DataService) {}
+  constructor(private http: HttpClient, private user: UserService, public dataService: DataService) { }
 
   paginator;
   sort;
