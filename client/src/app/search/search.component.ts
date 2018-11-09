@@ -6,6 +6,7 @@ import { MatSnackBar } from "@angular/material";
 import {DataService} from "../_services/DataService.service";
 import {DataTableComponent} from "../dataTable/data-table.component";
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
+import {MatChipsModule} from '@angular/material/chips';
 
 @Component({
   selector: 'app-search',
