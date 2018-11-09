@@ -154,8 +154,14 @@ public class CatalogController {
 
    @PostMapping("/search")
    public Map<Long, CatalogItem> search(@RequestBody SearchCriteria searchCriteria) {
-       System.out.print("Entered CatalogController");
-     return catalog.search(searchCriteria);
-   }
+   
+    try{
+        System.out.print("Entered CatalogController");
+        return catalog.search(searchCriteria);
+    } catch(Exception exception){
+        System.out.print(exception);
+        return null;
+    }
+    }
 
 }

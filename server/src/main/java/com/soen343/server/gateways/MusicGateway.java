@@ -153,6 +153,12 @@ public class MusicGateway {
         if(search.getLabel().equals("label")){
             i++;
         }
+        if(search.getLabel().equals("releaseDate")){
+            i++;
+        }
+        if(search.getLabel().equals("asin")){
+            i++;
+        }
         
         String filter = "SELECT * from testdb.music WHERE";
         System.out.println(filter);
@@ -170,6 +176,7 @@ public class MusicGateway {
         }
         if(search.getType().equals("type")){
             i--; 
+
             filter += " type LIKE '%" + search.getSearch() + "%'";
             if(i>0){
 
@@ -179,6 +186,7 @@ public class MusicGateway {
         }
         if(search.getArtist().equals("artist")){
             i--;
+
             filter += " artist LIKE '%" + search.getSearch() + "%'";
             if(i>0){
                 filter +=" OR";
@@ -187,10 +195,26 @@ public class MusicGateway {
         }
         if(search.getLabel().equals("label")){
             i--;
+
             filter += " label LIKE '%" + search.getSearch() + "%'";
             if(i>0){
                 filter += " OR";
+
             }
+        }
+        if(search.getLabel().equals("releaseDate")){
+            i--;
+
+            filter += " releaseDate LIKE '%" + search.getSearch() + "%'";
+            if(i>0){
+                filter += " OR";
+
+            }
+        }
+        if(search.getLabel().equals("asin")){
+        
+            filter += " asin LIKE '%" + search.getSearch() + "%'";
+            
         }
         System.out.println("END " + filter);
         return filter;
