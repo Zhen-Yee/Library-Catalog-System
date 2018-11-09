@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
 @Component({
     selector: "update-book",
     templateUrl: "update-book.component.html",
-    styleUrls: ["update-book.component.scss"]
+    styleUrls: ["update-book.component.css"]
 })
 export class UpdateBookComponent implements OnInit {
     form: FormGroup;

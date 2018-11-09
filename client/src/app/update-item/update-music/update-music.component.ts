@@ -7,7 +7,7 @@ import { Router } from "@angular/router";
 @Component({
     selector: "update-music",
     templateUrl: "update-music.component.html",
-    styleUrls: ["update-music.component.scss"]
+    styleUrls: ["update-music.component.css"]
 })
 export class UpdateMusicComponent implements OnInit {
     form: FormGroup;

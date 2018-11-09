@@ -7,7 +7,7 @@ import { Router } from "@angular/router";
 @Component({
     selector: "update-magazine",
     templateUrl: "update-magazine.component.html",
-    styleUrls: ["update-magazine.component.scss"]
+    styleUrls: ["update-magazine.component.css"]
 })
 export class UpdateMagazineComponent implements OnInit {
     form: FormGroup;
