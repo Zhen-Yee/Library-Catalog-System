@@ -201,7 +201,7 @@ public class Catalog {
         searchedCatalogItems.addAll(BookGateway.search(searchCriteria));
         }
         if(searchCriteria.getItemType().equals("magazine")){
-            //searchedCatalogItems.addAll(MusicGateway.search(searchCriteria));
+        searchedCatalogItems.addAll(MagazineGateway.search(searchCriteria));
             }
         if(searchCriteria.getItemType().equals("music")){
             //searchedCatalogItems.addAll(MagazineGateway.search(searchCriteria));
