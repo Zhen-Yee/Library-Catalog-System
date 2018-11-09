@@ -243,14 +243,14 @@ public static boolean checkIfMagazineExists(String title){
 
                 // Creates object for each row in database magazine table
                 Magazine magazine = new Magazine(
-                    resultSet.getString("title"),
-                    resultSet.getInt("qty_in_stock"),
-                    resultSet.getInt("qty_on_loan"),
-                    resultSet.getString("publisher"),
-                    resultSet.getString("language"),
-                    resultSet.getString("isbn10"),
-                    resultSet.getString("isbn13"),
-                    resultSet.getString("dateOfPublication")
+                     resultSet.getString("title"),
+                        resultSet.getInt("qty_in_stock"),
+                        resultSet.getInt("qty_on_loan"),
+                        resultSet.getString("publisher"),
+                        resultSet.getString("language"),
+                        resultSet.getString("date_of_publication"),
+                        resultSet.getString("isbn10"),
+                        resultSet.getString("isbn13")
             );
 
             magazine.setId(resultSet.getInt("id"));
