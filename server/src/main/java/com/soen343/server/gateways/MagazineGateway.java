@@ -238,33 +238,34 @@ public static boolean checkIfMagazineExists(String title){
         System.out.print("Entered gateway");
         List<Magazine> magazineArrayList = new ArrayList<>();
     
-        // String filter = buildFilterString(search);
-        // connector = DbConnection.get(filter); 
-        // ResultSet resultSet = connector.getResultSet();
-        //     try {
-        //         while (resultSet.next()) {
+        String filter = buildFilterString(search);
+        connector = DbConnection.get(filter); 
+        ResultSet resultSet = connector.getResultSet();
+            try {
+                while (resultSet.next()) {
 
-        //         // Creates object for each row in database book table
-        //         Magazine magazine = new Magazine(
-        //             resultSet.getString("title"),
-        //             resultSet.getInt("qty_in_stock"),
-        //             resultSet.getInt("qty_on_loan"),
-        //             resultSet.getString("publisher"),
-        //             resultSet.getString("language"),
-        //             resultSet.getString("isbn10"),
-        //             resultSet.getString("isbn13")
-        //         );
+                // Creates object for each row in database book table
+                Magazine magazine = new Magazine(
+                    resultSet.getString("title"),
+                    resultSet.getInt("qty_in_stock"),
+                    resultSet.getInt("qty_on_loan"),
+                    resultSet.getString("publisher"),
+                    resultSet.getString("language"),
+                    resultSet.getString("date_of_publication"),
+                    resultSet.getString("isbn10"),
+                    resultSet.getString("isbn13")
+                );
 
-        //         magazine.setId(resultSet.getInt("id"));
+                magazine.setId(resultSet.getInt("id"));
 
-        //         magazineArrayList.add(magazine);
-        //     }   
-        // } catch (SQLException e) {
-        //     System.out.println("Unable to query from result set.");
-        //     e.printStackTrace();
-        // } finally {
-        //     connector.close();
-        // }
+                magazineArrayList.add(magazine);
+            }   
+        } catch (SQLException e) {
+            System.out.println("Unable to query from result set.");
+            e.printStackTrace();
+        } finally {
+            connector.close();
+        }
         return magazineArrayList;
     }
 

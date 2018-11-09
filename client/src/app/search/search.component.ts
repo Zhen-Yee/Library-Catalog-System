@@ -23,8 +23,8 @@ export class SearchComponent implements OnInit {
     console.log("enter Search");
     this.form = this.fb.group({
       iType: ["", Validators.required],
-      title: ["", Validators.required],
-      search: ["a", Validators.required],
+      title: ["title", Validators.required],
+      search: ["", Validators.required],
       author: ["a", Validators.required],
       format: ["", Validators.required],
           publisher: ["", Validators.required],
@@ -35,6 +35,7 @@ export class SearchComponent implements OnInit {
           artist: ["", Validators.required],
           label: ["", Validators.required],
           asin: ["", Validators.required],
+          director: ["", Validators.required],
           producers: ["", Validators.required],
           actors: ["", Validators.required],
           subtitles: ["", Validators.required],
