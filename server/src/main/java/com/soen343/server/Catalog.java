@@ -5,6 +5,7 @@ import com.soen343.server.gateways.MagazineGateway;
 import com.soen343.server.gateways.MovieGateway;
 import com.soen343.server.gateways.MusicGateway;
 import com.soen343.server.models.catalog.*;
+import com.soen343.server.models.SearchCriteria;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -191,6 +192,36 @@ public class Catalog {
         if (identityMap.containsValue(catalogItem)){
             identityMap.replace(catalogItem.getId(), catalogItem);
         }
+    }
+
+    public  Map<Long, CatalogItem> search(SearchCriteria searchCriteria){
+        System.out.print("entered Catalog");
+        List<CatalogItem> searchedCatalogItems = new ArrayList<>();
+        if(searchCriteria.getItemType().equals("book")){
+        searchedCatalogItems.addAll(BookGateway.search(searchCriteria));
+        }
+        if(searchCriteria.getItemType().equals("movie")){
+        searchedCatalogItems.addAll(MovieGateway.search(searchCriteria));
+        }
+        if(searchCriteria.getItemType().equals("magazine")){
+        searchedCatalogItems.addAll(MagazineGateway.search(searchCriteria));
+        }
+        if(searchCriteria.getItemType().equals("Music")){
+        searchedCatalogItems.addAll(MusicGateway.search(searchCriteria));
+        }
+        
+        if(searchCriteria.getItemType().equals("") &&
+            searchCriteria.getItemType().equals("") &&
+            searchCriteria.getItemType().equals("") &&
+            searchCriteria.getItemType().equals("")
+        ){
+            searchedCatalogItems.addAll(BookGateway.search(searchCriteria));
+            searchedCatalogItems.addAll(MovieGateway.search(searchCriteria));
+            searchedCatalogItems.addAll(MagazineGateway.search(searchCriteria));
+            searchedCatalogItems.addAll(MusicGateway.search(searchCriteria));
+        }
+ 
+                return searchedCatalogItems.stream().collect(Collectors.toMap(CatalogItem::getId, Function.identity()));
     }
 
     /**

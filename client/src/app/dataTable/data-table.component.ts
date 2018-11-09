@@ -9,7 +9,12 @@ import { Music } from "../_models/catalog/music.model";
 import { Movie } from "../_models/catalog/movie.model";
 import {Magazine} from "../_models/catalog/magazine.model";
 import { UserService } from "../_services/user.service";
+<<<<<<< HEAD
+import {DataService} from "../_services/DataService.service";
+import {Subscription} from "rxjs";
+=======
 import { Router } from "@angular/router";
+>>>>>>> origin/dev
 
 
 @Component({
@@ -32,7 +37,12 @@ import { Router } from "@angular/router";
 })
 
 export class DataTableComponent implements OnInit {
+<<<<<<< HEAD
+  constructor(private http: HttpClient, private user: UserService, public dataService: DataService) { }
+
+=======
   constructor(private http: HttpClient, private user: UserService,private router: Router) {}
+>>>>>>> origin/dev
   paginator;
   sort;
   isLoaded = false;
@@ -155,7 +165,7 @@ export class DataTableComponent implements OnInit {
 
   isAdmin() {
     return this.user.isAdmin;
-}
+  }
   // calls getAll function to refill catalog with updated values
   receiveSaveMessage($event) {
     this.dataArray = [];
@@ -181,6 +191,14 @@ export class DataTableComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
+  getSearch() {
+    this.dataSource = null;
+    this.isLoaded = false;
+    this.dataSource = new MatTableDataSource(this.dataService.getData());
+    console.log(this.dataSource);
+    this.isLoaded = true;
+=======
   redirectMagazinesPage() {
     this.router.navigate(["catalog/magazines"]);
   }
@@ -195,6 +213,7 @@ export class DataTableComponent implements OnInit {
 
   redirectBookPage(){
     this.router.navigate(["catalog/books"]);
+>>>>>>> origin/dev
   }
 
 }

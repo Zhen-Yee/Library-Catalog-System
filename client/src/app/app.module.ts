@@ -9,6 +9,7 @@ import { RouterModule } from "@angular/router";
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
 import { TestComponent } from "./test/test.component";
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {
   MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, MatMenuModule, MatDialogModule,
   MatCardModule, MatSelectModule, MatSnackBarModule, MatPaginatorModule, MatChipsModule, MatSortModule,
@@ -41,10 +42,14 @@ import { UpdateMusicComponent } from "./update-item/update-music/update-music.co
 import { PromoteUserComponent } from "./promote-user/promote-user.component";
 import { UpdateMovieComponent } from "./update-item/update-movie/update-movie.component";
 import { DeleteItemPromptDialogComponent } from './delete-item-prompt-dialog/delete-item-prompt-dialog.component';
+import { SearchComponent } from './search/search.component';
+import { DataService } from "./_services/DataService.service";
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { SortingMusicComponent } from './dataTable/sorting-music/sorting-music.component';
 import { SortingMagazinesComponent } from './dataTable/sorting-magazines/sorting-magazines.component';
 import { SortingMoviesComponent } from './dataTable/sorting-movies/sorting-movies.component';
 import { SortingBookComponent } from './dataTable/sorting-book/sorting-book.component';
+
 
 @NgModule({
    declarations: [
@@ -71,12 +76,15 @@ import { SortingBookComponent } from './dataTable/sorting-book/sorting-book.comp
       UpdateMovieComponent,
       PromoteUserComponent,
       DeleteItemPromptDialogComponent,
+      SearchComponent,
+      SearchComponent,
       SortingMusicComponent,
       SortingMagazinesComponent,
       SortingMoviesComponent,
       SortingBookComponent,
    ],
    imports: [
+      MatCheckboxModule,
       BrowserModule,
       BrowserAnimationsModule,
       MatFormFieldModule,
@@ -100,7 +108,8 @@ import { SortingBookComponent } from './dataTable/sorting-book/sorting-book.comp
       MatPaginatorModule,
       MatSnackBarModule,
       MatSortModule,
-      MatProgressSpinnerModule
+      MatProgressSpinnerModule,
+      MatAutocompleteModule
    ],
    entryComponents: [
       LoginComponent,
@@ -112,7 +121,8 @@ import { SortingBookComponent } from './dataTable/sorting-book/sorting-book.comp
       UserService,
       PasswordService,
       AdminAuthenticateGuard,
-      ToggleService
+      ToggleService,
+      DataService
    ],
    bootstrap: [
       AppComponent
