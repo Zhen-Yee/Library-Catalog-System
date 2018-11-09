@@ -1,13 +1,21 @@
 import { CatalogItemType } from "./../enums/catalogItemType";
-import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { Book } from "../_models/catalog/book.model";
-import {animate, state, style, transition, trigger} from "@angular/animations";
+import { animate, state, style, transition, trigger } from "@angular/animations";
 import { MatSort, MatPaginator, MatTableDataSource } from "@angular/material";
 import { HttpClient } from "@angular/common/http";
-import {CatalogItem} from "../_models/catalog/catalogItem.model";
-import {Music} from "../_models/catalog/music.model";
+import { CatalogItem } from "../_models/catalog/catalogItem.model";
+import { Music } from "../_models/catalog/music.model";
 import { Movie } from "../_models/catalog/movie.model";
 import {Magazine} from "../_models/catalog/magazine.model";
+import { UserService } from "../_services/user.service";
+<<<<<<< HEAD
+import {DataService} from "../_services/DataService.service";
+import {Subscription} from "rxjs";
+=======
+import { Router } from "@angular/router";
+>>>>>>> origin/dev
+
 
 @Component({
   selector: "app-data-table",
@@ -27,62 +35,185 @@ import {Magazine} from "../_models/catalog/magazine.model";
     ])
   ]
 })
-export class DataTableComponent implements OnInit {
-  constructor(private http: HttpClient) {}
 
+export class DataTableComponent implements OnInit {
+<<<<<<< HEAD
+  constructor(private http: HttpClient, private user: UserService, public dataService: DataService) { }
+
+=======
+  constructor(private http: HttpClient, private user: UserService,private router: Router) {}
+>>>>>>> origin/dev
   paginator;
   sort;
-  isLoaded;
+  isLoaded = false;
+
+    // Generated Data
+    dataArray: CatalogItem[] = [];
+    columnsToDisplay: string[] = ["itemType","title", "qtyInStock", "qtyOnLoan", ];
+    expandedElement: CatalogItem[];
+    dataSource: MatTableDataSource<CatalogItem>;
+    message: string = "Getting Catalog Items...";
 
   @ViewChild(MatSort) set content(content: ElementRef) {
     this.sort = content;
-    if (this.sort){
+    if (this.sort) {
       this.dataSource.sort = this.sort;
     }
   }
 
   @ViewChild(MatPaginator) set paginatorContent(content: ElementRef) {
     this.paginator = content;
-    if (this.paginator){
+    if (this.paginator) {
       this.dataSource.paginator = this.paginator;
     }
   }
-  // Generated Data
-  dataArray: CatalogItem[] = [] ;
-  columnsToDisplay: string[] = ["itemType", "qtyInStock", "qtyOnLoan", "title"];
-  expandedElement: CatalogItem[];
-  dataSource: MatTableDataSource<CatalogItem>;
 
   ngOnInit() {
     this.getAll();
   }
 
+  findType(catalogItem: any) {
+    // create null object to represent our object type
+    // take out itemtype to have a representation of our backend object
+    const music: Music = {
+      itemType: null,
+      id: null,
+      qtyInStock: null,
+      qtyOnLoan: null,
+      title: null,
+      type: null,
+      artist: null,
+      label: null,
+      releaseDate: null,
+      asin: null,
+    };
+    delete music.itemType;
+
+    const book: Book = {
+      itemType: null,
+      id: null,
+      qtyInStock: null,
+      qtyOnLoan: null,
+      title: null,
+      author: null,
+      format: null,
+      pages: null,
+      publisher: null,
+      yearOfPublication: null,
+      language: null,
+      isbn10: null,
+      isbn13: null,
+    };
+    delete book.itemType;
+
+    const movie: Movie = {
+      itemType: null,
+      id: null,
+      qtyInStock: null,
+      qtyOnLoan: null,
+      title: null,
+      director: null,
+      producers: null,
+      actors: null,
+      language: null,
+      subtitles: null,
+      dubs: null,
+      releaseDate: null,
+      runTime: null,
+    };
+    delete movie.itemType;
+
+    const magazine: Magazine = {
+      itemType: null,
+      id: null,
+      qtyInStock: null,
+      qtyOnLoan: null,
+      title: null,
+      publisher: null,
+      language: null,
+      dateOfPublication: null,
+      isbn10: null,
+      isbn13: null,
+    };
+    delete magazine.itemType;
+
+
+    // get the properties of every object including the object coming from the backend
+    const properties = Object.getOwnPropertyNames(catalogItem);
+    const movieprop = Object.getOwnPropertyNames(movie);
+    const musicprop = Object.getOwnPropertyNames(music);
+    const bookprop = Object.getOwnPropertyNames(book);
+    const magazineprop = Object.getOwnPropertyNames(magazine);
+
+    // compare the name of those properties
+    // if match give it an itemtype and return it
+    if (properties.sort().every(function(value, index) { return value === bookprop.sort()[index]; })) {
+      catalogItem.itemType = CatalogItemType.Book;
+      return catalogItem as Book;
+    } else if (properties.sort().every(function(value, index) { return value === movieprop.sort()[index]; })) {
+      catalogItem.itemType = CatalogItemType.Movie;
+      return catalogItem as Movie;
+    } else if (properties.sort().every(function(value, index) { return value === magazineprop.sort()[index]; })) {
+      catalogItem.itemType = CatalogItemType.Magazine;
+      return catalogItem as Magazine;
+    } else if (properties.sort().every(function(value, index) { return value === musicprop  .sort()[index]; })) {
+      catalogItem.itemType = CatalogItemType.Music;
+      return catalogItem as Music;
+    }
+  }
+
+
+  isAdmin() {
+    return this.user.isAdmin;
+  }
+  // calls getAll function to refill catalog with updated values
+  receiveSaveMessage($event) {
+    this.dataArray = [];
+    this.message = $event;
+    this.getAll();
+  }
+
+  receiveDeleteMessage($event) {
+    this.dataArray = [];
+    this.message = $event;
+    this.getAll();
+  }
+
   getAll() {
-    this.http
-      .get<Book[]>("http://localhost:8090/catalog/getAll"+CatalogItemType.Book)
-      .subscribe(x => {x.map(index => {index.itemType = CatalogItemType.Book;});
-        this.dataArray = [...this.dataArray,...x];
-        this.dataSource = new MatTableDataSource(this.dataArray);
-      });
-    this.http
-      .get<Music[]>("http://localhost:8090/catalog/getAll"+CatalogItemType.Music)
-      .subscribe(y => {y.map(index => {index.itemType = CatalogItemType.Music;});
-        this.dataArray = [...this.dataArray,...y];
-        this.dataSource = new MatTableDataSource(this.dataArray);
-      });
-    this.http
-      .get<Magazine[]>("http://localhost:8090/catalog/getAll"+CatalogItemType.Magazine)
-      .subscribe(y => {y.map(index => {index.itemType = CatalogItemType.Magazine; });
-        this.dataArray = [...this.dataArray, ...y];
-        this.dataSource = new MatTableDataSource(this.dataArray);
-      });
-    this.http
-      .get<Movie[]>("http://localhost:8090/catalog/getAll"+CatalogItemType.Movie)
-      .subscribe(y => {y.map(index => {index.itemType = CatalogItemType.Movie; });
-        this.dataArray = [...this.dataArray, ...y];
-        this.dataSource = new MatTableDataSource(this.dataArray);
-        this.isLoaded = true;
-      });
+    // go into the get map function and populate the grid instead of going through the db
+    // populate the items with their item type with findType() and fill the array
+    this.isLoaded = false;
+    this.http.get("http://localhost:8090/catalog/getMap").subscribe(x => { Object.keys(x).map(key => {this.findType(x[key]);
+      this.dataArray = [...this.dataArray, ...x[key]];
+    });
+      this.dataSource = new MatTableDataSource(this.dataArray);
+      this.isLoaded = true;
+    });
+  }
+
+<<<<<<< HEAD
+  getSearch() {
+    this.dataSource = null;
+    this.isLoaded = false;
+    this.dataSource = new MatTableDataSource(this.dataService.getData());
+    console.log(this.dataSource);
+    this.isLoaded = true;
+=======
+  redirectMagazinesPage() {
+    this.router.navigate(["catalog/magazines"]);
+  }
+
+  redirectMoviesPage() {
+    this.router.navigate(["catalog/movies"]);
+  }
+
+  redirectMusicPage(){
+    this.router.navigate(["catalog/music"]);
+  }
+
+  redirectBookPage(){
+    this.router.navigate(["catalog/books"]);
+>>>>>>> origin/dev
   }
 
 }

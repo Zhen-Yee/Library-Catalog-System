@@ -6,8 +6,16 @@ import { HomePageComponent } from "./homepage/homepage.component";
 import { RegisterComponent } from "./registration/register.component";
 import { TestComponent } from "./test/test.component";
 import { AddItemComponent } from "./add-item/add-item.component";
-import {DataTableComponent} from "./dataTable/data-table.component";
+import { DataTableComponent} from "./dataTable/data-table.component";
 import { ConfirmationComponent }   from './registration/confirmation.component';
+<<<<<<< HEAD
+import { SearchComponent} from "./search/search.component"
+=======
+import {SortingMagazinesComponent} from "./dataTable/sorting-magazines/sorting-magazines.component";
+import {SortingMoviesComponent} from "./dataTable/sorting-movies/sorting-movies.component";
+import { SortingMusicComponent } from "./dataTable/sorting-music/sorting-music.component";
+import {SortingBookComponent} from "./dataTable/sorting-book/sorting-book.component";
+>>>>>>> origin/dev
 
 
 const appRoutes: Routes = [
@@ -34,6 +42,32 @@ const appRoutes: Routes = [
     path: "catalog",
     canActivate: [AdminAuthenticateGuard],
     component: DataTableComponent
+  },
+  {
+<<<<<<< HEAD
+    path: "search",
+    canActivate: [AdminAuthenticateGuard],
+    component: SearchComponent
+=======
+    path: "catalog/magazines",
+    canActivate: [AdminAuthenticateGuard],
+    component: SortingMagazinesComponent
+  },
+  {
+    path: "catalog/movies",
+    canActivate: [AdminAuthenticateGuard],
+    component: SortingMoviesComponent
+  },
+  {
+    path: "catalog/music",
+    canActivate: [AdminAuthenticateGuard],
+    component: SortingMusicComponent
+  },
+  {
+    path: "catalog/books",
+    canActivate: [AdminAuthenticateGuard],
+    component: SortingBookComponent
+>>>>>>> origin/dev
   },
 
 ];

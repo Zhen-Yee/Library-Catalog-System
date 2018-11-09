@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { Magazine } from "../../_models/catalog/magazine.model";
@@ -7,12 +7,12 @@ import { Router } from "@angular/router";
 @Component({
     selector: "update-magazine",
     templateUrl: "update-magazine.component.html",
-    styleUrls: ["update-magazine.component.scss"]
+    styleUrls: ["update-magazine.component.css"]
 })
 export class UpdateMagazineComponent implements OnInit {
     form: FormGroup;
     edit: boolean;
-    successful;
+    savingMessage: string = "Saving Magazine...";
     @Input() magazine;
     constructor(private router: Router, private fb: FormBuilder, private http: HttpClient) {
     }
@@ -55,7 +55,8 @@ export class UpdateMagazineComponent implements OnInit {
     }
 
     // save magazine to later send new Magazine object to update in backend
-    saveMagazine(item: Magazine) {
+    @Output() messageEvent = new EventEmitter<string>();
+    saveMagazine() {
         if (this.form.valid) {
             this.magazine = {
                 ...this.form.value
@@ -65,9 +66,10 @@ export class UpdateMagazineComponent implements OnInit {
             this.http.post<Magazine>("http://localhost:8090/catalog/updateMagazine", this.magazine)
                 .subscribe(updateSuccess => {
                     if (updateSuccess) {
+                        this.messageEvent.emit(this.savingMessage);
                         // Reloads page for updated changes to magazine
-                        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                            this.router.navigate(["/catalog"]));
+                        // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+                        //     this.router.navigate(["/catalog"]));
                     } else {
                         console.log("Failed to update magazine.")
                     }

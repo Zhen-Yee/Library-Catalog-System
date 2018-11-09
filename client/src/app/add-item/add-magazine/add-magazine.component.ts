@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Magazine } from "../../_models/catalog/magazine.model";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: "app-add-magazine",
@@ -10,7 +11,7 @@ import { Magazine } from "../../_models/catalog/magazine.model";
 })
 export class AddMagazineComponent implements OnInit {
 form: FormGroup;
-  constructor(private fb: FormBuilder, private httpClient : HttpClient) { }
+  constructor(private fb: FormBuilder, private httpClient : HttpClient, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.createForm();
@@ -36,9 +37,20 @@ form: FormGroup;
       console.log(magazine);
 
       this.httpClient.post("http://localhost:8090/catalog/addMagazine", magazine)
-        .subscribe((confirmation) => console.log(confirmation));
-
+        .subscribe((confirmation) => {
+          if (confirmation) {
+            this.openSnackBar("Magazine added!", "Close");
+          } else {
+            this.openSnackBar("Error adding magazine!", "Close");
+          }
+        });
     }
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message , action, {
+      duration: 5000,
+    });
   }
 
 }

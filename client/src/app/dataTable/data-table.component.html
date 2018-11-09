@@ -1,8 +1,24 @@
+<app-search></app-search>
+<div class = "view-box">
+    <h3>
+        <mat-icon>sort</mat-icon> 
+        &nbsp;&nbsp;View Catalog as
+    </h3>
+        <div>
+            <button mat-button (click)="redirectBookPage()"> Books</button>
+            <button mat-button (click)="redirectMagazinesPage()"> Magazines </button>
+            <button mat-button (click)="redirectMoviesPage()"> Movies </button>
+            <button mat-button (click)="redirectMusicPage()"> Music</button>
+        </div>
+</div>
+
+<div>
 <table mat-table [dataSource]="dataSource" *ngIf="isLoaded" multiTemplateDataRows matSort class="mat-elevation-z8">
   <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
     <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
   </ng-container>
+  
   <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
   <ng-container matColumnDef="expandedDetail">
     <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
@@ -14,7 +30,6 @@
 
             <div class = "title">
             {{element.title}}
-
             </div>
 
             <table>
@@ -157,15 +172,13 @@
 
           <div class="right-wrapper">
 
-            <div class = "edit-box">
-
-              <update-book *ngIf="element.itemType == 'Book'" [book]="element"></update-book>
-              <update-magazine *ngIf="element.itemType== 'Magazine'" [magazine]="element"></update-magazine>
-              <update-music *ngIf="element.itemType == 'Music'" [music]="element"></update-music>
-              <update-movie *ngIf="element.itemType == 'Movie'" [movie]="element"></update-movie>
-             
+            <div [hidden] = "!isAdmin()" class = "edit-box">
+              <update-book *ngIf="element.itemType == 'Book'" [book]="element" (messageEvent)="receiveSaveMessage($event)"></update-book>
+              <update-magazine *ngIf="element.itemType== 'Magazine'" [magazine]="element" (messageEvent)="receiveSaveMessage($event)"></update-magazine>
+              <update-music *ngIf="element.itemType == 'Music'" [music]="element" (messageEvent)="receiveSaveMessage($event)"></update-music>
+              <update-movie *ngIf="element.itemType == 'Movie'" [movie]="element" (messageEvent)="receiveSaveMessage($event)"></update-movie>
               <div class = "delete">
-                <delete-item [element]="element"></delete-item>
+                <delete-item [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>
               </div>
 
             </div>
@@ -180,13 +193,21 @@
       [class.example-expanded-row]="expandedElement === element"
       (click)="expandedElement === element ? expandedElement = null : expandedElement = element">
   </tr>
-  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr> 
 </table>
+</div>
+
 <mat-paginator *ngIf="isLoaded" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
-<mat-card *ngIf="!isLoaded" style="display: flex; justify-content: center; align-items: center">
-  <mat-progress-spinner
-    color="primary"
-    mode="indeterminate">
-  </mat-progress-spinner>
-</mat-card>
+<div *ngIf="!isLoaded">
+    <mat-card *ngIf="!isLoaded" style="display: flex; justify-content: center; align-items: center">
+      <mat-progress-spinner
+        color="primary"
+        mode="indeterminate">
+      </mat-progress-spinner>
+      {{message}}
+    </mat-card>
+    <!-- <div style="position:relative; top: -20px; left: 390px;">
+        {{message}}
+    </div> -->
+</div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Music} from "../../_models/catalog/music.model";
 import { HttpClient } from "@angular/common/http";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: "app-add-music",
@@ -10,7 +11,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class AddMusicComponent implements OnInit {
    Fg: FormGroup;
-  constructor(private Form: FormBuilder, private httpClient : HttpClient) { }
+  constructor(private Form: FormBuilder, private httpClient : HttpClient, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
      this.Fg = this.Form.group({
@@ -31,8 +32,20 @@ export class AddMusicComponent implements OnInit {
            };
            console.log(music);
            this.httpClient.post("http://localhost:8090/catalog/addMusic", music)
-           .subscribe((confirmation) => console.log(confirmation));
+           .subscribe((confirmation) => {
+            if (confirmation) {
+              this.openSnackBar("Music added!", "Close");
+            } else {
+              this.openSnackBar("Error adding music!", "Close");
+            }
+           });
            
        }
+    }
+
+    openSnackBar(message: string, action: string) {
+      this.snackBar.open(message , action, {
+        duration: 5000,
+      });
     }
 }

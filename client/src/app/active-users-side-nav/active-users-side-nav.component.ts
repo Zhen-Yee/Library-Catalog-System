@@ -7,18 +7,18 @@ import { concat} from "rxjs/operators";
 
 
 @Component({
-  selector: "active-users-side-nav",
-  templateUrl: "./active-users-side-nav.component.html",
-  styleUrls: ["./active-users-side-nav.component.css"]
+selector: "active-users-side-nav",
+templateUrl: "./active-users-side-nav.component.html",
+styleUrls: ["./active-users-side-nav.component.css"]
 })
 export class ActiveUsersSideNavComponent implements OnInit {
 
-  public activeUserArray;
-  public inactiveUserArray;
-  isLoaded;
+public activeUserArray;
+public inactiveUserArray;
+isLoaded;
 
 
-  constructor(private http: HttpClient) {}
+constructor(private http: HttpClient) {}
 
   ngOnInit() {
     // const example = this.getActiveUsers().pipe(concat(this.getInactiveUsers()));

@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { MatChipInputEvent } from "@angular/material";
 import { Movie } from "../../_models/catalog/movie.model";
@@ -27,6 +27,7 @@ export class UpdateMovieComponent implements OnInit {
   @Input()
   movie;
   form: FormGroup;
+  savingMessage: string = "Saving Movie..."
 
   constructor(private router: Router, private formBuilder: FormBuilder, private http: HttpClient) { }
 
@@ -155,6 +156,7 @@ export class UpdateMovieComponent implements OnInit {
     }
   }
 
+  @Output() messageEvent = new EventEmitter<string>();
   saveMovie(item: Movie) {
     if (this.form.valid) {
       this.movie = {
@@ -173,9 +175,10 @@ export class UpdateMovieComponent implements OnInit {
         .post("http://localhost:8090/catalog/updateMovie", this.movie)
         .subscribe(updateSuccess => {
           if (updateSuccess) {
+            this.messageEvent.emit(this.savingMessage);
             // Reloads page for updated changes to movies
-            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-              this.router.navigate(["/catalog"]));
+            // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+            //   this.router.navigate(["/catalog"]));
           } else {
             console.log("Failed to update movie.")
           }

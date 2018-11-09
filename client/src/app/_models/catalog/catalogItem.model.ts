@@ -16,7 +16,7 @@ export abstract class CatalogItem {
     this.itemType = itemType;
   }
 
-  public getType() {
-    return this.itemType;
-  }
+  // public getType() {
+  //   return this.itemType;
+  // }
 }
