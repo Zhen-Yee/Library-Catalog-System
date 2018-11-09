@@ -201,10 +201,10 @@ public class Catalog {
         searchedCatalogItems.addAll(BookGateway.search(searchCriteria));
         }
         if(searchCriteria.getItemType().equals("magazine")){
-            //searchedCatalogItems.addAll(MusicGateway.search(searchCriteria));
+        searchedCatalogItems.addAll(MagazineGateway.search(searchCriteria));
             }
         if(searchCriteria.getItemType().equals("music")){
-            //searchedCatalogItems.addAll(MagazineGateway.search(searchCriteria));
+            searchedCatalogItems.addAll(MusicGateway.search(searchCriteria));
             }
  
                 return searchedCatalogItems.stream().collect(Collectors.toMap(CatalogItem::getId, Function.identity()));

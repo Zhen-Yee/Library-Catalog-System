@@ -1,6 +1,7 @@
 package com.soen343.server.gateways;
 import com.soen343.databaseConnection.Connector;
 import com.soen343.databaseConnection.DbConnection;
+import com.soen343.server.models.SearchCriteria;
 import com.soen343.server.models.catalog.Music;
 import java.sql.*;
 import java.sql.ResultSet;
@@ -136,5 +137,97 @@ public class MusicGateway {
         }
     }
 
+    public static String buildFilterString(SearchCriteria search){
+        System.out.println(search);
+    
+        int i = 0;
+        if(search.getTitle().equals("title")){
+            i++;
+        } 
+        if(search.getType().equals("type")){
+            i++;
+        } 
+        if(search.getArtist().equals("artist")){
+            i++;
+        } 
+        if(search.getLabel().equals("label")){
+            i++;
+        }
+        
+        String filter = "SELECT * from testdb.music WHERE";
+        System.out.println(filter);
+        System.out.println("number of filters " + i);
+        if(search.getTitle().equals("title")){
+            i--;
+            System.out.println(filter);
+            
+            filter += " title LIKE '%" + search.getSearch() + "%'";
+            if(i>0){
+                
+                filter += " OR";
+                
+            }
+        }
+        if(search.getType().equals("type")){
+            i--; 
+            filter += " type LIKE '%" + search.getSearch() + "%'";
+            if(i>0){
+
+                filter += " OR"; 
+                 
+            }
+        }
+        if(search.getArtist().equals("artist")){
+            i--;
+            filter += " artist LIKE '%" + search.getSearch() + "%'";
+            if(i>0){
+                filter +=" OR";
+                
+            }
+        }
+        if(search.getLabel().equals("label")){
+            i--;
+            filter += " label LIKE '%" + search.getSearch() + "%'";
+            if(i>0){
+                filter += " OR";
+            }
+        }
+        System.out.println("END " + filter);
+        return filter;
+    }
+
+    public static List<Music> search(SearchCriteria search){
+        System.out.print("Entered gateway");
+        List<Music> musicArrayList = new ArrayList<>();
+        String filter = buildFilterString(search);
+        connector = DbConnection.get(filter); 
+      ResultSet resultSet = connector.getResultSet();
+        try {
+            while (resultSet.next()) {
+
+                // Creates object for each row in database music table
+                Music music = new Music(
+                    resultSet.getString("title"),
+                    resultSet.getInt("qty_in_stock"),
+                    resultSet.getInt("qty_on_loan"),
+                    resultSet.getString("type"),
+                    resultSet.getString("artist"),
+                    resultSet.getString("label"),
+                    resultSet.getString("release_date"),
+                    resultSet.getString("asin")
+            );
+
+            music.setId(resultSet.getInt("id"));
+
+                musicArrayList.add(music);
+            }   
+        } catch (SQLException e) {
+            System.out.println("Unable to query from result set.");
+            e.printStackTrace();
+        } finally {
+            connector.close();
+        }
+        return musicArrayList;
+    }
 }
 
