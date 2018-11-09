@@ -25,7 +25,7 @@ export class SearchComponent implements OnInit {
       iType: ["", Validators.required],
       title: ["", Validators.required],
       search: ["a", Validators.required],
-      author: ["", Validators.required],
+      author: ["a", Validators.required],
       format: ["", Validators.required],
           publisher: ["", Validators.required],
           language: ["", Validators.required],
