@@ -210,10 +210,10 @@ public class Catalog {
         searchedCatalogItems.addAll(MusicGateway.search(searchCriteria));
         }
         
-        if(searchCriteria.getItemType().equals("Music") &&
-            searchCriteria.getItemType().equals("magazine") &&
-            searchCriteria.getItemType().equals("movie") &&
-            searchCriteria.getItemType().equals("book")
+        if(searchCriteria.getItemType().equals("") &&
+            searchCriteria.getItemType().equals("") &&
+            searchCriteria.getItemType().equals("") &&
+            searchCriteria.getItemType().equals("")
         ){
             searchedCatalogItems.addAll(BookGateway.search(searchCriteria));
             searchedCatalogItems.addAll(MovieGateway.search(searchCriteria));
