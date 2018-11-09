@@ -115,6 +115,7 @@ export class SearchComponent implements OnInit {
     const emptyFilter: searchfilters = {
       ...this.form.value
     }
+    this.dataArray = [];
     console.log(filters);
     this.http.post("http://localhost:8090/catalog/search", (this.fruits.length === 0 || onlyType) ? emptyFilter : filters)
   .subscribe((confirmation) => {Object.keys(confirmation).map(
