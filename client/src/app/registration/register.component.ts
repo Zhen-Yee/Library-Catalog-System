@@ -32,13 +32,13 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       firstName: ["", Validators.required],
       lastName: ["", Validators.required],
-      phone: ["", Validators.required],
-      email: ["", Validators.email],
-      address: ["", Validators.required],
+      phone: ["", [Validators.required, Validators.pattern("^[a-z0-9_-]{8,15}$")]],
+      email: ["", [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
+      address: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
       city: ["", Validators.required],
       provState:  ["", Validators.required],
       country: ["", Validators.required],
-      postal: ["", Validators.required]
+      postal: ["", [Validators.required]
 
   });
 
@@ -52,13 +52,6 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
 
     this.submitted = true;
-
-        if (this.registerForm.invalid) {
-          console.log("Form invalid");
-            return;
-        }
-
-        console.log("Form valid.");
 
     const temp = this.generatePassword();
     this.registerForm.get("firstName");
