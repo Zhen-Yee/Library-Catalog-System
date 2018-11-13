@@ -4,15 +4,14 @@ import { ModuleWithProviders } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { HomePageComponent } from "./homepage/homepage.component";
 import { RegisterComponent } from "./registration/register.component";
-import { TestComponent } from "./test/test.component";
 import { AddItemComponent } from "./add-item/add-item.component";
 import { DataTableComponent} from "./dataTable/data-table.component";
-import { ConfirmationComponent }   from './registration/confirmation.component';
-import { SearchComponent} from "./search/search.component"
+import { SearchComponent} from "./search/search.component";
 import {SortingMagazinesComponent} from "./dataTable/sorting-magazines/sorting-magazines.component";
 import {SortingMoviesComponent} from "./dataTable/sorting-movies/sorting-movies.component";
 import { SortingMusicComponent } from "./dataTable/sorting-music/sorting-music.component";
 import {SortingBookComponent} from "./dataTable/sorting-book/sorting-book.component";
+import { BookDetailsComponent } from "./item-details/book-details/book-details.component";
 
 
 const appRoutes: Routes = [
@@ -65,6 +64,10 @@ const appRoutes: Routes = [
     canActivate: [AdminAuthenticateGuard],
     component: SortingBookComponent
   },
+  {
+    path: "details",
+    component: BookDetailsComponent
+  }
 
 ];
 

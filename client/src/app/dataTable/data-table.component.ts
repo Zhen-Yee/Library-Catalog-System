@@ -1,18 +1,25 @@
+
 import { CatalogItemType } from "./../enums/catalogItemType";
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { Book } from "../_models/catalog/book.model";
-import { animate, state, style, transition, trigger } from "@angular/animations";
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger
+} from "@angular/animations";
 import { MatSort, MatPaginator, MatTableDataSource } from "@angular/material";
 import { HttpClient } from "@angular/common/http";
 import { CatalogItem } from "../_models/catalog/catalogItem.model";
 import { Music } from "../_models/catalog/music.model";
 import { Movie } from "../_models/catalog/movie.model";
-import {Magazine} from "../_models/catalog/magazine.model";
+import { Magazine } from "../_models/catalog/magazine.model";
 import { UserService } from "../_services/user.service";
-import {DataService} from "../_services/DataService.service";
-import {Subscription} from "rxjs";
+import { DataService } from "../_services/DataService.service";
+import { Subscription } from "rxjs";
 import { Router } from "@angular/router";
-
+import { ObjectDetailsService } from "../_services/object-details.service";
 
 @Component({
   selector: "app-data-table",
@@ -32,29 +39,36 @@ import { Router } from "@angular/router";
     ])
   ]
 })
-
 export class DataTableComponent implements OnInit {
-  constructor(private http: HttpClient, private user: UserService, public dataService: DataService, private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private details: ObjectDetailsService,
+    private user: UserService,
+    public dataService: DataService,
+    private router: Router
+  ) {}
 
   paginator;
   sort;
   isLoaded = false;
 
-    // Generated Data
-    dataArray: CatalogItem[] = [];
-    columnsToDisplay: string[] = ["itemType","title", "qtyInStock", "qtyOnLoan", ];
-    expandedElement: CatalogItem[];
-    dataSource: MatTableDataSource<CatalogItem>;
-    message: string = "Getting Catalog Items...";
+  // Generated Data
+  dataArray: CatalogItem[] = [];
+  columnsToDisplay: string[] = ["itemType", "title", "qtyInStock", "qtyOnLoan"];
+  expandedElement: CatalogItem[];
+  dataSource: MatTableDataSource<CatalogItem>;
+  message: string = "Getting Catalog Items...";
 
-  @ViewChild(MatSort) set content(content: ElementRef) {
+  @ViewChild(MatSort)
+  set content(content: ElementRef) {
     this.sort = content;
     if (this.sort) {
       this.dataSource.sort = this.sort;
     }
   }
 
-  @ViewChild(MatPaginator) set paginatorContent(content: ElementRef) {
+  @ViewChild(MatPaginator)
+  set paginatorContent(content: ElementRef) {
     this.paginator = content;
     if (this.paginator) {
       this.dataSource.paginator = this.paginator;
@@ -78,7 +92,7 @@ export class DataTableComponent implements OnInit {
       artist: null,
       label: null,
       releaseDate: null,
-      asin: null,
+      asin: null
     };
     delete music.itemType;
 
@@ -95,7 +109,7 @@ export class DataTableComponent implements OnInit {
       yearOfPublication: null,
       language: null,
       isbn10: null,
-      isbn13: null,
+      isbn13: null
     };
     delete book.itemType;
 
@@ -112,7 +126,7 @@ export class DataTableComponent implements OnInit {
       subtitles: null,
       dubs: null,
       releaseDate: null,
-      runTime: null,
+      runTime: null
     };
     delete movie.itemType;
 
@@ -126,10 +140,9 @@ export class DataTableComponent implements OnInit {
       language: null,
       dateOfPublication: null,
       isbn10: null,
-      isbn13: null,
+      isbn13: null
     };
     delete magazine.itemType;
-
 
     // get the properties of every object including the object coming from the backend
     const properties = Object.getOwnPropertyNames(catalogItem);
@@ -140,21 +153,36 @@ export class DataTableComponent implements OnInit {
 
     // compare the name of those properties
     // if match give it an itemtype and return it
-    if (properties.sort().every(function(value, index) { return value === bookprop.sort()[index]; })) {
+    if (
+      properties.sort().every(function(value, index) {
+        return value === bookprop.sort()[index];
+      })
+    ) {
       catalogItem.itemType = CatalogItemType.Book;
       return catalogItem as Book;
-    } else if (properties.sort().every(function(value, index) { return value === movieprop.sort()[index]; })) {
+    } else if (
+      properties.sort().every(function(value, index) {
+        return value === movieprop.sort()[index];
+      })
+    ) {
       catalogItem.itemType = CatalogItemType.Movie;
       return catalogItem as Movie;
-    } else if (properties.sort().every(function(value, index) { return value === magazineprop.sort()[index]; })) {
+    } else if (
+      properties.sort().every(function(value, index) {
+        return value === magazineprop.sort()[index];
+      })
+    ) {
       catalogItem.itemType = CatalogItemType.Magazine;
       return catalogItem as Magazine;
-    } else if (properties.sort().every(function(value, index) { return value === musicprop  .sort()[index]; })) {
+    } else if (
+      properties.sort().every(function(value, index) {
+        return value === musicprop.sort()[index];
+      })
+    ) {
       catalogItem.itemType = CatalogItemType.Music;
       return catalogItem as Music;
     }
   }
-
 
   isAdmin() {
     return this.user.isAdmin;
@@ -176,9 +204,11 @@ export class DataTableComponent implements OnInit {
     // go into the get map function and populate the grid instead of going through the db
     // populate the items with their item type with findType() and fill the array
     this.isLoaded = false;
-    this.http.get("http://localhost:8090/catalog/getMap").subscribe(x => { Object.keys(x).map(key => {this.findType(x[key]);
-      this.dataArray = [...this.dataArray, ...x[key]];
-    });
+    this.http.get("http://localhost:8090/catalog/getMap").subscribe(x => {
+      Object.keys(x).map(key => {
+        this.findType(x[key]);
+        this.dataArray = [...this.dataArray, ...x[key]];
+      });
       this.dataSource = new MatTableDataSource(this.dataArray);
       this.isLoaded = true;
     });
@@ -192,6 +222,13 @@ export class DataTableComponent implements OnInit {
     this.isLoaded = true;
   }
 
+  moreDetails(item, index) {
+    console.log(this.dataSource.filteredData.indexOf(item));
+    // console.log(index);
+    this.details.book = item;
+    this.router.navigate(["/details"]);
+  }
+
   redirectMagazinesPage() {
     this.router.navigate(["catalog/magazines"]);
   }
@@ -200,13 +237,11 @@ export class DataTableComponent implements OnInit {
     this.router.navigate(["catalog/movies"]);
   }
 
-  redirectMusicPage(){
+  redirectMusicPage() {
     this.router.navigate(["catalog/music"]);
   }
 
-  redirectBookPage(){
+  redirectBookPage() {
     this.router.navigate(["catalog/books"]);
   }
-
 }
-
