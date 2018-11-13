@@ -18,6 +18,11 @@ public class Catalog {
 
     private static Catalog catalog = null;
 
+    /**
+     * Gateways
+     */
+    private BookGateway bookGateway;
+
     private Map<Long,CatalogItem> identityMap;
     private boolean isDatabaseChange;
 
@@ -25,6 +30,7 @@ public class Catalog {
      * Default constructor that initializes the identity map
      */
     private Catalog() {
+        bookGateway = BookGateway.getBookGateway();
         identityMap = new HashMap<>();
         isDatabaseChange = false;
         populateIdentityMap();
@@ -41,7 +47,7 @@ public class Catalog {
     public void addCatalogItem(CatalogItem catalogItem) {
         if (catalogItem.getClass() == Book.class) {
             // Add book to db
-            BookGateway.insert((Book)catalogItem);
+            bookGateway.insert((Book)catalogItem);
         }
         if (catalogItem.getClass() == Magazine.class) {
             MagazineGateway.insert((Magazine)catalogItem);
@@ -60,7 +66,7 @@ public class Catalog {
 
     public void updateCatalogItem(CatalogItem catalogItem) {
         if (catalogItem.getClass() == Book.class) {
-            BookGateway.update((Book)catalogItem);
+            bookGateway.update((Book)catalogItem);
         }
         if (catalogItem.getClass() == Magazine.class) {
             MagazineGateway.update((Magazine)catalogItem);
@@ -100,7 +106,7 @@ public class Catalog {
     }
 
     public List<Book> getAllBooks() {
-        return BookGateway.getAll();
+        return bookGateway.getAll();
     }
 
     public List<Magazine> getAllMagazines() { return MagazineGateway.getAll(); }
@@ -115,7 +121,7 @@ public class Catalog {
 
     public void deleteCatalogItem(CatalogItem catalogItem){
         if(catalogItem.getClass() == Book.class){
-            BookGateway.delete((Book)catalogItem);
+            bookGateway.delete((Book)catalogItem);
         }
         else if(catalogItem.getClass() == Music.class){
             MusicGateway.delete((Music)catalogItem);
@@ -198,7 +204,7 @@ public class Catalog {
         System.out.print("entered Catalog");
         List<CatalogItem> searchedCatalogItems = new ArrayList<>();
         if(searchCriteria.getItemType().equals("book")){
-        searchedCatalogItems.addAll(BookGateway.search(searchCriteria));
+        searchedCatalogItems.addAll(bookGateway.search(searchCriteria));
         }
         if(searchCriteria.getItemType().equals("movie")){
         searchedCatalogItems.addAll(MovieGateway.search(searchCriteria));
@@ -215,7 +221,7 @@ public class Catalog {
             searchCriteria.getItemType().equals("") &&
             searchCriteria.getItemType().equals("")
         ){
-            searchedCatalogItems.addAll(BookGateway.search(searchCriteria));
+            searchedCatalogItems.addAll(bookGateway.search(searchCriteria));
             searchedCatalogItems.addAll(MovieGateway.search(searchCriteria));
             searchedCatalogItems.addAll(MagazineGateway.search(searchCriteria));
             searchedCatalogItems.addAll(MusicGateway.search(searchCriteria));
