@@ -130,13 +130,6 @@ public class BookGateway {
     }
 
     /**
-     * Inserts a {@link Book} CatalogItem to the database
-     * This method  checks if it already exist or not.
-     * If it does increment the quantity.
-     * @param
-     */
-
-    /**
      * Updates a {@link Book} CatalogItem in the database
      * @param book
      */
