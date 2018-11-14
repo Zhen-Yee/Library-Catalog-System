@@ -35,7 +35,7 @@ public class MagazineGateway {
         if(magazineGateway == null) {
             magazineGateway = new MagazineGateway();
         }
-        return  magazineGateway;
+        return magazineGateway;
     }
 
     /**

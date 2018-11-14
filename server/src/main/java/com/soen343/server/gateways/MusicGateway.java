@@ -11,7 +11,7 @@ import java.util.List;
 
 public class MusicGateway {
 
-    private MusicGateway musicGateway = null;
+    private static MusicGateway musicGateway = null;
 
     private Connector connector;
 
@@ -23,7 +23,7 @@ public class MusicGateway {
      * of MusicGateway
      * @return {@link MusicGateway}
      */
-    public MusicGateway getMusicGateway() {
+    public static MusicGateway getMusicGateway() {
         if(musicGateway == null) {
             musicGateway = new MusicGateway();
         }
