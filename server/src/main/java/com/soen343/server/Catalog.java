@@ -26,7 +26,7 @@ public class Catalog {
      */
     private BookGateway bookGateway;
     private MagazineGateway magazineGateway;
-
+    private MusicGateway musicGateway;
 
     /**
      * Default constructor that initializes the identity map
@@ -57,7 +57,7 @@ public class Catalog {
             // Add magazine to db
         }
         if (catalogItem.getClass() == Music.class) {
-            MusicGateway.insert((Music)catalogItem);
+            musicGateway.insert((Music)catalogItem);
             // Add movie to db
         }
         if (catalogItem.getClass() == Movie.class) {
@@ -75,7 +75,7 @@ public class Catalog {
             magazineGateway.update((Magazine)catalogItem);
         }
         if (catalogItem.getClass() == Music.class) {
-            MusicGateway.update((Music)catalogItem);
+            musicGateway.update((Music)catalogItem);
         }
         if (catalogItem.getClass() == Movie.class) {
             MovieGateway.update((Movie)catalogItem);
@@ -115,7 +115,7 @@ public class Catalog {
     public List<Magazine> getAllMagazines() { return magazineGateway.getAll(); }
 
     public List<Music> getAllMusics() {
-        return MusicGateway.getAll();
+        return musicGateway.getAll();
     }
 
     public List<Movie> getAllMovies() {
@@ -127,7 +127,7 @@ public class Catalog {
             bookGateway.delete((Book)catalogItem);
         }
         else if(catalogItem.getClass() == Music.class){
-            MusicGateway.delete((Music)catalogItem);
+            musicGateway.delete((Music)catalogItem);
         }
         else if(catalogItem.getClass() == Magazine.class){
             magazineGateway.delete((Magazine)catalogItem);
@@ -216,7 +216,7 @@ public class Catalog {
             searchedCatalogItems.addAll(magazineGateway.search(searchCriteria));
         }
         if(searchCriteria.getItemType().equals("Music")){
-            searchedCatalogItems.addAll(MusicGateway.search(searchCriteria));
+            searchedCatalogItems.addAll(musicGateway.search(searchCriteria));
         }
 
         if(searchCriteria.getItemType().equals("") &&
@@ -227,7 +227,7 @@ public class Catalog {
             searchedCatalogItems.addAll(bookGateway.search(searchCriteria));
             searchedCatalogItems.addAll(MovieGateway.search(searchCriteria));
             searchedCatalogItems.addAll(magazineGateway.search(searchCriteria));
-            searchedCatalogItems.addAll(MusicGateway.search(searchCriteria));
+            searchedCatalogItems.addAll(musicGateway.search(searchCriteria));
         }
 
         return searchedCatalogItems.stream().collect(Collectors.toMap(CatalogItem::getId, Function.identity()));

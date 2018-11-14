@@ -24,7 +24,7 @@ public class MagazineGateway {
     private final String PASSWORD = "testtest";
 
     //language=SQL
-    private  final String SQL_GET_ALL_MAGAZINES = "SELECT * from testdb.magazine";
+    private final String SQL_GET_ALL_MAGAZINES = "SELECT * from testdb.magazine";
 
     /**
      * Singleton pattern - allows instantiation
@@ -63,7 +63,7 @@ public class MagazineGateway {
     }
 
     // change for a DataSource later?
-    private  Connection connect(){
+    private Connection connect(){
         Connection connection = null;
         try{
             Class.forName("com.mysql.jdbc.Driver");
@@ -79,12 +79,10 @@ public class MagazineGateway {
      * Query all {@link Magazine} from the database
      * @return
      */
-    public  List<Magazine> getAll() {
+    public List<Magazine> getAll() {
         List<Magazine> magazineArrayList = new ArrayList<>();
         connector = DbConnection.get(SQL_GET_ALL_MAGAZINES);
         ResultSet resultSet = connector.getResultSet();
-
-
         buildFromResultSet(magazineArrayList, resultSet);
         return magazineArrayList;
     }
@@ -125,7 +123,7 @@ public class MagazineGateway {
     /**
      * Helper method that checks if the magazine already exist
      * in the database.
-     * @param title: the title of the book
+     * @param title: the title of the magazine
      * @return boolean - True if the magazine exist; False if it doesn't,
      */
     public boolean checkIfMagazineExists(String title){
@@ -146,7 +144,7 @@ public class MagazineGateway {
 
     /**
      *  Helper method that gets the quantity of the queried magazine.
-     * @param title: the title of the book
+     * @param title: the title of the magazine
      * @return
      */
     public int getQty(String title){
@@ -280,7 +278,7 @@ public class MagazineGateway {
         try {
             while (resultSet.next()) {
 
-                // Creates object for each row in database book table
+                // Creates object for each row in database magazine table
                 Magazine magazine = new Magazine(
                         resultSet.getString("title"),
                         resultSet.getInt("qty_in_stock"),
