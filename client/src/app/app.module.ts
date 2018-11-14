@@ -55,6 +55,7 @@ import { SortingMoviesComponent } from "./dataTable/sorting-movies/sorting-movie
 import { SortingBookComponent } from "./dataTable/sorting-book/sorting-book.component";
 import { CustomRouteReuseStategy } from "./_services/route-reuse.service";
 import { ObjectDetailsService } from "./_services/object-details.service";
+import {ItemContainerComponent} from "./item-details/item-container/item-container.component";
 
 @NgModule({
    declarations: [
@@ -90,7 +91,8 @@ import { ObjectDetailsService } from "./_services/object-details.service";
       MusicDetailsComponent,
       MovieDetailsComponent,
       BookDetailsComponent,
-      MagazineDetailsComponent
+      MagazineDetailsComponent,
+      ItemContainerComponent
    ],
    imports: [
       MatCheckboxModule,

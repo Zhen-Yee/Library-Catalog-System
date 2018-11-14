@@ -1,3 +1,54 @@
-<p>
-  book-details works!
-</p>
+<div class = "title">
+  {{element.title}}
+  </div>
+
+  <table>
+      <tr>
+        <th>Quantity in Stock: </th>
+        <th>{{element.qtyInStock}}</th>
+      </tr>
+      <tr>
+        <th>Quantity on Loan: </th>
+        <th>{{element.qtyOnLoan}}</th>
+      </tr>
+      <tr>
+          <th>Item Type: </th>
+          <th>{{element.itemType}}</th>
+      </tr>
+    </table>
+
+    <table *ngIf="element.itemType == 'Book'">
+
+        <tr>
+            <th>Author: </th>
+            <th>{{element.author}}</th>
+        </tr>
+        <tr>
+          <th>Format: </th>
+          <th>{{element.format}}</th>
+        </tr>
+        <tr>
+          <th>Pages: </th>
+          <th>{{element.pages}}</th>
+        </tr>
+        <tr>
+            <th>Publisher: </th>
+            <th>{{element.publisher}}</th>
+        </tr>
+        <tr>
+            <th>Year of Publication: </th>
+            <th>{{element.yearOfPublication}}</th>
+        </tr>
+        <tr>
+            <th>Language: </th>
+            <th>{{element.language}}</th>
+        </tr>
+        <tr>
+            <th>ISBN10: </th>
+            <th>{{element.isbn10}}</th>
+        </tr>
+        <tr>
+            <th>ISBN13: </th>
+            <th>{{element.isbn13}}</th>
+        </tr>
+      </table>

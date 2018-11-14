@@ -9,10 +9,11 @@ import { ObjectDetailsService } from "src/app/_services/object-details.service";
 export class BookDetailsComponent implements OnInit {
 
   constructor(private details: ObjectDetailsService) { }
-
+  element;
   ngOnInit() {
-    if(this.details.book) {
+    if (this.details.book) {
       console.log(this.details.book.title);
+      this.element = this.details.book;
     }
   }
 

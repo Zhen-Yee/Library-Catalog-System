@@ -1,3 +1,54 @@
-<p>
-  movie-details works!
-</p>
+<div class = "title">
+  {{element.title}}
+  </div>
+
+  <table>
+      <tr>
+        <th>Quantity in Stock: </th>
+        <th>{{element.qtyInStock}}</th>
+      </tr>
+      <tr>
+        <th>Quantity on Loan: </th>
+        <th>{{element.qtyOnLoan}}</th>
+      </tr>
+      <tr>
+          <th>Item Type: </th>
+          <th>{{element.itemType}}</th>
+      </tr>
+    </table>
+
+<table *ngIf="element.itemType == 'Movie'">
+
+  <tr>
+      <th>Director: </th>
+      <th>{{element.director}}</th>
+  </tr>
+  <tr>
+    <th>Actors: </th>
+    <th>{{element.actors}}</th>
+  </tr>
+  <tr>
+    <th>Producers: </th>
+    <th>{{element.producers}}</th>
+  </tr>
+  <tr>
+      <th>Language: </th>
+      <th>{{element.language}}</th>
+  </tr>
+  <tr>
+      <th>Subtitles: </th>
+      <th>{{element.subtitles}}</th>
+  </tr>
+  <tr>
+      <th>Dubs: </th>
+      <th>{{element.dubs}}</th>
+  </tr>
+  <tr>
+      <th>Release Date: </th>
+      <th>{{element.releaseDate}}</th>
+  </tr>
+  <tr>
+      <th>Runtime: </th>
+      <th>{{element.runTime}}</th>
+  </tr>
+</table>

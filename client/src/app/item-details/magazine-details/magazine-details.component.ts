@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ObjectDetailsService } from 'src/app/_services/object-details.service';
 
 @Component({
   selector: 'app-magazine-details',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MagazineDetailsComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private details: ObjectDetailsService) { }
+  element;
   ngOnInit() {
+    if (this.details.magazine) {
+      console.log(this.details.magazine.title);
+      this.element = this.details.magazine;
+    }
   }
 
 }

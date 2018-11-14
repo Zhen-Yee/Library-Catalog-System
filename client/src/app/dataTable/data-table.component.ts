@@ -1,6 +1,6 @@
 
 import { CatalogItemType } from "./../enums/catalogItemType";
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from "@angular/core";
 import { Book } from "../_models/catalog/book.model";
 import {
   animate,
@@ -39,7 +39,7 @@ import { ObjectDetailsService } from "../_services/object-details.service";
     ])
   ]
 })
-export class DataTableComponent implements OnInit {
+export class DataTableComponent implements OnInit, OnDestroy {
   constructor(
     private http: HttpClient,
     private details: ObjectDetailsService,
@@ -223,10 +223,21 @@ export class DataTableComponent implements OnInit {
   }
 
   moreDetails(item, index) {
-    console.log(this.dataSource.filteredData.indexOf(item));
-    // console.log(index);
-    this.details.book = item;
-    this.router.navigate(["/details"]);
+    this.details.index = this.dataSource.filteredData.indexOf(item);
+    // navigate to corresponding route depending on type
+    if (item.itemType === CatalogItemType.Book) {
+      this.details.book = item;
+      this.router.navigate(["/details", item.itemType, item.title]);
+    } else if (item.itemType === CatalogItemType.Magazine) {
+      this.details.magazine = item;
+      this.router.navigate(["/details", item.itemType, item.title]);
+    } else if (item.itemType === CatalogItemType.Movie) {
+      this.details.movie = item;
+      this.router.navigate(["/details", item.itemType, item.title]);
+    } else if (item.itemType === CatalogItemType.Music) {
+      this.details.music = item;
+      this.router.navigate(["/details", item.itemType, item.title]);
+    }
   }
 
   redirectMagazinesPage() {
@@ -243,5 +254,8 @@ export class DataTableComponent implements OnInit {
 
   redirectBookPage() {
     this.router.navigate(["catalog/books"]);
+  }
+  ngOnDestroy() {
+    this.dataService.setData(this.dataArray);
   }
 }

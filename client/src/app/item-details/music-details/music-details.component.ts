@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ObjectDetailsService } from 'src/app/_services/object-details.service';
 
 @Component({
   selector: 'app-music-details',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MusicDetailsComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private details: ObjectDetailsService) { }
+  element;
   ngOnInit() {
+    if (this.details.music) {
+      console.log(this.details.music.title);
+      this.element = this.details.music;
+    }
   }
-
 }

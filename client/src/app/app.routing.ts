@@ -12,6 +12,10 @@ import {SortingMoviesComponent} from "./dataTable/sorting-movies/sorting-movies.
 import { SortingMusicComponent } from "./dataTable/sorting-music/sorting-music.component";
 import {SortingBookComponent} from "./dataTable/sorting-book/sorting-book.component";
 import { BookDetailsComponent } from "./item-details/book-details/book-details.component";
+import { MagazineDetailsComponent } from "./item-details/magazine-details/magazine-details.component";
+import { MovieDetailsComponent } from "./item-details/movie-details/movie-details.component";
+import { MusicDetailsComponent } from "./item-details/music-details/music-details.component";
+import { ItemContainerComponent } from "./item-details/item-container/item-container.component";
 
 
 const appRoutes: Routes = [
@@ -66,9 +70,26 @@ const appRoutes: Routes = [
   },
   {
     path: "details",
+    component: ItemContainerComponent,
+    children: [
+    {
+    path: "Book/:title",
     component: BookDetailsComponent
+    },
+    {
+      path: "Movie/:title",
+      component: MovieDetailsComponent
+    },
+    {
+      path: "Magazine/:title",
+      component: MagazineDetailsComponent
+    },
+    {
+      path: "Music/:title",
+      component: MusicDetailsComponent
+    }
+  ]
   }
-
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

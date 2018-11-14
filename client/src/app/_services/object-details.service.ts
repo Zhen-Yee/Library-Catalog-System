@@ -8,5 +8,5 @@ export class ObjectDetailsService {
   public movie: Movie;
   public magazine: Magazine;
   public music: Music;
-
+  public index: number;
 }
