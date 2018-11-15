@@ -49,6 +49,7 @@ import { SortingMusicComponent } from './dataTable/sorting-music/sorting-music.c
 import { SortingMagazinesComponent } from './dataTable/sorting-magazines/sorting-magazines.component';
 import { SortingMoviesComponent } from './dataTable/sorting-movies/sorting-movies.component';
 import { SortingBookComponent } from './dataTable/sorting-book/sorting-book.component';
+import { HistoryComponent } from './history/history.component';
 
 
 @NgModule({
@@ -82,6 +83,7 @@ import { SortingBookComponent } from './dataTable/sorting-book/sorting-book.comp
       SortingMagazinesComponent,
       SortingMoviesComponent,
       SortingBookComponent,
+      HistoryComponent
    ],
    imports: [
       MatCheckboxModule,
