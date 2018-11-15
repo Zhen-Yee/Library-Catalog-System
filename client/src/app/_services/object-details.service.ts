@@ -9,4 +9,5 @@ export class ObjectDetailsService {
   public magazine: Magazine;
   public music: Music;
   public index: number;
+  public paginaton: number;
 }

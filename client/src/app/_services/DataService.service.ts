@@ -1,20 +1,35 @@
+import { filter, pairwise } from 'rxjs/operators/';
 import { Injectable } from '@angular/core';
 import { Music } from "../_models/catalog/music.model";
 import { Movie } from "../_models/catalog/movie.model";
 import {Magazine} from "../_models/catalog/magazine.model";
 import { Book } from "../_models/catalog/book.model";
 import { CatalogItemType } from "../enums/catalogItemType";
+import { Router, RoutesRecognized } from '@angular/router';
 
 @Injectable()
 export class DataService {
   public dataFromService: Array<any>;
+  public searchedDataFromService = [];
+  public fromDetails: boolean;
 
+  // used for getAll
   public getData(): Array<any>  {
     return this.dataFromService;
   }
 
+  // used for getAll
   public setData(data: any): void {
     this.dataFromService = data;
+  }
+
+  // used when a search occurs
+  public getSearchedData(): Array<any>  {
+    return this.searchedDataFromService;
+  }
+
+  public setSearchedData(data: any): void {
+    this.searchedDataFromService = data;
   }
 
   findType(catalogItem: any) {

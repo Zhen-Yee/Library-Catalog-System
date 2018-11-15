@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
     templateUrl: "item-container.component.html",
     styleUrls: ["item-container.component.css"]
 })
-export class ItemContainerComponent implements OnDestroy{
+export class ItemContainerComponent {
     constructor(private router: Router, private details: ObjectDetailsService, private dataArray: DataService) {}
 
     nextItem() {
@@ -50,7 +50,7 @@ export class ItemContainerComponent implements OnDestroy{
           }
     }
 
-    ngOnDestroy() {
-        
+    backToSearch() {
+      this.router.navigate([""]);
     }
 }
