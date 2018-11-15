@@ -33,7 +33,10 @@ export class SearchComponent implements OnInit {
   createForm() {
     console.log("enter Search");
     this.form = this.fb.group({
-      iType: ["", Validators.required],
+      book: ["", Validators.required],
+      magazine: ["", Validators.required],
+      movie: ["", Validators.required],
+      music: ["", Validators.required],
       title: ["title", Validators.required],
       search: ["", Validators.required],
       author: ["a", Validators.required],
@@ -61,39 +64,43 @@ export class SearchComponent implements OnInit {
 
   getSearchedItems() {
     // determine type for iType
-    let x: string;
-    let onlyType: boolean;
-    if(this.fruits.includes("book")){
-      x = "book";
-      if(this.fruits.length===1){
-        onlyType= true;
-      }
-    } 
-    else if(this.fruits.includes("magazine")){
-      x = "magazine";
-      if(this.fruits.length===1){
-        onlyType= true;
-      }
-    }
-    else if(this.fruits.includes("movie")){
-      x = "movie";
-      if(this.fruits.length===1){
-        onlyType= true;
-      }
-    }
-    else if(this.fruits.includes("music")){
-      x = "music";
-      if(this.fruits.length===1){
-        onlyType= true;
-      }
-    }
-    else {
-      x = "";
-    }
+    // let x: string;
+    // let onlyType: boolean;
+    // if(this.fruits.includes("book")){
+    //   x = "book";
+    //   if(this.fruits.length===1){
+    //     onlyType= true;
+    //   }
+    // } 
+    // else if(this.fruits.includes("magazine")){
+    //   x = "magazine";
+    //   if(this.fruits.length===1){
+    //     onlyType= true;
+    //   }
+    // }
+    // else if(this.fruits.includes("movie")){
+    //   x = "movie";
+    //   if(this.fruits.length===1){
+    //     onlyType= true;
+    //   }
+    // }
+    // else if(this.fruits.includes("music")){
+    //   x = "music";
+    //   if(this.fruits.length===1){
+    //     onlyType= true;
+    //   }
+    // }
+    // else {
+    //   x = "";
+    // }
     // chips
     const filters: searchfilters = {
       ...this.form.value,
-      iType: x,
+      //iType: x,
+      book: this.fruits.includes("book") ? "book" : "",
+      magazine: this.fruits.includes("magazine") ? "magazine" : "",
+      movie: this.fruits.includes("movie") ? "movie" : "",
+      music: this.fruits.includes("music") ? "music" : "",
       title: this.fruits.includes("title") ? "title" : "",
       author: this.fruits.includes("author") ? "author" : "",
       format: this.fruits.includes("format") ? "format" : "",
@@ -118,7 +125,7 @@ export class SearchComponent implements OnInit {
     this.dataArray = [];
     console.log(filters);
     this.http.post("http://localhost:8090/catalog/search", (this.fruits.length === 0 || onlyType) ? emptyFilter : filters)
-  .subscribe((confirmation) => {Object.keys(confirmation).map(
+    .subscribe((confirmation) => {Object.keys(confirmation).map(
     key => {
       this.dataService.findType(confirmation[key]);
       this.dataArray = [...this.dataArray, ...confirmation[key]];

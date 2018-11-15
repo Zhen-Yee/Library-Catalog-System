@@ -20,7 +20,10 @@ public class SearchCriteria{
     // subtitles: string;
     // dubs: string;
     // releaseDate: string;
-    private String iType;
+    private String book;
+    private String magazine;
+    private String movie;
+    private String music;
     private String title;
     private String search;
     private String author;
@@ -40,7 +43,11 @@ public class SearchCriteria{
     private String dubs;
     private String releaseDate;
     
-    public SearchCriteria(String iType, 
+    public SearchCriteria(
+        String book,
+        String magazine,
+        String movie,
+        String music, 
         String title, 
         String search,
         String author,
@@ -59,7 +66,10 @@ public class SearchCriteria{
         String subtitles,
         String dubs,
         String releaseDate){
-            this.iType = iType;
+            this.book = book;
+            this.magazine = magazine;
+            this.movie = movie;
+            this.music = music;
             this.title = title;
             this.search = search;
             this.author = author;
@@ -83,8 +93,20 @@ public class SearchCriteria{
         return this.search;
     }
 
-    public String getItemType(){
-        return this.iType;
+    public String getBook(){
+        return this.book;
+    }
+
+    public String getMagazine(){
+        return this.magazine;
+    }
+
+    public String getMovie(){
+        return this.movie;
+    }
+
+    public String getMusic(){
+        return this.music;
     }
 
     public String getTitle(){
