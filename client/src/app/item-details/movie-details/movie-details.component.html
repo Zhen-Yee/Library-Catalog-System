@@ -52,3 +52,5 @@
       <th>{{element.runTime}}</th>
   </tr>
 </table>
+              <update-movie *ngIf="element.itemType == 'Movie'" [movie]="element" (messageEvent)="receiveSaveMessage($event)"></update-movie>
+<delete-item [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>

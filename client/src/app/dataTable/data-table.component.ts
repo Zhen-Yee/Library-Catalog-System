@@ -94,23 +94,11 @@ export class DataTableComponent implements OnInit, OnDestroy {
   isAdmin() {
     return this.user.isAdmin;
   }
-  // calls getAll function to refill catalog with updated values
-  receiveSaveMessage($event) {
-    this.dataArray = [];
-    this.message = $event;
-    this.getAll();
-  }
-
-  receiveDeleteMessage($event) {
-    this.dataArray = [];
-    this.message = $event;
-    this.getAll();
-  }
 
   getAll() {
     // if we come from the details page AND the searched array is > 0, display the searched array
     // otherwise just do get all.
-    if (this.dataService.fromDetails && this.dataService.searchedDataFromService.length > 0) {
+    if (this.dataService.fromDetails && this.dataService.searchedDataFromService.length > 0 && !this.dataService.updatedSearchItem) {
       this.dataArray = this.dataService.getSearchedData();
       this.dataSource = new MatTableDataSource(this.dataArray);
       this.isLoaded = true;

@@ -52,3 +52,6 @@
             <th>{{element.isbn13}}</th>
         </tr>
       </table>
+
+       <update-book [book]="element" (messageEvent)="receiveSaveMessage($event)"></update-book>
+       <delete-item [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>

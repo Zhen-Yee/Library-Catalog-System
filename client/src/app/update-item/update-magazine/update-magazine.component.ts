@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { Magazine } from "../../_models/catalog/magazine.model";
 import { Router } from "@angular/router";
+import { DataService } from "src/app/_services/DataService.service";
 
 @Component({
     selector: "update-magazine",
@@ -14,7 +15,7 @@ export class UpdateMagazineComponent implements OnInit {
     edit: boolean;
     savingMessage: string = "Saving Magazine...";
     @Input() magazine;
-    constructor(private router: Router, private fb: FormBuilder, private http: HttpClient) {
+    constructor(private router: Router, private fb: FormBuilder, private http: HttpClient, private data: DataService) {
     }
 
     ngOnInit() {
@@ -67,6 +68,8 @@ export class UpdateMagazineComponent implements OnInit {
                 .subscribe(updateSuccess => {
                     if (updateSuccess) {
                         this.messageEvent.emit(this.savingMessage);
+                        this.data.updatedSearchItem = true;
+
                         // Reloads page for updated changes to magazine
                         // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
                         //     this.router.navigate(["/catalog"]));

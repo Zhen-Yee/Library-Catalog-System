@@ -12,6 +12,7 @@ export class DataService {
   public dataFromService: Array<any>;
   public searchedDataFromService = [];
   public fromDetails: boolean;
+  public updatedSearchItem = false;
 
   // used for getAll
   public getData(): Array<any>  {

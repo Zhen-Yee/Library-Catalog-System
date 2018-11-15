@@ -41,3 +41,5 @@
       <th>{{element.isbn13}}</th>
   </tr>
 </table>
+              <update-magazine *ngIf="element.itemType== 'Magazine'" [magazine]="element" (messageEvent)="receiveSaveMessage($event)"></update-magazine>
+<delete-item [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>
