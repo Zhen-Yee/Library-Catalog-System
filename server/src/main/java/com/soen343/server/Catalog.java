@@ -226,7 +226,7 @@ public class Catalog {
                 searchCriteria.getMagazine().equals("") &&
                 searchCriteria.getMovie().equals("") &&
                 searchCriteria.getMusic().equals("")
-        ){
+                ){
             searchedCatalogItems.addAll(bookGateway.search(searchCriteria));
             searchedCatalogItems.addAll(movieGateway.search(searchCriteria));
             searchedCatalogItems.addAll(magazineGateway.search(searchCriteria));

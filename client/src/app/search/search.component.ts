@@ -101,7 +101,6 @@ export class SearchComponent implements OnInit {
       magazine: this.fruits.includes("magazine") ? "magazine" : "",
       movie: this.fruits.includes("movie") ? "movie" : "",
       music: this.fruits.includes("music") ? "music" : "",
-      title: this.fruits.includes("title") ? "title" : "",
       author: this.fruits.includes("author") ? "author" : "",
       format: this.fruits.includes("format") ? "format" : "",
       publisher: this.fruits.includes("publisher") ? "publisher" : "",
@@ -112,6 +111,7 @@ export class SearchComponent implements OnInit {
       artist: this.fruits.includes("artist") ? "artist" : "",
       label: this.fruits.includes("label") ? "label" : "",
       asin: this.fruits.includes("asin") ? "asin" : "",
+      director: this.fruits.includes("director") ? "director" : "",
       producers: this.fruits.includes("producers") ? "producers" : "",
       actors: this.fruits.includes("actors") ? "actors" : "",
       subtitles: this.fruits.includes("subtitles") ? "subtitles" : "",
@@ -124,8 +124,8 @@ export class SearchComponent implements OnInit {
     }
     this.dataArray = [];
     console.log(filters);
-    this.http.post("http://localhost:8090/catalog/search", (this.fruits.length === 0 || onlyType) ? emptyFilter : filters)
-    .subscribe((confirmation) => {Object.keys(confirmation).map(
+    this.http.post("http://localhost:8090/catalog/search", filters)
+  .subscribe((confirmation) => {Object.keys(confirmation).map(
     key => {
       this.dataService.findType(confirmation[key]);
       this.dataArray = [...this.dataArray, ...confirmation[key]];
@@ -159,7 +159,7 @@ export class SearchComponent implements OnInit {
   fruits: string[] = [];
   allFruits: string[] = ['book', 'magazine', 'music', 'movie',
                         'title', 'author', 'format', 'publisher', 'language', 'isbn10', 'isbn13',
-                        'type', 'artist', 'label', 'asin', 
+                        'type', 'artist', 'label', 'asin', 'director', 
                         'producers', 'actors', 'subtitles', 'dubs', 'releaseDate'];
  
   @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;

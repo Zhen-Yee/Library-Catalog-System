@@ -156,7 +156,7 @@ public class CatalogController {
    public Map<Long, CatalogItem> search(@RequestBody SearchCriteria searchCriteria) {
    
     try{
-        System.out.print("Entered CatalogController " + searchCriteria.getBook());
+        System.out.print("Entered CatalogController");
         return catalog.search(searchCriteria);
     } catch(Exception exception){
         System.out.print(exception);
