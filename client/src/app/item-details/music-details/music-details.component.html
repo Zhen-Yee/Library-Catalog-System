@@ -40,5 +40,5 @@
       <th>{{element.asin}}</th>
   </tr>
 </table>
-              <update-music *ngIf="element.itemType == 'Music'" [music]="element" (messageEvent)="receiveSaveMessage($event)"></update-music>
-<delete-item [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>
+              <update-music *ngIf = "isAdmin()" [music]="element" (messageEvent)="receiveSaveMessage($event)"></update-music>
+<delete-item *ngIf = "isAdmin()" [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>

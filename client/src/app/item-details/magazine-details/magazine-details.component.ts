@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ObjectDetailsService } from 'src/app/_services/object-details.service';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-magazine-details',
@@ -8,7 +9,7 @@ import { ObjectDetailsService } from 'src/app/_services/object-details.service';
 })
 export class MagazineDetailsComponent implements OnInit {
 
-  constructor(private details: ObjectDetailsService) { }
+  constructor(private details: ObjectDetailsService, private user: UserService) { }
   element;
   ngOnInit() {
     if (this.details.magazine) {
@@ -16,5 +17,7 @@ export class MagazineDetailsComponent implements OnInit {
       this.element = this.details.magazine;
     }
   }
-
+  isAdmin() {
+    return this.user.isAdmin;
+  }
 }

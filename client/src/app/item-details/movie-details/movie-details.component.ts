@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ObjectDetailsService } from 'src/app/_services/object-details.service';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-movie-details',
@@ -8,13 +9,16 @@ import { ObjectDetailsService } from 'src/app/_services/object-details.service';
 })
 export class MovieDetailsComponent implements OnInit {
 
-  constructor(private details: ObjectDetailsService) { }
+  constructor(private details: ObjectDetailsService, private user: UserService) { }
   element;
   ngOnInit() {
     if (this.details.movie) {
       console.log(this.details.movie.title);
       this.element = this.details.movie;
     }
+  }
+  isAdmin() {
+    return this.user.isAdmin;
   }
 
 }
