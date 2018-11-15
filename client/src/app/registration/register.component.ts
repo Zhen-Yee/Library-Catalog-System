@@ -59,16 +59,18 @@ export class RegisterComponent implements OnInit {
     const user: User = {
       firstName: this.registerForm.get("firstName").value,
       lastName: this.registerForm.get("lastName").value,
-      phone: this.registerForm.get("phone").value,
-      email: this.registerForm.get("email").value,
-      address: this.registerForm.get("address").value + " " + this.registerForm.get("city").value +
-        this.registerForm.get("provState").value +
+      phoneNumber: this.registerForm.get("phone").value,
+      emailAddress: this.registerForm.get("email").value,
+      physicalAddress: this.registerForm.get("address").value + " " + this.registerForm.get("city").value + " " +
+        this.registerForm.get("provState").value + " " +
         this.registerForm.get("country").value + " " + this.registerForm.get("postal").value,
       username: "",
       password: temp,
-      is_admin: false,
-      is_active: false
+      isAdmin: false,
+      isOnline: false
     };
+
+    console.log(user);
 
     this.http
       .post<boolean>("http://localhost:8090/addUser", user)
