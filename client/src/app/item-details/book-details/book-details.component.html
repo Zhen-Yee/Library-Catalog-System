@@ -1,6 +1,7 @@
-<div class = "title">
-  {{element.title}}
-  </div>
+<div *ngIf="element">
+  <div class = "title">
+    {{element.title}}
+    </div>
 
   <table>
       <tr>
@@ -55,3 +56,4 @@
 
        <update-book *ngIf = "isAdmin()" [book]="element" (messageEvent)="receiveSaveMessage($event)"></update-book>
        <delete-item *ngIf = "isAdmin()" [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>
+</div>

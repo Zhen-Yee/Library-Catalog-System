@@ -1,3 +1,4 @@
+<div *ngIf="element">
 <div class = "title">
   {{element.title}}
   </div>
@@ -42,3 +43,4 @@
 </table>
               <update-music *ngIf = "isAdmin()" [music]="element" (messageEvent)="receiveSaveMessage($event)"></update-music>
 <delete-item *ngIf = "isAdmin()" [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>
+</div>

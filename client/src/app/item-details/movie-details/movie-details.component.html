@@ -1,3 +1,4 @@
+<div *ngIf="element">
 <div class = "title">
   {{element.title}}
   </div>
@@ -54,3 +55,4 @@
 </table>
               <update-movie *ngIf = "isAdmin()" [movie]="element" (messageEvent)="receiveSaveMessage($event)"></update-movie>
 <delete-item *ngIf = "isAdmin()" [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>
+</div>
