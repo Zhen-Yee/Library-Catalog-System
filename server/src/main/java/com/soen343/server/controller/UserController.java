@@ -2,10 +2,15 @@ package com.soen343.server.controller;
 import com.soen343.databaseConnection.Connector;
 import com.soen343.databaseConnection.DbConnection;
 import com.soen343.server.models.Credentials;
+import netscape.javascript.JSObject;
+import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.ResultSet;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 @RestController
 @CrossOrigin
@@ -25,6 +30,7 @@ public class UserController {
                 detailsList.add(resultSet.getString("first_name"));
                 detailsList.add(resultSet.getString("email_address"));
                 detailsList.add(resultSet.getString("is_admin"));
+                detailsList.add(resultSet.getString("last_logged"));
                 setActive(credentials.getEmail(), true);
                 connector.close();
                 return detailsList;
@@ -46,11 +52,24 @@ public class UserController {
 
     private void setActive (String email, Boolean userActive) {
         int status = userActive ? 1 : 0;
-        try {
-            String query = "UPDATE testdb.User SET is_online='" + status + "' WHERE email_address = '" + email + "'";
-            DbConnection.update(query);
-        } catch (Exception e) {
-            System.out.println("Error Occurs in setActive() : \n" + e);
+        Date utilDate = new Date();
+        Timestamp sq = new Timestamp(utilDate.getTime());
+
+        if (status == 0) {
+            try {
+                String query = "UPDATE testdb.User SET is_online='" + status + "', last_logged='" + sq + "' WHERE email_address = '" + email + "'";
+                DbConnection.update(query);
+            } catch (Exception e) {
+                System.out.println("Error Occurs in setActive() : \n" + e);
+            }
+        } else {
+            try {
+                String query = "UPDATE testdb.User SET is_online='" + status + "' WHERE email_address = '" + email + "'";
+                DbConnection.update(query);
+            } catch (Exception e) {
+                System.out.println("Error Occurs in setActive() : \n" + e);
+            }
         }
+
     }
 }
