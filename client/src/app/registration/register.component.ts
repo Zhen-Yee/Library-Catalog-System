@@ -74,7 +74,8 @@ export class RegisterComponent implements OnInit {
       username: "",
       password: temp,
       is_admin: false,
-      is_active: false
+      is_active: false,
+      lastLoggedIn: null,
     };
 
     this.http
