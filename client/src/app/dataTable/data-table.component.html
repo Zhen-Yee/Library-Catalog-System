@@ -1,14 +1,16 @@
 <app-search></app-search>
 <div class = "view-box">
-    <h3>
-        <mat-icon>sort</mat-icon> 
-        &nbsp;&nbsp;View Catalog as
-    </h3>
-        <div>
-            <button mat-button (click)="redirectBookPage()"> Books</button>
-            <button mat-button (click)="redirectMagazinesPage()"> Magazines </button>
-            <button mat-button (click)="redirectMoviesPage()"> Movies </button>
-            <button mat-button (click)="redirectMusicPage()"> Music</button>
+    
+        <div class = "row">
+            <div class = "view">
+                <h4>
+                <mat-icon>sort</mat-icon> 
+                    View Catalog as
+                </h4> </div>
+            <button mat-button class = "view" (click)="redirectBookPage()"> Books</button>
+            <button mat-button class = "view"(click)="redirectMagazinesPage()"> Magazines </button>
+            <button mat-button class = "view" (click)="redirectMoviesPage()"> Movies </button>
+            <button mat-button class = "view" (click)="redirectMusicPage()"> Music</button>
         </div>
 </div>
 
