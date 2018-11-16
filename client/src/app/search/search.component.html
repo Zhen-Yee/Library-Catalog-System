@@ -1,15 +1,12 @@
+<div class = "row">
 
-<div class="example-form" [formGroup]="form">
+<div class="example-form" class ="column" [formGroup]="form">
     <mat-form-field class="example-full-width">
       <input matInput placeholder="Search" formControlName="search">
     </mat-form-field>
 </div>
-<button color="primary" [disabled]="form.pristine" mat-raised-button (click) = "getSearchedItems()">
-  Search
-</button>
 
-<div>
-  <br>
+<div class ="column" >
 <mat-form-field class="example-chip-list">
   <mat-chip-list #chipList>
     <mat-chip
@@ -36,4 +33,13 @@
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>
+</div>
+
+<div class ="column" >
+    <button color="primary" [disabled]="form.pristine" mat-raised-button (click) = "getSearchedItems()">
+        Search
+      </button>
+
+</div>
+
 </div>

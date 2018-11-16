@@ -5,6 +5,7 @@ import {CatalogItem} from "../_models/catalog/catalogItem.model";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {DeleteItemPromptDialogComponent} from '../delete-item-prompt-dialog/delete-item-prompt-dialog.component';
 import {HttpClient} from "@angular/common/http";
+import { DataService } from '../_services/DataService.service';
 
 @Component({
   selector: 'delete-item',
@@ -15,16 +16,16 @@ export class DeleteItemComponent implements OnInit {
 
   @Input() element;
 
-  constructor(private http: HttpClient, public dialog: MatDialog) {
+  constructor(private http: HttpClient, public dialog: MatDialog, public data: DataService) {
 }
 
   @Output() messageEvent = new EventEmitter<string>();
   openDialog(): void {
-    const dialogRef = this.dialog.open(DeleteItemPromptDialogComponent, 
+    const dialogRef = this.dialog.open(DeleteItemPromptDialogComponent,
       {
         width: '250px',
     });
-    
+
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
         if(this.element.itemType === CatalogItemType.Book){
@@ -40,10 +41,11 @@ export class DeleteItemComponent implements OnInit {
             } else {
                 console.log("Failed to delete Book.")
             }
+            this.data.updatedSearchItem = true;
         });
           console.log("Book successfully deleted")
         }
-    
+
         else if(this.element.itemType === CatalogItemType.Magazine){
           this.http
           .post<CatalogItem>("http://localhost:8090/catalog/deleteMagazine", this.element)
@@ -57,26 +59,30 @@ export class DeleteItemComponent implements OnInit {
             } else {
                 console.log("Failed to delete Magazine.")
             }
+            this.data.updatedSearchItem = true;
+
         });
           console.log("Magazine successfully deleted")
         }
-    
+
         else if(this.element.itemType === CatalogItemType.Music){
           this.http
           .post<CatalogItem>("http://localhost:8090/catalog/deleteMusic", this.element)
           .subscribe(updateSuccess => {
             if (updateSuccess) {
                 this.messageEvent.emit("Deleting Music...")
-                // Reloads page for updated changes 
+                // Reloads page for updated changes
                 // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
                 //     this.router.navigate(["/catalog"]));
             } else {
                 console.log("Failed to delete Music.")
             }
+            this.data.updatedSearchItem = true;
+
         });
           console.log("Music successfully deleted")
         }
-    
+
         else if(this.element.itemType === CatalogItemType.Movie){
           this.http
           .post<CatalogItem>("http://localhost:8090/catalog/deleteMovie", this.element)
@@ -89,9 +95,11 @@ export class DeleteItemComponent implements OnInit {
             } else {
                 console.log("Failed to delete Movie.")
             }
+            this.data.updatedSearchItem = true;
+
         });
           console.log("Movie successfully deleted")
-        }    
+        }
       } else {
         console.log("Cancel Delete");
       }
