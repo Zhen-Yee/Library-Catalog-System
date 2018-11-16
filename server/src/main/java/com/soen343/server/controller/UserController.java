@@ -2,13 +2,11 @@ package com.soen343.server.controller;
 import com.soen343.databaseConnection.Connector;
 import com.soen343.databaseConnection.DbConnection;
 import com.soen343.server.models.Credentials;
-import netscape.javascript.JSObject;
-import org.json.JSONObject;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.ResultSet;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
