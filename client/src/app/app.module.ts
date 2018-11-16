@@ -17,7 +17,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {
   MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, MatMenuModule, MatDialogModule,
   MatCardModule, MatSelectModule, MatSnackBarModule, MatPaginatorModule, MatChipsModule, MatSortModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule, MatProgressBarModule
 } from "@angular/material";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { HttpClientModule } from "@angular/common/http";
@@ -121,7 +121,8 @@ import { UserAuthenticateGuard } from "./_services/guards/user-authenticate.guar
       MatSnackBarModule,
       MatSortModule,
       MatProgressSpinnerModule,
-      MatAutocompleteModule
+      MatAutocompleteModule,
+      MatProgressBarModule
    ],
    entryComponents: [
       LoginComponent,

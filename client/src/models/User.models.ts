@@ -1,3 +1,5 @@
+import {Timestamp} from "rxjs";
+
 export class User {
 
     firstName: string;
@@ -10,5 +12,6 @@ export class User {
     isAdmin: boolean;
     isOnline: boolean;
 
+    lastLoggedIn: string;
+
   }
-  
