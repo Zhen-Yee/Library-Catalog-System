@@ -5,6 +5,8 @@ import { CatalogItemType } from "src/app/enums/catalogItemType";
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
 import { CartService } from "src/app/_services/CartService";
+import { UserService } from "src/app/_services/user.service";
+
 
 @Component({
   selector: "item-container",
@@ -16,6 +18,7 @@ export class ItemContainerComponent {
     private router: Router,
     private details: ObjectDetailsService,
     private cart: CartService,
+    private user: UserService,
     private dataArray: DataService,
     private snack: MatSnackBar
   ) {}
@@ -102,5 +105,9 @@ export class ItemContainerComponent {
 
   backToSearch() {
     this.router.navigate([""]);
+  }
+
+  isAdmin() {
+    return this.user.isAdmin;
   }
 }

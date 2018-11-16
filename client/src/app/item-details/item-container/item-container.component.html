@@ -1,5 +1,5 @@
 <button mat-button (click) = "backToSearch()">Go Back To Search Results</button>
 <router-outlet></router-outlet>
 <button mat-button (click) = "previousItem()">BACK</button>
-<button mat-button *ngIf="!(itemType == 'Magazine')" (click) = "addToCart()">ADD TO CART</button>
+<button mat-button *ngIf="!(itemType == 'Magazine') || !isAdmin()" (click) = "addToCart()">ADD TO CART</button>
 <button mat-button (click) = "nextItem()">NEXT</button>
