@@ -15,7 +15,7 @@ import {
   MatCardModule, MatSelectModule, MatSnackBarModule, MatPaginatorModule, MatChipsModule, MatSortModule,
   MatProgressSpinnerModule
 } from "@angular/material";
-import {MatSidenavModule} from "@angular/material/sidenav";
+import { MatSidenavModule } from "@angular/material/sidenav";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -25,8 +25,8 @@ import { ActiveUsersSideNavComponent } from "./active-users-side-nav/active-user
 import { ConfirmationComponent } from "./registration/confirmation.component";
 import { PasswordService } from "./_services/PasswordService";
 import { RegistrationErrorComponent } from "./registration/registration_error.component";
-import {MatListModule} from "@angular/material/list";
-import {MatIconModule} from "@angular/material/icon";
+import { MatListModule } from "@angular/material/list";
+import { MatIconModule } from "@angular/material/icon";
 import { UserService } from "./_services/user.service";
 import { ToggleService } from "./_services/ToggleService";
 import { DeleteItemComponent } from "./delete-item/delete-item.component";
@@ -44,11 +44,12 @@ import { UpdateMovieComponent } from "./update-item/update-movie/update-movie.co
 import { DeleteItemPromptDialogComponent } from './delete-item-prompt-dialog/delete-item-prompt-dialog.component';
 import { SearchComponent } from './search/search.component';
 import { DataService } from "./_services/DataService.service";
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SortingMusicComponent } from './dataTable/sorting-music/sorting-music.component';
 import { SortingMagazinesComponent } from './dataTable/sorting-magazines/sorting-magazines.component';
 import { SortingMoviesComponent } from './dataTable/sorting-movies/sorting-movies.component';
 import { SortingBookComponent } from './dataTable/sorting-book/sorting-book.component';
+import { UserAuthenticateGuard } from "./_services/guards/user-authenticate.guard";
 
 
 @NgModule({
@@ -121,6 +122,7 @@ import { SortingBookComponent } from './dataTable/sorting-book/sorting-book.comp
       UserService,
       PasswordService,
       AdminAuthenticateGuard,
+      UserAuthenticateGuard,
       ToggleService,
       DataService
    ],
