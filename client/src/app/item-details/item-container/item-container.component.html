@@ -1,4 +1,7 @@
 <button mat-button (click) = "backToSearch()">Go Back To Search Results</button>
+<br>
 <router-outlet></router-outlet>
+<br>
 <button mat-button (click) = "previousItem()">BACK</button>
+<button mat-button *ngIf="!(itemType == 'Magazine') && !isAdmin()" (click) = "addToCart()"><mat-icon>add_shopping_cart</mat-icon></button>
 <button mat-button (click) = "nextItem()">NEXT</button>
