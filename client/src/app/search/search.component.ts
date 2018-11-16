@@ -68,7 +68,7 @@ export class SearchComponent implements OnInit {
       if(this.fruits.length===1){
         onlyType= true;
       }
-    } 
+    }
     else if(this.fruits.includes("magazine")){
       x = "magazine";
       if(this.fruits.length===1){
@@ -122,6 +122,7 @@ export class SearchComponent implements OnInit {
     key => {
       this.dataService.findType(confirmation[key]);
       this.dataArray = [...this.dataArray, ...confirmation[key]];
+      this.dataService.setSearchedData(this.dataArray);
       // if you had an array to store your stuff, you would do it like this
     });
 
@@ -140,7 +141,7 @@ export class SearchComponent implements OnInit {
       duration: 5000,
     });
   }
-  
+
   visible = true;
   selectable = true;
   removable = true;
@@ -152,9 +153,9 @@ export class SearchComponent implements OnInit {
   fruits: string[] = [];
   allFruits: string[] = ['book', 'magazine', 'music', 'movie',
                         'title', 'author', 'format', 'publisher', 'language', 'isbn10', 'isbn13',
-                        'type', 'artist', 'label', 'asin', 
+                        'type', 'artist', 'label', 'asin',
                         'producers', 'actors', 'subtitles', 'dubs', 'releaseDate'];
- 
+
   @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 

@@ -15,7 +15,7 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 .example-element-row td {
-  border-bottom-width: 0;
+  border-bottom-width: 1;
 }
 
 .example-element-detail {
@@ -93,7 +93,7 @@ tr.example-element-row:not(.example-expanded-row):active {
   padding:20px;
 }
 
-.left-wrapper th { 
+.left-wrapper th {
   width:70%;
 }
 

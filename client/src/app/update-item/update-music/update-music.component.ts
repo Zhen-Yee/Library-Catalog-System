@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { Music } from "../../_models/catalog/music.model";
 import { Router } from "@angular/router";
+import { DataService } from "src/app/_services/DataService.service";
 
 @Component({
     selector: "update-music",
@@ -14,7 +15,7 @@ export class UpdateMusicComponent implements OnInit {
     edit: boolean;
     savingMessage: string = "Saving Music...";
     @Input() music;
-    constructor(private router: Router, private fb: FormBuilder, private http: HttpClient) {
+    constructor(private router: Router, private fb: FormBuilder, private http: HttpClient, private data: DataService) {
 
     }
 
@@ -67,6 +68,8 @@ export class UpdateMusicComponent implements OnInit {
                 .subscribe(updateSuccess => {
                     if (updateSuccess) {
                         this.messageEvent.emit(this.savingMessage);
+                        this.data.updatedSearchItem = true;
+
                         // Reloads page for updated changes to music
                         // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
                         //     this.router.navigate(["/catalog"]));
