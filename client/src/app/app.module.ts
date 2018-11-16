@@ -13,7 +13,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {
   MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, MatMenuModule, MatDialogModule,
   MatCardModule, MatSelectModule, MatSnackBarModule, MatPaginatorModule, MatChipsModule, MatSortModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule, MatProgressBarModule
 } from "@angular/material";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import { HttpClientModule } from "@angular/common/http";
@@ -52,80 +52,81 @@ import { SortingBookComponent } from './dataTable/sorting-book/sorting-book.comp
 
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      HeaderComponent,
-      FooterComponent,
-      TestComponent,
-      HomePageComponent,
-      RegisterComponent,
-      LoginComponent,
-      ConfirmationComponent,
-      RegistrationErrorComponent,
-      ActiveUsersSideNavComponent,
-      AddItemComponent,
-      AddBookComponent,
-      AddMusicComponent,
-      AddMoviesComponent,
-      AddMagazineComponent,
-      DataTableComponent,
-      DeleteItemComponent,
-      UpdateBookComponent,
-      UpdateMagazineComponent,
-      UpdateMusicComponent,
-      UpdateMovieComponent,
-      PromoteUserComponent,
-      DeleteItemPromptDialogComponent,
-      SearchComponent,
-      SearchComponent,
-      SortingMusicComponent,
-      SortingMagazinesComponent,
-      SortingMoviesComponent,
-      SortingBookComponent,
-   ],
-   imports: [
-      MatCheckboxModule,
-      BrowserModule,
-      BrowserAnimationsModule,
-      MatFormFieldModule,
-      MatInputModule,
-      MatChipsModule,
-      MatButtonModule,
-      MatToolbarModule,
-      MatMenuModule,
-      MatDialogModule,
-      MatCardModule,
-      MatSelectModule,
-      MatSidenavModule,
-      HttpClientModule,
-      FormsModule,
-      RouterModule.forRoot([]),
-      routing,
-      ReactiveFormsModule,
-      MatListModule,
-      MatIconModule,
-      MatTableModule,
-      MatPaginatorModule,
-      MatSnackBarModule,
-      MatSortModule,
-      MatProgressSpinnerModule,
-      MatAutocompleteModule
-   ],
-   entryComponents: [
-      LoginComponent,
-      ConfirmationComponent,
-      RegistrationErrorComponent,
-      DeleteItemPromptDialogComponent
-   ],
-   providers: [
-      UserService,
-      PasswordService,
-      AdminAuthenticateGuard,
-      ToggleService,
-      DataService
-   ],
-   bootstrap: [
-      AppComponent
-   ]
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    FooterComponent,
+    TestComponent,
+    HomePageComponent,
+    RegisterComponent,
+    LoginComponent,
+    ConfirmationComponent,
+    RegistrationErrorComponent,
+    ActiveUsersSideNavComponent,
+    AddItemComponent,
+    AddBookComponent,
+    AddMusicComponent,
+    AddMoviesComponent,
+    AddMagazineComponent,
+    DataTableComponent,
+    DeleteItemComponent,
+    UpdateBookComponent,
+    UpdateMagazineComponent,
+    UpdateMusicComponent,
+    UpdateMovieComponent,
+    PromoteUserComponent,
+    DeleteItemPromptDialogComponent,
+    SearchComponent,
+    SearchComponent,
+    SortingMusicComponent,
+    SortingMagazinesComponent,
+    SortingMoviesComponent,
+    SortingBookComponent,
+  ],
+  imports: [
+    MatCheckboxModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatChipsModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatDialogModule,
+    MatCardModule,
+    MatSelectModule,
+    MatSidenavModule,
+    HttpClientModule,
+    FormsModule,
+    RouterModule.forRoot([]),
+    routing,
+    ReactiveFormsModule,
+    MatListModule,
+    MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatAutocompleteModule,
+    MatProgressBarModule
+  ],
+  entryComponents: [
+    LoginComponent,
+    ConfirmationComponent,
+    RegistrationErrorComponent,
+    DeleteItemPromptDialogComponent
+  ],
+  providers: [
+    UserService,
+    PasswordService,
+    AdminAuthenticateGuard,
+    ToggleService,
+    DataService
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

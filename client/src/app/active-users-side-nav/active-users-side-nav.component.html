@@ -1,32 +1,36 @@
 <mat-sidenav-container>
-    <mat-sidenav class="navbar" mode="side" opened>
-      <div class="text">Currently active users</div>
-      <div *ngIf="!isLoaded" style="display: flex; justify-content: center; align-items: center; height: 100%;">
-        <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
-      </div>
-      <mat-list>
-        <mat-list-item *ngFor="let user of activeUserArray">
-          <mat-divider></mat-divider>
-          <mat-icon class="green-icon">face</mat-icon>
-          <p matLine>
-            <span> {{user.firstName}} </span>
-          </p>
-        </mat-list-item>
-      </mat-list>
-      <mat-list>
-        <mat-list-item *ngFor="let user of inactiveUserArray">
-          <mat-divider></mat-divider>
-          <mat-icon>face</mat-icon>
-          <p matLine>
-            <span> {{user.firstName}} </span>
-          </p>
-          <p matLine>
-            <span> {{year(user.lastLoggedIn)}} </span>
-          </p>
-          <p matLine>
-            <span> {{time(user.lastLoggedIn)}} </span>
-          </p>
-        </mat-list-item>
-      </mat-list>
-    </mat-sidenav>
-  </mat-sidenav-container>
+  <mat-sidenav class="navbar" mode="side" opened>
+    <div class="text">Currently active users</div>
+    <div> {{ now | date:'HH:mm:ss'}}
+      <mat-progress-bar mode="determinate" value="{{progress}}" class="pink-color"></mat-progress-bar>
+    </div>
+    <div *ngIf="!isLoaded" style="display: flex; justify-content: center; align-items: center; height: 100%;">
+      <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+    </div>
+    <mat-list>
+      <mat-divider></mat-divider>
+      <mat-list-item *ngFor="let user of activeUserArray">
+        <mat-divider></mat-divider>
+        <mat-icon class="green-icon">face</mat-icon>
+        <p matLine>
+          <span> {{user.firstName}} </span>
+        </p>
+      </mat-list-item>
+    </mat-list>
+    <mat-list>
+      <mat-list-item *ngFor="let user of inactiveUserArray">
+        <mat-divider></mat-divider>
+        <mat-icon>face</mat-icon>
+        <p matLine>
+          <span> {{user.firstName}} </span>
+        </p>
+        <p matLine>
+          <span> {{year(user.lastLoggedIn)}} </span>
+        </p>
+        <p matLine>
+          <span> {{time(user.lastLoggedIn)}} </span>
+        </p>
+      </mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+</mat-sidenav-container>

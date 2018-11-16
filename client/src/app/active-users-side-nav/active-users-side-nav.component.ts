@@ -16,10 +16,17 @@ export class ActiveUsersSideNavComponent implements OnInit {
   public activeUserArray;
   public inactiveUserArray;
   isLoaded;
+  now:number;
+  progress:number;
 
 
-  constructor(private http: HttpClient) {}
-
+  constructor(private http: HttpClient) {
+    setInterval(() => {
+      let date = new Date();
+      this.now = Date.now();
+      this.progress = Math.round((((date.getSeconds())/60)*100));
+    }, 1);
+  }
   ngOnInit() {
     // const example = this.getActiveUsers().pipe(concat(this.getInactiveUsers()));
     setInterval(() => {
@@ -51,6 +58,8 @@ export class ActiveUsersSideNavComponent implements OnInit {
     let year = date;
     return year.substring(0,10);
   }
+
+
 
 
 }
