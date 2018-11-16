@@ -1,7 +1,5 @@
 package com.soen343.server.gateways;
 
-import com.soen343.databaseConnection.Connector;
-import com.soen343.databaseConnection.DbConnection;
 import com.soen343.server.models.catalog.Movie;
 import com.soen343.server.models.SearchCriteria;
 
@@ -9,16 +7,33 @@ import java.sql.*;
 import java.util.*;
 
 public class MovieGateway {
-    // replace with property calls
-    private static final String URL = "jdbc:mysql://testdbinstance.cwtjkaidrsfz.us-east-2.rds.amazonaws.com:3306/testdb?useSSL=false";
-    private static final String USERNAME = "test";
-    private static final String PASSWORD = "testtest";
 
-    public static ArrayList<Movie> findAll() {
-        return null;
+    private static MovieGateway movieGateway = null;
+
+    // replace with property calls
+    private final String URL = "jdbc:mysql://testdbinstance.cwtjkaidrsfz.us-east-2.rds.amazonaws.com:3306/testdb?useSSL=false";
+    private final String USERNAME = "test";
+    private final String PASSWORD = "testtest";
+
+    /**
+     * Singleton pattern - allows instantiation
+     * of MovieGateway
+     * @return {@link MovieGateway}
+     */
+    public static MovieGateway getMovieGateway() {
+        if(movieGateway == null) {
+            movieGateway = new MovieGateway();
+        }
+        return movieGateway;
     }
 
-    public static void insert(Movie movie){
+    /**
+     * Inserts a {@link Movie} CatalogItem to the database
+     * This method  checks if it already exist or not.
+     * If it does increment the quantity.
+     * @param movie: Movie CatalogItem
+     */
+    public void insert(Movie movie){
         // generate the query
         String columns = "qty_in_stock, qty_on_loan, title, director, language, release_date, run_time";
         String values = movie.getQtyInStock() + ", " + movie.getQtyOnLoan() + ", '" + movie.getTitle() + "', '"
@@ -63,7 +78,11 @@ public class MovieGateway {
 
     }
 
-    public static List<Movie> getAll(){
+    /**
+     * Query all {@link Movie} from the database
+     * @return
+     */
+    public List<Movie> getAll(){
         List<Movie> movieArrayList = new ArrayList<>();
 
         try {
@@ -132,7 +151,11 @@ public class MovieGateway {
         return movieArrayList;
     }
 
-    public static void delete(Movie movie) {
+    /**
+     * Deletes a Movie from the Database
+     * @param movie
+     */
+    public void delete(Movie movie) {
         try {
             Connection conn = connect();
             Statement stmt = conn.createStatement();
@@ -147,10 +170,13 @@ public class MovieGateway {
         } catch (Exception e) {
             System.out.println(e);
         }
-
     }
 
-    public static void update(Movie movie){
+    /**
+     * Updates a {@link Movie} CatalogItem in the database
+     * @param movie
+     */
+    public void update(Movie movie){
         try{
         Connection conn = connect();
         Statement stmt = conn.createStatement();
@@ -199,7 +225,7 @@ public class MovieGateway {
     }
 
     // change for a DataSource later?
-    private static Connection connect(){
+    private Connection connect(){
         Connection connection = null;
         try{
             Class.forName("com.mysql.jdbc.Driver");
@@ -211,7 +237,13 @@ public class MovieGateway {
         return connection;
     }
 
-    public static String buildFilterString(SearchCriteria search){
+    /**
+     * Helper method that builds the String for search query
+     * Checks each parameter to build a SQL database query string
+     * @param search: SearchCriteria
+     * @return String
+     */
+    public String buildFilterString(SearchCriteria search){
         
         int i = 0;
         if(search.getTitle().equals("title")){
@@ -267,7 +299,13 @@ public class MovieGateway {
         return filter;
     }
 
-    public static List<Movie> search(SearchCriteria search){
+    /**
+     * Search database based on {@link SearchCriteria}
+     * Creates a MagazineArrayList
+     * @param search: SearchCriteria
+     * @return MagazineArrayList
+     */
+    public List<Movie> search(SearchCriteria search){
         List<Movie> movieArrayList = new ArrayList<>();
 
         try {
