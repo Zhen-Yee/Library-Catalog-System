@@ -1,0 +1,17 @@
+button{
+    margin-top: 20px;
+}
+
+input{
+    margin-top: 20px;
+}
+
+mat-error {
+    font-size:70%;
+    margin-bottom: 10px;
+}
+
+mat-form-field {
+    display: block;
+    width:30%;
+}
