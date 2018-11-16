@@ -48,6 +48,7 @@ import { UpdateMovieComponent } from "./update-item/update-movie/update-movie.co
 import { DeleteItemPromptDialogComponent } from "./delete-item-prompt-dialog/delete-item-prompt-dialog.component";
 import { SearchComponent } from "./search/search.component";
 import { DataService } from "./_services/DataService.service";
+import { CartService } from "./_services/CartService";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { SortingMusicComponent } from "./dataTable/sorting-music/sorting-music.component";
 import { SortingMagazinesComponent } from "./dataTable/sorting-magazines/sorting-magazines.component";
@@ -135,6 +136,7 @@ import {ItemContainerComponent} from "./item-details/item-container/item-contain
       ToggleService,
       DataService,
       ObjectDetailsService,
+      CartService,
       {provide: RouteReuseStrategy, useClass: CustomRouteReuseStategy}
    ],
    bootstrap: [

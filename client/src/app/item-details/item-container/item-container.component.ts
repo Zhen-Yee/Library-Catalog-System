@@ -4,6 +4,7 @@ import { DataService } from "src/app/_services/DataService.service";
 import { CatalogItemType } from "src/app/enums/catalogItemType";
 import { Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
+import { CartService } from "src/app/_services/CartService";
 
 @Component({
   selector: "item-container",
@@ -14,9 +15,22 @@ export class ItemContainerComponent {
   constructor(
     private router: Router,
     private details: ObjectDetailsService,
+    private cart: CartService,
     private dataArray: DataService,
     private snack: MatSnackBar
   ) {}
+
+  itemType;
+  addtocart;
+
+  ngOnInit() {
+
+    const data = this.dataArray.getData();
+    const item = data[this.details.index];
+    this.itemType = item.itemType;
+    console.log(this.itemType);
+    
+  }
 
   nextItem() {
     const x = this.dataArray.getData();
@@ -62,6 +76,22 @@ export class ItemContainerComponent {
       this.details.music = item;
       this.router.navigate(["/details", item.itemType, item.title]);
     }
+  }
+
+  addToCart() {
+    const x = this.dataArray.getData();
+    const item = x[this.details.index];
+
+    if (item.qtyInStock > 0){
+
+      this.openSnackBar(this.cart.addtoCart(item), "Close");
+    }
+
+    else {
+      this.openSnackBar("Out of Stock", "Close");
+    }
+
+    console.log(this.cart);
   }
 
   openSnackBar(message: string, action: string) {
