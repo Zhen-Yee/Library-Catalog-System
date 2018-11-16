@@ -39,6 +39,8 @@ import { AddMusicComponent } from "./add-item/add-music/add-music.component";
 import { AddMoviesComponent } from "./add-item/add-movies/add-movies.component";
 import { AddMagazineComponent } from "./add-item/add-magazine/add-magazine.component";
 import { DataTableComponent } from "./dataTable/data-table.component";
+import { ShoppingCartComponent } from "./shopping-cart/shopping-cart.component";
+import { CheckoutComponent } from "./checkout/checkout.component";
 import { MatTableModule } from "@angular/material/table";
 import { UpdateBookComponent } from "./update-item/update-book/update-book.component";
 import { UpdateMagazineComponent } from "./update-item/update-magazine/update-magazine.component";
@@ -77,15 +79,18 @@ import {ItemContainerComponent} from "./item-details/item-container/item-contain
       AddMagazineComponent,
       DataTableComponent,
       DeleteItemComponent,
+      ShoppingCartComponent,
       UpdateBookComponent,
       UpdateMagazineComponent,
       UpdateMusicComponent,
       UpdateMovieComponent,
       PromoteUserComponent,
+      CheckoutComponent,
       DeleteItemPromptDialogComponent,
       SearchComponent,
       SearchComponent,
       SortingMusicComponent,
+      CheckoutComponent,
       SortingMagazinesComponent,
       SortingMoviesComponent,
       SortingBookComponent,
@@ -127,7 +132,8 @@ import {ItemContainerComponent} from "./item-details/item-container/item-contain
       LoginComponent,
       ConfirmationComponent,
       RegistrationErrorComponent,
-      DeleteItemPromptDialogComponent
+      DeleteItemPromptDialogComponent,
+      CheckoutComponent
    ],
    providers: [
       UserService,

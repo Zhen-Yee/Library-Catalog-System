@@ -32,6 +32,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(["/promote"]);
   }
 
+  redirectToCart() {
+    this.router.navigate(["/shoppingcart"]);
+  }
+
   redirectHome() {
     this.router.navigate(["/"]);
   }

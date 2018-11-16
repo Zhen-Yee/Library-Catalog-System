@@ -16,6 +16,7 @@ import { MagazineDetailsComponent } from "./item-details/magazine-details/magazi
 import { MovieDetailsComponent } from "./item-details/movie-details/movie-details.component";
 import { MusicDetailsComponent } from "./item-details/music-details/music-details.component";
 import { ItemContainerComponent } from "./item-details/item-container/item-container.component";
+import { ShoppingCartComponent } from "./shopping-cart/shopping-cart.component";
 
 
 const appRoutes: Routes = [
@@ -67,6 +68,10 @@ const appRoutes: Routes = [
     path: "catalog/books",
     canActivate: [AdminAuthenticateGuard],
     component: SortingBookComponent
+  },
+  {
+    path: "shoppingcart",
+    component: ShoppingCartComponent
   },
   {
     path: "details",
