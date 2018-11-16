@@ -66,8 +66,6 @@ export class RegisterComponent implements OnInit {
         this.registerForm.get("country").value + " " + this.registerForm.get("postal").value,
       username: "",
       password: temp,
-      is_admin: false,
-      is_active: false,
       lastLoggedIn: null,
       isAdmin: false,
       isOnline: false
