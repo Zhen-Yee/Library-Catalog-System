@@ -259,13 +259,19 @@ public class MagazineGateway {
      * @return MagazineArrayList
      */
     public List<Magazine> search(SearchCriteria search){
-        System.out.print("Entered gateway");
         List<Magazine> magazineArrayList = new ArrayList<>();
+        System.out.print("Entered gateway");
+        if(search.getTitle().equals("title") ||
+            search.getPublisher().equals("publisher") ||
+            search.getLanguage().equals("language") ||
+            search.getIsbn10().equals("isbn10") ||
+            search.getIsbn13().equals("isbn13")){
         String filter = buildFilterString(search);
         connector = DbConnection.get(filter);
         ResultSet resultSet = connector.getResultSet();
         buildFromResultSet(magazineArrayList, resultSet);
-        return magazineArrayList;
+            }
+        return magazineArrayList;    
     }
 
     /**

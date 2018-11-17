@@ -342,7 +342,7 @@ public class MovieGateway {
         List<Movie> movieArrayList = new ArrayList<>();
         List<Integer> actorIdList = new ArrayList<>();
         List<Integer> producerIdList = new ArrayList<>();
-//zoooooked
+
         try {
             Connection conn = connect();
             Statement stmt = conn.createStatement();
@@ -413,6 +413,9 @@ public class MovieGateway {
                 actorIdList = populateActorId(search);
                 for(int i=0; i<actorIdList.size(); i++){
                    String query = "SELECT * from testdb.movie WHERE id ='"+ actorIdList.get(i) + "'";
+                  if(actorIdList.contains(producerIdList.get(i))){
+                      break;
+                  }
                    stmt.executeQuery(query);
         System.out.print("passed second query");
                    ResultSet movieResultSet = stmt.getResultSet();
@@ -470,7 +473,7 @@ public class MovieGateway {
                    }
                 }
             }
-//end of zooooked
+
 
             if(search.getTitle().equals("title") ||
             search.getDirector().equals("director") ||

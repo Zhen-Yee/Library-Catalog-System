@@ -218,7 +218,7 @@ public class Catalog {
         if(searchCriteria.getMagazine().equals("magazine")){
             searchedCatalogItems.addAll(magazineGateway.search(searchCriteria));
         }
-        if(searchCriteria.getMusic().equals("Music")){
+        if(searchCriteria.getMusic().equals("music")){
             searchedCatalogItems.addAll(musicGateway.search(searchCriteria));
         }
 

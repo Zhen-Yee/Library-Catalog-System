@@ -294,10 +294,18 @@ public class BookGateway {
     public  List<Book> search(SearchCriteria search){
         System.out.print("Entered gateway");
         List<Book> bookArrayList = new ArrayList<>();
+        if(search.getTitle().equals("title") ||
+        search.getAuthor().equals("author") ||
+        search.getPublisher().equals("publisher") ||
+        search.getLanguage().equals("language") ||
+        search.getFormat().equals("format") ||
+        search.getIsbn10().equals("isbn10") ||
+        search.getIsbn13().equals("isbn13")){
         String filter = buildFilterString(search);
         connector = DbConnection.get(filter);
         ResultSet resultSet = connector.getResultSet();
         buildFromResultSet(bookArrayList, resultSet);
+        }
         return bookArrayList;
     }
 

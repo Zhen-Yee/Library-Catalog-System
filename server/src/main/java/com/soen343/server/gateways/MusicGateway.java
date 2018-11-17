@@ -273,6 +273,13 @@ public class MusicGateway {
     public List<Music> search(SearchCriteria search){
         System.out.print("Entered gateway");
         List<Music> musicArrayList = new ArrayList<>();
+       
+        if(search.getTitle().equals("title") ||
+        search.getType().equals("type") ||
+        search.getArtist().equals("artist") ||
+        search.getLabel().equals("label") ||
+        search.getReleaseDate().equals("releaseDate") ||
+        search.getAsin().equals("asin")){
         String filter = buildFilterString(search);
         connector = DbConnection.get(filter);
         ResultSet resultSet = connector.getResultSet();
@@ -301,6 +308,7 @@ public class MusicGateway {
         } finally {
             connector.close();
         }
+    }
         return musicArrayList;
     }
 }
