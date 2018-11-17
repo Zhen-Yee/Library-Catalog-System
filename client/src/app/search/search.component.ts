@@ -160,6 +160,7 @@ export class SearchComponent implements OnInit {
     key => {
       this.dataService.findType(confirmation[key]);
       this.dataArray = [...this.dataArray, ...confirmation[key]];
+      this.dataService.setSearchedData(this.dataArray);
       // if you had an array to store your stuff, you would do it like this
     });
 
@@ -178,7 +179,7 @@ export class SearchComponent implements OnInit {
       duration: 5000,
     });
   }
-  
+
   visible = true;
   selectable = true;
   removable = true;
@@ -192,7 +193,7 @@ export class SearchComponent implements OnInit {
                         'title', 'author', 'format', 'publisher', 'language', 'isbn10', 'isbn13',
                         'type', 'artist', 'label', 'asin', 'director', 
                         'producers', 'actors', 'subtitles', 'dubs', 'releaseDate'];
- 
+
   @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 

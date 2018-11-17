@@ -46,7 +46,8 @@ public class AdminService {
                         resultSet.getString("username"),
                         resultSet.getString("password"),
                         resultSet.getBoolean("is_admin"),
-                        resultSet.getBoolean("is_online")
+                        resultSet.getBoolean("is_online"),
+                        resultSet.getTimestamp("last_logged")
                 ));
             }
         } catch (SQLException e) {

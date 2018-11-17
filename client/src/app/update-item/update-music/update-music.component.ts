@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { Music } from "../../_models/catalog/music.model";
 import { Router } from "@angular/router";
+import { DataService } from "src/app/_services/DataService.service";
 
 @Component({
     selector: "update-music",
@@ -14,7 +15,7 @@ export class UpdateMusicComponent implements OnInit {
     edit: boolean;
     savingMessage: string = "Saving Music...";
     @Input() music;
-    constructor(private router: Router, private fb: FormBuilder, private http: HttpClient) {
+    constructor(private router: Router, private fb: FormBuilder, private http: HttpClient, private data: DataService) {
 
     }
 
@@ -45,11 +46,11 @@ export class UpdateMusicComponent implements OnInit {
             title: ["", Validators.required],
             type: ["", Validators.required],
             artist: ["", Validators.required],
-            releaseDate: ["", [Validators.required, Validators.pattern("^([0-9]{4})\/(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])$")]],
+            releaseDate: ["", [Validators.required, Validators.pattern("^([0-9]{4})[-\/]([0-9]{2})[-\/]([0-9]{2})$")]],
             asin: ["", [Validators.required, Validators.pattern("^B[\\dA-Z]{9}|\\d{9}(X|\\d)$")]],
             label: ["", Validators.required],
-            qtyInStock: ["", Validators.required],
-            qtyOnLoan: ["", Validators.required],
+            qtyInStock: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
+            qtyOnLoan: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
             id: ["", Validators.required]
         });
     }
@@ -67,6 +68,8 @@ export class UpdateMusicComponent implements OnInit {
                 .subscribe(updateSuccess => {
                     if (updateSuccess) {
                         this.messageEvent.emit(this.savingMessage);
+                        this.data.updatedSearchItem = true;
+
                         // Reloads page for updated changes to music
                         // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
                         //     this.router.navigate(["/catalog"]));

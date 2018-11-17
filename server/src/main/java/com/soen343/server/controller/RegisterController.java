@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import java.sql.*;
 import java.util.*;
+import java.util.Date;
 
 @RestController
 @CrossOrigin
@@ -34,7 +35,8 @@ public class RegisterController {
         String password = resultSet.getNString("password");
         Boolean is_admin = resultSet.getBoolean("is_admin");
         Boolean is_online = resultSet.getBoolean("is_online");
-        User user = new User(first_name,last_name, email_address, physical_address, phone_number, username, password, is_admin, is_online);
+        Timestamp last_logged = resultSet.getTimestamp("last_logged");
+        User user = new User(first_name,last_name, email_address, physical_address, phone_number, username, password, is_admin, is_online, last_logged);
         listOfUsers.add(user);
         }
 
