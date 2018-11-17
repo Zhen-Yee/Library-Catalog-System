@@ -63,40 +63,64 @@ export class SearchComponent implements OnInit {
   }
 
   getSearchedItems() {
-    // determine type for iType
-    // let x: string;
-    // let onlyType: boolean;
-    // if(this.fruits.includes("book")){
-    //   x = "book";
-    //   if(this.fruits.length===1){
-    //     onlyType= true;
-    //   }
-    // } 
-    // else if(this.fruits.includes("magazine")){
-    //   x = "magazine";
-    //   if(this.fruits.length===1){
-    //     onlyType= true;
-    //   }
-    // }
-    // else if(this.fruits.includes("movie")){
-    //   x = "movie";
-    //   if(this.fruits.length===1){
-    //     onlyType= true;
-    //   }
-    // }
-    // else if(this.fruits.includes("music")){
-    //   x = "music";
-    //   if(this.fruits.length===1){
-    //     onlyType= true;
-    //   }
-    // }
-    // else {
-    //   x = "";
-    // }
+    
+    let onlyType: boolean;
+  if(this.fruits.length === 1){
+    if(this.fruits.includes("book")){
+        onlyType = true;
+      
+    } 
+    else if(this.fruits.includes("magazine")){
+        onlyType = true;
+      
+    }
+    else if(this.fruits.includes("movie")){
+        onlyType = true;
+      
+    }
+    else if(this.fruits.includes("music")){
+        onlyType = true;
+      
+    }
+    else onlyType = false;
+  }
+  else if(this.fruits.length>1 && this.fruits.length<=4) {
+    if(this.fruits.includes("book") && this.fruits.includes("magazine")){
+      onlyType = true;
+    }
+    else if(this.fruits.includes("book") && this.fruits.includes("movie")){
+      onlyType = true;
+    }
+    else if(this.fruits.includes("book") && this.fruits.includes("music")){
+      onlyType = true;
+    }
+    else if(this.fruits.includes("magazine") && this.fruits.includes("movie")){
+      onlyType = true;
+    }
+    else if(this.fruits.includes("magazine") && this.fruits.includes("music")){
+      onlyType = true;
+    }
+    else if(this.fruits.includes("movie") && this.fruits.includes("music")){
+      onlyType = true;
+    }
+    else if(this.fruits.includes("book") && this.fruits.includes("magazine") && this.fruits.includes("movie")){
+      onlyType = true;
+    }
+    else if(this.fruits.includes("book") && this.fruits.includes("magazine") && this.fruits.includes("music")){
+      onlyType = true;
+    }
+    else if(this.fruits.includes("magazine") && this.fruits.includes("movie") && this.fruits.includes("music")){
+      onlyType = true;
+    }
+    else if(this.fruits.includes("book") && this.fruits.includes("magazine") && this.fruits.includes("movie") && this.fruits.includes("music")){
+      onlyType = true;
+    }
+    else onlyType = false;
+  }
+
     // chips
     const filters: searchfilters = {
       ...this.form.value,
-      //iType: x,
       book: this.fruits.includes("book") ? "book" : "",
       magazine: this.fruits.includes("magazine") ? "magazine" : "",
       movie: this.fruits.includes("movie") ? "movie" : "",
@@ -121,11 +145,17 @@ export class SearchComponent implements OnInit {
     };
 
     const emptyFilter: searchfilters = {
-      ...this.form.value
+      ...this.form.value,
+      book: this.fruits.includes("book") ? "book" : "",
+      magazine: this.fruits.includes("magazine") ? "magazine" : "",
+      movie: this.fruits.includes("movie") ? "movie" : "",
+      music: this.fruits.includes("music") ? "music" : ""
     }
     this.dataArray = [];
     console.log(filters);
-    this.http.post("http://localhost:8090/catalog/search", filters)
+    console.log(" "+ this.fruits.length);
+
+    this.http.post("http://localhost:8090/catalog/search",(this.fruits.length === 0 || onlyType) ? emptyFilter : filters)
   .subscribe((confirmation) => {Object.keys(confirmation).map(
     key => {
       this.dataService.findType(confirmation[key]);
