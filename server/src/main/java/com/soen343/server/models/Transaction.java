@@ -30,7 +30,7 @@ public class Transaction {
     }
 
     /**
-     * Generates the due date based on the due date; loan length is parsed from "file_name"
+     * Generates the due date based on item type
      * @return the date + maximum loan length of the specified item type.
      */
     public Date generateDueDate(CatalogItem catalogItem, Date checkoutDate) {
