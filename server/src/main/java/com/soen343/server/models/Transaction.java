@@ -2,10 +2,12 @@ package com.soen343.server.models;
 
 import com.soen343.server.models.catalog.Book;
 import com.soen343.server.models.catalog.CatalogItem;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.Calendar;
 
+@Component
 public class Transaction {
 
     private final int BOOK_LOAN_LENGTH = 7;

@@ -4,11 +4,8 @@ import com.soen343.server.models.catalog.Book;
 import com.soen343.server.models.catalog.Movie;
 import com.soen343.server.models.catalog.Music;
 import static org.junit.Assert.*;
-
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -74,11 +71,9 @@ public class TransactionTest {
 
     @Test
     public void createTransactionTest() {
-        Calendar calendar = Calendar.getInstance();
-        Date now = new Date(System.currentTimeMillis());
-
-        LOGGER.log(Level.INFO, "Testing transaction creation...");
         Transaction transaction = new Transaction("testEmail@test.com", book);
+
+        LOGGER.log(Level.INFO, "Testing transaction creation");
         assertEquals("correctly records user email", "testEmail@test.com", transaction.getUserEmail());
         assertNotNull("CatalogItem not null", transaction.getCatalogItem());
         assertNotNull("checkout date not null", transaction.getCheckoutDate());

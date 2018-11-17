@@ -2,10 +2,12 @@ package com.soen343.server.gateways;
 
 import com.soen343.server.models.catalog.Movie;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
+@Ignore
 public class MovieGatewayTest {
 
     private static Movie movie;
