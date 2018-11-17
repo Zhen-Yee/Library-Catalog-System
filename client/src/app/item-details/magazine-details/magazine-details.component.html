@@ -1,25 +1,18 @@
 <div *ngIf="element">
-<div class = "title">
-  {{element.title}}
-  </div>
+        <div class = "title" >{{element.title}}</div>
+        <div>
+              <tr>
+                  <th>{{element.qtyInStock}} in Stock </th>
+                  <th>{{element.qtyOnLoan}} on Loan </th>
+                  <th *ngIf = "(element.qtyInStock - element.qtyOnLoan) == 0">✘</th>
+                  <th *ngIf = "(element.qtyInStock - element.qtyOnLoan) > 0">✔</th>            
+              </tr>
+          </div>
 
-  <table>
-      <tr>
-        <th>Quantity in Stock: </th>
-        <th>{{element.qtyInStock}}</th>
-      </tr>
-      <tr>
-        <th>Quantity on Loan: </th>
-        <th>{{element.qtyOnLoan}}</th>
-      </tr>
-      <tr>
-          <th>Item Type: </th>
-          <th>{{element.itemType}}</th>
-      </tr>
-    </table>
+          <img src="assets/magazine.jpg" alt="Magazine" height = "200px">
 
 <table *ngIf="element.itemType == 'Magazine'">
-
+        
   <tr>
       <th>Language: </th>
       <th>{{element.language}}</th>
@@ -41,7 +34,10 @@
       <th>ISBN13: </th>
       <th>{{element.isbn13}}</th>
   </tr>
-</table>
-              <update-magazine *ngIf = "isAdmin()" [magazine]="element" (messageEvent)="receiveSaveMessage($event)"></update-magazine>
-<delete-item *ngIf = "isAdmin()" [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>
-</div>
+  <tr>
+        <th> <update-magazine *ngIf = "isAdmin()" [magazine]="element" (messageEvent)="receiveSaveMessage($event)"></update-magazine> </th>
+        <th> <delete-item *ngIf = "isAdmin()" [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>  </th>
+      </tr>
+    </table>
+    
+    </div>
