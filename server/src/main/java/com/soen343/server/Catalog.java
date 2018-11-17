@@ -209,24 +209,24 @@ public class Catalog {
     public  Map<Long, CatalogItem> search(SearchCriteria searchCriteria){
         System.out.print("entered Catalog");
         List<CatalogItem> searchedCatalogItems = new ArrayList<>();
-        if(searchCriteria.getItemType().equals("book")){
+        if(searchCriteria.getBook().equals("book")){
             searchedCatalogItems.addAll(bookGateway.search(searchCriteria));
         }
-        if(searchCriteria.getItemType().equals("movie")){
+        if(searchCriteria.getMovie().equals("movie")){
             searchedCatalogItems.addAll(movieGateway.search(searchCriteria));
         }
-        if(searchCriteria.getItemType().equals("magazine")){
+        if(searchCriteria.getMagazine().equals("magazine")){
             searchedCatalogItems.addAll(magazineGateway.search(searchCriteria));
         }
-        if(searchCriteria.getItemType().equals("Music")){
+        if(searchCriteria.getMusic().equals("music")){
             searchedCatalogItems.addAll(musicGateway.search(searchCriteria));
         }
 
-        if(searchCriteria.getItemType().equals("") &&
-                searchCriteria.getItemType().equals("") &&
-                searchCriteria.getItemType().equals("") &&
-                searchCriteria.getItemType().equals("")
-        ){
+        if(searchCriteria.getBook().equals("") &&
+                searchCriteria.getMagazine().equals("") &&
+                searchCriteria.getMovie().equals("") &&
+                searchCriteria.getMusic().equals("")
+                ){
             searchedCatalogItems.addAll(bookGateway.search(searchCriteria));
             searchedCatalogItems.addAll(movieGateway.search(searchCriteria));
             searchedCatalogItems.addAll(magazineGateway.search(searchCriteria));
