@@ -65,59 +65,65 @@ export class SearchComponent implements OnInit {
   getSearchedItems() {
     
     let onlyType: boolean;
-  if(this.fruits.length === 1){
-    if(this.fruits.includes("book")){
+    if(this.fruits.length === 1){
+      if(this.fruits.includes("book")){
+          onlyType = true;
+        
+      } 
+      else if(this.fruits.includes("magazine")){
+          onlyType = true;
+        
+      }
+      else if(this.fruits.includes("movie")){
+          onlyType = true;
+        
+      }
+      else if(this.fruits.includes("music")){
+          onlyType = true;
+        
+      }
+      else onlyType = false;
+    }
+    else if(this.fruits.length===2) {
+      if(this.fruits.includes("book") && this.fruits.includes("magazine")){
         onlyType = true;
-      
-    } 
-    else if(this.fruits.includes("magazine")){
+      }
+      else if(this.fruits.includes("book") && this.fruits.includes("movie")){
         onlyType = true;
-      
-    }
-    else if(this.fruits.includes("movie")){
+      }
+      else if(this.fruits.includes("book") && this.fruits.includes("music")){
         onlyType = true;
-      
-    }
-    else if(this.fruits.includes("music")){
+      }
+      else if(this.fruits.includes("magazine") && this.fruits.includes("movie")){
         onlyType = true;
+      }
+      else if(this.fruits.includes("magazine") && this.fruits.includes("music")){
+        onlyType = true;
+      }
+      else if(this.fruits.includes("movie") && this.fruits.includes("music")){
+        onlyType = true;
+      }
+      else onlyType = false;
+    }
+    else if(this.fruits.length===3){
+      if(this.fruits.includes("book") && this.fruits.includes("magazine") && this.fruits.includes("movie")){
+        onlyType = true;
+      }
+      else if(this.fruits.includes("book") && this.fruits.includes("magazine") && this.fruits.includes("music")){
+        onlyType = true;
+      }
+      else if(this.fruits.includes("magazine") && this.fruits.includes("movie") && this.fruits.includes("music")){
+        onlyType = true;
+      }
+      else onlyType = false;
+    }
+    else if(this.fruits.length===4){
+      if(this.fruits.includes("book") && this.fruits.includes("magazine") && this.fruits.includes("movie") && this.fruits.includes("music")){
+        onlyType = true;
+      }
+      else onlyType = false;
+    }
       
-    }
-    else onlyType = false;
-  }
-  else if(this.fruits.length>1 && this.fruits.length<=4) {
-    if(this.fruits.includes("book") && this.fruits.includes("magazine")){
-      onlyType = true;
-    }
-    else if(this.fruits.includes("book") && this.fruits.includes("movie")){
-      onlyType = true;
-    }
-    else if(this.fruits.includes("book") && this.fruits.includes("music")){
-      onlyType = true;
-    }
-    else if(this.fruits.includes("magazine") && this.fruits.includes("movie")){
-      onlyType = true;
-    }
-    else if(this.fruits.includes("magazine") && this.fruits.includes("music")){
-      onlyType = true;
-    }
-    else if(this.fruits.includes("movie") && this.fruits.includes("music")){
-      onlyType = true;
-    }
-    else if(this.fruits.includes("book") && this.fruits.includes("magazine") && this.fruits.includes("movie")){
-      onlyType = true;
-    }
-    else if(this.fruits.includes("book") && this.fruits.includes("magazine") && this.fruits.includes("music")){
-      onlyType = true;
-    }
-    else if(this.fruits.includes("magazine") && this.fruits.includes("movie") && this.fruits.includes("music")){
-      onlyType = true;
-    }
-    else if(this.fruits.includes("book") && this.fruits.includes("magazine") && this.fruits.includes("movie") && this.fruits.includes("music")){
-      onlyType = true;
-    }
-    else onlyType = false;
-  }
-
     // chips
     const filters: searchfilters = {
       ...this.form.value,
