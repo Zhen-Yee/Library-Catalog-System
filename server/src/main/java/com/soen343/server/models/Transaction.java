@@ -16,7 +16,7 @@ public class Transaction {
     private CatalogItem catalogItem;
     private Date checkoutDate;
     private Date dueDate;
-    private Date returnDate;
+    private Date dateReturned;
 
     public Transaction() {}
 
@@ -42,5 +42,37 @@ public class Transaction {
             calendar.add(Calendar.DAY_OF_YEAR, MEDIA_LOAN_LENGTH);
             return calendar.getTime();
         }
+    }
+
+    public int getBOOK_LOAN_LENGTH() {
+        return BOOK_LOAN_LENGTH;
+    }
+
+    public int getMEDIA_LOAN_LENGTH() {
+        return MEDIA_LOAN_LENGTH;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public CatalogItem getCatalogItem() {
+        return catalogItem;
+    }
+
+    public Date getCheckoutDate() {
+        return checkoutDate;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public Date getDateReturned() {
+        return dateReturned;
     }
 }
