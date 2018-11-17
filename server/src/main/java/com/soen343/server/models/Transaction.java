@@ -77,4 +77,28 @@ public class Transaction {
     public Date getDateReturned() {
         return dateReturned;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public void setCatalogItem(CatalogItem catalogItem) {
+        this.catalogItem = catalogItem;
+    }
+
+    public void setCheckoutDate(Date checkoutDate) {
+        this.checkoutDate = checkoutDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public void setDateReturned(Date dateReturned) {
+        this.dateReturned = dateReturned;
+    }
 }
