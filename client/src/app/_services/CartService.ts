@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
+import { UserService } from "./user.service";
+
 
 @Injectable()
 export class CartService {
 
     cart = [];
+    cartAndUser = [this.user.userEmail, this.cart];
 
-    constructor() {}
+    constructor(private user: UserService) {}
 
     addtoCart(item: CatalogItem) {
         

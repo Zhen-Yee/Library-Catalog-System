@@ -21,7 +21,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   completeTransaction() {
-      this.http.post("http://localhost:8090/checkout", (this.cart, this.user.userEmail))
+      this.http.post("http://localhost:8090/checkout", (this.cart.cartAndUser))
         .subscribe((confirmation) => {
           if (confirmation) {
             this.openSnackBar("Transaction Completed!", "Close");
@@ -30,7 +30,6 @@ export class CheckoutComponent implements OnInit {
           }
         });
     
-
   }
 
   openSnackBar(message: string, action: string) {
