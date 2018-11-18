@@ -37,6 +37,7 @@ export class ShoppingCartComponent implements OnInit {
   columnsToDisplay: string[] = ["itemType", "qtyInStock", "qtyOnLoan", "title"];
   expandedElement: CatalogItem[];
   dataSource: MatTableDataSource<CatalogItem>;
+  isCheckingOut = false;
 
   ngOnInit() {
     this.cartArray = this.cart.cart
@@ -50,11 +51,16 @@ export class ShoppingCartComponent implements OnInit {
   // Checkout method with dummy route in backend
   checkout() {
     console.log(this.cart.cart)
+    this.isCheckingOut = true;
     this.http.post("http://localhost:8090/catalog/testCheckout", "Ding")
       .subscribe(response => {
         if (response) {
+          this.isCheckingOut = false;
           this.openSnackBar("Checkout complete!", "Close");
+          this.cart.setCartItem(new Array());
+          this.cartArray = [];
         } else {
+          this.isCheckingOut = false;
           this.openSnackBar("Checkout Error.", "Close");
         }
       })
