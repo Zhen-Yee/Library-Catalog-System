@@ -312,6 +312,10 @@ public class MovieGateway {
         } catch(SQLException e) {
             System.out.println(e);
         }
+        Set<Integer> actorId = new HashSet<>();
+        actorId.addAll(actorIdList);
+        actorIdList.clear();
+        actorIdList.addAll(actorId);
         return actorIdList;
     }
 
@@ -328,6 +332,11 @@ public class MovieGateway {
         } catch(SQLException e) {
             System.out.println(e);
         }
+        Set<Integer> producerId = new HashSet<>();
+        producerId.addAll(producerIdList);
+        producerIdList.clear();
+        producerIdList.addAll(producerId);
+
         return producerIdList;
     }
 
@@ -413,9 +422,12 @@ public class MovieGateway {
                 actorIdList = populateActorId(search);
                 for(int i=0; i<actorIdList.size(); i++){
                    String query = "SELECT * from testdb.movie WHERE id ='"+ actorIdList.get(i) + "'";
-                  if(actorIdList.contains(producerIdList.get(i))){
+                
+                if(!producerIdList.isEmpty()){
+                if(actorIdList.contains(producerIdList.get(i))){
                       break;
                   }
+                }
                    stmt.executeQuery(query);
         System.out.print("passed second query");
                    ResultSet movieResultSet = stmt.getResultSet();
