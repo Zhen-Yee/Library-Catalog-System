@@ -8,7 +8,7 @@ export class CartService {
 
     cart = [];
 
-    constructor(private user: UserService) {}
+    constructor() {}
 
     addtoCart(item: CatalogItem) {
         
