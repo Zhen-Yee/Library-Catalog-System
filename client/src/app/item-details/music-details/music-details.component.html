@@ -1,0 +1,46 @@
+<div *ngIf="element">
+<div class = "title">
+  {{element.title}}
+  </div>
+
+  <table>
+      <tr>
+        <th>Quantity in Stock: </th>
+        <th>{{element.qtyInStock}}</th>
+      </tr>
+      <tr>
+        <th>Quantity on Loan: </th>
+        <th>{{element.qtyOnLoan}}</th>
+      </tr>
+      <tr>
+          <th>Item Type: </th>
+          <th>{{element.itemType}}</th>
+      </tr>
+    </table>
+
+<table *ngIf="element.itemType == 'Music'">
+
+  <tr>
+      <th>Type: </th>
+      <th>{{element.type}}</th>
+  </tr>
+  <tr>
+    <th>Artist: </th>
+    <th>{{element.artist}}</th>
+  </tr>
+  <tr>
+    <th>Label: </th>
+    <th>{{element.label}}</th>
+  </tr>
+  <tr>
+      <th>Release Date: </th>
+      <th>{{element.releaseDate}}</th>
+  </tr>
+  <tr>
+      <th>ASIN: </th>
+      <th>{{element.asin}}</th>
+  </tr>
+</table>
+              <update-music *ngIf = "isAdmin()" [music]="element" (messageEvent)="receiveSaveMessage($event)"></update-music>
+<delete-item *ngIf = "isAdmin()" [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>
+</div>

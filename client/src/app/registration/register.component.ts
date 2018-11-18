@@ -97,9 +97,9 @@ export class RegisterComponent implements OnInit {
 openConfirmationDialog() {
 
   if (this.successful === true) {
-  const dialogRef = this.dialog.open(ConfirmationComponent);
+  this.dialog.open(ConfirmationComponent);
   } else {
-  const dialogRef = this.dialog.open(RegistrationErrorComponent); }
+  this.dialog.open(RegistrationErrorComponent); }
   }
 
 
