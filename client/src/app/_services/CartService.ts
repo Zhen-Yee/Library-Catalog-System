@@ -7,7 +7,6 @@ import { UserService } from "./user.service";
 export class CartService {
 
     cart = [];
-    cartAndUser = [this.user.userEmail, this.cart];
 
     constructor(private user: UserService) {}
 

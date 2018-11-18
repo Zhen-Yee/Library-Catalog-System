@@ -21,7 +21,8 @@ export class CheckoutComponent implements OnInit {
   }
 
   completeTransaction() {
-      this.http.post("http://localhost:8090/checkout", (this.cart.cartAndUser))
+      let cart = [this.user.userEmail, this.cart];
+      this.http.post("http://localhost:8090/checkout", cart)
         .subscribe((confirmation) => {
           if (confirmation) {
             this.openSnackBar("Transaction Completed!", "Close");
