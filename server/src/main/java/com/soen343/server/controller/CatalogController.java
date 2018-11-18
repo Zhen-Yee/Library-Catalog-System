@@ -164,4 +164,9 @@ public class CatalogController {
     }
     }
 
+    @PostMapping("/testCheckout")
+    public boolean testCheckout(@RequestBody String item) {
+            System.out.println(item);
+        return true;
+    }
 }

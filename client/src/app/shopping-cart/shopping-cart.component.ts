@@ -47,9 +47,10 @@ export class ShoppingCartComponent implements OnInit {
     return this.user.authenticated;
   }
 
+  // Checkout method with dummy route in backend
   checkout() {
     console.log(this.cart.cart)
-    this.http.post("http://localhost:8090/catalog/testCheckout", this.cartArray)
+    this.http.post("http://localhost:8090/catalog/testCheckout", "Ding")
       .subscribe(response => {
         if (response) {
           this.openSnackBar("Checkout complete!", "Close");
