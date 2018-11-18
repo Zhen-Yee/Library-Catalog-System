@@ -30,7 +30,6 @@ export class CheckoutComponent implements OnInit {
           }
         });
     
-
   }
 
   openSnackBar(message: string, action: string) {

@@ -5,8 +5,8 @@ import {CatalogItem} from "../_models/catalog/catalogItem.model";
 export class CartService {
 
     cart = [];
-
     constructor() {}
+
 
     addtoCart(item: CatalogItem) {
         
