@@ -6,6 +6,7 @@ import { CartService } from '../_services/CartService';
 import { animate, state, style, transition, trigger } from "@angular/animations";
 import { CatalogItem } from "../_models/catalog/catalogItem.model";
 import { MatSnackBar } from "@angular/material";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: "shopping-cart",
@@ -29,7 +30,7 @@ import { MatSnackBar } from "@angular/material";
 
 export class ShoppingCartComponent implements OnInit {
 
-  constructor(private snackBar: MatSnackBar, private cart: CartService, private user: UserService, public dialog: MatDialog) { }
+  constructor(private snackBar: MatSnackBar, private cart: CartService, private user: UserService, public dialog: MatDialog, private http: HttpClient) { }
 
   cartArray = [];
   dataArray: CatalogItem[] = [];
@@ -48,7 +49,14 @@ export class ShoppingCartComponent implements OnInit {
 
   checkout() {
     console.log(this.cart.cart)
-    
+    this.http.post("http://localhost:8090/catalog/testCheckout", this.cartArray)
+      .subscribe(response => {
+        if (response) {
+          this.openSnackBar("Checkout complete!", "Close");
+        } else {
+          this.openSnackBar("Checkout Error.", "Close");
+        }
+      })
   }
 
   removeItem(id: number) {
