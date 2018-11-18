@@ -1,7 +1,157 @@
-<div class = "cart">
+<div class="cart">
 
     <h1> Your Shopping Cart</h1>
+    <div class="shoppingItem">
+        <table mat-table [dataSource]="dataSource" *ngIf="cartArray.length != 0" multiTemplateDataRows matSort class="mat-elevation-z8">
+            <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+                <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                <td mat-cell *matCellDef="let element"> {{element.catalogItem[column]}} </td>
+            </ng-container>
+            <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+            <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                    <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                        <div class="example-element-description">
 
+                            <div class="left-wrapper">
+
+                                <!-- <div class = "title">
+                      {{element.catalogItem.title}}
+                      </div> -->
+
+                                <table>
+                                    <tr>
+                                        <th>Quantity in Stock: </th>
+                                        <th>{{element.catalogItem.qtyInStock}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Quantity on Loan: </th>
+                                        <th>{{element.catalogItem.qtyOnLoan}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Item Type: </th>
+                                        <th>{{element.catalogItem.itemType}}</th>
+                                    </tr>
+                                </table>
+
+                                <table *ngIf="element.catalogItem.itemType == 'Book'">
+                                    <tr>
+                                        <th>Title: </th>
+                                        <th>{{element.catalogItem.title}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Author: </th>
+                                        <th>{{element.catalogItem.author}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Format: </th>
+                                        <th>{{element.catalogItem.format}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Pages: </th>
+                                        <th>{{element.catalogItem.pages}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Publisher: </th>
+                                        <th>{{element.catalogItem.publisher}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Year of Publication: </th>
+                                        <th>{{element.catalogItem.yearOfPublication}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Language: </th>
+                                        <th>{{element.catalogItem.language}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>ISBN10: </th>
+                                        <th>{{element.catalogItem.isbn10}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>ISBN13: </th>
+                                        <th>{{element.catalogItem.isbn13}}</th>
+                                    </tr>
+                                </table>
+
+                                <table *ngIf="element.catalogItem.itemType == 'Music'">
+                                    <tr>
+                                        <th>Title: </th>
+                                        <th>{{element.catalogItem.title}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Type: </th>
+                                        <th>{{element.catalogItem.type}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Artist: </th>
+                                        <th>{{element.catalogItem.artist}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Label: </th>
+                                        <th>{{element.catalogItem.label}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Release Date: </th>
+                                        <th>{{element.catalogItem.releaseDate}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>ASIN: </th>
+                                        <th>{{element.catalogItem.asin}}</th>
+                                    </tr>
+                                </table>
+
+                                <table *ngIf="element.catalogItem.itemType == 'Movie'">
+                                    <tr>
+                                        <th>Title: </th>
+                                        <th>{{element.catalogItem.title}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Director: </th>
+                                        <th>{{element.catalogItem.director}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Actors: </th>
+                                        <th>{{element.catalogItem.actors}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Producers: </th>
+                                        <th>{{element.catalogItem.producers}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Language: </th>
+                                        <th>{{element.catalogItem.language}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Subtitles: </th>
+                                        <th>{{element.catalogItem.subtitles}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Dubs: </th>
+                                        <th>{{element.catalogItem.dubs}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Release Date: </th>
+                                        <th>{{element.catalogItem.releaseDate}}</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Runtime: </th>
+                                        <th>{{element.catalogItem.runTime}}</th>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+                [class.example-expanded-row]="expandedElement === element" (click)="expandedElement === element ? expandedElement = null : expandedElement = element">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
+    </div>
+    <br>
     <button mat-button (click)="checkout()">Checkout</button>
 
 </div>
