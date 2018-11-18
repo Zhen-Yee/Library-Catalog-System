@@ -2,7 +2,6 @@
 
     <h1> Your Shopping Cart</h1>
     <div>
-        <h3 *nfIf="cartArray.length === 0">Cart is empty.</h3>
         <table mat-table [dataSource]="dataSource" *ngIf="cartArray.length != 0" multiTemplateDataRows matSort class="mat-elevation-z8" >
             <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
                 <th mat-header-cell *matHeaderCellDef> {{column}} </th>

@@ -5,7 +5,7 @@ import { MatDialog, MatTableDataSource } from "@angular/material";
 import { CartService } from '../_services/CartService';
 import { animate, state, style, transition, trigger } from "@angular/animations";
 import { CatalogItem } from "../_models/catalog/catalogItem.model";
-import { createAttribute } from "@angular/compiler/src/core";
+import { MatSnackBar } from "@angular/material";
 
 @Component({
   selector: "shopping-cart",
@@ -29,7 +29,7 @@ import { createAttribute } from "@angular/compiler/src/core";
 
 export class ShoppingCartComponent implements OnInit {
 
-  constructor(private cart: CartService, private user: UserService, public dialog: MatDialog) { }
+  constructor(private snackBar: MatSnackBar, private cart: CartService, private user: UserService, public dialog: MatDialog) { }
 
   cartArray = [];
   dataArray: CatalogItem[] = [];
@@ -47,15 +47,21 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   checkout() {
-    console.log(this.dataSource);
     console.log(this.cart.cart)
-   // this.dialog.open(CheckoutComponent);
+    
   }
 
   removeItem(id: number) {
     this.cartArray = this.cartArray.filter((item) => item.id != id)
     this.dataSource = new MatTableDataSource(this.cartArray);
     this.cart.setCartItem(this.cartArray);
-}
+    this.openSnackBar("Item removed!", "Close");
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message , action, {
+      duration: 5000,
+    });
+  }
 
 }
