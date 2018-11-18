@@ -1,25 +1,18 @@
 <div *ngIf="element">
-<div class = "title">
-  {{element.title}}
-  </div>
+    <div class = "title" >{{element.title}}</div>
+    <div>
+          <tr>
+              <th>{{element.qtyInStock}} in Stock </th>
+              <th>{{element.qtyOnLoan}} on Loan </th>
+              <th *ngIf = "(element.qtyInStock - element.qtyOnLoan) == 0">✘</th>
+              <th *ngIf = "(element.qtyInStock - element.qtyOnLoan) > 0">✔</th>            
+          </tr>
+      </div>
 
-  <table>
-      <tr>
-        <th>Quantity in Stock: </th>
-        <th>{{element.qtyInStock}}</th>
-      </tr>
-      <tr>
-        <th>Quantity on Loan: </th>
-        <th>{{element.qtyOnLoan}}</th>
-      </tr>
-      <tr>
-          <th>Item Type: </th>
-          <th>{{element.itemType}}</th>
-      </tr>
-    </table>
+      <img src="assets/music.jpg" alt="Music" height = "200px"> 
 
 <table *ngIf="element.itemType == 'Music'">
-
+  
   <tr>
       <th>Type: </th>
       <th>{{element.type}}</th>
@@ -40,7 +33,10 @@
       <th>ASIN: </th>
       <th>{{element.asin}}</th>
   </tr>
+  <tr>
+    <th> <update-music *ngIf = "isAdmin()" [music]="element" (messageEvent)="receiveSaveMessage($event)"></update-music> </th>
+    <th> <delete-item *ngIf = "isAdmin()" [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>  </th>
+  </tr>
 </table>
-              <update-music *ngIf = "isAdmin()" [music]="element" (messageEvent)="receiveSaveMessage($event)"></update-music>
-<delete-item *ngIf = "isAdmin()" [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>
+
 </div>
