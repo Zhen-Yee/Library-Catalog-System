@@ -1,14 +1,13 @@
 package com.soen343.server.controller;
 
 import com.soen343.server.Catalog;
-import com.soen343.server.models.catalog.*;
 import com.soen343.server.models.SearchCriteria;
-import com.sun.deploy.net.HttpResponse;
+import com.soen343.server.models.catalog.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.resource.HttpResource;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -72,13 +71,13 @@ public class CatalogController {
 
     @PostMapping("/updateBook")
     public boolean updateBook(@RequestBody Book book) {
-            // checks if book object is good or not
-            if (book != null) {
-                catalog.updateCatalogItem(book);
-                return true;
-            } else {
-                return false;
-            }
+        // checks if book object is good or not
+        if (book != null) {
+            catalog.updateCatalogItem(book);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @PostMapping("/updateMusic")
@@ -106,71 +105,73 @@ public class CatalogController {
 
     @PostMapping("/updateMagazine")
     public boolean updateMagazine(@RequestBody Magazine magazine) {
-            // checks if magazine object is good or not
-            if (magazine != null) {
-                catalog.updateCatalogItem(magazine);
-                return true;
-            } else {
-                return false;
-            }
+        // checks if magazine object is good or not
+        if (magazine != null) {
+            catalog.updateCatalogItem(magazine);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @PostMapping("/deleteMovie")
     public boolean deleteMovie(@RequestBody Movie movie) {
-            if (movie != null) {
-                catalog.deleteCatalogItem(movie);
-                return true;
-            } else {
-                return false;
-            }
+        if (movie != null) {
+            catalog.deleteCatalogItem(movie);
+            return true;
+        } else {
+            return false;
+        }
     }
-    
+
     @PostMapping("/deleteBook")
     public boolean deleteBook(@RequestBody Book book){
-            if (book != null) {
-                catalog.deleteCatalogItem(book);
-                return true;
-            } else {
-                return false;
-            }
+        if (book != null) {
+            catalog.deleteCatalogItem(book);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @PostMapping("/deleteMagazine")
     public boolean deleteBook(@RequestBody Magazine magazine){
-            if (magazine != null) {
-                catalog.deleteCatalogItem(magazine);
-                return true;
-            } else {
-                return false;
-            }
+        if (magazine != null) {
+            catalog.deleteCatalogItem(magazine);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @PostMapping("/deleteMusic")
     public boolean deleteMusic(@RequestBody Music music){
-            if (music != null) {
-                catalog.deleteCatalogItem(music);
-                return true;
-            } else {
-                return false;
-            }
+        if (music != null) {
+            catalog.deleteCatalogItem(music);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
-   @PostMapping("/search")
-   public Map<Long, CatalogItem> search(@RequestBody SearchCriteria searchCriteria) {
-   
-    try{
-        System.out.print("Entered CatalogController");
-        return catalog.search(searchCriteria);
-    } catch(Exception exception){
-        System.out.print(exception);
-        return null;
-    }
+    @PostMapping("/search")
+    public Map<Long, CatalogItem> search(@RequestBody SearchCriteria searchCriteria) {
+
+        try{
+            System.out.print("Entered CatalogController");
+            return catalog.search(searchCriteria);
+        } catch(Exception exception){
+            System.out.print(exception);
+            return null;
+        }
     }
 
     @PostMapping("/checkout")
-    public ResponseEntity checkout(@RequestBody List<CatalogItem> cart) {
-        return catalog.checkout(cart);
+    public ResponseEntity checkout(@RequestBody String cart) {
+        JSONObject jsonObject = new JSONObject(cart);
+        JSONArray cartMap = (JSONArray) jsonObject.get("cart");
+        return catalog.checkout(catalog.cartMapToList(cartMap));
     }
 
 }

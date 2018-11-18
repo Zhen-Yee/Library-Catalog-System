@@ -6,14 +6,15 @@ import com.soen343.server.gateways.MovieGateway;
 import com.soen343.server.gateways.MusicGateway;
 import com.soen343.server.models.catalog.*;
 import com.soen343.server.models.SearchCriteria;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class Catalog {
 
@@ -161,6 +162,26 @@ public class Catalog {
         return ResponseEntity.ok("Items from the cart has been successfully checkout");
     }
 
+    public List<CatalogItem> cartMapToList(JSONArray cart) {
+        List<CatalogItem> cartList = new ArrayList<>();
+        JSONObject item;
+        for(int i = 0 ; i < cart.length() ; i++) {
+            item = cart.getJSONObject(i);
+            int quantity = item.getInt("quantity");
+            int j = 0;
+            while (j < quantity) {
+                cartList.add(buildFromJObject((JSONObject) item.get("catalogItem")));
+                j++;
+            }
+        }
+        return cartList;
+    }
+
+    public CatalogItem buildFromJObject(JSONObject object) {
+        long id = object.getInt("id");
+        return identityMap.get(id);
+    }
+
     /**
      *  Identity Map Utilities
      *  Concerning the identity map
@@ -246,7 +267,7 @@ public class Catalog {
                 searchCriteria.getMagazine().equals("") &&
                 searchCriteria.getMovie().equals("") &&
                 searchCriteria.getMusic().equals("")
-                ){
+        ){
             searchedCatalogItems.addAll(bookGateway.search(searchCriteria));
             searchedCatalogItems.addAll(movieGateway.search(searchCriteria));
             searchedCatalogItems.addAll(magazineGateway.search(searchCriteria));
