@@ -22,7 +22,6 @@ export class CartService {
                     return "Reached limit";
                 }
             this.cart[i]["quantity"]++;
-            console.log("Added "+ this.cart[i]["catalogItem"]["title"]);
             found = true;
         
             return "Added to Cart";}

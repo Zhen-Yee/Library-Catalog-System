@@ -21,7 +21,10 @@ export class CheckoutComponent implements OnInit {
   }
 
   completeTransaction() {
-      let cart = [this.user.userEmail, this.cart];
+      let cart = [];
+      cart["user"] = this.user.userEmail;
+      cart["cart"] = this.cart;
+      console.log(cart);
       this.http.post("http://localhost:8090/checkout", cart)
         .subscribe((confirmation) => {
           if (confirmation) {
