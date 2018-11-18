@@ -1,20 +1,19 @@
 package com.soen343.server;
 
-import com.soen343.server.gateways.BookGateway;
-import com.soen343.server.gateways.MagazineGateway;
-import com.soen343.server.gateways.MovieGateway;
-import com.soen343.server.gateways.MusicGateway;
-import com.soen343.server.models.catalog.*;
+import com.soen343.server.gateways.*;
 import com.soen343.server.models.SearchCriteria;
+import com.soen343.server.models.Transaction;
+import com.soen343.server.models.catalog.*;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 public class Catalog {
 
@@ -30,6 +29,7 @@ public class Catalog {
     private MagazineGateway magazineGateway;
     private MusicGateway musicGateway;
     private MovieGateway movieGateway;
+    private TransactionGateway transactionGateway;
 
     /**
      * Default constructor that initializes the identity map
@@ -39,6 +39,7 @@ public class Catalog {
         magazineGateway = MagazineGateway.getMagazineGateway();
         musicGateway = MusicGateway.getMusicGateway();
         movieGateway = MovieGateway.getMovieGateway();
+        transactionGateway = TransactionGateway.getGateway();
         identityMap = new HashMap<>();
         isDatabaseChange = false;
         populateIdentityMap();
@@ -143,17 +144,29 @@ public class Catalog {
         isDatabaseChange = true;
     }
 
-    public synchronized ResponseEntity<String> checkout(List<CatalogItem> cart) {
+    /**
+     * Synchronized method that checks every item and compare it to the
+     * in memory data. If found it decrements the qty in stock and increment
+     * the qty on loan. This updates the database and uses {{@link #insertTransaction(String, CatalogItem)}}
+     * to create a new Transaction object. If not found, the identity map gets repopulated
+     * and the item is recheck again. A ResponseEntity is returned.
+     * @param email
+     * @param cart
+     * @return
+     */
+    public synchronized ResponseEntity<String> checkout(String email, List<CatalogItem> cart) {
         for (CatalogItem item : cart) {
             if (identityMap.containsValue(item)){
                 item.checkoutItem();
                 updateCatalogItem(item);
+                insertTransaction(email, item);
             } else { //repopulate the identity map and check again
                 populateIdentityMap();
 
                 if (identityMap.containsValue(item)){
                     item.checkoutItem();
                     updateCatalogItem(item);
+                    insertTransaction(email, item);
                 } else {
                     return ResponseEntity.badRequest().body("Cart item " + item + " could not be checkout");
                 }
@@ -162,6 +175,11 @@ public class Catalog {
         return ResponseEntity.ok("Items from the cart has been successfully checkout");
     }
 
+    /**
+     * Converts the JSONArray into a CatalogItem list
+     * @param cart: JSONArray
+     * @return List of CatalogItem
+     */
     public List<CatalogItem> cartMapToList(JSONArray cart) {
         List<CatalogItem> cartList = new ArrayList<>();
         JSONObject item;
@@ -177,9 +195,32 @@ public class Catalog {
         return cartList;
     }
 
+    /**
+     * Helper method that returns the object from the identity map
+     * @param object: JSONObject
+     * @return CatalogItem object
+     */
     public CatalogItem buildFromJObject(JSONObject object) {
         long id = object.getInt("id");
         return identityMap.get(id);
+    }
+
+    /**
+     * TRANSACTION METHODS
+     */
+
+    /**
+     * Creates a new {@link Transaction} object and inserts it to the
+     * database.
+     * @param email: String email of the user
+     * @param catalogItem: Item
+     */
+    public void insertTransaction(String email, CatalogItem catalogItem) {
+        transactionGateway.insert(new Transaction(email, catalogItem));
+    }
+
+    public List<Transaction> getTransactionLog() {
+        transactionGateway.get
     }
 
     /**
@@ -207,44 +248,6 @@ public class Catalog {
             isDatabaseChange = false;
         }
         return identityMap;
-    }
-
-    public Long getMapKeyFromValue(CatalogItem value) {
-        for (Map.Entry<Long, CatalogItem> entry : identityMap.entrySet()){
-            if(value.equals(entry.getValue())){
-                return entry.getKey();
-            }
-        }
-        return null;
-    }
-
-    public void addToIdentityMap(long uid, CatalogItem catalogItem) {
-        if (identityMap.containsValue(catalogItem)){
-            CatalogItem currentItem = identityMap.get(getMapKeyFromValue(catalogItem));
-            currentItem.setQtyInStock(currentItem.getQtyInStock()+1);
-            identityMap.replace(getMapKeyFromValue(catalogItem), currentItem);
-        } else {
-            identityMap.put(uid, catalogItem);
-        }
-    }
-
-    public void deleteFromIdentityMap(CatalogItem catalogItem) {
-        if (identityMap.containsValue(catalogItem)){
-            identityMap.remove(getMapKeyFromValue(catalogItem));
-        } else {
-            try {
-                throw new NullPointerException();
-            } catch (NullPointerException e){
-                System.out.println("Cannot find value from from map... Cannot delete.");
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void updateIdentityMap(long uid, CatalogItem catalogItem){
-        if (identityMap.containsValue(catalogItem)){
-            identityMap.replace(catalogItem.getId(), catalogItem);
-        }
     }
 
     public  Map<Long, CatalogItem> search(SearchCriteria searchCriteria){

@@ -2,6 +2,7 @@ package com.soen343.server.controller;
 
 import com.soen343.server.Catalog;
 import com.soen343.server.models.SearchCriteria;
+import com.soen343.server.models.Transaction;
 import com.soen343.server.models.catalog.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -170,8 +171,9 @@ public class CatalogController {
     @PostMapping("/checkout")
     public ResponseEntity checkout(@RequestBody String cart) {
         JSONObject jsonObject = new JSONObject(cart);
+        JSONObject userMap = (JSONObject) jsonObject.get("user");
         JSONArray cartMap = (JSONArray) jsonObject.get("cart");
-        return catalog.checkout(catalog.cartMapToList(cartMap));
+        return catalog.checkout(userMap.getString("userEmail"), catalog.cartMapToList(cartMap));
     }
 
 }
