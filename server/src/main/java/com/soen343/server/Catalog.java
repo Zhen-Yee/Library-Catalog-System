@@ -6,6 +6,7 @@ import com.soen343.server.gateways.MovieGateway;
 import com.soen343.server.gateways.MusicGateway;
 import com.soen343.server.models.catalog.*;
 import com.soen343.server.models.SearchCriteria;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -127,6 +128,25 @@ public class Catalog {
             MovieGateway.delete((Movie)catalogItem);
         }
         isDatabaseChange = true;
+    }
+
+    public synchronized ResponseEntity<String> checkout(List<CatalogItem> cart) {
+        for (CatalogItem item : cart) {
+            if (identityMap.containsValue(item)){
+                item.checkoutItem();
+                updateCatalogItem(item);
+            } else { //repopulate the identity map and check again
+                populateIdentityMap();
+
+                if (identityMap.containsValue(item)){
+                    item.checkoutItem();
+                    updateCatalogItem(item);
+                } else {
+                    return ResponseEntity.badRequest().body("Cart item " + item + " could not be checkout");
+                }
+            }
+        }
+        return ResponseEntity.ok("Items from the cart has been successfully checkout");
     }
 
     /**

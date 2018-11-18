@@ -3,7 +3,11 @@ package com.soen343.server.controller;
 import com.soen343.server.Catalog;
 import com.soen343.server.models.catalog.*;
 import com.soen343.server.models.SearchCriteria;
+import com.sun.deploy.net.HttpResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.resource.HttpResource;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -162,6 +166,11 @@ public class CatalogController {
         System.out.print(exception);
         return null;
     }
+    }
+
+    @PostMapping("/checkout")
+    public ResponseEntity checkout(@RequestBody List<CatalogItem> cart) {
+        return catalog.checkout(cart);
     }
 
 }
