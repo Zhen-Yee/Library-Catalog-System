@@ -5,6 +5,7 @@ import { MatDialog, MatTableDataSource } from "@angular/material";
 import { CartService } from '../_services/CartService';
 import { animate, state, style, transition, trigger } from "@angular/animations";
 import { CatalogItem } from "../_models/catalog/catalogItem.model";
+import { createAttribute } from "@angular/compiler/src/core";
 
 @Component({
   selector: "shopping-cart",
