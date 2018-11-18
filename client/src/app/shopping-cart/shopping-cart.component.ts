@@ -52,4 +52,10 @@ export class ShoppingCartComponent implements OnInit {
    // this.dialog.open(CheckoutComponent);
   }
 
+  removeItem(id: number) {
+    this.cartArray = this.cartArray.filter((item) => item.id != id)
+    this.dataSource = new MatTableDataSource(this.cartArray);
+    this.cart.setCartItem(this.cartArray);
+}
+
 }

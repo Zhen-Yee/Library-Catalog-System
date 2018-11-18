@@ -17,5 +17,6 @@ export class ShoppingCartItemComponent implements OnInit {
     }
 
     private removeItem() {
+        this.cart.removeItem(this.item.id);
     }
 }
