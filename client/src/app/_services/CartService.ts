@@ -8,7 +8,7 @@ export class CartService {
 
     cart = [];
 
-    constructor() {}
+    constructor(private user: UserService) {}
 
     addtoCart(item: CatalogItem) {
         
@@ -28,7 +28,7 @@ export class CartService {
         }
        
         if (found == false){
-        this.cart.push({catalogItem: item, quantity: 1});
+        this.cart.push({user: this.user.userEmail, catalogItem: item, quantity: 1});
 
         return "Added to Cart";
     
