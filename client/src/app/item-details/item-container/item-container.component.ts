@@ -37,8 +37,8 @@ export class ItemContainerComponent {
 
   nextItem() {
     const x = this.dataArray.getData();
-    if (this.dataArray.getData.length === this.details.index + 1) {
-      this.openSnackBar("Nothing to check", "Close");
+    if (this.dataArray.getData().length === this.details.index + 1) {
+      this.openSnackBar("Reached end of list.", "Close");
       return null;
     }
     this.details.index++;
@@ -61,7 +61,7 @@ export class ItemContainerComponent {
   previousItem() {
     const x = this.dataArray.getData();
     if (-1 === this.details.index - 1) {
-      this.openSnackBar("Nothing to check", "Close");
+      this.openSnackBar("Reached beginning of list.", "Close");
       return null;
     }
     this.details.index--;

@@ -21,10 +21,10 @@ form: FormGroup;
       // magazine formgroup matching a magazine object with validators
         title: ["", Validators.required],
         publisher: ["", Validators.required],
-        dateOfPublication: ["", Validators.required],
+        dateOfPublication: ["", [Validators.required, Validators.pattern("^([0-9]{4})[-\/]([0-9]{2})[-\/]([0-9]{2})$")]],
         language: ["", Validators.required],
-        isbn10: ["", Validators.required],
-        isbn13: ["", Validators.required],
+        isbn10: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("^[0-9]*$")]],
+        isbn13: ["", [Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern("^[0-9]*$")]]
     });
   }
 

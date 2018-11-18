@@ -1,3 +1,16 @@
 .example-chip-list {
     width: 100%;
 }
+
+.row
+{
+    display: table;
+    width: auto;
+    table-layout: fixed;
+    border-spacing: 10px;
+}
+.column
+{
+    display: table-cell;
+}
+

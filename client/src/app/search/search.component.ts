@@ -33,10 +33,13 @@ export class SearchComponent implements OnInit {
   createForm() {
     console.log("enter Search");
     this.form = this.fb.group({
-      iType: ["", Validators.required],
+      book: ["", Validators.required],
+      magazine: ["", Validators.required],
+      movie: ["", Validators.required],
+      music: ["", Validators.required],
       title: ["title", Validators.required],
       search: ["", Validators.required],
-      author: ["a", Validators.required],
+      author: ["", Validators.required],
       format: ["", Validators.required],
           publisher: ["", Validators.required],
           language: ["", Validators.required],
@@ -60,51 +63,80 @@ export class SearchComponent implements OnInit {
   }
 
   getSearchedItems() {
-    // determine type for iType
-    let x: string;
+    
     let onlyType: boolean;
+  if(this.fruits.length === 1){
     if(this.fruits.includes("book")){
-      x = "book";
-      if(this.fruits.length===1){
-        onlyType= true;
-      }
-    }
+        onlyType = true;
+      
+    } 
     else if(this.fruits.includes("magazine")){
-      x = "magazine";
-      if(this.fruits.length===1){
-        onlyType= true;
-      }
+        onlyType = true;
+      
     }
     else if(this.fruits.includes("movie")){
-      x = "movie";
-      if(this.fruits.length===1){
-        onlyType= true;
-      }
+        onlyType = true;
+      
     }
     else if(this.fruits.includes("music")){
-      x = "music";
-      if(this.fruits.length===1){
-        onlyType= true;
-      }
+        onlyType = true;
+      
     }
-    else {
-      x = "";
+    else onlyType = false;
+  }
+  else if(this.fruits.length>1 && this.fruits.length<=4) {
+    if(this.fruits.includes("book") && this.fruits.includes("magazine")){
+      onlyType = true;
     }
+    else if(this.fruits.includes("book") && this.fruits.includes("movie")){
+      onlyType = true;
+    }
+    else if(this.fruits.includes("book") && this.fruits.includes("music")){
+      onlyType = true;
+    }
+    else if(this.fruits.includes("magazine") && this.fruits.includes("movie")){
+      onlyType = true;
+    }
+    else if(this.fruits.includes("magazine") && this.fruits.includes("music")){
+      onlyType = true;
+    }
+    else if(this.fruits.includes("movie") && this.fruits.includes("music")){
+      onlyType = true;
+    }
+    else if(this.fruits.includes("book") && this.fruits.includes("magazine") && this.fruits.includes("movie")){
+      onlyType = true;
+    }
+    else if(this.fruits.includes("book") && this.fruits.includes("magazine") && this.fruits.includes("music")){
+      onlyType = true;
+    }
+    else if(this.fruits.includes("magazine") && this.fruits.includes("movie") && this.fruits.includes("music")){
+      onlyType = true;
+    }
+    else if(this.fruits.includes("book") && this.fruits.includes("magazine") && this.fruits.includes("movie") && this.fruits.includes("music")){
+      onlyType = true;
+    }
+    else onlyType = false;
+  }
+
     // chips
     const filters: searchfilters = {
       ...this.form.value,
-      iType: x,
-      title: this.fruits.includes("title") ? "title" : "",
+      book: this.fruits.includes("book") ? "book" : "",
+      magazine: this.fruits.includes("magazine") ? "magazine" : "",
+      movie: this.fruits.includes("movie") ? "movie" : "",
+      music: this.fruits.includes("music") ? "music" : "",
       author: this.fruits.includes("author") ? "author" : "",
       format: this.fruits.includes("format") ? "format" : "",
       publisher: this.fruits.includes("publisher") ? "publisher" : "",
       language: this.fruits.includes("language") ? "language" : "",
       isbn10: this.fruits.includes("isbn10") ? "isbn10" : "",
+      title: this.fruits.includes("title") ? "title" : "",
       isbn13: this.fruits.includes("isbn13") ? "isbn13" : "",
       type: this.fruits.includes("type") ? "type" : "",
       artist: this.fruits.includes("artist") ? "artist" : "",
       label: this.fruits.includes("label") ? "label" : "",
       asin: this.fruits.includes("asin") ? "asin" : "",
+      director: this.fruits.includes("director") ? "director" : "",
       producers: this.fruits.includes("producers") ? "producers" : "",
       actors: this.fruits.includes("actors") ? "actors" : "",
       subtitles: this.fruits.includes("subtitles") ? "subtitles" : "",
@@ -113,11 +145,17 @@ export class SearchComponent implements OnInit {
     };
 
     const emptyFilter: searchfilters = {
-      ...this.form.value
+      ...this.form.value,
+      book: this.fruits.includes("book") ? "book" : "",
+      magazine: this.fruits.includes("magazine") ? "magazine" : "",
+      movie: this.fruits.includes("movie") ? "movie" : "",
+      music: this.fruits.includes("music") ? "music" : ""
     }
     this.dataArray = [];
     console.log(filters);
-    this.http.post("http://localhost:8090/catalog/search", (this.fruits.length === 0 || onlyType) ? emptyFilter : filters)
+    console.log(" "+ this.fruits.length);
+
+    this.http.post("http://localhost:8090/catalog/search",(this.fruits.length === 0 || onlyType) ? emptyFilter : filters)
   .subscribe((confirmation) => {Object.keys(confirmation).map(
     key => {
       this.dataService.findType(confirmation[key]);
@@ -153,7 +191,7 @@ export class SearchComponent implements OnInit {
   fruits: string[] = [];
   allFruits: string[] = ['book', 'magazine', 'music', 'movie',
                         'title', 'author', 'format', 'publisher', 'language', 'isbn10', 'isbn13',
-                        'type', 'artist', 'label', 'asin',
+                        'type', 'artist', 'label', 'asin', 'director', 
                         'producers', 'actors', 'subtitles', 'dubs', 'releaseDate'];
 
   @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;

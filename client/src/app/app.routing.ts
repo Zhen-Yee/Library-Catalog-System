@@ -1,5 +1,6 @@
 import { PromoteUserComponent } from "./promote-user/promote-user.component";
 import { AdminAuthenticateGuard } from "./_services/guards/admin-authenticate.guard";
+import { UserAuthenticateGuard } from "./_services/guards/user-authenticate.guard";
 import { ModuleWithProviders } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { HomePageComponent } from "./homepage/homepage.component";
@@ -41,32 +42,32 @@ const appRoutes: Routes = [
   },
   {
     path: "catalog",
-    canActivate: [AdminAuthenticateGuard],
+    canActivate: [UserAuthenticateGuard],
     component: DataTableComponent
   },
   {
     path: "search",
-    canActivate: [AdminAuthenticateGuard],
+    canActivate: [UserAuthenticateGuard],
     component: SearchComponent
   },
   {
     path: "catalog/magazines",
-    canActivate: [AdminAuthenticateGuard],
+    canActivate: [UserAuthenticateGuard],
     component: SortingMagazinesComponent
   },
   {
     path: "catalog/movies",
-    canActivate: [AdminAuthenticateGuard],
+    canActivate: [UserAuthenticateGuard],
     component: SortingMoviesComponent
   },
   {
     path: "catalog/music",
-    canActivate: [AdminAuthenticateGuard],
+    canActivate: [UserAuthenticateGuard],
     component: SortingMusicComponent
   },
   {
     path: "catalog/books",
-    canActivate: [AdminAuthenticateGuard],
+    canActivate: [UserAuthenticateGuard],
     component: SortingBookComponent
   },
   {

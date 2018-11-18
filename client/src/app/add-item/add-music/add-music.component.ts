@@ -19,7 +19,7 @@ export class AddMusicComponent implements OnInit {
         type: ["", Validators.required],
         artist: ["", Validators.required],
         label: ["", Validators.required],
-        releaseDate: ["", Validators.required],
+        releaseDate: ["", [Validators.required, Validators.pattern("^([0-9]{4})[-\/]([0-9]{2})[-\/]([0-9]{2})$")]],
         asin: ["", Validators.required]
      });
   }

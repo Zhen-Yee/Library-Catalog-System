@@ -46,11 +46,11 @@ export class UpdateMusicComponent implements OnInit {
             title: ["", Validators.required],
             type: ["", Validators.required],
             artist: ["", Validators.required],
-            releaseDate: ["", [Validators.required, Validators.pattern("^([0-9]{4})\/(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])$")]],
+            releaseDate: ["", [Validators.required, Validators.pattern("^([0-9]{4})[-\/]([0-9]{2})[-\/]([0-9]{2})$")]],
             asin: ["", [Validators.required, Validators.pattern("^B[\\dA-Z]{9}|\\d{9}(X|\\d)$")]],
             label: ["", Validators.required],
-            qtyInStock: ["", Validators.required],
-            qtyOnLoan: ["", Validators.required],
+            qtyInStock: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
+            qtyOnLoan: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
             id: ["", Validators.required]
         });
     }
