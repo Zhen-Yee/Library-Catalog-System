@@ -13,6 +13,7 @@ import {SortingMagazinesComponent} from "./dataTable/sorting-magazines/sorting-m
 import {SortingMoviesComponent} from "./dataTable/sorting-movies/sorting-movies.component";
 import { SortingMusicComponent } from "./dataTable/sorting-music/sorting-music.component";
 import {SortingBookComponent} from "./dataTable/sorting-book/sorting-book.component";
+import { HistoryComponent } from "./history/history.component";
 
 
 const appRoutes: Routes = [
@@ -24,6 +25,13 @@ const appRoutes: Routes = [
     path: "register",
     canActivate: [AdminAuthenticateGuard],
     component: RegisterComponent
+  },
+
+  {
+    path: "transactions",
+    canActivate: [AdminAuthenticateGuard],
+    component: HistoryComponent
+
   },
   {
     path: "promote",
