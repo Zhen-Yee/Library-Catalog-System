@@ -23,6 +23,9 @@ public class AdminService {
     private final String SQL_ACTIVE_USERS = "SELECT * from testdb.User WHERE is_online=true";
     //language=MySQL
     private final String SQL_INACTIVE_USERS = "SELECT * from testdb.User WHERE is_online=false";
+    //language=MySQL
+    private final String SQL_ALL_NON_ADMIN = "SELECT * from testdb.User WHERE is_admin=false";
+
 
     /**
      * Method that will query from db and return
@@ -78,7 +81,14 @@ public class AdminService {
         return getUsers(SQL_INACTIVE_USERS);
     }
 
-
+    /**
+     * Method that will query from db and return
+     * a list of non admin users
+     * @return List<User>
+     */
+    public List<User> getNonAdminUsers() {
+        return getUsers(SQL_ALL_NON_ADMIN);
+    }
 
 
 }

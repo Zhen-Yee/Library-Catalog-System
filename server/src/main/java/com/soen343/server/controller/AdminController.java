@@ -51,4 +51,13 @@ public class AdminController {
 
     }
 
+    /**
+     * Returns a list of nonactive users
+     * @return
+     */
+    @GetMapping("/nonadmin-users")
+    public List<User> displayNonAdminUser() {
+        return adminService.getNonAdminUsers();
+    }
+
 }
