@@ -9,13 +9,14 @@ import { ShoppingCartComponent } from '../../shopping-cart/shopping-cart.compone
 })
 export class ShoppingCartItemComponent implements OnInit {
 
-    @Input()
-    private item;
+    @Input() item;
+
     private editQty = false;
-    private newQty: number;
+    newQty;
     constructor(private cart: ShoppingCartComponent) { }
 
     ngOnInit() {
+      console.log(this.item.quantity);
     }
 
     private removeItem() {
