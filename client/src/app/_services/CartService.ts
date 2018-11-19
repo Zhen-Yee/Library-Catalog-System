@@ -6,6 +6,7 @@ import {UserService} from "./user.service";
 export class CartService {
 
     cart = [];
+    
     constructor(private user: UserService) {}
 
 
@@ -34,6 +35,10 @@ export class CartService {
     
     }
         
+    }
+
+    emptyCart(){
+        this.cart = [];
     }
 
 }

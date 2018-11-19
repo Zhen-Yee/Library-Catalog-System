@@ -154,7 +154,7 @@ public class Catalog {
      * @param cart
      * @return
      */
-    public synchronized ResponseEntity<String> checkout(String email, List<CatalogItem> cart) {
+    public synchronized Boolean checkout(String email, List<CatalogItem> cart) {
         for (CatalogItem item : cart) {
             if (identityMap.containsValue(item)){
                 item.checkoutItem();
@@ -168,11 +168,11 @@ public class Catalog {
                     updateCatalogItem(item);
                     insertTransaction(email, item);
                 } else {
-                    return ResponseEntity.badRequest().body("Cart item " + item + " could not be checkout");
+                    return false;
                 }
             }
         }
-        return ResponseEntity.ok("Items from the cart has been successfully checkout");
+        return true;
     }
 
     /**

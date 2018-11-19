@@ -4,8 +4,8 @@
         <tr>
             <th>{{element.qtyInStock}} in Stock </th>
             <th>{{element.qtyOnLoan}} on Loan </th>
-            <th *ngIf = "(element.qtyInStock - element.qtyOnLoan) == 0">✘</th>
-            <th *ngIf = "(element.qtyInStock - element.qtyOnLoan) > 0">✔</th>            
+            <th *ngIf = "element.qtyInStock == 0">✘</th>
+            <th *ngIf = "element.qtyInStock > 0">✔</th>            
         </tr>
     </div>
 

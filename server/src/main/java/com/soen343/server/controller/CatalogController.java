@@ -169,7 +169,7 @@ public class CatalogController {
     }
 
     @PostMapping("/checkout")
-    public ResponseEntity checkout(@RequestBody String cart) {
+    public Boolean checkout(@RequestBody String cart) {
         JSONObject jsonObject = new JSONObject(cart);
         JSONObject userMap = (JSONObject) jsonObject.get("user");
         JSONArray cartMap = (JSONArray) jsonObject.get("cart");
