@@ -40,7 +40,7 @@ export class ItemContainerComponent implements OnInit, OnDestroy {
           }  else if (event[1].url.split("/").includes("Magazine")) {
             this.details.fromSort = "magazines";
           }  else if (event[1].url.split("/").includes("Music")) {
-            this.details.fromSort = "musics";
+            this.details.fromSort = "music";
           }
       }
       if (event[0].url.split("/").includes("Book")) {
@@ -50,7 +50,7 @@ export class ItemContainerComponent implements OnInit, OnDestroy {
         }  else if (event[1].url.split("/").includes("Magazine")) {
           this.details.fromSort = "magazines";
         }  else if (event[1].url.split("/").includes("Music")) {
-          this.details.fromSort = "musics";
+          this.details.fromSort = "music";
         }
     });
   }
