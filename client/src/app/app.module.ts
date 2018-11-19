@@ -61,6 +61,7 @@ import { CustomRouteReuseStategy } from "./_services/route-reuse.service";
 import { ObjectDetailsService } from "./_services/object-details.service";
 import {ItemContainerComponent} from "./item-details/item-container/item-container.component";
 import { UserAuthenticateGuard } from "./_services/guards/user-authenticate.guard";
+import { MatBadgeModule } from '@angular/material';
 
 @NgModule({
    declarations: [
@@ -113,6 +114,7 @@ import { UserAuthenticateGuard } from "./_services/guards/user-authenticate.guar
       MatButtonModule,
       MatToolbarModule,
       MatMenuModule,
+      MatBadgeModule,
       MatDialogModule,
       MatCardModule,
       MatSelectModule,
@@ -122,6 +124,7 @@ import { UserAuthenticateGuard } from "./_services/guards/user-authenticate.guar
       RouterModule.forRoot([]),
       routing,
       ReactiveFormsModule,
+      
       MatListModule,
       MatIconModule,
       MatTableModule,

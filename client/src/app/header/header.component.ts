@@ -6,6 +6,7 @@ import { HttpClient } from "@angular/common/http";
 import { finalize } from "rxjs/operators";
 import { UserService } from "../_services/user.service";
 import { ToggleService } from "../_services/ToggleService";
+import { CartService } from "../_services/CartService";
 
 @Component({
   selector: "header",
@@ -15,7 +16,7 @@ import { ToggleService } from "../_services/ToggleService";
 export class HeaderComponent implements OnInit {
   toggling = false;
 
-  constructor(private router: Router, public dialog: MatDialog, private http: HttpClient, private user: UserService, private toggled: ToggleService ) {
+  constructor(private cart: CartService, private router: Router, public dialog: MatDialog, private http: HttpClient, private user: UserService, private toggled: ToggleService ) {
   }
 
   ngOnInit() {
@@ -87,6 +88,10 @@ export class HeaderComponent implements OnInit {
 
   isToggle() {
     return this.toggling;
+  }
+
+  cartQuantity() {
+    return (this.cart.cart).length;
   }
 
 }
