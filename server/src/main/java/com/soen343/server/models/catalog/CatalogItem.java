@@ -59,9 +59,9 @@ public abstract class CatalogItem {
      * @return Boolean that indicates if the checkout succeeded
      */
     public Boolean checkoutItem() {
-        if ( qtyInStock > 0 ) {
-            qtyInStock = qtyInStock--;
-            qtyOnLoan = qtyOnLoan++;
+        if ( this.qtyInStock > 0 ) {
+            this.qtyInStock--;
+            this.qtyOnLoan++;
             return true;
         }
         return false;
@@ -73,8 +73,8 @@ public abstract class CatalogItem {
      */
     public Boolean returnItem() {
         if (qtyOnLoan > 0) {
-            qtyOnLoan = qtyOnLoan--;
-            qtyInStock = qtyInStock++;
+            this.qtyOnLoan--;
+            this.qtyInStock++;
             return true;
         }
         return false;

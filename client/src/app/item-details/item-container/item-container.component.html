@@ -4,8 +4,11 @@
 
 <div class = "col"> <button mat-button (click) = "previousItem()"><mat-icon>arrow_back_ios</mat-icon></button> </div>
 
-<div class = "col-middle"> <div class = "content"> <router-outlet></router-outlet> </div> </div>
+<div class = "col-middle"> <div class = "content"> <router-outlet></router-outlet> </div>
+<button mat-button *ngIf="!(itemType == 'Magazine') && !isAdmin()" (click) = "addToCart()"><mat-icon>add_shopping_cart</mat-icon></button></div>
 
- <div class = "col"> <button mat-button (click) = "nextItem()"><mat-icon>arrow_forward_ios</mat-icon></button> </div>
+<div class = "col"> <button mat-button (click) = "nextItem()"><mat-icon>arrow_forward_ios</mat-icon></button> </div>
 
 </div>
+
+

@@ -39,6 +39,8 @@ import { AddMusicComponent } from "./add-item/add-music/add-music.component";
 import { AddMoviesComponent } from "./add-item/add-movies/add-movies.component";
 import { AddMagazineComponent } from "./add-item/add-magazine/add-magazine.component";
 import { DataTableComponent } from "./dataTable/data-table.component";
+import { ShoppingCartComponent } from "./shopping-cart/shopping-cart.component";
+import { CheckoutComponent } from "./checkout/checkout.component";
 import { MatTableModule } from "@angular/material/table";
 import { UpdateBookComponent } from "./update-item/update-book/update-book.component";
 import { UpdateMagazineComponent } from "./update-item/update-magazine/update-magazine.component";
@@ -48,6 +50,7 @@ import { UpdateMovieComponent } from "./update-item/update-movie/update-movie.co
 import { DeleteItemPromptDialogComponent } from "./delete-item-prompt-dialog/delete-item-prompt-dialog.component";
 import { SearchComponent } from "./search/search.component";
 import { DataService } from "./_services/DataService.service";
+import { CartService } from "./_services/CartService";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { SortingMusicComponent } from "./dataTable/sorting-music/sorting-music.component";
 import { SortingMagazinesComponent } from "./dataTable/sorting-magazines/sorting-magazines.component";
@@ -77,15 +80,18 @@ import { UserAuthenticateGuard } from "./_services/guards/user-authenticate.guar
       AddMagazineComponent,
       DataTableComponent,
       DeleteItemComponent,
+      ShoppingCartComponent,
       UpdateBookComponent,
       UpdateMagazineComponent,
       UpdateMusicComponent,
       UpdateMovieComponent,
       PromoteUserComponent,
+      CheckoutComponent,
       DeleteItemPromptDialogComponent,
       SearchComponent,
       SearchComponent,
       SortingMusicComponent,
+      CheckoutComponent,
       SortingMagazinesComponent,
       SortingMoviesComponent,
       SortingBookComponent,
@@ -128,7 +134,8 @@ import { UserAuthenticateGuard } from "./_services/guards/user-authenticate.guar
       LoginComponent,
       ConfirmationComponent,
       RegistrationErrorComponent,
-      DeleteItemPromptDialogComponent
+      DeleteItemPromptDialogComponent,
+      CheckoutComponent
    ],
    providers: [
       UserService,
@@ -138,6 +145,7 @@ import { UserAuthenticateGuard } from "./_services/guards/user-authenticate.guar
       ToggleService,
       DataService,
       ObjectDetailsService,
+      CartService,
       {provide: RouteReuseStrategy, useClass: CustomRouteReuseStategy}
    ],
    bootstrap: [
