@@ -114,6 +114,7 @@ import { MatBadgeModule } from '@angular/material';
       MatButtonModule,
       MatToolbarModule,
       MatMenuModule,
+      MatBadgeModule,
       MatDialogModule,
       MatCardModule,
       MatSelectModule,
@@ -153,6 +154,9 @@ import { MatBadgeModule } from '@angular/material';
    ],
    bootstrap: [
       AppComponent
+   ],
+   exports: [
+      MatBadgeModule
    ]
 })
 export class AppModule { }
