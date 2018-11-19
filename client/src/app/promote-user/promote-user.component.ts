@@ -12,7 +12,7 @@ export class PromoteUserComponent implements OnInit {
 
   nonAdminArray = [];
   isDataLoaded;
-  selected: User;
+  selected;
   selectedUser;
 
   constructor(private http: HttpClient) {

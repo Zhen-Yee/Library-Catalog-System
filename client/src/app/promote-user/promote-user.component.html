@@ -4,7 +4,7 @@
 
 <mat-form-field *ngIf="isDataLoaded" class="horizontal">
   <mat-select placeholder="Promote non admin users"  [(value)]="selected"  (click)="getNonAdminUsers()">
-    <mat-option *ngFor="let user of nonAdminArray" [value]="user.emailAddress" [(ngModel)] = "user" >
+    <mat-option *ngFor="let user of nonAdminArray" [value]="user.emailAddress" [(ngModel)] = "selected" >
       {{user.emailAddress}}
     </mat-option>
   </mat-select>`
@@ -14,7 +14,7 @@
 <mat-card class="example-card" *ngIf="selected">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title> {{this.selected.firstName}}</mat-card-title>
+    <mat-card-title> {{selected.firstName}}</mat-card-title>
     <mat-card-subtitle>{{selected.lastName}}</mat-card-subtitle>
   </mat-card-header>
   <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
