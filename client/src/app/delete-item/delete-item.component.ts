@@ -54,6 +54,7 @@ export class DeleteItemComponent implements OnInit {
             console.log(updateSuccess)
             if (updateSuccess) {
                 this.messageEvent.emit("Deleting Magazine...")
+                this.router.navigate(["/catalog"]);
                 // Reloads page for updated changes
                 // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
                 //     this.router.navigate(["/catalog"]));
@@ -72,6 +73,7 @@ export class DeleteItemComponent implements OnInit {
           .subscribe(updateSuccess => {
             if (updateSuccess) {
                 this.messageEvent.emit("Deleting Music...")
+                this.router.navigate(["/catalog"]);
                 // Reloads page for updated changes
                 // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
                 //     this.router.navigate(["/catalog"]));
@@ -90,6 +92,7 @@ export class DeleteItemComponent implements OnInit {
           .subscribe(updateSuccess => {
             if (updateSuccess) {
                 this.messageEvent.emit("Deleting Movie...")
+                this.router.navigate(["/catalog"]);
                 // Reloads page for updated changes
                 // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
                 //     this.router.navigate(["/catalog"]));
