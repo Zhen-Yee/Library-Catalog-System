@@ -43,6 +43,7 @@ export class AddBookComponent implements OnInit {
         .subscribe((confirmation) => {
           if (confirmation) {
             this.openSnackBar("Book added!", "Close");
+            this.form.reset();
           } else {
             this.openSnackBar("Error adding book!", "Close");
           }

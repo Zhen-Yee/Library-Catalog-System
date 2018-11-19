@@ -144,6 +144,7 @@ export class AddMoviesComponent implements OnInit {
         .subscribe((confirmation) => {
           if (confirmation) {
             this.openSnackBar("Movie added!", "Close");
+            this.form.reset();
           } else {
             this.openSnackBar("Error adding movie!", "Close");
           }

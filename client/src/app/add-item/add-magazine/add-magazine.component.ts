@@ -40,6 +40,7 @@ form: FormGroup;
         .subscribe((confirmation) => {
           if (confirmation) {
             this.openSnackBar("Magazine added!", "Close");
+            this.form.reset();
           } else {
             this.openSnackBar("Error adding magazine!", "Close");
           }

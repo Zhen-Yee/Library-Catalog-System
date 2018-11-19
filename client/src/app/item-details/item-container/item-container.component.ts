@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ObjectDetailsService } from "src/app/_services/object-details.service";
 import { DataService } from "src/app/_services/DataService.service";
 import { CatalogItemType } from "src/app/enums/catalogItemType";
@@ -13,7 +13,7 @@ import { UserService } from "src/app/_services/user.service";
   templateUrl: "item-container.component.html",
   styleUrls: ["item-container.component.css"]
 })
-export class ItemContainerComponent {
+export class ItemContainerComponent implements OnInit {
   constructor(
     private router: Router,
     private details: ObjectDetailsService,
@@ -27,12 +27,10 @@ export class ItemContainerComponent {
   addtocart;
 
   ngOnInit() {
-
     const data = this.dataArray.getData();
     const item = data[this.details.index];
     this.itemType = item.itemType;
     console.log(this.itemType);
-    
   }
 
   nextItem() {
@@ -104,7 +102,7 @@ export class ItemContainerComponent {
   }
 
   backToSearch() {
-    this.router.navigate([""]);
+    this.router.navigate(["catalog"]);
   }
 
   isAdmin() {
