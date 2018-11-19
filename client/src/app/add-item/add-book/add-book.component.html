@@ -50,6 +50,13 @@
     Please enter a valid ISBN13
    </mat-error>
 
+  <mat-form-field>
+    <input matInput formControlName="qtyInStock" placeholder="Quantity">
+  </mat-form-field>
+  <mat-error *ngIf="form.get('qtyInStock').hasError('min') || form.get('qtyInStock').hasError('pattern')" >
+    Please enter a positive integer
+  </mat-error>
+
 </div>
 
 <button color="primary" [disabled]="form.pristine" mat-raised-button (click) = "addBook()">

@@ -19,7 +19,7 @@ export class AddBookComponent implements OnInit {
 
   createForm() {
     this.form = this.fb.group({
-      // book formgroup matching a book object with validators
+      // book form group matching a book object with validators
             title: ["", Validators.required],
             author: ["", Validators.required],
             format: ["", [Validators.required, Validators.pattern("^Paperback$|^Hardcover$")]],
@@ -28,7 +28,8 @@ export class AddBookComponent implements OnInit {
             yearOfPublication: ["", [Validators.required, Validators.pattern("^([0-9]{4})$")]],
             language: ["", [Validators.required]],
             isbn10: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("^[0-9]*$")]],
-            isbn13: ["", [Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern("^[0-9]*$")]]
+            isbn13: ["", [Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern("^[0-9]*$")]],
+            qtyInStock: ["", [Validators.required, Validators.min(1), Validators.pattern("^[0-9]*$")]]
     });
   }
 

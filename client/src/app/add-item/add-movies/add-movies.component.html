@@ -79,6 +79,12 @@
     </mat-chip-list>
   </mat-form-field>
     <br>
+  <mat-form-field>
+    <input matInput formControlName="qtyInStock" placeholder="Quantity">
+  </mat-form-field>
+  <mat-error *ngIf="form.get('qtyInStock').hasError('min') || form.get('qtyInStock').hasError('pattern')" >
+    Please enter a positive integer
+  </mat-error>
   </div>
   <div>
   <button color="primary"  mat-raised-button (click) = "addMovie()">
