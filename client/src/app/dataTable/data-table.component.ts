@@ -74,11 +74,11 @@ export class DataTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.details.fromSort = null;
     this.router.events
     .pipe(filter(e => e instanceof RoutesRecognized))
     .pipe(pairwise())
     .subscribe((event: any[]) => {
-      console.log(event);
       if (event[0].url.split("/").includes("details")) {
       this.dataService.fromDetails = true;
       } else {
@@ -125,7 +125,7 @@ export class DataTableComponent implements OnInit, OnDestroy {
     this.isLoaded = true;
   }
 
-  moreDetails(item, index) {
+  moreDetails(item) {
     this.details.index = this.dataSource.filteredData.indexOf(item);
     // navigate to corresponding route depending on type
     if (item.itemType === CatalogItemType.Book) {

@@ -11,5 +11,6 @@ export class ObjectDetailsService {
   public music: Music;
   public index: number;
   public paginaton: number;
-  public catalogItem: CatalogItem
+  public catalogItem: CatalogItem;
+  public fromSort: string;
 }
