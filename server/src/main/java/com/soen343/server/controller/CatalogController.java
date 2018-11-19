@@ -176,4 +176,9 @@ public class CatalogController {
         return catalog.checkout(userMap.getString("userEmail"), catalog.cartMapToList(cartMap));
     }
 
+    @PostMapping("/testCheckout")
+    public boolean testCheckout(@RequestBody String item) {
+            System.out.println(item);
+        return true;
+    }
 }
