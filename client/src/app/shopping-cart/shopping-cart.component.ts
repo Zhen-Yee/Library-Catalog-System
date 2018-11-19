@@ -2,6 +2,7 @@ import { Component,  OnInit } from "@angular/core";
 import {UserService} from "../_services/user.service";
 import {CheckoutComponent} from "../checkout/checkout.component";
 import { MatDialog } from "@angular/material";
+import { CartService } from "../_services/CartService";
 
 @Component({
   selector: "shopping-cart",
@@ -11,7 +12,7 @@ import { MatDialog } from "@angular/material";
 })
 export class ShoppingCartComponent implements OnInit {
 
-  constructor(private user: UserService, public dialog: MatDialog) {}
+  constructor(private user: UserService, public dialog: MatDialog, private cart: CartService) {}
 
   ngOnInit() {}
 

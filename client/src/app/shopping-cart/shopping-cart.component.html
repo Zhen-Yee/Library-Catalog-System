@@ -2,6 +2,6 @@
 
     <h1> Your Shopping Cart</h1>
 
-    <button mat-button (click)="checkout()">Checkout</button>
+    <button mat-button [hidden]="this.isCartEmpty()" (click)="checkout()">Checkout</button>
 
 </div>
