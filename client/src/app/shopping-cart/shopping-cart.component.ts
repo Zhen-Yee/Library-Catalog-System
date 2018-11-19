@@ -34,10 +34,11 @@ export class ShoppingCartComponent implements OnInit {
 
   cartArray = [];
   dataArray: CatalogItem[] = [];
-  columnsToDisplay: string[] = ["itemType", "qtyInStock", "qtyOnLoan", "title"];
+  columnsToDisplay: string[] = ["itemType", "qtyInStock", "qtyOnLoan", "title", "quantity"];
   expandedElement: CatalogItem[];
   dataSource: MatTableDataSource<CatalogItem>;
   isCheckingOut = false;
+  editing = false;
 
   ngOnInit() {
     this.cartArray = this.cart.cart
@@ -71,6 +72,10 @@ export class ShoppingCartComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.cartArray);
     this.cart.setCartItem(this.cartArray);
     this.openSnackBar("Item removed!", "Close");
+  }
+
+  saveQuantity(id: number, qty: number) {
+    console.log(id + " " + qty);
   }
 
   openSnackBar(message: string, action: string) {

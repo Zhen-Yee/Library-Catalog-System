@@ -104,4 +104,7 @@
                 </tr>
             </table>
             <button mat-button (click)="removeItem()">Remove</button>
+            <button mat-button *ngIf="!editQty" (click)="editQuantity()">Edit Quantity</button>
+            <button mat-button *ngIf="editQty" (click)="saveQuantity()">Save</button>
+            <button mat-button *ngIf="editQty" (click)="editQuantity()">Cancel</button>
 </div>

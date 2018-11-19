@@ -12,6 +12,7 @@ export class ShoppingCartItemComponent implements OnInit {
 
     @Input()
     private item;
+    private editQty = false;
     constructor(private cart: ShoppingCartComponent) { }
 
     ngOnInit() {
@@ -20,4 +21,14 @@ export class ShoppingCartItemComponent implements OnInit {
     private removeItem() {
         this.cart.removeItem(this.item.id);
     }
+
+    private editQuantity() {
+        this.editQty = !this.editQty;
+    }
+
+    private saveQuantity() {
+        this.cart.saveQuantity(this.item.id, this.item.quantity);
+        this.editQty = false;
+    }
+
 }
