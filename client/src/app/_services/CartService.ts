@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
-import { UserService } from "./user.service";
-
+import {UserService} from "./user.service";
 
 @Injectable()
 export class CartService {
 
     cart = [];
     id = 0;
-    constructor() {}
+    constructor(private user: UserService) {}
+
 
     addtoCart(item: CatalogItem) {
         
@@ -22,14 +22,15 @@ export class CartService {
                     return "Reached limit";
                 }
             this.cart[i]["quantity"]++;
+            console.log("Added "+ this.cart[i]["catalogItem"]["title"]);
             found = true;
         
             return "Added to Cart";}
         }
        
         if (found == false){
-        this.cart.push({id: this.id, catalogItem: item, quantity: 1});
-        this.id++;
+        this.cart.push({id: this.id, user: this.user.userEmail, catalogItem: item, quantity: 1});
+
         return "Added to Cart";
     
     }

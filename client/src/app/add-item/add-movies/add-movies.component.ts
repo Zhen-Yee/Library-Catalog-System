@@ -38,7 +38,7 @@ export class AddMoviesComponent implements OnInit {
       language: ["", Validators.required],
       // subtitles: [this.subtitles],
       // dubs: [this.dubs],
-      releaseDate: ["", [Validators.required, Validators.pattern("^([0-9]{4})\\/(0[1-9]|1[0-2])\\/(0[1-9]|[1-2][0-9]|3[0-1])$")]],
+      releaseDate: ["", [Validators.required, Validators.pattern("^([0-9]{4})[-\/]([0-9]{2})[-\/]([0-9]{2})$")]],
       runTime: ["", Validators.required]
     });
   }

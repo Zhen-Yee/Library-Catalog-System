@@ -1,14 +1,17 @@
+import {Timestamp} from "rxjs";
+
 export class User {
 
     firstName: string;
     lastName: string;
-    email: string;
-    address: string;
-    phone: string;
+    emailAddress: string;
+    physicalAddress: string;
+    phoneNumber: string;
     username: string;
     password: string;
-    is_admin: boolean;
-    is_active: boolean;
+    isAdmin: boolean;
+    isOnline: boolean;
+
+    lastLoggedIn: string;
 
   }
-  

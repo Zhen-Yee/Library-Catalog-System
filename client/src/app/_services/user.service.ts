@@ -19,6 +19,4 @@ export class UserService {
     this.userName = userName.toString();
     this.userEmail = userEmail.toString();
   }
-
-
 }

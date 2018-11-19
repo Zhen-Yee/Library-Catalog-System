@@ -18,3 +18,11 @@
 .green-icon {
   color: green;
 }
+
+::ng-deep .mat-progress-bar-fill::after {
+  background-color: #FEDBD0 !important;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+  background: #FEEAE6 !important;
+}

@@ -1,5 +1,6 @@
 package com.soen343.server.gateways;
 
+import com.soen343.server.models.Transaction;
 import com.soen343.server.models.catalog.Movie;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -8,10 +9,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 @Ignore
-public class MovieGatewayTest {
-
+public class TransactionGatewayTest {
     private static Movie movie;
-    private static MovieGateway movieGateway;
 
     @BeforeClass
     public static void buildMovie() {
@@ -29,21 +28,13 @@ public class MovieGatewayTest {
         dubs.add("Dutch");
 
         movie = new Movie("TestTitle", 3, 0, "TestDirector", producers, actors, "TestLanguage", subs, dubs, "1998/12/12", 120);
-        movieGateway = new MovieGateway();
+        movie.setId(9999);
     }
 
     @Test
-    public void t001_insertTest() {
-
-        movieGateway.insert(movie);
+    public void insertTransactionTest() {
+        Transaction testTransaction = new Transaction("TestEmail@test.com", movie);
+        TransactionGateway.getGateway().insert(testTransaction);
         System.out.println("Insert Test Breakpoint line");
     }
-
-    @Test
-    public void t002_deleteTest() {
-        // select an id to delete
-        movieGateway.delete(movie);
-    }
-
-
 }

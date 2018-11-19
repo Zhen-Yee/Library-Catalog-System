@@ -32,13 +32,13 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       firstName: ["", Validators.required],
       lastName: ["", Validators.required],
-      phone: ["", Validators.required],
-      email: ["", Validators.email],
-      address: ["", Validators.required],
+      phone: ["", [Validators.required, Validators.pattern("^[a-z0-9_-]{8,15}$")]],
+      email: ["", [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
+      address: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
       city: ["", Validators.required],
       provState:  ["", Validators.required],
       country: ["", Validators.required],
-      postal: ["", Validators.required]
+      postal: ["", [Validators.required]]
 
   });
 
@@ -53,29 +53,25 @@ export class RegisterComponent implements OnInit {
 
     this.submitted = true;
 
-        if (this.registerForm.invalid) {
-          console.log("Form invalid");
-            return;
-        }
-
-        console.log("Form valid.");
-
     const temp = this.generatePassword();
     this.registerForm.get("firstName");
     this.password.changePassword(temp);
     const user: User = {
       firstName: this.registerForm.get("firstName").value,
       lastName: this.registerForm.get("lastName").value,
-      phone: this.registerForm.get("phone").value,
-      email: this.registerForm.get("email").value,
-      address: this.registerForm.get("address").value + " " + this.registerForm.get("city").value +
-        this.registerForm.get("provState").value +
+      phoneNumber: this.registerForm.get("phone").value,
+      emailAddress: this.registerForm.get("email").value,
+      physicalAddress: this.registerForm.get("address").value + " " + this.registerForm.get("city").value + " " +
+        this.registerForm.get("provState").value + " " +
         this.registerForm.get("country").value + " " + this.registerForm.get("postal").value,
       username: "",
       password: temp,
-      is_admin: false,
-      is_active: false
+      lastLoggedIn: null,
+      isAdmin: false,
+      isOnline: false
     };
+
+    console.log(user);
 
     this.http
       .post<boolean>("http://localhost:8090/addUser", user)

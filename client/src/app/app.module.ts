@@ -17,9 +17,9 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {
   MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, MatMenuModule, MatDialogModule,
   MatCardModule, MatSelectModule, MatSnackBarModule, MatPaginatorModule, MatChipsModule, MatSortModule,
-  MatProgressSpinnerModule,
+  MatProgressSpinnerModule, MatProgressBarModule
 } from "@angular/material";
-import {MatSidenavModule} from "@angular/material/sidenav";
+import { MatSidenavModule } from "@angular/material/sidenav";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -29,8 +29,8 @@ import { ActiveUsersSideNavComponent } from "./active-users-side-nav/active-user
 import { ConfirmationComponent } from "./registration/confirmation.component";
 import { PasswordService } from "./_services/PasswordService";
 import { RegistrationErrorComponent } from "./registration/registration_error.component";
-import {MatListModule} from "@angular/material/list";
-import {MatIconModule} from "@angular/material/icon";
+import { MatListModule } from "@angular/material/list";
+import { MatIconModule } from "@angular/material/icon";
 import { UserService } from "./_services/user.service";
 import { ToggleService } from "./_services/ToggleService";
 import { DeleteItemComponent } from "./delete-item/delete-item.component";
@@ -60,6 +60,7 @@ import { SortingBookComponent } from "./dataTable/sorting-book/sorting-book.comp
 import { CustomRouteReuseStategy } from "./_services/route-reuse.service";
 import { ObjectDetailsService } from "./_services/object-details.service";
 import {ItemContainerComponent} from "./item-details/item-container/item-container.component";
+import { UserAuthenticateGuard } from "./_services/guards/user-authenticate.guard";
 
 @NgModule({
    declarations: [
@@ -129,6 +130,7 @@ import {ItemContainerComponent} from "./item-details/item-container/item-contain
       MatSortModule,
       MatProgressSpinnerModule,
       MatAutocompleteModule,
+      MatProgressBarModule
    ],
    entryComponents: [
       LoginComponent,
@@ -141,6 +143,7 @@ import {ItemContainerComponent} from "./item-details/item-container/item-contain
       UserService,
       PasswordService,
       AdminAuthenticateGuard,
+      UserAuthenticateGuard,
       ToggleService,
       DataService,
       ObjectDetailsService,
