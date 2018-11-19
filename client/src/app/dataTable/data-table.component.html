@@ -1,10 +1,10 @@
 <app-search></app-search>
 <div class = "view-box">
-    
+
         <div class = "row">
             <div class = "view">
                 <h4>
-                <mat-icon>sort</mat-icon> 
+                <mat-icon>sort</mat-icon>
                     View Catalog as
                 </h4> </div>
             <button mat-button class = "view" (click)="redirectBookPage()"> Books</button>
@@ -34,7 +34,7 @@
 </table>
 </div>
 
-<mat-paginator *ngIf="isLoaded" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+<mat-paginator *ngIf="isLoaded" [pageSize] = "10" [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
 
 <div *ngIf="!isLoaded">
     <mat-card *ngIf="!isLoaded" style="display: flex; justify-content: center; align-items: center">
