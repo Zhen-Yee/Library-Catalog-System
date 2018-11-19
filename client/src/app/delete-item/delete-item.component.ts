@@ -6,6 +6,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {DeleteItemPromptDialogComponent} from '../delete-item-prompt-dialog/delete-item-prompt-dialog.component';
 import {HttpClient} from "@angular/common/http";
 import { DataService } from '../_services/DataService.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'delete-item',
@@ -16,7 +17,7 @@ export class DeleteItemComponent implements OnInit {
 
   @Input() element;
 
-  constructor(private http: HttpClient, public dialog: MatDialog, public data: DataService) {
+  constructor(private http: HttpClient, public dialog: MatDialog, public data: DataService, private router: Router) {
 }
 
   @Output() messageEvent = new EventEmitter<string>();
@@ -34,10 +35,10 @@ export class DeleteItemComponent implements OnInit {
           .subscribe(updateSuccess => {
             console.log(updateSuccess)
             if (updateSuccess) {
-                this.messageEvent.emit("Deleting Book...")
+                this.messageEvent.emit("Deleting Book...");
                 // Reloads page for updated changes
                 // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-                //     this.router.navigate(["/catalog"]));
+                this.router.navigate(["/catalog"]);
             } else {
                 console.log("Failed to delete Book.")
             }
