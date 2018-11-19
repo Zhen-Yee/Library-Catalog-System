@@ -18,7 +18,7 @@
                 <th>{{item.quantity}}</th>
             </div>
             <div *ngIf="editQty">
-                <input matInput [(ngModel)]="this.item.quantity"  type="number" min="1" max="{{item.catalogItem.qtyInStock}}">
+                <input id="qtyInput" matInput [(ngModel)]="this.item.quantity" type="number" min="1" max="{{item.catalogItem.qtyInStock}}" onfocus=true>
             </div>
         </tr>
     </table>
@@ -126,8 +126,6 @@
             <th>{{item.catalogItem.runTime}}</th>
         </tr>
     </table>
-    <button mat-button (click)="removeItem()">Remove</button>
-    <button mat-button *ngIf="!editQty" (click)="editQuantity()">Edit Quantity</button>
-    <button mat-button *ngIf="editQty" (click)="saveQuantity()">Save</button>
-    <button mat-button *ngIf="editQty" (click)="editQuantity()">Cancel</button>
+    <pre><button mat-stroked-button (click)="removeItem()">Remove</button> <button mat-stroked-button *ngIf="!editQty" (click)="editQuantity()">Edit Quantity</button></pre>
+    <pre><button mat-stroked-button *ngIf="editQty" (click)="saveQuantity()">Save</button> <button mat-stroked-button *ngIf="editQty" (click)="editQuantity()">Cancel</button></pre>
 </div>
