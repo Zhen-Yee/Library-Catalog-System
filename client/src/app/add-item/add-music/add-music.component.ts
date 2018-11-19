@@ -35,11 +35,12 @@ export class AddMusicComponent implements OnInit {
            .subscribe((confirmation) => {
             if (confirmation) {
               this.openSnackBar("Music added!", "Close");
+              this.Fg.reset();
             } else {
               this.openSnackBar("Error adding music!", "Close");
             }
            });
-           
+
        }
     }
 
