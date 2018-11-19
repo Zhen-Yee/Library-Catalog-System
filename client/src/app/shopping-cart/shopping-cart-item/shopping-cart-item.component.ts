@@ -16,7 +16,6 @@ export class ShoppingCartItemComponent implements OnInit {
     constructor(private cart: ShoppingCartComponent) { }
 
     ngOnInit() {
-      console.log(this.item.quantity);
     }
 
     private removeItem() {
@@ -28,7 +27,7 @@ export class ShoppingCartItemComponent implements OnInit {
     }
 
     private saveQuantity() {
-        this.cart.saveQuantity(this.item.id, this.newQty);
+        this.cart.saveQuantity(this.item.id, this.item);
         this.editQty = false;
     }
 
