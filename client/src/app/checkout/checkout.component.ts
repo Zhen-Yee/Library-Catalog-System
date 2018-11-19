@@ -24,7 +24,6 @@ export class CheckoutComponent implements OnInit {
   completeTransaction() {
       this.http.post("http://localhost:8090/catalog/checkout", this.cart)
         .subscribe((confirmation) => {
-          this.dialog.closeAll();
           this.router.navigate(["/"]);
           if (confirmation) {
             this.cart.emptyCart();
