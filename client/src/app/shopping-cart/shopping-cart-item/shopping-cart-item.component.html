@@ -18,7 +18,7 @@
                 <th>{{item.quantity}}</th>
             </div>
             <div *ngIf="editQty">
-                <input [(ngModel)]="newQty" mdInput type="number" min="1" max="{{item.catalogItem.qtyInStock}}" value="{{item.quantity}}" />   
+                <input mdInput [(ngModel)]="newQty" type="number" min="1" max="{{item.catalogItem.qtyInStock}}" [value]="2" />
             </div>
         </tr>
     </table>

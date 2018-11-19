@@ -74,8 +74,16 @@ export class ShoppingCartComponent implements OnInit {
     this.openSnackBar("Item removed!", "Close");
   }
 
-  saveQuantity(id: number, qty: number) {
-    
+  saveQuantity(id: number, newQty: number) {
+    // find item to update quantity
+    let itemUpdate = this.cartArray.find((item) => item.id === id);
+    itemUpdate.quantity = newQty; 
+
+    // remove old item from cart and add item with updated quantity
+    this.cartArray = this.cartArray.filter((item) => item.id != id);
+    this.cartArray.push(itemUpdate);
+    this.dataSource = new MatTableDataSource(this.cartArray);
+    this.cart.setCartItem(this.cartArray);
   }
 
   openSnackBar(message: string, action: string) {
