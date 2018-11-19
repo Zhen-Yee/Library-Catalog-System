@@ -95,6 +95,28 @@ const appRoutes: Routes = [
       component: MusicDetailsComponent
     }
   ]
+  },
+  {
+    path: "sort/details",
+    component: ItemContainerComponent,
+    children: [
+    {
+    path: "Book/:title",
+    component: BookDetailsComponent
+    },
+    {
+      path: "Movie/:title",
+      component: MovieDetailsComponent
+    },
+    {
+      path: "Magazine/:title",
+      component: MagazineDetailsComponent
+    },
+    {
+      path: "Music/:title",
+      component: MusicDetailsComponent
+    }
+  ]
   }
 ];
 
