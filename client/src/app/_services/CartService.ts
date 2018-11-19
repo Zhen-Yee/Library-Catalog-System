@@ -40,10 +40,10 @@ export class CartService {
 
     setCartItem(cart) {
         this.cart = cart;
-
-    emptyCart(){
+    }
+    
+    emptyCart() {
         this.cart = [];
-
     }
 
 }
