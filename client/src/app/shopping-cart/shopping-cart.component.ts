@@ -68,7 +68,10 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   removeItem(id: number) {
+    console.log(this.cartArray);
+    console.log(id);
     this.cartArray = this.cartArray.filter((item) => item.id != id)
+    console.log(this.cartArray)
     this.dataSource = new MatTableDataSource(this.cartArray);
     this.cart.setCartItem(this.cartArray);
     this.openSnackBar("Item removed!", "Close");

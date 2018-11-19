@@ -30,7 +30,7 @@ export class CartService {
        
         if (found == false){
         this.cart.push({id: this.id, user: this.user.userEmail, catalogItem: item, quantity: 1});
-
+        this.id++;
         return "Added to Cart";
     
     }
