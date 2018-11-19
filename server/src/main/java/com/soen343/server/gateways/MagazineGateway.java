@@ -105,7 +105,6 @@ public class MagazineGateway {
                 e.printStackTrace();
             }
         }else{
-            magazine.setQtyInStock(1);
             String columnName = "qty_in_stock, qty_on_loan, title, publisher, language, isbn10, isbn13, date_of_publication";
             String values= magazine.getQtyInStock()+ ", "+ magazine.getQtyOnLoan()+ ", '" + magazine.getTitle()+"', '"+ magazine.getPublisher() + "', '" + magazine.getLanguage() + "', '" + magazine.getIsbn10() + "', '" +magazine.getIsbn13()+ "', '" + magazine.getDateOfPublication()+"'";
 

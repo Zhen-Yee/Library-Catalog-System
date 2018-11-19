@@ -19,7 +19,7 @@
       <mat-form-field>
           <input matInput formControlName="releaseDate" placeholder="Release Date">
       </mat-form-field>
-      <mat-error *ngIf="Fg.get('releaseDate').hasError('pattern')">
+      <mat-error *ngIf="form.get('releaseDate').hasError('pattern')">
         Please enter in yyyy/mm/dd
        </mat-error>
     

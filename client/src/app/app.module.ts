@@ -40,6 +40,7 @@ import { AddMoviesComponent } from "./add-item/add-movies/add-movies.component";
 import { AddMagazineComponent } from "./add-item/add-magazine/add-magazine.component";
 import { DataTableComponent } from "./dataTable/data-table.component";
 import { ShoppingCartComponent } from "./shopping-cart/shopping-cart.component";
+import { ShoppingCartItemComponent } from './shopping-cart/shopping-cart-item/shopping-cart-item.component';
 import { CheckoutComponent } from "./checkout/checkout.component";
 import { MatTableModule } from "@angular/material/table";
 import { UpdateBookComponent } from "./update-item/update-book/update-book.component";
@@ -81,6 +82,7 @@ import { UserAuthenticateGuard } from "./_services/guards/user-authenticate.guar
       DataTableComponent,
       DeleteItemComponent,
       ShoppingCartComponent,
+      ShoppingCartItemComponent,
       UpdateBookComponent,
       UpdateMagazineComponent,
       UpdateMusicComponent,

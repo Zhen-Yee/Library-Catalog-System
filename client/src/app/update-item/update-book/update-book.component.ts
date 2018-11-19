@@ -74,6 +74,7 @@ export class UpdateBookComponent implements OnInit {
                     if (updateSuccess) {
                         this.messageEvent.emit(this.savingMessage);
                         this.data.updatedSearchItem = true;
+                        this.router.navigate(["catalog"]);
                         // Reloads page for updated changes to book
                         // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
                         //     this.router.navigate(["/catalog"]));

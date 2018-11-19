@@ -1,8 +1,9 @@
-import { Component, OnDestroy } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ObjectDetailsService } from "src/app/_services/object-details.service";
 import { DataService } from "src/app/_services/DataService.service";
 import { CatalogItemType } from "src/app/enums/catalogItemType";
-import { Router } from "@angular/router";
+import { filter, pairwise } from "rxjs/operators";
+import { Router, NavigationEnd, RoutesRecognized } from "@angular/router";
 import { MatSnackBar } from "@angular/material";
 import { CartService } from "src/app/_services/CartService";
 import { UserService } from "src/app/_services/user.service";
@@ -13,7 +14,7 @@ import { UserService } from "src/app/_services/user.service";
   templateUrl: "item-container.component.html",
   styleUrls: ["item-container.component.css"]
 })
-export class ItemContainerComponent {
+export class ItemContainerComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private details: ObjectDetailsService,
@@ -25,14 +26,33 @@ export class ItemContainerComponent {
 
   itemType;
   addtocart;
-
+  fromSortType;
   ngOnInit() {
-
-    const data = this.dataArray.getData();
-    const item = data[this.details.index];
-    this.itemType = item.itemType;
-    console.log(this.itemType);
-    
+    this.router.events
+    .pipe(filter(e => e instanceof RoutesRecognized))
+    .pipe(pairwise())
+    .subscribe((event: any[]) => {
+      if (event[1].url.split("/").includes("sort")) {
+        if (event[1].url.split("/").includes("Book")) {
+          this.details.fromSort = "books";
+          } else if (event[1].url.split("/").includes("Movie")) {
+            this.details.fromSort = "movies";
+          }  else if (event[1].url.split("/").includes("Magazine")) {
+            this.details.fromSort = "magazines";
+          }  else if (event[1].url.split("/").includes("Music")) {
+            this.details.fromSort = "music";
+          }
+      }
+      if (event[0].url.split("/").includes("Book")) {
+        this.details.fromSort = "books";
+        } else if (event[0].url.split("/").includes("Movie")) {
+          this.details.fromSort = "movies";
+        }  else if (event[0].url.split("/").includes("Magazine")) {
+          this.details.fromSort = "magazines";
+        }  else if (event[0].url.split("/").includes("Music")) {
+          this.details.fromSort = "music";
+        }
+    });
   }
 
   nextItem() {
@@ -104,10 +124,17 @@ export class ItemContainerComponent {
   }
 
   backToSearch() {
-    this.router.navigate([""]);
+    if (this.details.fromSort === undefined || this.details.fromSort === null ) {
+      this.router.navigate(["catalog"]);
+    } else {
+      this.router.navigate(["catalog", this.details.fromSort]);
+    }
   }
 
   isAdmin() {
     return this.user.isAdmin;
+  }
+  ngOnDestroy() {
+
   }
 }

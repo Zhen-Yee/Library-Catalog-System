@@ -169,11 +169,16 @@ public class CatalogController {
     }
 
     @PostMapping("/checkout")
-    public ResponseEntity checkout(@RequestBody String cart) {
+    public Boolean checkout(@RequestBody String cart) {
         JSONObject jsonObject = new JSONObject(cart);
         JSONObject userMap = (JSONObject) jsonObject.get("user");
         JSONArray cartMap = (JSONArray) jsonObject.get("cart");
         return catalog.checkout(userMap.getString("userEmail"), catalog.cartMapToList(cartMap));
     }
 
+    @PostMapping("/testCheckout")
+    public boolean testCheckout(@RequestBody String item) {
+            System.out.println(item);
+        return true;
+    }
 }

@@ -55,7 +55,6 @@ public class BookGateway {
             }
         }
         else {
-            book.setQtyInStock(1);
             //generate query
             String columns = "qty_in_stock, qty_on_loan, title, author, format, isbn10, isbn13, language, pages, publisher, year_of_publication";
             String values = "'" + book.getQtyInStock() + "','" + book.getQtyOnLoan() + "', '" + book.getTitle() + "', '"
