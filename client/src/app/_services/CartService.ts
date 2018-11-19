@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {CatalogItem} from "../_models/catalog/catalogItem.model";
+import {UserService} from "./user.service";
 
 @Injectable()
 export class CartService {
 
     cart = [];
+    constructor(private user: UserService) {}
 
-    constructor() {}
 
     addtoCart(item: CatalogItem) {
         
@@ -27,7 +28,7 @@ export class CartService {
         }
        
         if (found == false){
-        this.cart.push({catalogItem: item, quantity: 1});
+        this.cart.push({user: this.user.userEmail, catalogItem: item, quantity: 1});
 
         return "Added to Cart";
     
