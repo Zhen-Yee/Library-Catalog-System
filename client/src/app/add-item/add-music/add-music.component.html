@@ -25,7 +25,14 @@
 
   <mat-form-field>
       <input matInput formControlName="asin" placeholder="ASIN">
-  </mat-form-field>      
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput formControlName="qtyInStock" placeholder="Quantity">
+  </mat-form-field>
+  <mat-error *ngIf="Fg.get('qtyInStock').hasError('min') || Fg.get('qtyInStock').hasError('pattern')" >
+    Please enter a positive integer
+  </mat-error>
 </div>
 <button color="primary"  mat-raised-button (click) = "addmusic()">
             Add Music

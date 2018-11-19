@@ -101,7 +101,6 @@ public class MusicGateway {
                 e.printStackTrace();
             }
         }else{
-            music.setQtyInStock(1);
             String columnName = "qty_in_stock, qty_on_loan, title, artist, asin, label, release_date, type";
             String values= music.getQtyInStock()+ ", "+ music.getQtyOnLoan()+ ", '" + music.getTitle()+"', '"+ music.getArtist() + "', '" + music.getAsin() + "', '" + music.getLabel() + "', '" + music.getReleaseDate() + "', '" +music.getType()+"'";
 
