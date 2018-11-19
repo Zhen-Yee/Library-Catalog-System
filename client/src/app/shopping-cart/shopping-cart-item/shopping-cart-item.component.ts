@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { CartService } from '../../_services/CartService';
 import { ShoppingCartComponent } from '../../shopping-cart/shopping-cart.component';
 
-
 @Component({
     selector: 'shopping-item',
     templateUrl: './shopping-cart-item.component.html',
@@ -13,6 +12,7 @@ export class ShoppingCartItemComponent implements OnInit {
     @Input()
     private item;
     private editQty = false;
+    private newQty: number;
     constructor(private cart: ShoppingCartComponent) { }
 
     ngOnInit() {
@@ -27,7 +27,7 @@ export class ShoppingCartItemComponent implements OnInit {
     }
 
     private saveQuantity() {
-        this.cart.saveQuantity(this.item.id, this.item.quantity);
+        this.cart.saveQuantity(this.item.id, this.newQty);
         this.editQty = false;
     }
 

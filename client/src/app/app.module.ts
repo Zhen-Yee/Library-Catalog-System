@@ -17,7 +17,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {
   MatFormFieldModule, MatButtonModule, MatInputModule, MatToolbarModule, MatMenuModule, MatDialogModule,
   MatCardModule, MatSelectModule, MatSnackBarModule, MatPaginatorModule, MatChipsModule, MatSortModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
 } from "@angular/material";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import { HttpClientModule } from "@angular/common/http";
@@ -128,7 +128,7 @@ import {ItemContainerComponent} from "./item-details/item-container/item-contain
       MatSnackBarModule,
       MatSortModule,
       MatProgressSpinnerModule,
-      MatAutocompleteModule
+      MatAutocompleteModule,
    ],
    entryComponents: [
       LoginComponent,

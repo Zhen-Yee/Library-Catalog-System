@@ -20,22 +20,7 @@
                         <div class="example-element-description">
 
                             <div class="left-wrapper">
-
-                                <table>
-                                    <tr>
-                                        <th>Quantity in Stock: </th>
-                                        <th>{{element.catalogItem.qtyInStock}}</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Quantity on Loan: </th>
-                                        <th>{{element.catalogItem.qtyOnLoan}}</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Item Type: </th>
-                                        <th>{{element.catalogItem.itemType}}</th>
-                                    </tr>
-                                </table>
-                                    <shopping-item [item]="element"></shopping-item>
+                                <shopping-item [item]="element"></shopping-item>
                             </div>
                         </div>
                     </div>

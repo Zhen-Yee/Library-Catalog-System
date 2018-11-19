@@ -75,7 +75,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   saveQuantity(id: number, qty: number) {
-    console.log(id + " " + qty);
+    
   }
 
   openSnackBar(message: string, action: string) {
