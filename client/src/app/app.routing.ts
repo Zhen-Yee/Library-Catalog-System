@@ -34,7 +34,6 @@ const appRoutes: Routes = [
 
   {
     path: "transactions",
-    canActivate: [AdminAuthenticateGuard],
     component: HistoryComponent
 
   },
