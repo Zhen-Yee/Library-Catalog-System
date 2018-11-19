@@ -7,8 +7,8 @@ export class CartService {
 
     cart = [];
     id = 0;
+  
     constructor(private user: UserService) {}
-
 
     addtoCart(item: CatalogItem) {
         
@@ -37,8 +37,13 @@ export class CartService {
         
     }
 
+
     setCartItem(cart) {
         this.cart = cart;
+
+    emptyCart(){
+        this.cart = [];
+
     }
 
 }

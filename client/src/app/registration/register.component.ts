@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
       lastName: ["", Validators.required],
       phone: ["", [Validators.required, Validators.pattern("^[a-z0-9_-]{8,15}$")]],
       email: ["", [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
-      address: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
+      address: ["", [Validators.required]],
       city: ["", Validators.required],
       provState:  ["", Validators.required],
       country: ["", Validators.required],

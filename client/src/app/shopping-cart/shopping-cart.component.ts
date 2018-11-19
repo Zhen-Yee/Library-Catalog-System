@@ -8,6 +8,7 @@ import { CatalogItem } from "../_models/catalog/catalogItem.model";
 import { MatSnackBar } from "@angular/material";
 import { HttpClient } from "@angular/common/http";
 
+
 @Component({
   selector: "shopping-cart",
   templateUrl: "./shopping-cart.component.html",
@@ -39,6 +40,7 @@ export class ShoppingCartComponent implements OnInit {
   dataSource: MatTableDataSource<CatalogItem>;
   isCheckingOut = false;
   editing = false;
+
 
   ngOnInit() {
     this.cartArray = this.cart.cart
