@@ -105,7 +105,6 @@ public class MagazineGateway {
                 e.printStackTrace();
             }
         }else{
-            magazine.setQtyInStock(1);
             String columnName = "qty_in_stock, qty_on_loan, title, publisher, language, isbn10, isbn13, date_of_publication";
             String values= magazine.getQtyInStock()+ ", "+ magazine.getQtyOnLoan()+ ", '" + magazine.getTitle()+"', '"+ magazine.getPublisher() + "', '" + magazine.getLanguage() + "', '" + magazine.getIsbn10() + "', '" +magazine.getIsbn13()+ "', '" + magazine.getDateOfPublication()+"'";
 
@@ -259,13 +258,19 @@ public class MagazineGateway {
      * @return MagazineArrayList
      */
     public List<Magazine> search(SearchCriteria search){
-        System.out.print("Entered gateway");
         List<Magazine> magazineArrayList = new ArrayList<>();
+        System.out.print("Entered gateway");
+        if(search.getTitle().equals("title") ||
+            search.getPublisher().equals("publisher") ||
+            search.getLanguage().equals("language") ||
+            search.getIsbn10().equals("isbn10") ||
+            search.getIsbn13().equals("isbn13")){
         String filter = buildFilterString(search);
         connector = DbConnection.get(filter);
         ResultSet resultSet = connector.getResultSet();
         buildFromResultSet(magazineArrayList, resultSet);
-        return magazineArrayList;
+            }
+        return magazineArrayList;    
     }
 
     /**

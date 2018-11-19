@@ -55,7 +55,6 @@ public class BookGateway {
             }
         }
         else {
-            book.setQtyInStock(1);
             //generate query
             String columns = "qty_in_stock, qty_on_loan, title, author, format, isbn10, isbn13, language, pages, publisher, year_of_publication";
             String values = "'" + book.getQtyInStock() + "','" + book.getQtyOnLoan() + "', '" + book.getTitle() + "', '"
@@ -294,10 +293,18 @@ public class BookGateway {
     public  List<Book> search(SearchCriteria search){
         System.out.print("Entered gateway");
         List<Book> bookArrayList = new ArrayList<>();
+        if(search.getTitle().equals("title") ||
+        search.getAuthor().equals("author") ||
+        search.getPublisher().equals("publisher") ||
+        search.getLanguage().equals("language") ||
+        search.getFormat().equals("format") ||
+        search.getIsbn10().equals("isbn10") ||
+        search.getIsbn13().equals("isbn13")){
         String filter = buildFilterString(search);
         connector = DbConnection.get(filter);
         ResultSet resultSet = connector.getResultSet();
         buildFromResultSet(bookArrayList, resultSet);
+        }
         return bookArrayList;
     }
 

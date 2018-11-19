@@ -11,10 +11,16 @@
     <mat-form-field>
         <input matInput formControlName="format" placeholder="Format">
     </mat-form-field>
+    <mat-error *ngIf="form.get('format').hasError('pattern')">
+        Please enter "Hardcover" or "Paperback"
+    </mat-error>
 
     <mat-form-field>
         <input matInput formControlName="pages" placeholder="Pages">
     </mat-form-field>
+    <mat-error *ngIf="form.get('pages').hasError('pattern')">
+        Please enter a valid number
+       </mat-error>
 
     <mat-form-field>
         <input matInput formControlName="publisher" placeholder="Publisher">
@@ -23,6 +29,9 @@
     <mat-form-field>
         <input matInput formControlName="yearOfPublication" placeholder="Year of Publication">
     </mat-form-field>
+    <mat-error *ngIf="form.get('yearOfPublication').hasError('pattern')">
+        Please enter valid year
+       </mat-error>
 
     <mat-form-field>
         <input matInput formControlName="language" placeholder="Language">
@@ -30,11 +39,17 @@
 
     <mat-form-field>
         <input matInput formControlName="isbn10" placeholder="ISBN-10">
-    </mat-form-field>
-
-    <mat-form-field>
+      </mat-form-field>
+      <mat-error *ngIf="form.get('isbn10').hasError('minlength') || form.get('isbn10').hasError('maxlength') || form.get('isbn10').hasError('pattern')">
+        Please enter a valid ISBN10
+       </mat-error>
+    
+      <mat-form-field>
         <input matInput formControlName="isbn13" placeholder="ISBN-13">
-    </mat-form-field>
+      </mat-form-field>
+      <mat-error *ngIf="form.get('isbn13').hasError('minlength') || form.get('isbn13').hasError('maxlength') || form.get('isbn13').hasError('pattern')">
+        Please enter a valid ISBN13
+       </mat-error>
 
     <mat-form-field>
         <input matInput formControlName="qtyInStock" placeholder="Quantity In Stock">
@@ -44,11 +59,11 @@
         <input matInput formControlName="qtyOnLoan" placeholder="Quantity On Loan">
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field [hidden]>
             <input matInput formControlName="id" placeholder="ID" readonly="readonly">
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field [hidden]>
             <input matInput formControlName="itemType" placeholder="Item Type" readonly="readonly">
     </mat-form-field>
 

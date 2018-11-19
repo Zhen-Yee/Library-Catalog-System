@@ -1,3 +1,4 @@
+import { DataService } from 'src/app/_services/DataService.service';
 import { Component, Input, Output, OnInit, EventEmitter } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Book } from "../../_models/catalog/book.model";
@@ -15,7 +16,7 @@ export class UpdateBookComponent implements OnInit {
     edit: boolean;
     savingMessage: string = "Saving Book...";
     @Input() book;
-    constructor(private router: Router, private fb: FormBuilder, private http: HttpClient) {
+    constructor(private router: Router, private fb: FormBuilder, private http: HttpClient, private data: DataService) {
 
     }
 
@@ -72,6 +73,8 @@ export class UpdateBookComponent implements OnInit {
                 .subscribe(updateSuccess => {
                     if (updateSuccess) {
                         this.messageEvent.emit(this.savingMessage);
+                        this.data.updatedSearchItem = true;
+                        this.router.navigate(["catalog"]);
                         // Reloads page for updated changes to book
                         // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
                         //     this.router.navigate(["/catalog"]));

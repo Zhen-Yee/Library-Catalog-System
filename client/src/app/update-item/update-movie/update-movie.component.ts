@@ -5,6 +5,7 @@ import { MatChipInputEvent } from "@angular/material";
 import { Movie } from "../../_models/catalog/movie.model";
 import { COMMA, ENTER } from "@angular/cdk/keycodes";
 import { Router } from "@angular/router";
+import { DataService } from "src/app/_services/DataService.service";
 
 @Component({
   selector: "update-movie",
@@ -29,7 +30,7 @@ export class UpdateMovieComponent implements OnInit {
   form: FormGroup;
   savingMessage: string = "Saving Movie..."
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private http: HttpClient) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private http: HttpClient, private data: DataService) { }
 
   ngOnInit() {
     this.edit = false;
@@ -44,9 +45,7 @@ export class UpdateMovieComponent implements OnInit {
         "",
         [
           Validators.required,
-          Validators.pattern(
-            "^([0-9]{4})\\/(0[1-9]|1[0-2])\\/(0[1-9]|[1-2][0-9]|3[0-1])$"
-          )
+          Validators.pattern("^([0-9]{4})[-\/]([0-9]{2})[-\/]([0-9]{2})$")
         ]
       ],
       runTime: ["", Validators.required]
@@ -176,6 +175,8 @@ export class UpdateMovieComponent implements OnInit {
         .subscribe(updateSuccess => {
           if (updateSuccess) {
             this.messageEvent.emit(this.savingMessage);
+            this.data.updatedSearchItem = true;
+            this.router.navigate(["catalog"]);
             // Reloads page for updated changes to movies
             // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
             //   this.router.navigate(["/catalog"]));

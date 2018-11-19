@@ -1,0 +1,43 @@
+<div *ngIf="element">
+        <div class = "title" >{{element.title}}</div>
+        <div>
+              <tr>
+                  <th>{{element.qtyInStock}} in Stock </th>
+                  <th>{{element.qtyOnLoan}} on Loan </th>
+                  <th *ngIf = "element.qtyInStock == 0">✘</th>
+                  <th *ngIf = "element.qtyInStock > 0">✔</th>            
+              </tr>
+          </div>
+
+          <img src="assets/magazine.jpg" alt="Magazine" height = "200px">
+
+<table *ngIf="element.itemType == 'Magazine'">
+        
+  <tr>
+      <th>Language: </th>
+      <th>{{element.language}}</th>
+  </tr>
+  <tr>
+  <tr>
+      <th>Publisher: </th>
+      <th>{{element.publisher}}</th>
+  </tr>
+  <tr>
+      <th>Date of Publication: </th>
+      <th>{{element.dateOfPublication}}</th>
+  </tr>
+  <tr>
+      <th>ISBN10: </th>
+      <th>{{element.isbn10}}</th>
+  </tr>
+  <tr>
+      <th>ISBN13: </th>
+      <th>{{element.isbn13}}</th>
+  </tr>
+  <tr>
+        <th> <update-magazine *ngIf = "isAdmin()" [magazine]="element" (messageEvent)="receiveSaveMessage($event)"></update-magazine> </th>
+        <th> <delete-item *ngIf = "isAdmin()" [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>  </th>
+      </tr>
+    </table>
+    
+    </div>

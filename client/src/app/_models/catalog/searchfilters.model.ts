@@ -2,7 +2,10 @@ import { CatalogItem } from "./catalogItem.model";
 import { CatalogItemType } from "../../enums/catalogItemType";
 
 export class searchfilters  {
-  iType: String;
+  book: String;
+  magazine: String;
+  movie: String;
+  music: String;
   title: String;
   search: string;
   author: string;
@@ -23,7 +26,10 @@ export class searchfilters  {
   releaseDate: string;
     constructor(
         param: {
-          iType: CatalogItemType,
+          book: string;
+          magazine: string;
+          movie: string;
+          music: string;
           title: string,
           search: string;
           author: string;
@@ -44,7 +50,10 @@ export class searchfilters  {
           releaseDate: string;
         }
       ) {
-        this.iType = param.iType;
+        this.book = param.book;
+        this.magazine = param.magazine;
+        this.movie = param.movie;
+        this.music = param.music;
         this.title = param.title;
         this.search = param.search;
         this.author = param.author;

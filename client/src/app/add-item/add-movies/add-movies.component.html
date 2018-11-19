@@ -15,8 +15,10 @@
   </mat-form-field>
   <mat-form-field>
     <input matInput formControlName="releaseDate" placeholder="Release Date">
-    <mat-hint>Format: YYYY/MM/DD</mat-hint>
   </mat-form-field>
+  <mat-error *ngIf="form.get('releaseDate').hasError('pattern')">
+    Please enter in yyyy/mm/dd
+   </mat-error>
   <mat-form-field>
     <input matInput formControlName="runTime" placeholder="Run Time">
   </mat-form-field>
@@ -77,6 +79,12 @@
     </mat-chip-list>
   </mat-form-field>
     <br>
+  <mat-form-field>
+    <input matInput formControlName="qtyInStock" placeholder="Quantity">
+  </mat-form-field>
+  <mat-error *ngIf="form.get('qtyInStock').hasError('min') || form.get('qtyInStock').hasError('pattern')" >
+    Please enter a positive integer
+  </mat-error>
   </div>
   <div>
   <button color="primary"  mat-raised-button (click) = "addMovie()">

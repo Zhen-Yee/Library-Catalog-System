@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "./_services/user.service";
 import { ToggleService } from "./_services/ToggleService";
+import { CartService } from "./_services/CartService";
 
 @Component({
   selector: "app-root",
@@ -16,7 +17,7 @@ export class AppComponent {
 
   this.toggle.currentToggle.subscribe(toggled => this.toggled = toggled) }
 
-  constructor(private user: UserService, private toggle: ToggleService) {
+  constructor(private user: UserService, private toggle: ToggleService, private cartService: CartService) {
     
   }
 

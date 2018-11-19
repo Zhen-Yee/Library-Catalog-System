@@ -38,8 +38,9 @@ export class AddMoviesComponent implements OnInit {
       language: ["", Validators.required],
       // subtitles: [this.subtitles],
       // dubs: [this.dubs],
-      releaseDate: ["", [Validators.required, Validators.pattern("^([0-9]{4})\\/(0[1-9]|1[0-2])\\/(0[1-9]|[1-2][0-9]|3[0-1])$")]],
-      runTime: ["", Validators.required]
+      releaseDate: ["", [Validators.required, Validators.pattern("^([0-9]{4})[-\/]([0-9]{2})[-\/]([0-9]{2})$")]],
+      runTime: ["", Validators.required],
+      qtyInStock: ["", [Validators.required, Validators.min(1), Validators.pattern("^[0-9]*$")]]
     });
   }
 
@@ -144,6 +145,7 @@ export class AddMoviesComponent implements OnInit {
         .subscribe((confirmation) => {
           if (confirmation) {
             this.openSnackBar("Movie added!", "Close");
+            this.form.reset();
           } else {
             this.openSnackBar("Error adding movie!", "Close");
           }
