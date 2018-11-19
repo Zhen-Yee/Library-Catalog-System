@@ -45,11 +45,11 @@ export class ItemContainerComponent implements OnInit, OnDestroy {
       }
       if (event[0].url.split("/").includes("Book")) {
         this.details.fromSort = "books";
-        } else if (event[1].url.split("/").includes("Movie")) {
+        } else if (event[0].url.split("/").includes("Movie")) {
           this.details.fromSort = "movies";
-        }  else if (event[1].url.split("/").includes("Magazine")) {
+        }  else if (event[0].url.split("/").includes("Magazine")) {
           this.details.fromSort = "magazines";
-        }  else if (event[1].url.split("/").includes("Music")) {
+        }  else if (event[0].url.split("/").includes("Music")) {
           this.details.fromSort = "music";
         }
     });
