@@ -29,6 +29,11 @@ public class CatalogController {
         return catalog.getIdentityMap();
     }
 
+    @GetMapping("/allTransactions")
+    public List<Transaction> getAllTransactions(){
+        return catalog.getAllTransactions();
+    }
+
     @PostMapping("/addBook")
     public boolean addBook(@RequestBody Book book){
         // checks if book object is good or not

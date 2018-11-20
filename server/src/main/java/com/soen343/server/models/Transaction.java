@@ -19,6 +19,8 @@ public class Transaction {
     private Date checkoutDate;
     private Date dueDate;
     private Date dateReturned;
+    public String itemType;
+    public Long item_id;
 
     public Transaction() {}
 
@@ -27,6 +29,14 @@ public class Transaction {
         this.catalogItem = catalogItem;
         this.checkoutDate = new Date(System.currentTimeMillis());
         this.dueDate = generateDueDate(catalogItem, this.checkoutDate);
+    }
+
+    public Transaction(String userEmail, String itemType, Long item_id, String checkoutDate, String dueDate, String dateReturned) {
+        this.userEmail = userEmail;
+        this.itemType = itemType;
+        this.item_id = item_id;
+        this.checkoutDate = new Date(checkoutDate);
+        this.dueDate = new Date(checkoutDate);
     }
 
     /**

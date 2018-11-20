@@ -275,4 +275,9 @@ public class Catalog {
 
         return searchedCatalogItems.stream().collect(Collectors.toMap(CatalogItem::getId, Function.identity()));
     }
+
+    public List<Transaction> getAllTransactions() {
+        return transactionGateway.getAllTransactions();
+    }
+    
 }

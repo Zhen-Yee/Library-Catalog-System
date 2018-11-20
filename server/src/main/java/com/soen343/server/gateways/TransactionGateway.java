@@ -7,6 +7,9 @@ import com.soen343.server.models.catalog.Music;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
+import java.util.List;
+
+import javax.management.Query;
 
 @Service
 public class TransactionGateway {
@@ -53,6 +56,36 @@ public class TransactionGateway {
             System.out.println("Unable to connect to database");
             e.printStackTrace();
         }
+    }
+
+    public List<Transaction> getAllTransactions(){
+
+        List<Transaction> transArrayList = new ArrayList<>();
+
+        Connection conn = connect();
+        Statement stmt = conn.createStatement();
+        stmt.executeQuery("SELECT  * from testdb.transactions");
+        ResultSet transResultSet = stmt.getResultSet();
+
+        try {
+        while (transResultSet.next()) {
+            Transaction transaction = new Transaction(
+                transResultSet.getString("userEmail"),
+                transResultSet.getString("item_type"),
+                transResultSet.getLong("item_id"),
+                transResultSet.getString("checkoutDate"),
+                transResultSet.getString("dueDate"),
+                transResultSet.getString("returnDate")
+        );
+        if(transaction.itemtype === "book")
+               bookgateway.get();
+
+        transArrayList.add(transaction);
+        }} catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return transArrayList;
+      
     }
 
     private String getTableName(CatalogItem catalogItem){
