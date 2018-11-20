@@ -121,7 +121,6 @@ const appRoutes: Routes = [
   },
   {
     path: "returns",
-    canActivate: [UserAuthenticateGuard],
     component: ReturnComponent
   },
 ];

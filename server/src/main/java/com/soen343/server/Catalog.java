@@ -144,6 +144,19 @@ public class Catalog {
         isDatabaseChange = true;
     }
 
+    public void returnCatalogItem(CatalogItem catalogItem){
+        if(catalogItem.getClass() == Book.class){
+            catalogItem.returnItem();
+        }
+        else if(catalogItem.getClass() == Music.class){
+            catalogItem.returnItem();
+        }
+        else if(catalogItem.getClass() == Movie.class){
+            catalogItem.returnItem();
+        }
+        isDatabaseChange = true;
+    }
+
     /**
      * Synchronized method that checks every item and compare it to the
      * in memory data. If found it decrements the qty in stock and increment

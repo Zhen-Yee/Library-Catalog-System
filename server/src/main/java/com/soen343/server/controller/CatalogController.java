@@ -181,4 +181,34 @@ public class CatalogController {
             System.out.println(item);
         return true;
     }
+
+    @PostMapping("/returnBook")
+    public boolean returnBook(@RequestBody Book book){
+        if (book != null) {
+            catalog.returnCatalogItem(book);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @PostMapping("/returnMusic")
+    public boolean returnMusic(@RequestBody Music music){
+        if (music != null) {
+            catalog.returnCatalogItem(music);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @PostMapping("/returnMovie")
+    public boolean returnMovie(@RequestBody Movie movie) {
+        if (movie != null) {
+            catalog.returnCatalogItem(movie);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
