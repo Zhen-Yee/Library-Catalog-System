@@ -10,6 +10,7 @@ import java.sql.*;
 import java.util.List;
 
 import javax.management.Query;
+import java.util.ArrayList;
 
 @Service
 public class TransactionGateway {
@@ -75,7 +76,6 @@ public class TransactionGateway {
                 transResultSet.getLong("item_id"),
                 transResultSet.getString("checkoutDate"),
                 transResultSet.getString("dueDate"),
-                transResultSet.getString("returnDate")
         );
         if(transaction.itemtype === "book")
                bookgateway.get();
@@ -87,6 +87,47 @@ public class TransactionGateway {
         return transArrayList;
       
     }
+    public List<Transaction> getuserTransactions(String userEmail){
+
+        List<Transaction> transArrayList = new ArrayList<>();
+
+        try {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            stmt.executeQuery("SELECT  * from testdb.transactions WHERE userEmail=userEmail");
+            ResultSet transResultSet = stmt.getResultSet();
+    
+        while (transResultSet.next()) {
+            Transaction transaction = new Transaction(
+                transResultSet.getString("userEmail"),
+                transResultSet.getString("item_type"),
+                transResultSet.getInt("item_id"),
+                transResultSet.getString("checkoutDate"),
+                transResultSet.getString("dueDate")
+        );
+        // if(transaction.itemType == "book") {
+        //     Book b = bookGateway.get(transaction.item_id);
+        //     transArrayList.add(new Transaction(transaction.getUserEmail(), b, transaction.getDueDate(), transaction.getCheckoutDate()));
+        // }
+        // else if(transaction.itemType == "movie") {
+        //     Movie mo = movieGateway.get(transaction.item_id);
+        //     transArrayList.add(new Transaction(transaction.getUserEmail(), mo, transaction.getDueDate(), transaction.getCheckoutDate()));
+        // } 
+        // else if(transaction.itemType == "music") {
+        //     Music mu = musicGateway.get(transaction.item_id);
+        //     transArrayList.add(new Transaction(transaction.getUserEmail(), mu, transaction.getDueDate(), transaction.getCheckoutDate()));
+        // } 
+        // else {}
+               
+
+        transArrayList.add(transaction);
+        }} catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return transArrayList;
+      
+    }
+
 
     private String getTableName(CatalogItem catalogItem){
         if (catalogItem.getClass() == Book.class) {
@@ -96,17 +137,5 @@ public class TransactionGateway {
         } else {
             return "movie";
         }
-    }
-
-    private Connection connect(){
-        Connection connection = null;
-        try{
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-        }
-        catch (Exception e){
-            System.out.print(e);
-        }
-        return connection;
     }
 }
