@@ -114,6 +114,7 @@ public class Catalog {
         return catalogItems;
     }
 
+
     public List<Book> getAllBooks() {
         return bookGateway.getAll();
     }
@@ -144,13 +145,13 @@ public class Catalog {
         isDatabaseChange = true;
     }
 
+    ///**********************Added ***************/
     public void returnCatalogItem(CatalogItem catalogItem){
         
             catalogItem.returnItem();
             updateCatalogItem(catalogItem);
-            //update the Trasaction item
-            update(catalogItem);
-           
+        //update the Trasaction item
+            updateTransaction(catalogItem);
         
         isDatabaseChange = true;
     }
@@ -230,6 +231,8 @@ public class Catalog {
         transactionGateway.insert(new Transaction(email, catalogItem));
     }
 
+
+    //Update Method
     public void updateTransaction(CatalogItem catalogItem){
         transactionGateway.update(new Transaction());
     }
