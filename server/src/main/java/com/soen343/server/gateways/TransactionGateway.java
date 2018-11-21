@@ -55,6 +55,25 @@ public class TransactionGateway {
         }
     }
 
+    public void update(Transaction transaction){
+         String userEmail = transaction.getUserEmail();
+         long itemID = transaction.getCatalogItem().getId();
+         String returnDate= transaction.getDateReturned().toString();
+         String query= "UPDATE testdb.transaction SET date_return = '" + returnDate + "'" + "' WHERE user_email = '" + userEmail + "' AND item_id = " + itemID;
+         try{
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            
+            stmt.executeUpdate(query);
+            conn.close();
+         }catch(SQLException e){
+
+         }
+
+
+
+    }
+
     private String getTableName(CatalogItem catalogItem){
         if (catalogItem.getClass() == Book.class) {
             return "book";

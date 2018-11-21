@@ -9,6 +9,7 @@ import { CatalogItem } from "../_models/catalog/catalogItem.model";
 import { Book } from "../_models/catalog/book.model";
 import { Movie } from "../_models/catalog/movie.model";
 import { Music } from "../_models/catalog/music.model";
+import { CartService } from '../_services/CartService';
 
 @Component({
   selector: 'app-return',
@@ -36,13 +37,17 @@ export class ReturnComponent implements OnInit {
   music;
   movie;
 
+
   constructor(private router: Router, private user: UserService, public dialog: MatDialog, private http: HttpClient, public snackBar: MatSnackBar, private data: DataService) {}
   element;
   item;
   columnsToDisplay: string[] = ["itemType", "title", "quantity"];
   expandedElement: CatalogItem[];
   dataSource: MatTableDataSource<CatalogItem>;
-  ngOnInit() {}
+  
+  ngOnInit() {
+       
+  }
 
   authenticated() {
     return this.user.authenticated;
@@ -86,6 +91,12 @@ export class ReturnComponent implements OnInit {
             }
           });
   }
+/*
+   this function is meant to take all the loaned items and displaye it onto the return item table
+   getAllLoanedItems(){
+
+   }
+*/
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message , action, {

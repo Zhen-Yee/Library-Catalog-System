@@ -145,15 +145,13 @@ public class Catalog {
     }
 
     public void returnCatalogItem(CatalogItem catalogItem){
-        if(catalogItem.getClass() == Book.class){
+        
             catalogItem.returnItem();
-        }
-        else if(catalogItem.getClass() == Music.class){
-            catalogItem.returnItem();
-        }
-        else if(catalogItem.getClass() == Movie.class){
-            catalogItem.returnItem();
-        }
+            updateCatalogItem(catalogItem);
+            //update the Trasaction item
+            update(catalogItem);
+           
+        
         isDatabaseChange = true;
     }
 
@@ -230,6 +228,10 @@ public class Catalog {
      */
     public void insertTransaction(String email, CatalogItem catalogItem) {
         transactionGateway.insert(new Transaction(email, catalogItem));
+    }
+
+    public void updateTransaction(CatalogItem catalogItem){
+        transactionGateway.update(new Transaction());
     }
 
     /**

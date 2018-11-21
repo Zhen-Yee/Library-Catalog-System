@@ -9,8 +9,10 @@ import { ReturnComponent } from '../../return/return.component';
 export class ReturnItemComponent implements OnInit {
 
   @Input() item;
+   private editQty = false;
+   newQty;
 
-    constructor() { }
+    constructor(private rItem : ReturnItemComponent) { }
 
     ngOnInit() {
     }
