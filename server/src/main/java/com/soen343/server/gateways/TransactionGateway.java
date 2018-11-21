@@ -4,9 +4,13 @@ import com.soen343.server.models.Transaction;
 import com.soen343.server.models.catalog.Book;
 import com.soen343.server.models.catalog.CatalogItem;
 import com.soen343.server.models.catalog.Music;
+
+import org.hibernate.validator.cfg.defs.Mod11CheckDef;
+import org.hibernate.validator.constraints.Mod10Check;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.management.Query;
@@ -17,10 +21,20 @@ public class TransactionGateway {
     private final String URL = "jdbc:mysql://testdbinstance.cwtjkaidrsfz.us-east-2.rds.amazonaws.com:3306/testdb?useSSL=false";
     private final String USERNAME = "test";
     private final String PASSWORD = "testtest";
+        /**
+     * Gateways objects
+     */
+    private BookGateway bookGateway;
+    private MusicGateway musicGateway;
+    private MovieGateway movieGateway;
 
     private static TransactionGateway transactionGateway = null;
 
-    private TransactionGateway() {}
+    private TransactionGateway() {
+        bookGateway = BookGateway.getBookGateway();
+        musicGateway = MusicGateway.getMusicGateway();
+        movieGateway = MovieGateway.getMovieGateway();
+    }
 
     public static TransactionGateway getGateway() {
         if (transactionGateway == null) {
@@ -63,22 +77,34 @@ public class TransactionGateway {
 
         List<Transaction> transArrayList = new ArrayList<>();
 
-        Connection conn = connect();
-        Statement stmt = conn.createStatement();
-        stmt.executeQuery("SELECT  * from testdb.transactions");
-        ResultSet transResultSet = stmt.getResultSet();
-
         try {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            stmt.executeQuery("SELECT  * from testdb.transactions");
+            ResultSet transResultSet = stmt.getResultSet();
+    
         while (transResultSet.next()) {
             Transaction transaction = new Transaction(
                 transResultSet.getString("userEmail"),
                 transResultSet.getString("item_type"),
-                transResultSet.getLong("item_id"),
+                transResultSet.getInt("item_id"),
                 transResultSet.getString("checkoutDate"),
-                transResultSet.getString("dueDate"),
+                transResultSet.getString("dueDate")
         );
-        if(transaction.itemtype === "book")
-               bookgateway.get();
+        // if(transaction.itemType == "book") {
+        //     Book b = bookGateway.get(transaction.item_id);
+        //     transArrayList.add(new Transaction(transaction.getUserEmail(), b, transaction.getDueDate(), transaction.getCheckoutDate()));
+        // }
+        // else if(transaction.itemType == "movie") {
+        //     Movie mo = movieGateway.get(transaction.item_id);
+        //     transArrayList.add(new Transaction(transaction.getUserEmail(), mo, transaction.getDueDate(), transaction.getCheckoutDate()));
+        // } 
+        // else if(transaction.itemType == "music") {
+        //     Music mu = musicGateway.get(transaction.item_id);
+        //     transArrayList.add(new Transaction(transaction.getUserEmail(), mu, transaction.getDueDate(), transaction.getCheckoutDate()));
+        // } 
+        // else {}
+               
 
         transArrayList.add(transaction);
         }} catch (SQLException e) {
