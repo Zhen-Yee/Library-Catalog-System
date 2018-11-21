@@ -79,16 +79,16 @@ public class TransactionGateway {
         try {
             Connection conn = connect();
             Statement stmt = conn.createStatement();
-            stmt.executeQuery("SELECT  * from testdb.transactions");
+            stmt.executeQuery("SELECT  * from testdb.transaction");
             ResultSet transResultSet = stmt.getResultSet();
     
         while (transResultSet.next()) {
             Transaction transaction = new Transaction(
-                transResultSet.getString("userEmail"),
+                transResultSet.getString("user_email"),
                 transResultSet.getString("item_type"),
                 transResultSet.getInt("item_id"),
-                transResultSet.getString("checkoutDate"),
-                transResultSet.getString("dueDate")
+                transResultSet.getString("checkout_date"),
+                transResultSet.getString("due_date")
         );
         // if(transaction.itemType == "book") {
         //     Book b = bookGateway.get(transaction.item_id);
