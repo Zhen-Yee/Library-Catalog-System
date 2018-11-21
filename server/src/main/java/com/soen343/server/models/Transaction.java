@@ -20,7 +20,7 @@ public class Transaction {
     private Date dueDate;
     private Date dateReturned;
     public String itemType;
-    public Long item_id;
+    public int item_id;
 
     public Transaction() {}
 
@@ -31,10 +31,17 @@ public class Transaction {
         this.dueDate = generateDueDate(catalogItem, this.checkoutDate);
     }
 
-    public Transaction(String userEmail, String itemType, Long item_id, String checkoutDate, String dueDate, String dateReturned) {
+    public Transaction(String userEmail, String itemType, int item_id, String checkoutDate, String dueDate) {
         this.userEmail = userEmail;
         this.itemType = itemType;
         this.item_id = item_id;
+        this.checkoutDate = new Date(checkoutDate);
+        this.dueDate = new Date(checkoutDate);
+    }
+
+    public Transaction(String userEmail, CatalogItem catalogItem, String checkoutDate, String dueDate) {
+        this.userEmail = userEmail;
+        this.catalogItem = catalogItem;
         this.checkoutDate = new Date(checkoutDate);
         this.dueDate = new Date(checkoutDate);
     }

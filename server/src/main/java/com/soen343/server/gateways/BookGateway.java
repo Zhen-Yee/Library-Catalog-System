@@ -156,7 +156,7 @@ public class BookGateway {
         
         connector = DbConnection.get(SQL_GET_ALL_BOOKS);
         ResultSet resultSet = connector.getResultSet();
-        buildResultSet(resultSet);
+        return buildResultSet(resultSet);
         
     }
     
