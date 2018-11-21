@@ -5,6 +5,11 @@ import com.soen343.server.models.catalog.Book;
 import com.soen343.server.models.catalog.CatalogItem;
 import com.soen343.server.models.catalog.Music;
 import org.springframework.stereotype.Service;
+import com.soen343.databaseConnection.DbConnection;
+import com.soen343.databaseConnection.Connector;
+import java.util.List;
+import java.util.ArrayList;
+
 
 import java.sql.*;
 
@@ -54,6 +59,49 @@ public class TransactionGateway {
             e.printStackTrace();
         }
     }
+    //update function for the 
+    public void update(Transaction transaction){
+         String userEmail = transaction.getUserEmail();
+         long itemID = transaction.getCatalogItem().getId();
+         String returnDate= transaction.getDateReturned().toString();
+         String query= "UPDATE testdb.transaction SET date_return = '" + returnDate + "'" + "' WHERE user_email = '" + userEmail + "' AND item_id = " + itemID;
+         System.out.println(query);
+         try{
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            
+            stmt.executeUpdate(query);
+            conn.close();
+         }catch(Exception e){
+             e.printStackTrace();
+         }
+    }
+
+    //get All Loaned Items item id
+    public List<Long> getAllLoanedItems(Transaction transaction){
+        String userEmail = transaction.getUserEmail();
+        List<Long> loanedItem= new ArrayList<>(); 
+        long itemid;
+        String query = "SELECT * from testdb.transaction WHERE user_email = '" + userEmail + "";
+        System.out.println(query);
+        try{
+            Connector connector = DbConnection.get(query);
+            ResultSet r = connector.getResultSet();
+            while(r.next()){
+                 if (r.getString("date_return").equals(null)){
+                     itemid=r.getLong("item_id");
+                     loanedItem.add(itemid);
+                 }else{
+                     continue;
+                 }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return loanedItem;
+    }
+
+
 
     private String getTableName(CatalogItem catalogItem){
         if (catalogItem.getClass() == Book.class) {

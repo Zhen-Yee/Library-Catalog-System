@@ -114,6 +114,7 @@ public class Catalog {
         return catalogItems;
     }
 
+
     public List<Book> getAllBooks() {
         return bookGateway.getAll();
     }
@@ -144,16 +145,14 @@ public class Catalog {
         isDatabaseChange = true;
     }
 
+    ///**********************Added ***************/
     public void returnCatalogItem(CatalogItem catalogItem){
-        if(catalogItem.getClass() == Book.class){
+        
             catalogItem.returnItem();
-        }
-        else if(catalogItem.getClass() == Music.class){
-            catalogItem.returnItem();
-        }
-        else if(catalogItem.getClass() == Movie.class){
-            catalogItem.returnItem();
-        }
+            updateCatalogItem(catalogItem);
+        //update the Trasaction item
+            updateTransaction(catalogItem);
+        
         isDatabaseChange = true;
     }
 
@@ -230,6 +229,12 @@ public class Catalog {
      */
     public void insertTransaction(String email, CatalogItem catalogItem) {
         transactionGateway.insert(new Transaction(email, catalogItem));
+    }
+
+
+    //Update Method
+    public void updateTransaction(CatalogItem catalogItem){
+        transactionGateway.update(new Transaction());
     }
 
     /**

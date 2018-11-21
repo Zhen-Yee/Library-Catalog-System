@@ -32,12 +32,20 @@ export class ReturnComponent implements OnInit {
   columnsToDisplay: string[] = ["itemType", "title", "quantityLoaned", "checkoutDate", "dueDate"];
   expandedElement: CatalogItem[];
   dataSource: MatTableDataSource<CatalogItem>;
+  dataArray: CatalogItem[] = [];
 
   ngOnInit() {}
 
   authenticated() {
     return this.user.authenticated;
   }
+
+/*
+  getAllLoanedItems() {
+    this.http.get<Music>("http://localhost:8090/catalog/returnMusic")
+
+}
+*/
 
 }
 
