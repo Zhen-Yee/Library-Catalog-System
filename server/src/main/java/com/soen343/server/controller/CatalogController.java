@@ -190,7 +190,7 @@ public class CatalogController {
     @PostMapping("userTransactions")
     public List<Transaction> getuserTransactions(@RequestBody String userEmail){
     try{
-        return catalog.userTransactions(userEmail);
+        return catalog.getuserTransactions(userEmail);
     } 
     catch(Exception exception){
         System.out.print(exception);

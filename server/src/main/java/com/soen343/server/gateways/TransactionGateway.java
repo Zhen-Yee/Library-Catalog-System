@@ -120,7 +120,7 @@ public class TransactionGateway {
         try {
             Connection conn = connect();
             Statement stmt = conn.createStatement();
-            stmt.executeQuery("SELECT  * from testdb.transactions WHERE userEmail=userEmail");
+            stmt.executeQuery("SELECT  * from testdb.transactions WHERE userEmail='userEmail'");
             ResultSet transResultSet = stmt.getResultSet();
     
         while (transResultSet.next()) {
