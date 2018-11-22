@@ -39,11 +39,12 @@ public class Transaction {
         this.dueDate = new Date(checkoutDate);
     }
 
-    public Transaction(String userEmail, CatalogItem catalogItem, Date checkoutDate, Date dueDate) {
+    public Transaction(String userEmail, CatalogItem catalogItem, String itemType, Date checkoutDate, Date dueDate) {
         this.userEmail = userEmail;
         this.catalogItem = catalogItem;
         this.checkoutDate = checkoutDate;
         this.dueDate = dueDate;
+        this.itemType = itemType;
     }
 
     /**
