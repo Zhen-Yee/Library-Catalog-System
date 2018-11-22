@@ -98,15 +98,15 @@ public class TransactionGateway {
             );
             if(transaction.itemType.equals("book")) {
                 Book b = bookGateway.get(transaction.item_id);
-                transArrayList.add(new Transaction(transaction.getUserEmail(), b, transaction.getDueDate(), transaction.getCheckoutDate()));
+                transArrayList.add(new Transaction(transaction.getUserEmail(), b, "book", transaction.getDueDate(), transaction.getCheckoutDate()));
             }
             else if(transaction.itemType.equals("movie")) {
                 Movie mo = movieGateway.get(transaction.item_id);
-                transArrayList.add(new Transaction(transaction.getUserEmail(), mo, transaction.getDueDate(), transaction.getCheckoutDate()));
+                transArrayList.add(new Transaction(transaction.getUserEmail(), mo, "movie", transaction.getDueDate(), transaction.getCheckoutDate()));
             } 
             else if(transaction.itemType.equals("music")) {
                 Music mu = musicGateway.get(transaction.item_id);
-                transArrayList.add(new Transaction(transaction.getUserEmail(), mu, transaction.getDueDate(), transaction.getCheckoutDate()));
+                transArrayList.add(new Transaction(transaction.getUserEmail(), mu, "music", transaction.getDueDate(), transaction.getCheckoutDate()));
             } 
             else {}
                
@@ -138,15 +138,15 @@ public class TransactionGateway {
             );
         if(transaction.itemType.equals("book")) {
             Book b = bookGateway.get(transaction.item_id);
-            transArrayList.add(new Transaction(transaction.getUserEmail(), b, transaction.getDueDate(), transaction.getCheckoutDate()));
+            transArrayList.add(new Transaction(transaction.getUserEmail(), b, "book", transaction.getDueDate(), transaction.getCheckoutDate()));
         }
         else if(transaction.itemType.equals("movie")) {
             Movie mo = movieGateway.get(transaction.item_id);
-            transArrayList.add(new Transaction(transaction.getUserEmail(), mo, transaction.getDueDate(), transaction.getCheckoutDate()));
+            transArrayList.add(new Transaction(transaction.getUserEmail(), mo, "movie", transaction.getDueDate(), transaction.getCheckoutDate()));
         } 
         else if(transaction.itemType.equals("music")) {
             Music mu = musicGateway.get(transaction.item_id);
-            transArrayList.add(new Transaction(transaction.getUserEmail(), mu, transaction.getDueDate(), transaction.getCheckoutDate()));
+            transArrayList.add(new Transaction(transaction.getUserEmail(), mu, "music", transaction.getDueDate(), transaction.getCheckoutDate()));
         } 
         else {}
                
