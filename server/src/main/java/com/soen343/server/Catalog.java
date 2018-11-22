@@ -246,6 +246,10 @@ public class Catalog {
         return identityMap;
     }
 
+   public List <Transaction> getuserTransactions(String userEmail){
+   return transactionGateway.getuserTransactions(userEmail);
+   }
+
     public  Map<Long, CatalogItem> search(SearchCriteria searchCriteria){
         System.out.print("entered Catalog");
         List<CatalogItem> searchedCatalogItems = new ArrayList<>();
@@ -275,9 +279,7 @@ public class Catalog {
 
         return searchedCatalogItems.stream().collect(Collectors.toMap(CatalogItem::getId, Function.identity()));
     }
-
     public List<Transaction> getAllTransactions() {
         return transactionGateway.getAllTransactions();
     }
-    
 }
