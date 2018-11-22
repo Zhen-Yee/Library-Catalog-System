@@ -2,7 +2,7 @@ import { UserService } from "../_services/user.service";
 import { HttpClient } from "@angular/common/http";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatSnackBar} from '@angular/material';
 import { Movie } from "../_models/catalog/movie.model";
 import { Music } from "../_models/catalog/music.model";
 import { CatalogItem } from "../_models/catalog/catalogItem.model";
@@ -10,7 +10,6 @@ import { CatalogItemType } from "./../enums/catalogItemType";
 import { Router, NavigationEnd, RoutesRecognized } from "@angular/router";
 import { Book } from "../_models/catalog/book.model";
 import { ObjectDetailsService } from "src/app/_services/object-details.service";
-import { filter, pairwise } from "rxjs/operators";
 import { DataService } from "src/app/_services/DataService.service";
 import {
   animate,
@@ -49,7 +48,7 @@ export class ReturnComponent implements OnInit {
     private http: HttpClient, 
     private fb: FormBuilder, 
     private user: UserService,
-
+    public snackBar: MatSnackBar,
     private data: DataService,
     private details: ObjectDetailsService,
     private router: Router
@@ -151,19 +150,20 @@ getAllLoanedItems() {
 
 
   returnItem(){
+
     if(this.element.itemType === CatalogItemType.Book){
       this.http
       .post<any>("http://localhost:8090/catalog/returnBook", this.element)
       .subscribe(updateSuccess => {
         console.log(updateSuccess)
         if (updateSuccess) {
+            this.openSnackBar("Book Return Completed!", "Close");
             this.router.navigate(["/"]);
         } else {
+            this.openSnackBar("Error with Return", "Close");
             console.log("Failed to return Book.")
         }
-        this.data.updatedSearchItem = true;
     });
-      console.log("Book successfully returned")
     }
 
     else if(this.element.itemType === CatalogItemType.Movie){
@@ -172,29 +172,35 @@ getAllLoanedItems() {
       .subscribe(updateSuccess => {
         console.log(updateSuccess)
         if (updateSuccess) {
+            this.openSnackBar("Movie Return Completed!", "Close");
             this.router.navigate(["/"]);
         } else {
+            this.openSnackBar("Error with Return", "Close");
             console.log("Failed to return Movie.")
         }
-        this.data.updatedSearchItem = true;
     });
-      console.log("Movie successfully returned")
     }
 
-    else if(this.element.itemType === CatalogItemType.Magazine){
+    else if(this.element.itemType === CatalogItemType.Music){
       this.http
       .post<any>("http://localhost:8090/catalog/returnMusic", this.element)
       .subscribe(updateSuccess => {
         console.log(updateSuccess)
         if (updateSuccess) {
+            this.openSnackBar("Music Return Completed!", "Close");
             this.router.navigate(["/"]);
         } else {
+            this.openSnackBar("Error with Return", "Close");
             console.log("Failed to return Music.")
         }
-        this.data.updatedSearchItem = true;
     });
-      console.log("Music successfully returned")
     }
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message , action, {
+      duration: 5000,
+    });
   }
 
 
