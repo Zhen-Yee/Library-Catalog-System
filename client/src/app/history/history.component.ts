@@ -77,7 +77,7 @@ export class HistoryComponent implements OnInit {
       console.log(x);
       console.log(x[0].catalogItem.title);
       this.dataSource = new MatTableDataSource(x);
-      //this.isLoaded = true;
+      this.isLoaded = true;
     });
     } else {
 

@@ -96,15 +96,15 @@ public class TransactionGateway {
                     transResultSet.getString("checkout_date"),
                     transResultSet.getString("due_date")
             );
-            if(transaction.itemType == "book") {
+            if(transaction.itemType.equals("book")) {
                 Book b = bookGateway.get(transaction.item_id);
                 transArrayList.add(new Transaction(transaction.getUserEmail(), b, transaction.getDueDate(), transaction.getCheckoutDate()));
             }
-            else if(transaction.itemType == "movie") {
+            else if(transaction.itemType.equals("movie")) {
                 Movie mo = movieGateway.get(transaction.item_id);
                 transArrayList.add(new Transaction(transaction.getUserEmail(), mo, transaction.getDueDate(), transaction.getCheckoutDate()));
             } 
-            else if(transaction.itemType == "music") {
+            else if(transaction.itemType.equals("music")) {
                 Music mu = musicGateway.get(transaction.item_id);
                 transArrayList.add(new Transaction(transaction.getUserEmail(), mu, transaction.getDueDate(), transaction.getCheckoutDate()));
             } 
@@ -136,19 +136,19 @@ public class TransactionGateway {
                 transResultSet.getString("checkout_date"),
                 transResultSet.getString("due_date")
             );
-        // if(transaction.itemType.equals("book")) {
-        //     Book b = bookGateway.get(transaction.item_id);
-        //     transArrayList.add(new Transaction(transaction.getUserEmail(), b, transaction.getDueDate(), transaction.getCheckoutDate()));
-        // }
-        // else if(transaction.itemType.equals("movie")) {
-        //     Movie mo = movieGateway.get(transaction.item_id);
-        //     transArrayList.add(new Transaction(transaction.getUserEmail(), mo, transaction.getDueDate(), transaction.getCheckoutDate()));
-        // } 
-        // else if(transaction.itemType.equals("music")) {
-        //     Music mu = musicGateway.get(transaction.item_id);
-        //     transArrayList.add(new Transaction(transaction.getUserEmail(), mu, transaction.getDueDate(), transaction.getCheckoutDate()));
-        // } 
-        // else {}
+        if(transaction.itemType.equals("book")) {
+            Book b = bookGateway.get(transaction.item_id);
+            transArrayList.add(new Transaction(transaction.getUserEmail(), b, transaction.getDueDate(), transaction.getCheckoutDate()));
+        }
+        else if(transaction.itemType.equals("movie")) {
+            Movie mo = movieGateway.get(transaction.item_id);
+            transArrayList.add(new Transaction(transaction.getUserEmail(), mo, transaction.getDueDate(), transaction.getCheckoutDate()));
+        } 
+        else if(transaction.itemType.equals("music")) {
+            Music mu = musicGateway.get(transaction.item_id);
+            transArrayList.add(new Transaction(transaction.getUserEmail(), mu, transaction.getDueDate(), transaction.getCheckoutDate()));
+        } 
+        else {}
                
             //transArrayList.add(transaction);
         }} catch (SQLException e) {
