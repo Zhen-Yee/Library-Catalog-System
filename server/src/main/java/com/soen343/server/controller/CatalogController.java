@@ -39,7 +39,7 @@ public class CatalogController {
     public List<CatalogItem> getCatalogItemFromID(@PathVariable List<Long> ids) {
         return catalog.getCatalogItemFromID(ids);
     }
-    */
+    
 
     @PostMapping("/getAllLoanedItems")
     public List<CatalogItem> getCatalogItemFromID(@RequestBody List<Long> ids){
@@ -52,7 +52,7 @@ public class CatalogController {
 }
     }
     
-/*
+
     @GetMapping("/getAllLoanedItems")
     public List<CatalogItem> getCatalogItemFromID(@PathVariable List<Long> TransactionGateway.getAllLoanedItems) {
         return catalog.getCatalogItemFromID(getAllLoanedItems);
@@ -214,6 +214,17 @@ public class CatalogController {
 
     @PostMapping("/userTransactions")
     public List<Transaction> getuserTransactions(@RequestBody String userEmail){
+    try{
+        return catalog.getuserTransactions(userEmail);
+    } 
+    catch(Exception exception){
+        System.out.print(exception);
+        return null;
+}
+    }
+
+    @PostMapping("/allLoanedItems")
+    public List<Transaction> getAllLoanedItems(@RequestBody String userEmail){
     try{
         return catalog.getuserTransactions(userEmail);
     } 

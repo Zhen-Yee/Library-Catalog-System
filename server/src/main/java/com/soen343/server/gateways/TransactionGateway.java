@@ -148,41 +148,6 @@ public class TransactionGateway {
 
     */
 
-    public List<Transaction> getAllLoanedItems(String user_email){
-        List<Transaction> loanedItem= new ArrayList<>();
-        String query = "SELECT * from testdb.transaction WHERE user_email = '" + user_email + "'" + " AND date_return = '" + null + "'";
-        try{
-            Connector connector = DbConnection.get(query);
-            ResultSet r = connector.getResultSet();
-            while(r.next()) {
-                Transaction trans= new Transaction(
-                    r.getString("user_email"),
-                    r.getString("item_type"),
-                    r.getInt("item_id"),
-                    r.getString("checkout_date"),
-                    r.getString("due_date")
-                );
- 
-            if(trans.itemType.equals("book")) {
-                Book b = bookGateway.get(trans.item_id);
-                loanedItem.add(new Transaction( b, trans.getDueDate(), trans.getCheckoutDate()));
-            }
-            else if(trans.itemType.equals("movie")) {
-                Movie mo = movieGateway.get(trans.item_id);
-                loanedItem.add(new Transaction( mo, trans.getDueDate(), trans.getCheckoutDate()));
-            }
-            else if(trans.itemType.equals("music")) {
-                Music mu = musicGateway.get(trans.item_id);
-                loanedItem.add(new Transaction(mu, trans.getDueDate(), trans.getCheckoutDate()));
-            }
-            else {}
-           }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return loanedItem;
-    }
-
     public List<Transaction> getAllTransactions(){
 
         List<Transaction> transArrayList = new ArrayList<>();
@@ -223,6 +188,7 @@ public class TransactionGateway {
         return transArrayList;
       
     }
+
     public List<Transaction> getuserTransactions(String userEmail){
 
         List<Transaction> transArrayList = new ArrayList<>();
@@ -263,6 +229,45 @@ public class TransactionGateway {
       
     }
 
+    public List<Transaction> getAllLoanedItems(String userEmail){
+
+        List<Transaction> loanedItem = new ArrayList<>();
+
+        try {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            stmt.executeQuery("SELECT * from testdb.transaction WHERE user_email = '" + userEmail + "'" + " AND date_return = '" + null + "'");
+            ResultSet transResultSet = stmt.getResultSet();
+    
+        while (transResultSet.next()) {
+            Transaction transaction = new Transaction(
+                transResultSet.getString("user_email"),
+                transResultSet.getString("item_type"),
+                transResultSet.getInt("item_id"),
+                transResultSet.getString("checkout_date"),
+                transResultSet.getString("due_date")
+            );
+        if(transaction.itemType.equals("book")) {
+            Book b = bookGateway.get(transaction.item_id);
+            loanedItem.add(new Transaction(b.getTitle(), transaction.getDueDate(), transaction.getCheckoutDate()));
+        }
+        else if(transaction.itemType.equals("movie")) {
+            Movie mo = movieGateway.get(transaction.item_id);
+            loanedItem.add(new Transaction(mo.getTitle(), transaction.getDueDate(), transaction.getCheckoutDate()));
+        } 
+        else if(transaction.itemType.equals("music")) {
+            Music mu = musicGateway.get(transaction.item_id);
+            loanedItem.add(new Transaction(mu.getTitle(), transaction.getDueDate(), transaction.getCheckoutDate()));
+        } 
+        else {}
+               
+            //transArrayList.add(transaction);
+        }} catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return loanedItem;
+      
+    }
 
     private Connection connect(){
         Connection connection = null;
