@@ -279,5 +279,9 @@ public class Catalog {
     public List<Transaction> getAllTransactions() {
         return transactionGateway.getAllTransactions();
     }
+
+    public List <Transaction> getuserTransactions(String userEmail){
+        return transactionGateway.getuserTransactions(userEmail);
+    }
     
 }

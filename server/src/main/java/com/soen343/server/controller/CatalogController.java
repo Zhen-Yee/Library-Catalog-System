@@ -186,4 +186,16 @@ public class CatalogController {
             System.out.println(item);
         return true;
     }
+
+    @PostMapping("userTransactions")
+    public List<Transaction> getuserTransactions(@RequestBody String userEmail){
+        try{
+            return catalog.getuserTransactions(userEmail);
+        } 
+        catch(Exception exception){
+            System.out.print(exception);
+            return null;
+        }
+    }
+
 }
