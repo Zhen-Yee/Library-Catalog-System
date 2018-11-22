@@ -223,6 +223,16 @@ public class CatalogController {
 }
     }
 
+    @PostMapping("/allLoanedItems")
+    public List<Transaction> getloanedItems(@RequestBody String userEmail){
+        try{
+        return  catalog.getAllLoanedItems(userEmail);
+        }catch(Exception e ){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @PostMapping("/returnBook")
     public boolean returnBook(@RequestBody Book book){
         if (book != null) {

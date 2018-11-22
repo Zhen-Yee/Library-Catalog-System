@@ -45,7 +45,7 @@ export class ReturnComponent implements OnInit {
     private router: Router
   ) {}
   dataArray: CatalogItem[] = [];
-  columnsToDisplay: string[] = ["itemType", "title", "quantityLoaned", "checkoutDate", "dueDate"];
+  columnsToDisplay: string[] = [ "title", "checkoutDate", "dueDate"];
   dataSource: MatTableDataSource<CatalogItem>;
   isLoaded = false;
   paginator;
@@ -70,7 +70,7 @@ export class ReturnComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     }
   }
-  */
+*/
 
   ngOnInit() {
     this.getAllLoanedItems();
@@ -114,7 +114,7 @@ export class ReturnComponent implements OnInit {
   
 
 getAllLoanedItems() {
-  this.http.post<any[]>("http://localhost:8090/catalog/getAllLoanedItems", this.details.catalogItem).subscribe(x => {
+  this.http.post<any[]>("http://localhost:8090/catalog/allLoanedItems", this.user.userEmail).subscribe(x => {
     console.log(x);
     console.log(x[0].catalogItem.title);
     this.dataSource = new MatTableDataSource(x);

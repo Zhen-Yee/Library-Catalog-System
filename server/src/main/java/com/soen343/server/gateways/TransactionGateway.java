@@ -151,6 +151,7 @@ public class TransactionGateway {
     public List<Transaction> getAllLoanedItems(String user_email){
         List<Transaction> loanedItem= new ArrayList<>();
         String query = "SELECT * from testdb.transaction WHERE user_email = '" + user_email + "'" + " AND date_return = '" + null + "'";
+        System.out.println(query);
         try{
             Connector connector = DbConnection.get(query);
             ResultSet r = connector.getResultSet();
@@ -165,15 +166,15 @@ public class TransactionGateway {
  
             if(trans.itemType.equals("book")) {
                 Book b = bookGateway.get(trans.item_id);
-                loanedItem.add(new Transaction( b, trans.getDueDate(), trans.getCheckoutDate()));
+                loanedItem.add(new Transaction( b.getTitle(), trans.getDueDate(), trans.getCheckoutDate()));
             }
             else if(trans.itemType.equals("movie")) {
                 Movie mo = movieGateway.get(trans.item_id);
-                loanedItem.add(new Transaction( mo, trans.getDueDate(), trans.getCheckoutDate()));
+                loanedItem.add(new Transaction( mo.getTitle(), trans.getDueDate(), trans.getCheckoutDate()));
             }
             else if(trans.itemType.equals("music")) {
                 Music mu = musicGateway.get(trans.item_id);
-                loanedItem.add(new Transaction(mu, trans.getDueDate(), trans.getCheckoutDate()));
+                loanedItem.add(new Transaction(mu.getTitle(), trans.getDueDate(), trans.getCheckoutDate()));
             }
             else {}
            }

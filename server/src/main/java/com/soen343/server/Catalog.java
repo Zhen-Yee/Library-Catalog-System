@@ -319,4 +319,11 @@ public class Catalog {
     public List <Transaction> getuserTransactions(String userEmail){
         return transactionGateway.getuserTransactions(userEmail);
         }
-}
+     
+
+        public List <Transaction> getAllLoanedItems(String userEmail){
+            return transactionGateway.getAllLoanedItems(userEmail);
+        }
+    }
+
+    
