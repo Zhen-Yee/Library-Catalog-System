@@ -18,6 +18,15 @@ export class HistoryComponent implements OnInit {
 
   form: FormGroup;
 
+  // Generated Data
+  sort;
+  paginator;
+  dataArray: any[] = [];
+  isLoaded = false;
+  columnsToDisplay: string[] = ["id", "userEmail", "catalogItem", "checkoutDate", "dueDate", "returnDate"];
+  dataSource: MatTableDataSource<any>;
+  message: string = "Transaction History";
+
 
   createForm() {
     console.log("enter Search");
@@ -43,19 +52,6 @@ export class HistoryComponent implements OnInit {
     return this.user.isAdmin;
   }
 
-
-
-// Generated Data
-
-sort;
-paginator;
-
-  dataArray = [];
-  isLoaded = false;
-  columnsToDisplay: string[] = ["id", "userEmail", "catalogItem", "checkoutDate", "dueDate", "returnDate"];
-  dataSource: MatTableDataSource<any>;
-  message: string = "Transaction History";
-
   @ViewChild(MatSort)
   set content(content: ElementRef) {
     this.sort = content;
@@ -77,14 +73,18 @@ paginator;
     this.createForm();
     if (this.user.isAdmin) {
       
-      this.http.get("http://localhost:8090/catalog/allTransactions").subscribe();
-
+      this.http.get<any[]>("http://localhost:8090/catalog/allTransactions").subscribe(x => {
+      console.log(x);
+      console.log(x[0].catalogItem.title);
+      this.dataSource = new MatTableDataSource(x);
+      //this.isLoaded = true;
+    });
     } else {
 
       this.http.post("http://localhost:8090/catalog/userTransactions", this.user.userEmail).subscribe();
 
     }
-    this.isLoaded=true;
+    //this.isLoaded=true;
     
   }
 
