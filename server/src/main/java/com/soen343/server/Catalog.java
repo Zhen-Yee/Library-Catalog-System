@@ -144,8 +144,7 @@ public class Catalog {
         }
         isDatabaseChange = true;
     }
-
-    ///**********************Added ***************/
+    
     public void returnCatalogItem(CatalogItem catalogItem){
         
             catalogItem.returnItem();
@@ -155,10 +154,11 @@ public class Catalog {
         
         isDatabaseChange = true;
     }
+    
 
     /** 
       *If you get a List<Long> of ID, turn each ID into a CatalogItem
-      */
+      
     public List<CatalogItem> getCatalogItemFromID(List<Long> ids) {
         List<CatalogItem> catalogItemList = new ArrayList<>();
         for (Long id : ids) {
@@ -173,6 +173,7 @@ public class Catalog {
         }
         return catalogItemList;
     }
+    */
 
     /**
      * Synchronized method that checks every item and compare it to the
