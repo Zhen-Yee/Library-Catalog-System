@@ -156,6 +156,24 @@ public class Catalog {
         isDatabaseChange = true;
     }
 
+    /** 
+      *If you get a List<Long> of ID, turn each ID into a CatalogItem
+      */
+    public List<CatalogItem> getCatalogItemFromID(List<Long> ids) {
+        List<CatalogItem> catalogItemList = new ArrayList<>();
+        for (Long id : ids) {
+            if (identityMap.containsKey(id)){
+                catalogItemList.add(identityMap.get(id));
+            } else { //repopulate it and check again
+                populateIdentityMap();
+                if (identityMap.containsKey(id)){
+                    catalogItemList.add(identityMap.get(id));
+                }
+            }
+        }
+        return catalogItemList;
+    }
+
     /**
      * Synchronized method that checks every item and compare it to the
      * in memory data. If found it decrements the qty in stock and increment

@@ -77,6 +77,7 @@ public class TransactionGateway {
          }
     }
 
+    /*
     //get All Loaned Items item id
     public List<Long> getAllLoanedItems(Transaction transaction){
         String userEmail = transaction.getUserEmail();
@@ -100,8 +101,25 @@ public class TransactionGateway {
         }
         return loanedItem;
     }
+*/
 
-
+    /*
+    * Get all the items that has a NULL returnDate from a specific user email
+    */
+    public List<Long> getAllLoanedItems(String user_email){
+        List<Long> loanedItem= new ArrayList<>();
+        String query = "SELECT * from testdb.transaction WHERE user_email = '" + user_email + "'" + " AND date_return = '" + null + "'";
+        try{
+            Connector connector = DbConnection.get(query);
+            ResultSet r = connector.getResultSet();
+            while(r.next()) {
+                loanedItem.add(r.getLong("item_id"));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return loanedItem;
+    }
 
     private String getTableName(CatalogItem catalogItem){
         if (catalogItem.getClass() == Book.class) {

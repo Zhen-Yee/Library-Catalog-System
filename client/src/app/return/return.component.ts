@@ -1,9 +1,21 @@
-import { Component,  OnInit, Input } from "@angular/core";
-import {UserService} from "../_services/user.service";
-import { MatDialog, MatTableDataSource, MatSnackBar } from "@angular/material";
-import { animate, state, style, transition, trigger } from "@angular/animations";
-import { DataService } from 'src/app/_services/DataService.service';
+import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
+import { MatSort, MatPaginator, MatTableDataSource } from "@angular/material";
+import { HttpClient } from "@angular/common/http";
 import { CatalogItem } from "../_models/catalog/catalogItem.model";
+import { CatalogItemType } from "./../enums/catalogItemType";
+import { UserService } from "../_services/user.service";
+import { Router, NavigationEnd, RoutesRecognized } from "@angular/router";
+import { Book } from "../_models/catalog/book.model";
+import { ObjectDetailsService } from "src/app/_services/object-details.service";
+import { filter, pairwise } from "rxjs/operators";
+import { DataService } from "src/app/_services/DataService.service";
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger
+} from "@angular/animations";
 
 @Component({
   selector: 'app-return',
@@ -25,27 +37,79 @@ import { CatalogItem } from "../_models/catalog/catalogItem.model";
 })
 
 export class ReturnComponent implements OnInit {
-
-  constructor(private user: UserService, public dialog: MatDialog, private data: DataService) {}
+  constructor(
+    private http: HttpClient,
+    private data: DataService,
+    private details: ObjectDetailsService,
+    private user: UserService,
+    private router: Router
+  ) {}
+  dataArray: CatalogItem[] = [];
+  columnsToDisplay: string[] = ["itemType", "title", "quantityLoaned", "checkoutDate", "dueDate"];
+  dataSource: MatTableDataSource<CatalogItem>;
+  isLoaded = false;
+  paginator;
+  sort;
   element;
   item;
-  columnsToDisplay: string[] = ["itemType", "title", "quantityLoaned", "checkoutDate", "dueDate"];
   expandedElement: CatalogItem[];
-  dataSource: MatTableDataSource<CatalogItem>;
-  dataArray: CatalogItem[] = [];
+  
+/*
+  @ViewChild(MatSort)
+  set content(content: ElementRef) {
+    this.sort = content;
+    if (this.sort) {
+      this.dataSource.sort = this.sort;
+    }
+  }
 
-  ngOnInit() {}
+  @ViewChild(MatPaginator)
+  set paginatorContent(content: ElementRef) {
+    this.paginator = content;
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+    }
+  }
+  */
+
+  ngOnInit() {
+    this.getAllLoanedItems();
+  }
 
   authenticated() {
     return this.user.authenticated;
   }
 
-/*
+  /*
   getAllLoanedItems() {
-    this.http.get<Music>("http://localhost:8090/catalog/returnMusic")
+    this.http
+      .get<CatalogItem[]>(
+        "http://localhost:8090/catalog/getAllLoanedItems" + CatalogItem
+      )
+      .subscribe(x => {
+        x.map(index => {
+          index.id= CatalogItem;
+        });
+        this.dataArray = [...this.dataArray, ...x];
+        this.data.dataFromService = this.dataArray;
+        this.dataSource = new MatTableDataSource(this.dataArray);
+        this.isLoaded = true;
+      });
+  }
+  */
+
+  getAllLoanedItems() {
+      this.isLoaded = false;
+    this.http.get("http://localhost:8090/catalog/getAllLoanedItems").subscribe(x => {
+      Object.keys(x).map(key => {
+        this.data.findType(x[key]);
+        this.dataArray = [...this.dataArray, ...x[key]];
+      });
+      this.dataSource = new MatTableDataSource(this.dataArray);
+      this.isLoaded = true;
+    });
+  }
 
 }
-*/
 
-}
 

@@ -29,6 +29,20 @@ public class CatalogController {
         return catalog.getIdentityMap();
     }
 
+    
+    @GetMapping("/getAllLoanedItems")
+    public List<CatalogItem> getCatalogItemFromID(@PathVariable List<Long> ids) {
+        return catalog.getCatalogItemFromID(ids);
+    }
+    
+
+/*
+    @GetMapping("/getAllLoanedItems")
+    public List<CatalogItem> getCatalogItemFromID(@PathVariable List<Long> TransactionGateway.getAllLoanedItems) {
+        return catalog.getCatalogItemFromID(getAllLoanedItems);
+    }
+    */
+
     @PostMapping("/addBook")
     public boolean addBook(@RequestBody Book book){
         // checks if book object is good or not
