@@ -150,7 +150,6 @@ public class TransactionGateway {
         // } 
         // else {}
                
-
             //transArrayList.add(transaction);
         }} catch (SQLException e) {
             e.printStackTrace();
@@ -158,6 +157,7 @@ public class TransactionGateway {
         return transArrayList;
       
     }
+
 
     private Connection connect(){
         Connection connection = null;
