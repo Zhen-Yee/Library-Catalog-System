@@ -23,7 +23,7 @@ export class HistoryComponent implements OnInit {
   paginator;
   dataArray: any[] = [];
   isLoaded = false;
-  columnsToDisplay: string[] = ["id", "userEmail", "itemType", "checkoutDate", "dueDate", "returnDate"];
+  columnsToDisplay: string[] = ["id", "userEmail", "itemType", "title", "checkoutDate", "dueDate", "returnDate"];
   dataSource: MatTableDataSource<any>;
   message: string = "Transaction History";
 
