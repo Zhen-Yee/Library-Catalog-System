@@ -1,5 +1,6 @@
 package com.soen343.server.models;
 
+import java.sql.Timestamp;
 import java.util.Objects;
 
 /**
@@ -21,10 +22,12 @@ public class User {
     private boolean isAdmin;
     private boolean isOnline;
 
+    private Timestamp lastLoggedIn;
+
     /**
      * Constructor
      */
-    public User(String firstName, String lastName, String emailAddress, String physicalAddress, String phoneNumber, String userName, String password, boolean isAdmin, boolean isOnline) {
+    public User(String firstName, String lastName, String emailAddress, String physicalAddress, String phoneNumber, String userName, String password, boolean isAdmin, boolean isOnline, Timestamp lastLoggedIn) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
@@ -34,6 +37,7 @@ public class User {
         this.password = password;
         this.isAdmin = isAdmin;
         this.isOnline = isOnline;
+        this.lastLoggedIn = lastLoggedIn;
     }
 
 
@@ -76,6 +80,10 @@ public class User {
         return isOnline;
     }
 
+    public Timestamp getLastLoggedIn() {
+        return lastLoggedIn;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -88,6 +96,7 @@ public class User {
                 ", password='" + getPassword() + '\'' +
                 ", isAdmin=" + isAdmin() +
                 ", isOnline=" + isOnline() +
+                ", lastLoggedIn=" + getLastLoggedIn() +
                 '}';
     }
 
@@ -105,12 +114,13 @@ public class User {
                 Objects.equals(getPhysicalAddress(), user.getPhysicalAddress()) &&
                 Objects.equals(getPhoneNumber(), user.getPhoneNumber()) &&
                 Objects.equals(getUserName(), user.getUserName()) &&
-                Objects.equals(getPassword(), user.getPassword());
+                Objects.equals(getPassword(), user.getPassword()) &&
+                Objects.equals(getLastLoggedIn(), user.getLastLoggedIn());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getFirstName(), getLastName(), getEmailAddress(), getPhysicalAddress(), getPhoneNumber(), getUserName(), getPassword(), isAdmin(), isOnline());
+        return Objects.hash(getFirstName(), getLastName(), getEmailAddress(), getPhysicalAddress(), getPhoneNumber(), getUserName(), getPassword(), isAdmin(), isOnline(), getLastLoggedIn());
     }
 }
 

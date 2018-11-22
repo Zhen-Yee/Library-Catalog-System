@@ -1,203 +1,40 @@
 <app-search></app-search>
 <div class = "view-box">
-    <h3>
-        <mat-icon>sort</mat-icon> 
-        &nbsp;&nbsp;View Catalog as
-    </h3>
-        <div>
-            <button mat-button (click)="redirectBookPage()"> Books</button>
-            <button mat-button (click)="redirectMagazinesPage()"> Magazines </button>
-            <button mat-button (click)="redirectMoviesPage()"> Movies </button>
-            <button mat-button (click)="redirectMusicPage()"> Music</button>
+
+        <div class = "row">
+            <div class = "view">
+                <h4>
+                <mat-icon>sort</mat-icon>
+                    Sort Catalog by
+                </h4> </div>
+            <button mat-button class = "view" (click)="redirectBookPage()"> Books</button>
+            <button mat-button class = "view"(click)="redirectMagazinesPage()"> Magazines </button>
+            <button mat-button class = "view" (click)="redirectMoviesPage()"> Movies </button>
+            <button mat-button class = "view" (click)="redirectMusicPage()"> Music</button>
         </div>
 </div>
 
 <div>
+
 <table mat-table [dataSource]="dataSource" *ngIf="isLoaded" multiTemplateDataRows matSort class="mat-elevation-z8">
-  <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+  <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay;">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
-    <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+    <td mat-cell *matCellDef="let element;"> {{element[column]}}{{i}}</td>
   </ng-container>
-  
+
+
   <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-  <ng-container matColumnDef="expandedDetail">
-    <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
-      <div class="example-element-detail"
-           [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-        <div class="example-element-description">
-
-          <div class="left-wrapper">
-
-            <div class = "title">
-            {{element.title}}
-            </div>
-
-            <table>
-                <tr>
-                  <th>Quantity in Stock: </th>
-                  <th>{{element.qtyInStock}}</th>
-                </tr>
-                <tr>
-                  <th>Quantity on Loan: </th>
-                  <th>{{element.qtyOnLoan}}</th>
-                </tr>
-                <tr>
-                    <th>Item Type: </th>
-                    <th>{{element.itemType}}</th>
-                </tr>
-              </table>
-
-              <table *ngIf="element.itemType == 'Book'">
-
-                  <tr>
-                      <th>Author: </th>
-                      <th>{{element.author}}</th>
-                  </tr>
-                  <tr>
-                    <th>Format: </th>
-                    <th>{{element.format}}</th>
-                  </tr>
-                  <tr>
-                    <th>Pages: </th>
-                    <th>{{element.pages}}</th>
-                  </tr>
-                  <tr>
-                      <th>Publisher: </th>
-                      <th>{{element.publisher}}</th>
-                  </tr>
-                  <tr>
-                      <th>Year of Publication: </th>
-                      <th>{{element.yearOfPublication}}</th>
-                  </tr>
-                  <tr>
-                      <th>Language: </th>
-                      <th>{{element.language}}</th>
-                  </tr>
-                  <tr>
-                      <th>ISBN10: </th>
-                      <th>{{element.isbn10}}</th>
-                  </tr>
-                  <tr>
-                      <th>ISBN13: </th>
-                      <th>{{element.isbn13}}</th>
-                  </tr>
-                </table>
-
-                <table *ngIf="element.itemType == 'Music'">
-
-                    <tr>
-                        <th>Type: </th>
-                        <th>{{element.type}}</th>
-                    </tr>
-                    <tr>
-                      <th>Artist: </th>
-                      <th>{{element.artist}}</th>
-                    </tr>
-                    <tr>
-                      <th>Label: </th>
-                      <th>{{element.label}}</th>
-                    </tr>
-                    <tr>
-                        <th>Release Date: </th>
-                        <th>{{element.releaseDate}}</th>
-                    </tr>
-                    <tr>
-                        <th>ASIN: </th>
-                        <th>{{element.asin}}</th>
-                    </tr>
-                  </table>
-
-                  <table *ngIf="element.itemType == 'Magazine'">
-
-                      <tr>
-                          <th>Language: </th>
-                          <th>{{element.language}}</th>
-                      </tr>
-                      <tr>
-                      <tr>
-                          <th>Publisher: </th>
-                          <th>{{element.publisher}}</th>
-                      </tr>
-                      <tr>
-                          <th>Date of Publication: </th>
-                          <th>{{element.dateOfPublication}}</th>
-                      </tr>
-                      <tr>
-                          <th>ISBN10: </th>
-                          <th>{{element.isbn10}}</th>
-                      </tr>
-                      <tr>
-                          <th>ISBN13: </th>
-                          <th>{{element.isbn13}}</th>
-                      </tr>
-                    </table>
-
-                    <table *ngIf="element.itemType == 'Movie'">
-
-                        <tr>
-                            <th>Director: </th>
-                            <th>{{element.director}}</th>
-                        </tr>
-                        <tr>
-                          <th>Actors: </th>
-                          <th>{{element.actors}}</th>
-                        </tr>
-                        <tr>
-                          <th>Producers: </th>
-                          <th>{{element.producers}}</th>
-                        </tr>
-                        <tr>
-                            <th>Language: </th>
-                            <th>{{element.language}}</th>
-                        </tr>
-                        <tr>
-                            <th>Subtitles: </th>
-                            <th>{{element.subtitles}}</th>
-                        </tr>
-                        <tr>
-                            <th>Dubs: </th>
-                            <th>{{element.dubs}}</th>
-                        </tr>
-                        <tr>
-                            <th>Release Date: </th>
-                            <th>{{element.releaseDate}}</th>
-                        </tr>
-                        <tr>
-                            <th>Runtime: </th>
-                            <th>{{element.runTime}}</th>
-                        </tr>
-                      </table>
-
-          </div>
-
-          <div class="right-wrapper">
-
-            <div [hidden] = "!isAdmin()" class = "edit-box">
-              <update-book *ngIf="element.itemType == 'Book'" [book]="element" (messageEvent)="receiveSaveMessage($event)"></update-book>
-              <update-magazine *ngIf="element.itemType== 'Magazine'" [magazine]="element" (messageEvent)="receiveSaveMessage($event)"></update-magazine>
-              <update-music *ngIf="element.itemType == 'Music'" [music]="element" (messageEvent)="receiveSaveMessage($event)"></update-music>
-              <update-movie *ngIf="element.itemType == 'Movie'" [movie]="element" (messageEvent)="receiveSaveMessage($event)"></update-movie>
-              <div class = "delete">
-                <delete-item [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-  <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
-      class="example-element-row"
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay;" ></tr>
+  <tr mat-row *matRowDef="let element; let i = index; columns: columnsToDisplay;"
+      class="example-element-row" (click)="moreDetails(element)"
       [class.example-expanded-row]="expandedElement === element"
-      (click)="expandedElement === element ? expandedElement = null : expandedElement = element">
+      >
   </tr>
-  <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr> 
+
 </table>
 </div>
 
-<mat-paginator *ngIf="isLoaded" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+<mat-paginator *ngIf="isLoaded" [pageSize] = "10" [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
 
 <div *ngIf="!isLoaded">
     <mat-card *ngIf="!isLoaded" style="display: flex; justify-content: center; align-items: center">

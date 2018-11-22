@@ -1,24 +1,46 @@
 package com.soen343.server.gateways;
 
-import com.soen343.databaseConnection.Connector;
-import com.soen343.databaseConnection.DbConnection;
 import com.soen343.server.models.catalog.Movie;
 import com.soen343.server.models.SearchCriteria;
+import com.soen343.server.models.catalog.CatalogItem;
+import com.soen343.databaseConnection.Connector;
+import com.soen343.databaseConnection.DbConnection;
 
 import java.sql.*;
 import java.util.*;
 
 public class MovieGateway {
-    // replace with property calls
-    private static final String URL = "jdbc:mysql://testdbinstance.cwtjkaidrsfz.us-east-2.rds.amazonaws.com:3306/testdb?useSSL=false";
-    private static final String USERNAME = "test";
-    private static final String PASSWORD = "testtest";
 
-    public static ArrayList<Movie> findAll() {
-        return null;
+    private static MovieGateway movieGateway = null;
+
+    private  Connector connector;
+
+    // replace with property calls
+    private final String URL = "jdbc:mysql://testdbinstance.cwtjkaidrsfz.us-east-2.rds.amazonaws.com:3306/testdb?useSSL=false";
+    private final String USERNAME = "test";
+    private final String PASSWORD = "testtest";
+
+    private final String SQL_GET_ALL_MOVIES = "SELECT  * from testdb.movie";
+
+    /**
+     * Singleton pattern - allows instantiation
+     * of MovieGateway
+     * @return {@link MovieGateway}
+     */
+    public static MovieGateway getMovieGateway() {
+        if(movieGateway == null) {
+            movieGateway = new MovieGateway();
+        }
+        return movieGateway;
     }
 
-    public static void insert(Movie movie){
+    /**
+     * Inserts a {@link Movie} CatalogItem to the database
+     * This method  checks if it already exist or not.
+     * If it does increment the quantity.
+     * @param movie: Movie CatalogItem
+     */
+    public void insert(Movie movie){
         // generate the query
         String columns = "qty_in_stock, qty_on_loan, title, director, language, release_date, run_time";
         String values = movie.getQtyInStock() + ", " + movie.getQtyOnLoan() + ", '" + movie.getTitle() + "', '"
@@ -63,7 +85,11 @@ public class MovieGateway {
 
     }
 
-    public static List<Movie> getAll(){
+    /**
+     * Query all {@link Movie} from the database
+     * @return
+     */
+    public List<Movie> getAll(){
         List<Movie> movieArrayList = new ArrayList<>();
 
         try {
@@ -132,7 +158,11 @@ public class MovieGateway {
         return movieArrayList;
     }
 
-    public static void delete(Movie movie) {
+    /**
+     * Deletes a Movie from the Database
+     * @param movie
+     */
+    public void delete(Movie movie) {
         try {
             Connection conn = connect();
             Statement stmt = conn.createStatement();
@@ -147,10 +177,13 @@ public class MovieGateway {
         } catch (Exception e) {
             System.out.println(e);
         }
-
     }
 
-    public static void update(Movie movie){
+    /**
+     * Updates a {@link Movie} CatalogItem in the database
+     * @param movie
+     */
+    public void update(Movie movie){
         try{
         Connection conn = connect();
         Statement stmt = conn.createStatement();
@@ -199,7 +232,7 @@ public class MovieGateway {
     }
 
     // change for a DataSource later?
-    private static Connection connect(){
+    private Connection connect(){
         Connection connection = null;
         try{
             Class.forName("com.mysql.jdbc.Driver");
@@ -211,13 +244,19 @@ public class MovieGateway {
         return connection;
     }
 
-    public static String buildFilterString(SearchCriteria search){
+    /**
+     * Helper method that builds the String for search query
+     * Checks each parameter to build a SQL database query string
+     * @param search: SearchCriteria
+     * @return String
+     */
+    public String buildFilterString(SearchCriteria search){
         
         int i = 0;
         if(search.getTitle().equals("title")){
             i++;
         } 
-        if(search.getAuthor().equals("director")){
+        if(search.getDirector().equals("director")){
             i++;
         } 
         if(search.getLanguage().equals("language")){
@@ -267,13 +306,200 @@ public class MovieGateway {
         return filter;
     }
 
-    public static List<Movie> search(SearchCriteria search){
-        List<Movie> movieArrayList = new ArrayList<>();
-
+    public List<Integer> populateActorId(SearchCriteria search) {
+        List<Integer> actorIdList = new ArrayList<>();
         try {
-            String filter = buildFilterString(search);
             Connection conn = connect();
             Statement stmt = conn.createStatement();
+            ResultSet actorSet = stmt.executeQuery("SELECT * from testdb.actor WHERE actor LIKE '%" + search.getSearch() + "%'");
+            System.out.println("passed first query");
+            while(actorSet.next()){
+                actorIdList.add(actorSet.getInt("movie_id"));
+            }
+        } catch(SQLException e) {
+            System.out.println(e);
+        }
+        Set<Integer> actorId = new HashSet<>();
+        actorId.addAll(actorIdList);
+        actorIdList.clear();
+        actorIdList.addAll(actorId);
+        return actorIdList;
+    }
+
+     public List<Integer> populateProducerId(SearchCriteria search) {
+        List<Integer> producerIdList = new ArrayList<>();
+        try {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            ResultSet producerSet = stmt.executeQuery("SELECT * from testdb.producer WHERE producer LIKE '%" + search.getSearch() + "%'");
+            System.out.println("passed first query");
+            while(producerSet.next()){
+                producerIdList.add(producerSet.getInt("movie_id"));
+            }
+        } catch(SQLException e) {
+            System.out.println(e);
+        }
+        Set<Integer> producerId = new HashSet<>();
+        producerId.addAll(producerIdList);
+        producerIdList.clear();
+        producerIdList.addAll(producerId);
+
+        return producerIdList;
+    }
+
+    /**
+     * Search database based on {@link SearchCriteria}
+     * Creates a MagazineArrayList
+     * @param search: SearchCriteria
+     * @return MagazineArrayList
+     */
+    public List<Movie> search(SearchCriteria search){
+        System.out.println("entered movie gateway");
+        List<Movie> movieArrayList = new ArrayList<>();
+        List<Integer> actorIdList = new ArrayList<>();
+        List<Integer> producerIdList = new ArrayList<>();
+
+        try {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+
+            if(search.getProducers().equals("producers")){
+               producerIdList = populateProducerId(search);
+               for(int i=0; i<producerIdList.size(); i++){
+                String query = "SELECT * from testdb.movie WHERE id ='"+ producerIdList.get(i) + "'";
+                stmt.executeQuery(query);
+                System.out.print("passed second query");
+                ResultSet movieResultSet = stmt.getResultSet();
+                while (movieResultSet.next()) {
+                    // creates 1 movie
+                    Movie movie = new Movie(
+                        movieResultSet.getString("title"),
+                        movieResultSet.getInt("qty_in_stock"),
+                        movieResultSet.getInt("qty_on_loan"),
+                        movieResultSet.getString("director"),
+                        movieResultSet.getString("language"),
+                        movieResultSet.getString("release_date"),
+                        movieResultSet.getInt("run_time")
+                );
+                // takes the id of that movie to find actors, subs, dubs, producers
+                int movieId = movieResultSet.getInt("id");
+                movie.setId(movieId);
+                // finds actors and adds it to the movie
+                Statement stmt2 = conn.createStatement();
+                stmt2.executeQuery("SELECT  * from testdb.actor WHERE movie_id ='"+ movieId + "'");
+                ResultSet actorResultSet = stmt2.getResultSet();
+                // movieResultSet = connector.getResultSet();
+                while(actorResultSet.next()){
+                movie.addActors(actorResultSet.getString("actor"));
+                }
+    
+                // finds subtitles and adds it to the movie
+                Statement stmt3 = conn.createStatement();
+                stmt3.executeQuery("SELECT  * from testdb.subtitle WHERE movie_id ='"+ movieId + "'");
+                ResultSet subsResultSet = stmt3.getResultSet();
+                // movieResultSet = connector.getResultSet();
+                while(subsResultSet.next()){
+                movie.addSubtitles(subsResultSet.getString("sub_language"));
+                }
+    
+                // finds dubs and adds it to the movie
+                Statement stmt4 = conn.createStatement();
+                stmt4.executeQuery("SELECT  * from testdb.dub WHERE movie_id ='"+ movieId + "'");
+                ResultSet dubsResultSet = stmt4.getResultSet();
+                //movieResultSet = connector.getResultSet();
+                while(dubsResultSet.next()){
+                movie.addDubs(dubsResultSet.getString("dub_language"));
+                }
+    
+                // finds producer and adds it to the movie
+                Statement stmt5 = conn.createStatement();
+                stmt5.executeQuery("SELECT  * from testdb.producer WHERE movie_id ='"+ movieId + "'");
+                ResultSet producerResultSet = stmt5.getResultSet();
+               // movieResultSet = connector.getResultSet();
+                while(producerResultSet.next()){
+                movie.addProducers(producerResultSet.getString("producer"));
+                }
+    
+                movieArrayList.add(movie);
+                }
+             }
+            }
+
+            if(search.getActors().equals("actors")){
+                actorIdList = populateActorId(search);
+                for(int i=0; i<actorIdList.size(); i++){
+                   String query = "SELECT * from testdb.movie WHERE id ='"+ actorIdList.get(i) + "'";
+                
+                if(!producerIdList.isEmpty()){
+                if(actorIdList.contains(producerIdList.get(i))){
+                      break;
+                  }
+                }
+                   stmt.executeQuery(query);
+        System.out.print("passed second query");
+                   ResultSet movieResultSet = stmt.getResultSet();
+                   while (movieResultSet.next()) {
+                       // creates 1 movie
+                       Movie movie = new Movie(
+                           movieResultSet.getString("title"),
+                           movieResultSet.getInt("qty_in_stock"),
+                           movieResultSet.getInt("qty_on_loan"),
+                           movieResultSet.getString("director"),
+                           movieResultSet.getString("language"),
+                           movieResultSet.getString("release_date"),
+                           movieResultSet.getInt("run_time")
+                   );
+                   // takes the id of that movie to find actors, subs, dubs, producers
+                   int movieId = movieResultSet.getInt("id");
+                   movie.setId(movieId);
+                   // finds actors and adds it to the movie
+                   Statement stmt2 = conn.createStatement();
+                   stmt2.executeQuery("SELECT  * from testdb.actor WHERE movie_id ='"+ movieId + "'");
+                   ResultSet actorResultSet = stmt2.getResultSet();
+                   // movieResultSet = connector.getResultSet();
+                   while(actorResultSet.next()){
+                   movie.addActors(actorResultSet.getString("actor"));
+                   }
+       
+                   // finds subtitles and adds it to the movie
+                   Statement stmt3 = conn.createStatement();
+                   stmt3.executeQuery("SELECT  * from testdb.subtitle WHERE movie_id ='"+ movieId + "'");
+                   ResultSet subsResultSet = stmt3.getResultSet();
+                   // movieResultSet = connector.getResultSet();
+                   while(subsResultSet.next()){
+                   movie.addSubtitles(subsResultSet.getString("sub_language"));
+                   }
+       
+                   // finds dubs and adds it to the movie
+                   Statement stmt4 = conn.createStatement();
+                   stmt4.executeQuery("SELECT  * from testdb.dub WHERE movie_id ='"+ movieId + "'");
+                   ResultSet dubsResultSet = stmt4.getResultSet();
+                   //movieResultSet = connector.getResultSet();
+                   while(dubsResultSet.next()){
+                   movie.addDubs(dubsResultSet.getString("dub_language"));
+                   }
+       
+                   // finds producer and adds it to the movie
+                   Statement stmt5 = conn.createStatement();
+                   stmt5.executeQuery("SELECT  * from testdb.producer WHERE movie_id ='"+ movieId + "'");
+                   ResultSet producerResultSet = stmt5.getResultSet();
+                  // movieResultSet = connector.getResultSet();
+                   while(producerResultSet.next()){
+                   movie.addProducers(producerResultSet.getString("producer"));
+                   }
+       
+                   movieArrayList.add(movie);
+                   }
+                }
+            }
+
+
+            if(search.getTitle().equals("title") ||
+            search.getDirector().equals("director") ||
+            search.getLanguage().equals("language") ||
+            search.getReleaseDate().equals("releaseDate")){
+            String filter = buildFilterString(search);
+           
             stmt.executeQuery(filter);
             ResultSet movieResultSet = stmt.getResultSet();
             while (movieResultSet.next()) {
@@ -292,6 +518,9 @@ public class MovieGateway {
             movie.setId(movieId);
             // finds actors and adds it to the movie
             Statement stmt2 = conn.createStatement();
+
+
+
             stmt2.executeQuery("SELECT  * from testdb.actor WHERE movie_id ='"+ movieId + "'");
             ResultSet actorResultSet = stmt2.getResultSet();
             // movieResultSet = connector.getResultSet();
@@ -328,6 +557,7 @@ public class MovieGateway {
 
             movieArrayList.add(movie);
             }
+        }
         } catch (SQLException e) {
             System.out.println("Unable to query from result set.");
             e.printStackTrace();
@@ -337,4 +567,39 @@ public class MovieGateway {
         return movieArrayList;
     }
 
+    public Movie get(int id){
+        
+        connector = DbConnection.get(SQL_GET_ALL_MOVIES);
+        ResultSet resultSet = connector.getResultSet();
+        return buildResultSet(resultSet);
+        
+    }
+
+    private Movie buildResultSet(ResultSet resultSet) {
+        Movie movie = null;
+        try {
+            while (resultSet.next()) {
+
+                // Creates object for each row in database movie table
+                movie = new Movie(
+                    resultSet.getString("title"),
+                    resultSet.getInt("qty_in_stock"),
+                    resultSet.getInt("qty_on_loan"),
+                    resultSet.getString("director"),
+                    resultSet.getString("language"),
+                    resultSet.getString("release_date"),
+                    resultSet.getInt("run_time")
+                );
+
+                movie.setId(resultSet.getInt("id"));
+
+            }
+        } catch (SQLException e) {
+            System.out.println("Unable to query from result set.");
+            e.printStackTrace();
+        } finally {
+            connector.close();
+        }
+        return movie;
+    }
 }

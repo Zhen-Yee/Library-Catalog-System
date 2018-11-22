@@ -1,0 +1,8 @@
+mat-error {
+    font-size:70%;
+    margin-bottom: 10px;
+}
+
+mat-form-field {
+    display: block;
+}

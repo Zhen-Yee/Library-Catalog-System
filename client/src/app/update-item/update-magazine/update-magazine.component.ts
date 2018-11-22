@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { HttpClient } from "@angular/common/http";
 import { Magazine } from "../../_models/catalog/magazine.model";
 import { Router } from "@angular/router";
+import { DataService } from "src/app/_services/DataService.service";
 
 @Component({
     selector: "update-magazine",
@@ -14,7 +15,7 @@ export class UpdateMagazineComponent implements OnInit {
     edit: boolean;
     savingMessage: string = "Saving Magazine...";
     @Input() magazine;
-    constructor(private router: Router, private fb: FormBuilder, private http: HttpClient) {
+    constructor(private router: Router, private fb: FormBuilder, private http: HttpClient, private data: DataService) {
     }
 
     ngOnInit() {
@@ -43,10 +44,10 @@ export class UpdateMagazineComponent implements OnInit {
             // magazine formgroup matching a magazine object with validators
             title: ["", Validators.required],
             publisher: ["", Validators.required],
-            dateOfPublication: ["", [Validators.required]],
-            language: ["", [Validators.required]],
-            isbn10: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-            isbn13: ["", [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
+            dateOfPublication: ["", [Validators.required, Validators.pattern("^([0-9]{4})[-\/]([0-9]{2})[-\/]([0-9]{2})$")]],
+            language: ["", Validators.required],
+            isbn10: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("^[0-9]*$")]],
+            isbn13: ["", [Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern("^[0-9]*$")]],
             qtyInStock: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
             qtyOnLoan: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
             itemType: ["", Validators.required],
@@ -67,6 +68,8 @@ export class UpdateMagazineComponent implements OnInit {
                 .subscribe(updateSuccess => {
                     if (updateSuccess) {
                         this.messageEvent.emit(this.savingMessage);
+                        this.data.updatedSearchItem = true;
+                        this.router.navigate(["catalog"]);
                         // Reloads page for updated changes to magazine
                         // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
                         //     this.router.navigate(["/catalog"]));

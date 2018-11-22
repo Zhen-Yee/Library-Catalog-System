@@ -1,21 +1,23 @@
+
 import { CatalogItemType } from "./../enums/catalogItemType";
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from "@angular/core";
 import { Book } from "../_models/catalog/book.model";
-import { animate, state, style, transition, trigger } from "@angular/animations";
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger
+} from "@angular/animations";
 import { MatSort, MatPaginator, MatTableDataSource } from "@angular/material";
 import { HttpClient } from "@angular/common/http";
 import { CatalogItem } from "../_models/catalog/catalogItem.model";
-import { Music } from "../_models/catalog/music.model";
-import { Movie } from "../_models/catalog/movie.model";
-import {Magazine} from "../_models/catalog/magazine.model";
 import { UserService } from "../_services/user.service";
-<<<<<<< HEAD
-import {DataService} from "../_services/DataService.service";
-import {Subscription} from "rxjs";
-=======
-import { Router } from "@angular/router";
->>>>>>> origin/dev
-
+import { DataService } from "../_services/DataService.service";
+import { filter, pairwise } from "rxjs/operators";
+import { Router, NavigationEnd, RoutesRecognized } from "@angular/router";
+import { ObjectDetailsService } from "../_services/object-details.service";
+import { BehaviorSubject } from "rxjs";
 
 @Component({
   selector: "app-data-table",
@@ -35,33 +37,36 @@ import { Router } from "@angular/router";
     ])
   ]
 })
-
-export class DataTableComponent implements OnInit {
-<<<<<<< HEAD
-  constructor(private http: HttpClient, private user: UserService, public dataService: DataService) { }
-
-=======
-  constructor(private http: HttpClient, private user: UserService,private router: Router) {}
->>>>>>> origin/dev
+export class DataTableComponent implements OnInit, OnDestroy {
+  constructor(
+    private http: HttpClient,
+    private details: ObjectDetailsService,
+    private user: UserService,
+    public dataService: DataService,
+    private router: Router
+  ) {}
+  isDetails = false;
   paginator;
   sort;
   isLoaded = false;
 
-    // Generated Data
-    dataArray: CatalogItem[] = [];
-    columnsToDisplay: string[] = ["itemType","title", "qtyInStock", "qtyOnLoan", ];
-    expandedElement: CatalogItem[];
-    dataSource: MatTableDataSource<CatalogItem>;
-    message: string = "Getting Catalog Items...";
+  // Generated Data
+  dataArray: CatalogItem[] = [];
+  columnsToDisplay: string[] = ["itemType", "title", "qtyInStock", "qtyOnLoan"];
+  expandedElement: CatalogItem[];
+  dataSource: MatTableDataSource<CatalogItem>;
+  message: string = "Getting Catalog Items...";
 
-  @ViewChild(MatSort) set content(content: ElementRef) {
+  @ViewChild(MatSort)
+  set content(content: ElementRef) {
     this.sort = content;
     if (this.sort) {
       this.dataSource.sort = this.sort;
     }
   }
 
-  @ViewChild(MatPaginator) set paginatorContent(content: ElementRef) {
+  @ViewChild(MatPaginator)
+  set paginatorContent(content: ElementRef) {
     this.paginator = content;
     if (this.paginator) {
       this.dataSource.paginator = this.paginator;
@@ -69,136 +74,75 @@ export class DataTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.details.fromSort = null;
+    this.router.events
+    .pipe(filter(e => e instanceof RoutesRecognized))
+    .pipe(pairwise())
+    .subscribe((event: any[]) => {
+      if (event[0].url.split("/").includes("details")) {
+      this.dataService.fromDetails = true;
+      } else {
+        this.dataService.fromDetails = false;
+      }
+    });
+  }
+
+  ngAfterContentInit(): void {
     this.getAll();
   }
-
-  findType(catalogItem: any) {
-    // create null object to represent our object type
-    // take out itemtype to have a representation of our backend object
-    const music: Music = {
-      itemType: null,
-      id: null,
-      qtyInStock: null,
-      qtyOnLoan: null,
-      title: null,
-      type: null,
-      artist: null,
-      label: null,
-      releaseDate: null,
-      asin: null,
-    };
-    delete music.itemType;
-
-    const book: Book = {
-      itemType: null,
-      id: null,
-      qtyInStock: null,
-      qtyOnLoan: null,
-      title: null,
-      author: null,
-      format: null,
-      pages: null,
-      publisher: null,
-      yearOfPublication: null,
-      language: null,
-      isbn10: null,
-      isbn13: null,
-    };
-    delete book.itemType;
-
-    const movie: Movie = {
-      itemType: null,
-      id: null,
-      qtyInStock: null,
-      qtyOnLoan: null,
-      title: null,
-      director: null,
-      producers: null,
-      actors: null,
-      language: null,
-      subtitles: null,
-      dubs: null,
-      releaseDate: null,
-      runTime: null,
-    };
-    delete movie.itemType;
-
-    const magazine: Magazine = {
-      itemType: null,
-      id: null,
-      qtyInStock: null,
-      qtyOnLoan: null,
-      title: null,
-      publisher: null,
-      language: null,
-      dateOfPublication: null,
-      isbn10: null,
-      isbn13: null,
-    };
-    delete magazine.itemType;
-
-
-    // get the properties of every object including the object coming from the backend
-    const properties = Object.getOwnPropertyNames(catalogItem);
-    const movieprop = Object.getOwnPropertyNames(movie);
-    const musicprop = Object.getOwnPropertyNames(music);
-    const bookprop = Object.getOwnPropertyNames(book);
-    const magazineprop = Object.getOwnPropertyNames(magazine);
-
-    // compare the name of those properties
-    // if match give it an itemtype and return it
-    if (properties.sort().every(function(value, index) { return value === bookprop.sort()[index]; })) {
-      catalogItem.itemType = CatalogItemType.Book;
-      return catalogItem as Book;
-    } else if (properties.sort().every(function(value, index) { return value === movieprop.sort()[index]; })) {
-      catalogItem.itemType = CatalogItemType.Movie;
-      return catalogItem as Movie;
-    } else if (properties.sort().every(function(value, index) { return value === magazineprop.sort()[index]; })) {
-      catalogItem.itemType = CatalogItemType.Magazine;
-      return catalogItem as Magazine;
-    } else if (properties.sort().every(function(value, index) { return value === musicprop  .sort()[index]; })) {
-      catalogItem.itemType = CatalogItemType.Music;
-      return catalogItem as Music;
-    }
-  }
-
 
   isAdmin() {
     return this.user.isAdmin;
   }
-  // calls getAll function to refill catalog with updated values
-  receiveSaveMessage($event) {
-    this.dataArray = [];
-    this.message = $event;
-    this.getAll();
-  }
-
-  receiveDeleteMessage($event) {
-    this.dataArray = [];
-    this.message = $event;
-    this.getAll();
-  }
 
   getAll() {
+    // if we come from the details page AND the searched array is > 0, display the searched array
+    // otherwise just do get all.
+    if (this.dataService.fromDetails && this.dataService.searchedDataFromService.length > 0 && !this.dataService.updatedSearchItem) {
+      this.dataArray = this.dataService.getSearchedData();
+      this.dataSource = new MatTableDataSource(this.dataArray);
+      this.isLoaded = true;
+    } else {
     // go into the get map function and populate the grid instead of going through the db
     // populate the items with their item type with findType() and fill the array
     this.isLoaded = false;
-    this.http.get("http://localhost:8090/catalog/getMap").subscribe(x => { Object.keys(x).map(key => {this.findType(x[key]);
-      this.dataArray = [...this.dataArray, ...x[key]];
-    });
+    this.http.get("http://localhost:8090/catalog/getMap").subscribe(x => {
+      Object.keys(x).map(key => {
+        this.dataService.findType(x[key]);
+        this.dataArray = [...this.dataArray, ...x[key]];
+      });
       this.dataSource = new MatTableDataSource(this.dataArray);
       this.isLoaded = true;
     });
   }
+  }
 
-<<<<<<< HEAD
   getSearch() {
     this.dataSource = null;
     this.isLoaded = false;
     this.dataSource = new MatTableDataSource(this.dataService.getData());
     console.log(this.dataSource);
     this.isLoaded = true;
-=======
+  }
+
+  moreDetails(item) {
+    this.details.index = this.dataSource.filteredData.indexOf(item);
+    // navigate to corresponding route depending on type
+    if (item.itemType === CatalogItemType.Book) {
+      this.details.book = item;
+      this.router.navigate(["/details", item.itemType, item.title]);
+    } else if (item.itemType === CatalogItemType.Magazine) {
+      this.details.magazine = item;
+      this.router.navigate(["/details", item.itemType, item.title]);
+    } else if (item.itemType === CatalogItemType.Movie) {
+      this.details.movie = item;
+      this.router.navigate(["/details", item.itemType, item.title]);
+    } else if (item.itemType === CatalogItemType.Music) {
+      this.details.music = item;
+      this.router.navigate(["/details", item.itemType, item.title]);
+    }
+  }
+
   redirectMagazinesPage() {
     this.router.navigate(["catalog/magazines"]);
   }
@@ -207,14 +151,14 @@ export class DataTableComponent implements OnInit {
     this.router.navigate(["catalog/movies"]);
   }
 
-  redirectMusicPage(){
+  redirectMusicPage() {
     this.router.navigate(["catalog/music"]);
   }
 
-  redirectBookPage(){
+  redirectBookPage() {
     this.router.navigate(["catalog/books"]);
->>>>>>> origin/dev
   }
-
+  ngOnDestroy() {
+    this.dataService.setData(this.dataArray);
+  }
 }
-

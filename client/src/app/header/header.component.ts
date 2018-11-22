@@ -6,6 +6,7 @@ import { HttpClient } from "@angular/common/http";
 import { finalize } from "rxjs/operators";
 import { UserService } from "../_services/user.service";
 import { ToggleService } from "../_services/ToggleService";
+import { CartService } from "../_services/CartService";
 
 @Component({
   selector: "header",
@@ -15,14 +16,17 @@ import { ToggleService } from "../_services/ToggleService";
 export class HeaderComponent implements OnInit {
   toggling = false;
 
-  constructor(private router: Router, public dialog: MatDialog, private http: HttpClient, private user: UserService, private toggled: ToggleService ) {
+  constructor(private cart: CartService, private router: Router, public dialog: MatDialog, private http: HttpClient, private user: UserService, private toggled: ToggleService ) {
   }
 
   ngOnInit() {
 
     this.toggled.currentToggle.subscribe(toggling => this.toggling = toggling)
+}
 
-  }
+redirectTransactions() {
+  this.router.navigate(["/transactions"]);
+}
 
   redirectRegistrationPage() {
     this.router.navigate(["/register"]);
@@ -32,12 +36,20 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(["/promote"]);
   }
 
+  redirectToCart() {
+    this.router.navigate(["/shoppingcart"]);
+  }
+
   redirectHome() {
     this.router.navigate(["/"]);
   }
 
   redirectCatalogPage() {
     this.router.navigate(["/catalog"]);
+  }
+
+  redirectReturnItemsPage() {
+    this.router.navigate(["/returns"]);
   }
 
   openDialog() {
@@ -83,6 +95,10 @@ export class HeaderComponent implements OnInit {
 
   isToggle() {
     return this.toggling;
+  }
+
+  cartQuantity() {
+    return (this.cart.cart).length;
   }
 
 }

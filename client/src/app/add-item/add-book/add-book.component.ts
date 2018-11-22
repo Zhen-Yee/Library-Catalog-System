@@ -19,16 +19,17 @@ export class AddBookComponent implements OnInit {
 
   createForm() {
     this.form = this.fb.group({
-      // book formgroup matching a book object with validators
-      title: ["", Validators.required],
-      author: ["", Validators.required],
-      format: ["", Validators.required],
-      pages: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
-      publisher: ["", Validators.required],
-      yearOfPublication: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
-      language: ["", Validators.required],
-      isbn10: ["", Validators.required],
-      isbn13: ["", Validators.required]
+      // book form group matching a book object with validators
+            title: ["", Validators.required],
+            author: ["", Validators.required],
+            format: ["", [Validators.required, Validators.pattern("^Paperback$|^Hardcover$")]],
+            pages: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
+            publisher: ["", [Validators.required]],
+            yearOfPublication: ["", [Validators.required, Validators.pattern("^([0-9]{4})$")]],
+            language: ["", [Validators.required]],
+            isbn10: ["", [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("^[0-9]*$")]],
+            isbn13: ["", [Validators.required, Validators.minLength(13), Validators.maxLength(13), Validators.pattern("^[0-9]*$")]],
+            qtyInStock: ["", [Validators.required, Validators.min(1), Validators.pattern("^[0-9]*$")]]
     });
   }
 
@@ -43,6 +44,7 @@ export class AddBookComponent implements OnInit {
         .subscribe((confirmation) => {
           if (confirmation) {
             this.openSnackBar("Book added!", "Close");
+            this.form.reset();
           } else {
             this.openSnackBar("Error adding book!", "Close");
           }

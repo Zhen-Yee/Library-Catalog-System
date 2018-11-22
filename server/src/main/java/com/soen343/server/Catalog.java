@@ -1,11 +1,12 @@
 package com.soen343.server;
 
-import com.soen343.server.gateways.BookGateway;
-import com.soen343.server.gateways.MagazineGateway;
-import com.soen343.server.gateways.MovieGateway;
-import com.soen343.server.gateways.MusicGateway;
-import com.soen343.server.models.catalog.*;
+import com.soen343.server.gateways.*;
 import com.soen343.server.models.SearchCriteria;
+import com.soen343.server.models.Transaction;
+import com.soen343.server.models.catalog.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,9 +23,23 @@ public class Catalog {
     private boolean isDatabaseChange;
 
     /**
+     * Gateways objects
+     */
+    private BookGateway bookGateway;
+    private MagazineGateway magazineGateway;
+    private MusicGateway musicGateway;
+    private MovieGateway movieGateway;
+    private TransactionGateway transactionGateway;
+
+    /**
      * Default constructor that initializes the identity map
      */
     private Catalog() {
+        bookGateway = BookGateway.getBookGateway();
+        magazineGateway = MagazineGateway.getMagazineGateway();
+        musicGateway = MusicGateway.getMusicGateway();
+        movieGateway = MovieGateway.getMovieGateway();
+        transactionGateway = TransactionGateway.getGateway();
         identityMap = new HashMap<>();
         isDatabaseChange = false;
         populateIdentityMap();
@@ -41,18 +56,18 @@ public class Catalog {
     public void addCatalogItem(CatalogItem catalogItem) {
         if (catalogItem.getClass() == Book.class) {
             // Add book to db
-            BookGateway.insert((Book)catalogItem);
+            bookGateway.insert((Book)catalogItem);
         }
         if (catalogItem.getClass() == Magazine.class) {
-            MagazineGateway.insert((Magazine)catalogItem);
+            magazineGateway.insert((Magazine)catalogItem);
             // Add magazine to db
         }
         if (catalogItem.getClass() == Music.class) {
-            MusicGateway.insert((Music)catalogItem);
+            musicGateway.insert((Music)catalogItem);
             // Add movie to db
         }
         if (catalogItem.getClass() == Movie.class) {
-            MovieGateway.insert((Movie)catalogItem);
+            movieGateway.insert((Movie)catalogItem);
             // Add movie to db
         }
         isDatabaseChange = true;
@@ -60,16 +75,16 @@ public class Catalog {
 
     public void updateCatalogItem(CatalogItem catalogItem) {
         if (catalogItem.getClass() == Book.class) {
-            BookGateway.update((Book)catalogItem);
+            bookGateway.update((Book)catalogItem);
         }
         if (catalogItem.getClass() == Magazine.class) {
-            MagazineGateway.update((Magazine)catalogItem);
+            magazineGateway.update((Magazine)catalogItem);
         }
         if (catalogItem.getClass() == Music.class) {
-            MusicGateway.update((Music)catalogItem);
+            musicGateway.update((Music)catalogItem);
         }
         if (catalogItem.getClass() == Movie.class) {
-            MovieGateway.update((Movie)catalogItem);
+            movieGateway.update((Movie)catalogItem);
         }
         isDatabaseChange = true;
     }
@@ -99,34 +114,145 @@ public class Catalog {
         return catalogItems;
     }
 
+
     public List<Book> getAllBooks() {
-        return BookGateway.getAll();
+        return bookGateway.getAll();
     }
 
-    public List<Magazine> getAllMagazines() { return MagazineGateway.getAll(); }
+    public List<Magazine> getAllMagazines() { return magazineGateway.getAll(); }
 
     public List<Music> getAllMusics() {
-        return MusicGateway.getAll();
+        return musicGateway.getAll();
     }
 
     public List<Movie> getAllMovies() {
-        return MovieGateway.getAll();
+        return movieGateway.getAll();
     }
 
     public void deleteCatalogItem(CatalogItem catalogItem){
         if(catalogItem.getClass() == Book.class){
-            BookGateway.delete((Book)catalogItem);
+            bookGateway.delete((Book)catalogItem);
         }
         else if(catalogItem.getClass() == Music.class){
-            MusicGateway.delete((Music)catalogItem);
+            musicGateway.delete((Music)catalogItem);
         }
         else if(catalogItem.getClass() == Magazine.class){
-            MagazineGateway.delete((Magazine)catalogItem);
+            magazineGateway.delete((Magazine)catalogItem);
         }
         else if(catalogItem.getClass() == Movie.class){
-            MovieGateway.delete((Movie)catalogItem);
+            movieGateway.delete((Movie)catalogItem);
         }
         isDatabaseChange = true;
+    }
+
+    ///**********************Added ***************/
+    public void returnCatalogItem(CatalogItem catalogItem){
+        
+            catalogItem.returnItem();
+            updateCatalogItem(catalogItem);
+        //update the Trasaction item
+            updateTransaction(catalogItem);
+        
+        isDatabaseChange = true;
+    }
+
+    /** 
+      *If you get a List<Long> of ID, turn each ID into a CatalogItem
+      */
+    public List<CatalogItem> getCatalogItemFromID(List<Long> ids) {
+        List<CatalogItem> catalogItemList = new ArrayList<>();
+        for (Long id : ids) {
+            if (identityMap.containsKey(id)){
+                catalogItemList.add(identityMap.get(id));
+            } else { //repopulate it and check again
+                populateIdentityMap();
+                if (identityMap.containsKey(id)){
+                    catalogItemList.add(identityMap.get(id));
+                }
+            }
+        }
+        return catalogItemList;
+    }
+
+    /**
+     * Synchronized method that checks every item and compare it to the
+     * in memory data. If found it decrements the qty in stock and increment
+     * the qty on loan. This updates the database and uses {{@link #insertTransaction(String, CatalogItem)}}
+     * to create a new Transaction object. If not found, the identity map gets repopulated
+     * and the item is recheck again. A ResponseEntity is returned.
+     * @param email
+     * @param cart
+     * @return
+     */
+    public synchronized Boolean checkout(String email, List<CatalogItem> cart) {
+        for (CatalogItem item : cart) {
+            if (identityMap.containsValue(item)){
+                item.checkoutItem();
+                updateCatalogItem(item);
+                insertTransaction(email, item);
+            } else { //repopulate the identity map and check again
+                populateIdentityMap();
+
+                if (identityMap.containsValue(item)){
+                    item.checkoutItem();
+                    updateCatalogItem(item);
+                    insertTransaction(email, item);
+                } else {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Converts the JSONArray into a CatalogItem list
+     * @param cart: JSONArray
+     * @return List of CatalogItem
+     */
+    public List<CatalogItem> cartMapToList(JSONArray cart) {
+        List<CatalogItem> cartList = new ArrayList<>();
+        JSONObject item;
+        for(int i = 0 ; i < cart.length() ; i++) {
+            item = cart.getJSONObject(i);
+            int quantity = item.getInt("quantity");
+            int j = 0;
+            while (j < quantity) {
+                cartList.add(buildFromJObject((JSONObject) item.get("catalogItem")));
+                j++;
+            }
+        }
+        return cartList;
+    }
+
+    /**
+     * Helper method that returns the object from the identity map
+     * @param object: JSONObject
+     * @return CatalogItem object
+     */
+    public CatalogItem buildFromJObject(JSONObject object) {
+        long id = object.getInt("id");
+        return identityMap.get(id);
+    }
+
+    /**
+     * TRANSACTION METHODS
+     */
+
+    /**
+     * Creates a new {@link Transaction} object and inserts it to the
+     * database.
+     * @param email: String email of the user
+     * @param catalogItem: Item
+     */
+    public void insertTransaction(String email, CatalogItem catalogItem) {
+        transactionGateway.insert(new Transaction(email, catalogItem));
+    }
+
+
+    //Update Method
+    public void updateTransaction(CatalogItem catalogItem){
+        transactionGateway.update(new Transaction());
     }
 
     /**
@@ -156,112 +282,41 @@ public class Catalog {
         return identityMap;
     }
 
-    public Long getMapKeyFromValue(CatalogItem value) {
-        for (Map.Entry<Long, CatalogItem> entry : identityMap.entrySet()){
-            if(value.equals(entry.getValue())){
-                return entry.getKey();
-            }
-        }
-        return null;
-    }
-
-    public void addToIdentityMap(long uid, CatalogItem catalogItem) {
-        if (identityMap.containsValue(catalogItem)){
-            CatalogItem currentItem = identityMap.get(getMapKeyFromValue(catalogItem));
-            currentItem.setQtyInStock(currentItem.getQtyInStock()+1);
-            identityMap.replace(getMapKeyFromValue(catalogItem), currentItem);
-        } else {
-            identityMap.put(uid, catalogItem);
-        }
-    }
-
-    public void deleteFromIdentityMap(CatalogItem catalogItem) {
-        if (identityMap.containsValue(catalogItem)){
-            identityMap.remove(getMapKeyFromValue(catalogItem));
-        } else {
-            try {
-                throw new NullPointerException();
-            } catch (NullPointerException e){
-                System.out.println("Cannot find value from from map... Cannot delete.");
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void updateIdentityMap(long uid, CatalogItem catalogItem){
-        if (identityMap.containsValue(catalogItem)){
-            identityMap.replace(catalogItem.getId(), catalogItem);
-        }
-    }
 
     public  Map<Long, CatalogItem> search(SearchCriteria searchCriteria){
         System.out.print("entered Catalog");
         List<CatalogItem> searchedCatalogItems = new ArrayList<>();
-        if(searchCriteria.getItemType().equals("book")){
-        searchedCatalogItems.addAll(BookGateway.search(searchCriteria));
+        if(searchCriteria.getBook().equals("book")){
+            searchedCatalogItems.addAll(bookGateway.search(searchCriteria));
         }
-        if(searchCriteria.getItemType().equals("movie")){
-        searchedCatalogItems.addAll(MovieGateway.search(searchCriteria));
+        if(searchCriteria.getMovie().equals("movie")){
+            searchedCatalogItems.addAll(movieGateway.search(searchCriteria));
         }
-        if(searchCriteria.getItemType().equals("magazine")){
-        searchedCatalogItems.addAll(MagazineGateway.search(searchCriteria));
+        if(searchCriteria.getMagazine().equals("magazine")){
+            searchedCatalogItems.addAll(magazineGateway.search(searchCriteria));
         }
-        if(searchCriteria.getItemType().equals("Music")){
-        searchedCatalogItems.addAll(MusicGateway.search(searchCriteria));
+        if(searchCriteria.getMusic().equals("music")){
+            searchedCatalogItems.addAll(musicGateway.search(searchCriteria));
         }
-        
-        if(searchCriteria.getItemType().equals("") &&
-            searchCriteria.getItemType().equals("") &&
-            searchCriteria.getItemType().equals("") &&
-            searchCriteria.getItemType().equals("")
+
+        if(searchCriteria.getBook().equals("") &&
+                searchCriteria.getMagazine().equals("") &&
+                searchCriteria.getMovie().equals("") &&
+                searchCriteria.getMusic().equals("")
         ){
-            searchedCatalogItems.addAll(BookGateway.search(searchCriteria));
-            searchedCatalogItems.addAll(MovieGateway.search(searchCriteria));
-            searchedCatalogItems.addAll(MagazineGateway.search(searchCriteria));
-            searchedCatalogItems.addAll(MusicGateway.search(searchCriteria));
+            searchedCatalogItems.addAll(bookGateway.search(searchCriteria));
+            searchedCatalogItems.addAll(movieGateway.search(searchCriteria));
+            searchedCatalogItems.addAll(magazineGateway.search(searchCriteria));
+            searchedCatalogItems.addAll(musicGateway.search(searchCriteria));
         }
- 
-                return searchedCatalogItems.stream().collect(Collectors.toMap(CatalogItem::getId, Function.identity()));
+
+        return searchedCatalogItems.stream().collect(Collectors.toMap(CatalogItem::getId, Function.identity()));
+    }
+    public List<Transaction> getAllTransactions() {
+        return transactionGateway.getAllTransactions();
     }
 
-    /**
-     * used for debugging until data persists to db
-     */
-    public void loadFakeData() {
-
-        // // Add Books
-        // addCatalogItem(new Book("Book1", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
-        // addCatalogItem(new Book("Book2", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
-        // addCatalogItem(new Book("Book3", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
-        // addCatalogItem(new Book("Book4", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
-        // addCatalogItem(new Book("Book5", 3, 0, "TEST", "Hardcover", 1234, 1993, "TEST", "English", "0123456789", "0123456789123"));
-
-        // // Add Magazines
-        // addCatalogItem(new Magazine("Magazine1", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
-        // addCatalogItem(new Magazine("Magazine2", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
-        // addCatalogItem(new Magazine("Magazine3", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
-        // addCatalogItem(new Magazine("Magazine4", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
-        // addCatalogItem(new Magazine("Magazine5", 2, 0, "TEST", "FRENCH", "1988/12/21", "0123456789", "0123456789123"));
-
-        // // Add Music
-        // addCatalogItem(new Music("Music1", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
-        // addCatalogItem(new Music("Music2", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
-        // addCatalogItem(new Music("Music3", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
-        // addCatalogItem(new Music("Music4", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
-        // addCatalogItem(new Music("Music5", 5, 0, "CD", "TEST", "TEST", "1988/12/20", "B01F0XMMKC"));
-
-        // // Add Movies
-        // // fill array list with a string to test actor
-        // ArrayList<String> x = new ArrayList<String>();
-        // for (int i = 1; i < 6; i++) {
-        //     Movie movie = new Movie("Movie" + i, 8, 0, "DIRECTOR", "English", "1988/12/24", 120, x);
-        //     addCatalogItem(movie);
-        // }
-        
-        /*
-        note that by using the add methods you not only add the actor/dub/sub/producer to the movie, but you also add
-        the movie to those respective items. That is to say, if you do a actor.getMovies() it'll return all the movies
-        associated with that actor.
-         */
-    }
+    public List <Transaction> getuserTransactions(String userEmail){
+        return transactionGateway.getuserTransactions(userEmail);
+        }
 }

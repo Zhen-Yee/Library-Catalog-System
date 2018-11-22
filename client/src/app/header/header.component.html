@@ -2,10 +2,13 @@
   <span [hidden]="!isAdmin()"><button mat-button (click)="toggle()"><mat-icon>menu</mat-icon></button></span>
   <span><button mat-button (click)="redirectHome()"> Home </button> </span>
   <span class="remaining-space"></span>
+  <span [hidden]="!authenticated()"><button mat-button (click)="redirectTransactions()">Transactions</button></span>
   <span [hidden]="!authenticated()"><button mat-button (click)="redirectCatalogPage()"> Open Catalog </button></span>
+  <span [hidden]="!authenticated() || isAdmin()"><button mat-button (click)="redirectReturnItemsPage()">Return Items</button></span>
   <span [hidden]= "!isAdmin()"><button mat-button (click)="redirectToAddPage()"> Add </button></span>
   <span [hidden]="!isAdmin()"><button mat-button (click)="redirectRegistrationPage()"> Register a User </button></span>
   <span [hidden]="!isAdmin()"><button mat-button (click)="redirectToPromote()">Promote User</button></span>
   <span [hidden]="authenticated()"><button mat-button (click)="openDialog()">Login</button></span>
+  <span [hidden]="!authenticated() || isAdmin()" ><button mat-button (click)="redirectToCart()"><mat-icon matBadge={{cartQuantity()}} matBadgePosition="above after">shopping_cart</mat-icon> </button></span>
   <span [hidden]="!authenticated()"><button mat-button (click)="logout()">Logout</button></span>
 </mat-toolbar>

@@ -19,8 +19,9 @@ export class AddMusicComponent implements OnInit {
         type: ["", Validators.required],
         artist: ["", Validators.required],
         label: ["", Validators.required],
-        releaseDate: ["", Validators.required],
-        asin: ["", Validators.required]
+        releaseDate: ["", [Validators.required, Validators.pattern("^([0-9]{4})[-\/]([0-9]{2})[-\/]([0-9]{2})$")]],
+        asin: ["", Validators.required],
+        qtyInStock: ["", [Validators.required, Validators.min(1), Validators.pattern("^[0-9]*$")]]
      });
   }
 
@@ -35,11 +36,12 @@ export class AddMusicComponent implements OnInit {
            .subscribe((confirmation) => {
             if (confirmation) {
               this.openSnackBar("Music added!", "Close");
+              this.Fg.reset();
             } else {
               this.openSnackBar("Error adding music!", "Close");
             }
            });
-           
+
        }
     }
 
