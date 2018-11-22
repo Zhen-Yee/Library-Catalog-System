@@ -114,6 +114,7 @@ public class Catalog {
         return catalogItems;
     }
 
+
     public List<Book> getAllBooks() {
         return bookGateway.getAll();
     }
@@ -142,6 +143,35 @@ public class Catalog {
             movieGateway.delete((Movie)catalogItem);
         }
         isDatabaseChange = true;
+    }
+
+    ///**********************Added ***************/
+    public void returnCatalogItem(CatalogItem catalogItem){
+        
+            catalogItem.returnItem();
+            updateCatalogItem(catalogItem);
+        //update the Trasaction item
+            updateTransaction(catalogItem);
+        
+        isDatabaseChange = true;
+    }
+
+    /** 
+      *If you get a List<Long> of ID, turn each ID into a CatalogItem
+      */
+    public List<CatalogItem> getCatalogItemFromID(List<Long> ids) {
+        List<CatalogItem> catalogItemList = new ArrayList<>();
+        for (Long id : ids) {
+            if (identityMap.containsKey(id)){
+                catalogItemList.add(identityMap.get(id));
+            } else { //repopulate it and check again
+                populateIdentityMap();
+                if (identityMap.containsKey(id)){
+                    catalogItemList.add(identityMap.get(id));
+                }
+            }
+        }
+        return catalogItemList;
     }
 
     /**
@@ -217,6 +247,12 @@ public class Catalog {
      */
     public void insertTransaction(String email, CatalogItem catalogItem) {
         transactionGateway.insert(new Transaction(email, catalogItem));
+    }
+
+
+    //Update Method
+    public void updateTransaction(CatalogItem catalogItem){
+        transactionGateway.update(new Transaction());
     }
 
     /**

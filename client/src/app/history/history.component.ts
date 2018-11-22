@@ -34,6 +34,7 @@ export class HistoryComponent implements OnInit {
       id: ["", Validators.required],
       userEmail: ["", Validators.required],
       CatalogItem: ["", Validators.required],
+      title: ["", Validators.required],
       checkOutDate: ["", Validators.required],
       dueDate: ["", Validators.required],
       returnDate: ["", Validators.required],

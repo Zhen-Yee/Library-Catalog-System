@@ -11,6 +11,11 @@ import com.soen343.databaseConnection.Connector;
 import org.hibernate.validator.cfg.defs.Mod11CheckDef;
 import org.hibernate.validator.constraints.Mod10Check;
 import org.springframework.stereotype.Service;
+import com.soen343.databaseConnection.DbConnection;
+import com.soen343.databaseConnection.Connector;
+import java.util.List;
+import java.util.ArrayList;
+
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -76,6 +81,106 @@ public class TransactionGateway {
             System.out.println("Unable to connect to database");
             e.printStackTrace();
         }
+    }
+    //update function for the 
+    public void update(Transaction transaction){
+         String userEmail = transaction.getUserEmail();
+         long itemID = transaction.getCatalogItem().getId();
+         String returnDate= transaction.getDateReturned().toString();
+         String query= "UPDATE testdb.transaction SET date_return = '" + returnDate + "'" + "' WHERE user_email = '" + userEmail + "' AND item_id = " + itemID;
+         System.out.println(query);
+         try{
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            
+            stmt.executeUpdate(query);
+            conn.close();
+         }catch(Exception e){
+             e.printStackTrace();
+         }
+    }
+
+    /*
+    ************ ATTEMPT 1 ************
+    //get All Loaned Items item id
+    public List<Long> getAllLoanedItems(Transaction transaction){
+        String userEmail = transaction.getUserEmail();
+        List<Long> loanedItem= new ArrayList<>(); 
+        long itemid;
+        String query = "SELECT * from testdb.transaction WHERE user_email = '" + userEmail + "";
+        System.out.println(query);
+        try{
+            Connector connector = DbConnection.get(query);
+            ResultSet r = connector.getResultSet();
+            while(r.next()){
+                 if (r.getString("date_return").equals(null)){
+                     itemid=r.getLong("item_id");
+                     loanedItem.add(itemid);
+                 }else{
+                     continue;
+                 }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return loanedItem;
+    }
+
+
+    ************ ATTEMPT 2 ************
+    
+    * Get all the items that has a NULL returnDate from a specific user email
+    
+    public List<Long> getAllLoanedItems(String user_email){
+        List<Long> loanedItem= new ArrayList<>();
+        String query = "SELECT * from testdb.transaction WHERE user_email = '" + user_email + "'" + " AND date_return = '" + null + "'";
+        try{
+            Connector connector = DbConnection.get(query);
+            ResultSet r = connector.getResultSet();
+            while(r.next()) {
+                loanedItem.add(r.getLong("item_id"));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return loanedItem;
+    }
+
+    */
+
+    public List<Transaction> getAllLoanedItems(String user_email){
+        List<Transaction> loanedItem= new ArrayList<>();
+        String query = "SELECT * from testdb.transaction WHERE user_email = '" + user_email + "'" + " AND date_return = '" + null + "'";
+        try{
+            Connector connector = DbConnection.get(query);
+            ResultSet r = connector.getResultSet();
+            while(r.next()) {
+                Transaction trans= new Transaction(
+                    r.getString("user_email"),
+                    r.getString("item_type"),
+                    r.getInt("item_id"),
+                    r.getString("checkout_date"),
+                    r.getString("due_date")
+                );
+ 
+            if(trans.itemType.equals("book")) {
+                Book b = bookGateway.get(trans.item_id);
+                loanedItem.add(new Transaction( b, trans.getDueDate(), trans.getCheckoutDate()));
+            }
+            else if(trans.itemType.equals("movie")) {
+                Movie mo = movieGateway.get(trans.item_id);
+                loanedItem.add(new Transaction( mo, trans.getDueDate(), trans.getCheckoutDate()));
+            }
+            else if(trans.itemType.equals("music")) {
+                Music mu = musicGateway.get(trans.item_id);
+                loanedItem.add(new Transaction(mu, trans.getDueDate(), trans.getCheckoutDate()));
+            }
+            else {}
+           }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return loanedItem;
     }
 
     public List<Transaction> getAllTransactions(){

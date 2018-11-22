@@ -33,6 +33,31 @@ public class CatalogController {
     public List<Transaction> getAllTransactions(){
         return catalog.getAllTransactions();
     }
+    
+    /*
+    @GetMapping("/getAllLoanedItems")
+    public List<CatalogItem> getCatalogItemFromID(@PathVariable List<Long> ids) {
+        return catalog.getCatalogItemFromID(ids);
+    }
+    */
+
+    @PostMapping("/getAllLoanedItems")
+    public List<CatalogItem> getCatalogItemFromID(@RequestBody List<Long> ids){
+    try{
+        return catalog.getCatalogItemFromID(ids);
+    } 
+    catch(Exception exception){
+        System.out.print(exception);
+        return null;
+}
+    }
+    
+/*
+    @GetMapping("/getAllLoanedItems")
+    public List<CatalogItem> getCatalogItemFromID(@PathVariable List<Long> TransactionGateway.getAllLoanedItems) {
+        return catalog.getCatalogItemFromID(getAllLoanedItems);
+    }
+    */
 
     @PostMapping("/addBook")
     public boolean addBook(@RequestBody Book book){
@@ -198,4 +223,33 @@ public class CatalogController {
 }
     }
 
+    @PostMapping("/returnBook")
+    public boolean returnBook(@RequestBody Book book){
+        if (book != null) {
+            catalog.returnCatalogItem(book);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @PostMapping("/returnMusic")
+    public boolean returnMusic(@RequestBody Music music){
+        if (music != null) {
+            catalog.returnCatalogItem(music);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @PostMapping("/returnMovie")
+    public boolean returnMovie(@RequestBody Movie movie) {
+        if (movie != null) {
+            catalog.returnCatalogItem(movie);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

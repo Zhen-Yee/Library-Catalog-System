@@ -47,6 +47,12 @@ public class Transaction {
         this.itemType = itemType;
     }
 
+    public Transaction( CatalogItem catalogItem, Date checkoutDate, Date dueDate) {
+        this.catalogItem = catalogItem;
+        this.checkoutDate = checkoutDate;
+        this.dueDate = dueDate;
+    }
+
     /**
      * Generates the due date based on item type
      * @return the date + maximum loan length of the specified item type.
