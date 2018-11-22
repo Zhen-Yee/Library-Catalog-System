@@ -246,9 +246,6 @@ public class Catalog {
         return identityMap;
     }
 
-   public List <Transaction> getuserTransactions(String userEmail){
-   return transactionGateway.getuserTransactions(userEmail);
-   }
 
     public  Map<Long, CatalogItem> search(SearchCriteria searchCriteria){
         System.out.print("entered Catalog");
@@ -282,4 +279,8 @@ public class Catalog {
     public List<Transaction> getAllTransactions() {
         return transactionGateway.getAllTransactions();
     }
+
+    public List <Transaction> getuserTransactions(String userEmail){
+        return transactionGateway.getuserTransactions(userEmail);
+        }
 }

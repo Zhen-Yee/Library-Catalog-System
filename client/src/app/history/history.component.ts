@@ -81,7 +81,12 @@ export class HistoryComponent implements OnInit {
     });
     } else {
 
-      this.http.post("http://localhost:8090/catalog/userTransactions", this.user.userEmail).subscribe();
+      this.http.post<any[]>("http://localhost:8090/catalog/userTransactions", this.user.userEmail).subscribe(x => {
+      console.log(x);
+      console.log(x[0].catalogItem.title);
+      this.dataSource = new MatTableDataSource(x);
+      this.isLoaded = true;
+    });
 
     }
     //this.isLoaded=true;
