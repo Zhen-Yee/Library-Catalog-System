@@ -21,6 +21,10 @@ public class Transaction {
     private Date dateReturned;
     public String itemType;
     public int item_id;
+    public String checkoutDbDate;
+    public String dueDbDate;
+    public String returnedDbDate;
+    
 
     public Transaction() {}
 
@@ -31,20 +35,22 @@ public class Transaction {
         this.dueDate = generateDueDate(catalogItem, this.checkoutDate);
     }
 
-    public Transaction(String userEmail, String itemType, int item_id, String checkoutDate, String dueDate) {
+    public Transaction(String userEmail, String itemType, int item_id, String checkoutDate, String dueDate, String returned_date) {
         this.userEmail = userEmail;
         this.itemType = itemType;
         this.item_id = item_id;
-        this.checkoutDate = new Date(checkoutDate);
-        this.dueDate = new Date(checkoutDate);
+        this.checkoutDbDate = checkoutDate;
+        this.dueDbDate = dueDate;
+        this.returnedDbDate = returned_date;
     }
 
-    public Transaction(String userEmail, CatalogItem catalogItem, String itemType, Date checkoutDate, Date dueDate) {
+    public Transaction(String userEmail, CatalogItem catalogItem, String itemType, String checkoutDate, String dueDate, String returned_date) {
         this.userEmail = userEmail;
         this.catalogItem = catalogItem;
-        this.checkoutDate = checkoutDate;
-        this.dueDate = dueDate;
+        this.checkoutDbDate = checkoutDate;
+        this.dueDbDate = dueDate;
         this.itemType = itemType;
+        this.returnedDbDate = returned_date;
     }
 
     /**

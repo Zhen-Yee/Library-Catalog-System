@@ -74,13 +74,13 @@ export class HistoryComponent implements OnInit {
     if (this.user.isAdmin) {
       
       this.http.get<any[]>("http://localhost:8090/catalog/allTransactions").subscribe(x => {
-      console.log(x);
       console.log(x[0].catalogItem.title);
-
       for(var i =0; i<x.length; i++){
         x[i].catalogItem = x[i].catalogItem.title;
+        x[i].checkoutDate = x[i].checkoutDbDate;
+        x[i].dueDate = x[i].dueDbDate;
       }
-
+      console.log(x);
       this.dataSource = new MatTableDataSource(x);
       this.isLoaded = true;
     });
@@ -91,6 +91,8 @@ export class HistoryComponent implements OnInit {
       console.log(x[0].catalogItem.title);
       for(var i =0; i<x.length; i++){
         x[i].catalogItem = x[i].catalogItem.title;
+        x[i].checkoutDate = x[i].checkoutDbDate;
+        x[i].dueDate = x[i].dueDbDate;
       }
       this.dataSource = new MatTableDataSource(x);
       this.isLoaded = true;
