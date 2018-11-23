@@ -51,12 +51,13 @@ import { UpdateMovieComponent } from "./update-item/update-movie/update-movie.co
 import { DeleteItemPromptDialogComponent } from "./delete-item-prompt-dialog/delete-item-prompt-dialog.component";
 import { SearchComponent } from "./search/search.component";
 import { DataService } from "./_services/DataService.service";
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { SortingMusicComponent } from './dataTable/sorting-music/sorting-music.component';
+import { SortingMagazinesComponent } from './dataTable/sorting-magazines/sorting-magazines.component';
+import { SortingMoviesComponent } from './dataTable/sorting-movies/sorting-movies.component';
+import { SortingBookComponent } from './dataTable/sorting-book/sorting-book.component';
+import { HistoryComponent } from './history/history.component';
 import { CartService } from "./_services/CartService";
-import {MatAutocompleteModule} from "@angular/material/autocomplete";
-import { SortingMusicComponent } from "./dataTable/sorting-music/sorting-music.component";
-import { SortingMagazinesComponent } from "./dataTable/sorting-magazines/sorting-magazines.component";
-import { SortingMoviesComponent } from "./dataTable/sorting-movies/sorting-movies.component";
-import { SortingBookComponent } from "./dataTable/sorting-book/sorting-book.component";
 import { CustomRouteReuseStategy } from "./_services/route-reuse.service";
 import { ObjectDetailsService } from "./_services/object-details.service";
 import {ItemContainerComponent} from "./item-details/item-container/item-container.component";
@@ -98,6 +99,7 @@ import { MatBadgeModule } from '@angular/material';
       SortingMagazinesComponent,
       SortingMoviesComponent,
       SortingBookComponent,
+      HistoryComponent,
       MusicDetailsComponent,
       MovieDetailsComponent,
       BookDetailsComponent,

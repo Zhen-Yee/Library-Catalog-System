@@ -4,19 +4,42 @@ import com.soen343.server.models.Transaction;
 import com.soen343.server.models.catalog.Book;
 import com.soen343.server.models.catalog.CatalogItem;
 import com.soen343.server.models.catalog.Music;
+import com.soen343.server.models.catalog.Movie;
+
+import com.soen343.databaseConnection.Connector;
+
+import org.hibernate.validator.cfg.defs.Mod11CheckDef;
+import org.hibernate.validator.constraints.Mod10Check;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.management.Query;
+import java.util.ArrayList;
 
 @Service
 public class TransactionGateway {
     private final String URL = "jdbc:mysql://testdbinstance.cwtjkaidrsfz.us-east-2.rds.amazonaws.com:3306/testdb?useSSL=false";
     private final String USERNAME = "test";
     private final String PASSWORD = "testtest";
+        /**
+     * Gateways objects
+     */
+    private BookGateway bookGateway;
+    private MusicGateway musicGateway;
+    private MovieGateway movieGateway;
 
     private static TransactionGateway transactionGateway = null;
 
-    private TransactionGateway() {}
+    private  Connector connector;
+
+    private TransactionGateway() {
+        bookGateway = BookGateway.getBookGateway();
+        musicGateway = MusicGateway.getMusicGateway();
+        movieGateway = MovieGateway.getMovieGateway();
+    }
 
     public static TransactionGateway getGateway() {
         if (transactionGateway == null) {
@@ -55,14 +78,86 @@ public class TransactionGateway {
         }
     }
 
-    private String getTableName(CatalogItem catalogItem){
-        if (catalogItem.getClass() == Book.class) {
-            return "book";
-        } else if (catalogItem.getClass() == Music.class) {
-            return "music";
-        } else {
-            return "movie";
+    public List<Transaction> getAllTransactions(){
+
+        List<Transaction> transArrayList = new ArrayList<>();
+
+        try {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            stmt.executeQuery("SELECT  * from testdb.transaction");
+            ResultSet transResultSet = stmt.getResultSet();
+    
+            while (transResultSet.next()) {
+                Transaction transaction = new Transaction(
+                    transResultSet.getString("user_email"),
+                    transResultSet.getString("item_type"),
+                    transResultSet.getInt("item_id"),
+                    transResultSet.getString("checkout_date"),
+                    transResultSet.getString("due_date"),
+                    transResultSet.getString("date_returned")
+            );
+            if(transaction.itemType.equals("book")) {
+                Book b = bookGateway.get(transaction.item_id);
+                transArrayList.add(new Transaction(transaction.getUserEmail(), b, "book", transaction.checkoutDbDate, transaction.dueDbDate, transaction.returnedDbDate));
+            }
+            else if(transaction.itemType.equals("movie")) {
+                Movie mo = movieGateway.get(transaction.item_id);
+                transArrayList.add(new Transaction(transaction.getUserEmail(), mo, "movie", transaction.checkoutDbDate, transaction.dueDbDate, transaction.returnedDbDate));
+            } 
+            else if(transaction.itemType.equals("music")) {
+                Music mu = musicGateway.get(transaction.item_id);
+                transArrayList.add(new Transaction(transaction.getUserEmail(), mu, "music", transaction.checkoutDbDate, transaction.dueDbDate, transaction.returnedDbDate));
+            } 
+            else {}
+               
+            //transArrayList.add(transaction);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return transArrayList;
+      
+    }
+    public List<Transaction> getuserTransactions(String userEmail){
+
+        List<Transaction> transArrayList = new ArrayList<>();
+
+        try {
+            Connection conn = connect();
+            Statement stmt = conn.createStatement();
+            stmt.executeQuery("SELECT  * from testdb.transaction WHERE user_email= '" + userEmail+ "'");
+            ResultSet transResultSet = stmt.getResultSet();
+    
+        while (transResultSet.next()) {
+            Transaction transaction = new Transaction(
+                transResultSet.getString("user_email"),
+                transResultSet.getString("item_type"),
+                transResultSet.getInt("item_id"),
+                transResultSet.getString("checkout_date"),
+                transResultSet.getString("due_date"),
+                transResultSet.getString("date_returned")
+            );
+        if(transaction.itemType.equals("book")) {
+            Book b = bookGateway.get(transaction.item_id);
+            transArrayList.add(new Transaction(transaction.getUserEmail(), b, "book", transaction.checkoutDbDate, transaction.dueDbDate, transaction.returnedDbDate));
         }
+        else if(transaction.itemType.equals("movie")) {
+            Movie mo = movieGateway.get(transaction.item_id);
+            transArrayList.add(new Transaction(transaction.getUserEmail(), mo, "movie",  transaction.checkoutDbDate, transaction.dueDbDate, transaction.returnedDbDate));
+        } 
+        else if(transaction.itemType.equals("music")) {
+            Music mu = musicGateway.get(transaction.item_id);
+            transArrayList.add(new Transaction(transaction.getUserEmail(), mu, "music",  transaction.checkoutDbDate, transaction.dueDbDate, transaction.returnedDbDate));
+        } 
+        else {}
+               
+            //transArrayList.add(transaction);
+        }} catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return transArrayList;
+      
     }
 
     private Connection connect(){
@@ -75,5 +170,15 @@ public class TransactionGateway {
             System.out.print(e);
         }
         return connection;
+    }
+
+    private String getTableName(CatalogItem catalogItem){
+        if (catalogItem.getClass() == Book.class) {
+            return "book";
+        } else if (catalogItem.getClass() == Music.class) {
+            return "music";
+        } else {
+            return "movie";
+        }
     }
 }

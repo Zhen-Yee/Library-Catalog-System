@@ -29,6 +29,11 @@ public class CatalogController {
         return catalog.getIdentityMap();
     }
 
+    @GetMapping("/allTransactions")
+    public List<Transaction> getAllTransactions(){
+        return catalog.getAllTransactions();
+    }
+
     @PostMapping("/addBook")
     public boolean addBook(@RequestBody Book book){
         // checks if book object is good or not
@@ -181,4 +186,16 @@ public class CatalogController {
             System.out.println(item);
         return true;
     }
+
+    @PostMapping("/userTransactions")
+    public List<Transaction> getuserTransactions(@RequestBody String userEmail){
+    try{
+        return catalog.getuserTransactions(userEmail);
+    } 
+    catch(Exception exception){
+        System.out.print(exception);
+        return null;
+}
+    }
+
 }

@@ -22,8 +22,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
 
     this.toggled.currentToggle.subscribe(toggling => this.toggling = toggling)
+}
 
-  }
+redirectTransactions() {
+  this.router.navigate(["/transactions"]);
+}
 
   redirectRegistrationPage() {
     this.router.navigate(["/register"]);
