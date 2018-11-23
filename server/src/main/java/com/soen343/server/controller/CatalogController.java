@@ -33,31 +33,6 @@ public class CatalogController {
     public List<Transaction> getAllTransactions(){
         return catalog.getAllTransactions();
     }
-    
-    /*
-    @GetMapping("/getAllLoanedItems")
-    public List<CatalogItem> getCatalogItemFromID(@PathVariable List<Long> ids) {
-        return catalog.getCatalogItemFromID(ids);
-    }
-    
-
-    @PostMapping("/getAllLoanedItems")
-    public List<CatalogItem> getCatalogItemFromID(@RequestBody List<Long> ids){
-    try{
-        return catalog.getCatalogItemFromID(ids);
-    } 
-    catch(Exception exception){
-        System.out.print(exception);
-        return null;
-}
-    }
-    
-
-    @GetMapping("/getAllLoanedItems")
-    public List<CatalogItem> getCatalogItemFromID(@PathVariable List<Long> TransactionGateway.getAllLoanedItems) {
-        return catalog.getCatalogItemFromID(getAllLoanedItems);
-    }
-    */
 
     @PostMapping("/addBook")
     public boolean addBook(@RequestBody Book book){

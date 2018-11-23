@@ -23,7 +23,7 @@ export class HistoryComponent implements OnInit {
   paginator;
   dataArray: any[] = [];
   isLoaded = false;
-  columnsToDisplay: string[] = ["id", "userEmail", "itemType", "title", "checkoutDate", "dueDate", "returnDate"];
+  columnsToDisplay: string[] = ["userEmail", "itemType", "catalogItem", "checkoutDate", "dueDate", "returnDate"];
   dataSource: MatTableDataSource<any>;
   message: string = "Transaction History";
 
@@ -75,8 +75,14 @@ export class HistoryComponent implements OnInit {
     if (this.user.isAdmin) {
       
       this.http.get<any[]>("http://localhost:8090/catalog/allTransactions").subscribe(x => {
-      console.log(x);
       console.log(x[0].catalogItem.title);
+      for(var i =0; i<x.length; i++){
+        x[i].catalogItem = x[i].catalogItem.title;
+        x[i].checkoutDate = x[i].checkoutDbDate;
+        x[i].dueDate = x[i].dueDbDate;
+        x[i].returnDate = x[i].returnedDbDate;
+      }
+      console.log(x);
       this.dataSource = new MatTableDataSource(x);
       this.isLoaded = true;
     });
@@ -85,6 +91,12 @@ export class HistoryComponent implements OnInit {
       this.http.post<any[]>("http://localhost:8090/catalog/userTransactions", this.user.userEmail).subscribe(x => {
       console.log(x);
       console.log(x[0].catalogItem.title);
+      for(var i =0; i<x.length; i++){
+        x[i].catalogItem = x[i].catalogItem.title;
+        x[i].checkoutDate = x[i].checkoutDbDate;
+        x[i].dueDate = x[i].dueDbDate;
+        x[i].returnDate = x[i].returnedDbDate;
+      }
       this.dataSource = new MatTableDataSource(x);
       this.isLoaded = true;
     });
