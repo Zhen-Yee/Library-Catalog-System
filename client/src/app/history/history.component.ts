@@ -79,6 +79,7 @@ export class HistoryComponent implements OnInit {
         x[i].catalogItem = x[i].catalogItem.title;
         x[i].checkoutDate = x[i].checkoutDbDate;
         x[i].dueDate = x[i].dueDbDate;
+        x[i].returnDate = x[i].returnedDbDate;
       }
       console.log(x);
       this.dataSource = new MatTableDataSource(x);
@@ -93,6 +94,7 @@ export class HistoryComponent implements OnInit {
         x[i].catalogItem = x[i].catalogItem.title;
         x[i].checkoutDate = x[i].checkoutDbDate;
         x[i].dueDate = x[i].dueDbDate;
+        x[i].returnDate = x[i].returnedDbDate;
       }
       this.dataSource = new MatTableDataSource(x);
       this.isLoaded = true;
