@@ -35,7 +35,10 @@
         </table>
     </div>
     <br>
-    <button mat-button *ngIf="!isCheckingOut && cartArray.length != 0" (click)="checkout()">Checkout</button>
+
+    <div class= "button-checkout">
+        <button mat-stroked-button *ngIf="!isCheckingOut && cartArray.length != 0" (click)="checkout()">Checkout</button>
+    </div>
 
     <div *ngIf="isCheckingOut">
             <mat-card *ngIf="isCheckingOut" style="display: flex; justify-content: center; align-items: center">
