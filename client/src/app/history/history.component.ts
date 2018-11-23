@@ -23,7 +23,7 @@ export class HistoryComponent implements OnInit {
   paginator;
   dataArray: any[] = [];
   isLoaded = false;
-  columnsToDisplay: string[] = ["id", "userEmail", "itemType", "title", "checkoutDate", "dueDate", "returnDate"];
+  columnsToDisplay: string[] = ["userEmail", "itemType", "catalogItem", "checkoutDate", "dueDate", "returnDate"];
   dataSource: MatTableDataSource<any>;
   message: string = "Transaction History";
 
@@ -76,6 +76,11 @@ export class HistoryComponent implements OnInit {
       this.http.get<any[]>("http://localhost:8090/catalog/allTransactions").subscribe(x => {
       console.log(x);
       console.log(x[0].catalogItem.title);
+
+      for(var i =0; i<x.length; i++){
+        x[i].catalogItem = x[i].catalogItem.title;
+      }
+
       this.dataSource = new MatTableDataSource(x);
       this.isLoaded = true;
     });
