@@ -12,6 +12,7 @@ import {SortingMagazinesComponent} from "./dataTable/sorting-magazines/sorting-m
 import {SortingMoviesComponent} from "./dataTable/sorting-movies/sorting-movies.component";
 import { SortingMusicComponent } from "./dataTable/sorting-music/sorting-music.component";
 import {SortingBookComponent} from "./dataTable/sorting-book/sorting-book.component";
+import { HistoryComponent } from "./history/history.component";
 import { BookDetailsComponent } from "./item-details/book-details/book-details.component";
 import { MagazineDetailsComponent } from "./item-details/magazine-details/magazine-details.component";
 import { MovieDetailsComponent } from "./item-details/movie-details/movie-details.component";
@@ -29,6 +30,13 @@ const appRoutes: Routes = [
     path: "register",
     canActivate: [AdminAuthenticateGuard],
     component: RegisterComponent
+  },
+
+  {
+    path: "transactions",
+    canActivate: [UserAuthenticateGuard],
+    component: HistoryComponent
+
   },
   {
     path: "promote",

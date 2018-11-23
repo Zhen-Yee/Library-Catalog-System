@@ -2,6 +2,9 @@ package com.soen343.server.gateways;
 
 import com.soen343.server.models.catalog.Movie;
 import com.soen343.server.models.SearchCriteria;
+import com.soen343.server.models.catalog.CatalogItem;
+import com.soen343.databaseConnection.Connector;
+import com.soen343.databaseConnection.DbConnection;
 
 import java.sql.*;
 import java.util.*;
@@ -10,10 +13,14 @@ public class MovieGateway {
 
     private static MovieGateway movieGateway = null;
 
+    private  Connector connector;
+
     // replace with property calls
     private final String URL = "jdbc:mysql://testdbinstance.cwtjkaidrsfz.us-east-2.rds.amazonaws.com:3306/testdb?useSSL=false";
     private final String USERNAME = "test";
     private final String PASSWORD = "testtest";
+
+    private final String SQL_GET_ALL_MOVIES = "SELECT  * from testdb.movie";
 
     /**
      * Singleton pattern - allows instantiation
@@ -560,4 +567,39 @@ public class MovieGateway {
         return movieArrayList;
     }
 
+    public Movie get(int id){
+        
+        connector = DbConnection.get(SQL_GET_ALL_MOVIES);
+        ResultSet resultSet = connector.getResultSet();
+        return buildResultSet(resultSet);
+        
+    }
+
+    private Movie buildResultSet(ResultSet resultSet) {
+        Movie movie = null;
+        try {
+            while (resultSet.next()) {
+
+                // Creates object for each row in database movie table
+                movie = new Movie(
+                    resultSet.getString("title"),
+                    resultSet.getInt("qty_in_stock"),
+                    resultSet.getInt("qty_on_loan"),
+                    resultSet.getString("director"),
+                    resultSet.getString("language"),
+                    resultSet.getString("release_date"),
+                    resultSet.getInt("run_time")
+                );
+
+                movie.setId(resultSet.getInt("id"));
+
+            }
+        } catch (SQLException e) {
+            System.out.println("Unable to query from result set.");
+            e.printStackTrace();
+        } finally {
+            connector.close();
+        }
+        return movie;
+    }
 }

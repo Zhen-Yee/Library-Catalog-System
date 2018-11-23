@@ -152,6 +152,14 @@ public class BookGateway {
         }
     }
 
+    public Book get(int id){
+        
+        connector = DbConnection.get(SQL_GET_ALL_BOOKS);
+        ResultSet resultSet = connector.getResultSet();
+        return buildResultSet(resultSet);
+        
+    }
+    
     // change for a DataSource later?
     private Connection connect(){
         Connection connection = null;
@@ -344,4 +352,38 @@ public class BookGateway {
             connector.close();
         }
     }
+
+    private Book buildResultSet(ResultSet resultSet) {
+        Book book = null;
+        try {
+            while (resultSet.next()) {
+
+                // Creates object for each row in database book table
+                book = new Book(
+                        resultSet.getString("title"),
+                        resultSet.getInt("qty_in_stock"),
+                        resultSet.getInt("qty_on_loan"),
+                        resultSet.getString("author"),
+                        resultSet.getString("format"),
+                        resultSet.getInt("pages"),
+                        resultSet.getInt("year_of_publication"),
+                        resultSet.getString("publisher"),
+                        resultSet.getString("language"),
+                        resultSet.getString("isbn10"),
+                        resultSet.getString("isbn13")
+                );
+
+                book.setId(resultSet.getInt("id"));
+                
+            }
+        
+        } catch (SQLException e) {
+            System.out.println("Unable to query from result set.");
+            e.printStackTrace();
+        } finally {
+            connector.close();
+        }
+        return book;
+    }
+
 }

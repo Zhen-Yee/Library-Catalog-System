@@ -279,6 +279,7 @@ public class MusicGateway {
         search.getLabel().equals("label") ||
         search.getReleaseDate().equals("releaseDate") ||
         search.getAsin().equals("asin")){
+        
         String filter = buildFilterString(search);
         connector = DbConnection.get(filter);
         ResultSet resultSet = connector.getResultSet();
@@ -310,5 +311,41 @@ public class MusicGateway {
     }
         return musicArrayList;
     }
+
+    public Music get(int id){
+        connector = DbConnection.get(SQL_GET_ALL_MUSICS);
+        ResultSet resultSet = connector.getResultSet();
+        return buildResultSet(resultSet); 
+    }
+public Music buildResultSet(ResultSet resultSet){
+    Music music= null;
+    try {
+        while (resultSet.next()) {
+
+            // Creates object for each row in database music table
+            music = new Music(
+                    resultSet.getString("title"),
+                    resultSet.getInt("qty_in_stock"),
+                    resultSet.getInt("qty_on_loan"),
+                    resultSet.getString("type"),
+                    resultSet.getString("artist"),
+                    resultSet.getString("label"),
+                    resultSet.getString("release_date"),
+                    resultSet.getString("asin")
+            );
+
+            music.setId(resultSet.getInt("id"));
+
+        
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Unable to query from result set.");
+        e.printStackTrace();
+    } finally {
+        connector.close();
+    }
+    return music;
 }
 
+}
