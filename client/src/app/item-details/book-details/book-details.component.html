@@ -1,0 +1,54 @@
+<div *ngIf="element">
+  <div class = "title" >{{element.title}}</div>
+  <div>
+        <tr>
+            <th>{{element.qtyInStock}} in Stock </th>
+            <th>{{element.qtyOnLoan}} on Loan </th>
+            <th *ngIf = "element.qtyInStock == 0">✘</th>
+            <th *ngIf = "element.qtyInStock > 0">✔</th>            
+        </tr>
+    </div>
+
+    <img src="assets/book.jpg" alt="Book" height = "200px"> 
+
+    <table *ngIf="element.itemType == 'Book'">
+
+        <tr>
+            <th>Author: </th>
+            <th>{{element.author}}</th>
+        </tr>
+        <tr>
+          <th>Format: </th>
+          <th>{{element.format}}</th>
+        </tr>
+        <tr>
+          <th>Pages: </th>
+          <th>{{element.pages}}</th>
+        </tr>
+        <tr>
+            <th>Publisher: </th>
+            <th>{{element.publisher}}</th>
+        </tr>
+        <tr>
+            <th>Year of Publication: </th>
+            <th>{{element.yearOfPublication}}</th>
+        </tr>
+        <tr>
+            <th>Language: </th>
+            <th>{{element.language}}</th>
+        </tr>
+        <tr>
+            <th>ISBN10: </th>
+            <th>{{element.isbn10}}</th>
+        </tr>
+        <tr>
+            <th>ISBN13: </th>
+            <th>{{element.isbn13}}</th>
+        </tr>
+        <tr>
+                <th> <update-book *ngIf = "isAdmin()" [book]="element" (messageEvent)="receiveSaveMessage($event)"></update-book> </th>
+                <th> <delete-item *ngIf = "isAdmin()" [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>  </th>
+              </tr>
+            </table>
+            
+        </div>

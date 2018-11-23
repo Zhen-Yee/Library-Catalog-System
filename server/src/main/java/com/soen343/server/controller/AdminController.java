@@ -41,14 +41,24 @@ public class AdminController {
     }
 
     @PostMapping("/promoteAdmin")
-    public void promoteAdmin(@RequestBody String admin) {
+    public boolean promoteAdmin(@RequestBody String admin) {
         try {
             DbConnection.update("UPDATE testdb.User SET is_admin=1 WHERE email_address='"+admin+"'");
             System.out.println("The user has been promoted to admin.");
         } catch (Exception e) {
             System.out.println(e);
+            return false;
         }
+        return true;
+    }
 
+    /**
+     * Returns a list of nonactive users
+     * @return
+     */
+    @GetMapping("/nonadmin-users")
+    public List<User> displayNonAdminUser() {
+        return adminService.getNonAdminUsers();
     }
 
 }

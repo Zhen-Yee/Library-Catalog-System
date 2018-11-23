@@ -2,13 +2,16 @@ package com.soen343.server.gateways;
 
 import com.soen343.server.models.catalog.Movie;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
+@Ignore
 public class MovieGatewayTest {
 
     private static Movie movie;
+    private static MovieGateway movieGateway;
 
     @BeforeClass
     public static void buildMovie() {
@@ -26,19 +29,20 @@ public class MovieGatewayTest {
         dubs.add("Dutch");
 
         movie = new Movie("TestTitle", 3, 0, "TestDirector", producers, actors, "TestLanguage", subs, dubs, "1998/12/12", 120);
+        movieGateway = new MovieGateway();
     }
 
     @Test
     public void t001_insertTest() {
 
-        MovieGateway.insert(movie);
+        movieGateway.insert(movie);
         System.out.println("Insert Test Breakpoint line");
     }
 
     @Test
     public void t002_deleteTest() {
         // select an id to delete
-        MovieGateway.delete(movie);
+        movieGateway.delete(movie);
     }
 
 

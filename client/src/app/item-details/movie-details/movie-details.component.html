@@ -1,0 +1,54 @@
+<div *ngIf="element">
+        <div class = "title" >{{element.title}}</div>
+        <div>
+              <tr>
+                  <th>{{element.qtyInStock}} in Stock </th>
+                  <th>{{element.qtyOnLoan}} on Loan </th>
+                  <th *ngIf = "element.qtyInStock == 0">✘</th>
+                  <th *ngIf = "element.qtyInStock > 0">✔</th>            
+              </tr>
+          </div>
+
+          <img src="assets/movie.jpg" alt="Movie" height = "200px"> 
+
+<table *ngIf="element.itemType == 'Movie'">
+      
+  <tr>
+      <th>Director: </th>
+      <th>{{element.director}}</th>
+  </tr>
+  <tr>
+    <th>Actors: </th>
+    <th>{{element.actors}}</th>
+  </tr>
+  <tr>
+    <th>Producers: </th>
+    <th>{{element.producers}}</th>
+  </tr>
+  <tr>
+      <th>Language: </th>
+      <th>{{element.language}}</th>
+  </tr>
+  <tr>
+      <th>Subtitles: </th>
+      <th>{{element.subtitles}}</th>
+  </tr>
+  <tr>
+      <th>Dubs: </th>
+      <th>{{element.dubs}}</th>
+  </tr>
+  <tr>
+      <th>Release Date: </th>
+      <th>{{element.releaseDate}}</th>
+  </tr>
+  <tr>
+      <th>Runtime: </th>
+      <th>{{element.runTime}}</th>
+  </tr>
+  <tr>
+        <th> <update-movie *ngIf = "isAdmin()" [movie]="element" (messageEvent)="receiveSaveMessage($event)"></update-movie> </th>
+        <th> <delete-item *ngIf = "isAdmin()" [element]="element" (messageEvent)="receiveDeleteMessage($event)"></delete-item>  </th>
+      </tr>
+    </table>
+    
+    </div>

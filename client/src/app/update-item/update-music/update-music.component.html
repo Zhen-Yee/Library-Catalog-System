@@ -2,27 +2,30 @@
 <div class="container" *ngIf="edit" [formGroup]="form">
     <mat-form-field>
         <input matInput formControlName="title" placeholder="Title">
-    </mat-form-field>
-
-    <mat-form-field>
-        <input matInput formControlName="artist" placeholder="Artist">
-    </mat-form-field>
-
-    <mat-form-field>
-        <input matInput formControlName="releaseDate" placeholder="Release Date">
-    </mat-form-field>
-
-    <mat-form-field>
+      </mat-form-field>
+    
+      <mat-form-field>
         <input matInput formControlName="type" placeholder="Type">
-    </mat-form-field>
-
-    <mat-form-field>
-        <input matInput formControlName="label" placeholder="Label">
-    </mat-form-field>
-
-    <mat-form-field>
-        <input matInput formControlName="asin" placeholder="asin">
-    </mat-form-field>
+      </mat-form-field>
+    
+      <mat-form-field>
+          <input matInput formControlName="artist" placeholder="Artist">
+      </mat-form-field>
+    
+      <mat-form-field>
+          <input matInput formControlName="label" placeholder="Label">
+      </mat-form-field>
+    
+      <mat-form-field>
+          <input matInput formControlName="releaseDate" placeholder="Release Date">
+      </mat-form-field>
+      <mat-error *ngIf="form.get('releaseDate').hasError('pattern')">
+        Please enter in yyyy/mm/dd
+       </mat-error>
+    
+      <mat-form-field>
+          <input matInput formControlName="asin" placeholder="ASIN">
+      </mat-form-field> 
 
     <mat-form-field>
         <input matInput formControlName="qtyInStock" placeholder="Quantity In Stock">
