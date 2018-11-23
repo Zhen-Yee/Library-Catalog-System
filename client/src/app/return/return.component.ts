@@ -104,40 +104,7 @@ export class ReturnComponent implements OnInit {
   authenticated() {
     return this.user.authenticated;
   }
-
-  /*
-  getAllLoanedItems() {
-    this.http
-      .get<CatalogItem[]>(
-        "http://localhost:8090/catalog/getAllLoanedItems" + CatalogItem
-      )
-      .subscribe(x => {
-        x.map(index => {
-          index.id= CatalogItem;
-        });
-        this.dataArray = [...this.dataArray, ...x];
-        this.data.dataFromService = this.dataArray;
-        this.dataSource = new MatTableDataSource(this.dataArray);
-        this.isLoaded = true;
-      });
-  }
-
-
-  getAllLoanedItems() {
-      this.isLoaded = false;
-    this.http.get("http://localhost:8090/catalog/getAllLoanedItems").subscribe(x => {
-      Object.keys(x).map(key => {
-        this.data.findType(x[key]);
-        this.dataArray = [...this.dataArray, ...x[key]];
-      });
-      this.dataSource = new MatTableDataSource(this.dataArray);
-      this.isLoaded = true;
-    });
-  }
-
-  */
   
-
 getAllLoanedItems() {
       this.http.post<any[]>("http://localhost:8090/catalog/allLoanedItems", this.user.userEmail).subscribe(x => {
       console.log(x);

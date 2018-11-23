@@ -21,7 +21,7 @@ public class Transaction {
     private Date dateReturned;
     public String itemType;
     public int item_id;
-    private String title;
+    
 
     public Transaction() {}
 
@@ -48,8 +48,8 @@ public class Transaction {
         this.itemType = itemType;
     }
 
-    public Transaction( String title, Date checkoutDate, Date dueDate) {
-        this.title=title;
+    public Transaction( CatalogItem catalogitem, Date checkoutDate, Date dueDate) {
+        this.catalogItem = catalogItem;
         this.checkoutDate = checkoutDate;
         this.dueDate = dueDate;
     }
@@ -127,11 +127,5 @@ public class Transaction {
         this.dateReturned = dateReturned;
     }
 
-    public void setTitle(String title){
-        this.title=title;
-    }
-
-    public String getTitle(){
-        return title;
-    }
+    
 }
