@@ -158,7 +158,6 @@ public class TransactionGateway {
       
     }
 
-
     private Connection connect(){
         Connection connection = null;
         try{
