@@ -144,21 +144,28 @@ public class Catalog {
         }
         isDatabaseChange = true;
     }
-    
-    public void returnCatalogItem(CatalogItem catalogItem){
-        
+
+    public synchronized Boolean returnCatalogItem(int transactionId, JSONObject jsonObject) {
+        CatalogItem catalogItem = buildFromJObject(jsonObject);
+        if (catalogItem != null) {
             catalogItem.returnItem();
             updateCatalogItem(catalogItem);
-        //update the Trasaction item
-            updateTransaction(catalogItem);
-        
-        isDatabaseChange = true;
+            updateTransaction(transactionId);
+            isDatabaseChange = true;
+        } else {
+            populateIdentityMap();
+            catalogItem = buildFromJObject(jsonObject);
+            if (catalogItem == null) {
+                return  Boolean.FALSE;
+            }
+        }
+        return Boolean.TRUE;
     }
-    
 
-    /** 
-      *If you get a List<Long> of ID, turn each ID into a CatalogItem
-      
+
+
+    //If you get a List<Long> of ID, turn each ID into a CatalogItem
+
     public List<CatalogItem> getCatalogItemFromID(List<Long> ids) {
         List<CatalogItem> catalogItemList = new ArrayList<>();
         for (Long id : ids) {
@@ -173,7 +180,6 @@ public class Catalog {
         }
         return catalogItemList;
     }
-    */
 
     /**
      * Synchronized method that checks every item and compare it to the
@@ -252,8 +258,8 @@ public class Catalog {
 
 
     //Update Method
-    public void updateTransaction(CatalogItem catalogItem){
-        transactionGateway.update(new Transaction());
+    public void updateTransaction(int id){
+        transactionGateway.update(id);
     }
 
     /**
@@ -317,13 +323,13 @@ public class Catalog {
         return transactionGateway.getAllTransactions();
     }
 
-    public List <Transaction> getuserTransactions(String userEmail){
-        return transactionGateway.getuserTransactions(userEmail);
-        }
+    public List <Transaction> getUserTransactions(String userEmail){
+        return transactionGateway.getUserTransactions(userEmail);
+    }
 
     public List <Transaction> getAllLoanedItems(String userEmail){
         return transactionGateway.getAllLoanedItems(userEmail);
-        }
     }
+}
 
     
