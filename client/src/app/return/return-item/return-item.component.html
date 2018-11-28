@@ -1,10 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<div *ngIf="item">
+  <div class = "title" >{{item.catalogItem.title}}</div>
+  <div>
+    <tr>
+      <th>{{item.catalogItem.qtyInStock}} in Stock </th>
+      <th>{{item.catalogItem.qtyOnLoan}} on Loan </th>
+    </tr>
+  </div>
+
+  <mat-card class="example-card" *ngIf="item">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title> {{selected.firstName}}</mat-card-title>
+      <mat-card-subtitle>{{selected.lastName}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="https://semantic-ui.com/images/avatar/large/steve.jpg" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+    <pre>
+      <span>Email : {{selected.emailAddress}} </span>
+      <span>Address: {{selected.physicalAddress}} </span>
+      <span>Phone: {{selected.phoneNumber}} </span>
+      <span>Last logged: {{selected.lastLoggedIn | date:'short'}}  </span>
+    </pre>
+    </mat-card-content>
+    <mat-card-actions>
+    </mat-card-actions>
+  </mat-card>
+  <table *ngIf="item.itemType == 'book'">
+    <tr>
+      <th>Author: </th>
+      <th>{{item.author}}</th>
+    </tr>
+    <tr>
+      <th>Format: </th>
+      <th>{{item.format}}</th>
+    </tr>
+    <tr>
+      <th>Pages: </th>
+      <th>{{item.pages}}</th>
+    </tr>
+    <tr>
+      <th>Publisher: </th>
+      <th>{{item.publisher}}</th>
+    </tr>
+    <tr>
+      <th>Year of Publication: </th>
+      <th>{{item.yearOfPublication}}</th>
+    </tr>
+    <tr>
+      <th>Language: </th>
+      <th>{{item.language}}</th>
+    </tr>
+    <tr>
+      <th>ISBN10: </th>
+      <th>{{item.isbn10}}</th>
+    </tr>
+    <tr>
+      <th>ISBN13: </th>
+      <th>{{item.isbn13}}</th>
+    </tr>
+  </table>
+
+</div>
+

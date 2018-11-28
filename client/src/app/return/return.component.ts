@@ -45,8 +45,8 @@ export class ReturnComponent implements OnInit {
   element;
 
   constructor(
-    private http: HttpClient, 
-    private fb: FormBuilder, 
+    private http: HttpClient,
+    private fb: FormBuilder,
     private user: UserService,
     public snackBar: MatSnackBar,
     private data: DataService,
@@ -104,64 +104,33 @@ export class ReturnComponent implements OnInit {
   authenticated() {
     return this.user.authenticated;
   }
-  
-getAllLoanedItems() {
-      this.http.post<any[]>("http://localhost:8090/catalog/allLoanedItems", this.user.userEmail).subscribe(x => {
-      console.log(x);
-      console.log(x[0].catalogItem.title);
-      this.dataSource = new MatTableDataSource(x);
-      this.isLoaded = true;
-  });
-}
 
-
-
-  returnItem(){
-
-    if(this.element.itemType === CatalogItemType.Book){
-      this.http
-      .post<any>("http://localhost:8090/catalog/returnBook", this.element)
-      .subscribe(updateSuccess => {
-        console.log(updateSuccess)
-        if (updateSuccess) {
-            this.openSnackBar("Book Return Completed!", "Close");
-            this.router.navigate(["/"]);
-        } else {
-            this.openSnackBar("Error with Return", "Close");
-            console.log("Failed to return Book.")
+  getAllLoanedItems() {
+    this.http.post<any[]>("http://localhost:8090/catalog/allLoanedItems", this.user.userEmail)
+      .subscribe(x => {
+        for(var i =0; i<x.length; i++){
+          x[i].title = x[i].catalogItem.title;
+          x[i].checkoutDate = x[i].checkoutDbDate;
+          x[i].dueDate = x[i].dueDbDate;
         }
-    });
-    }
+        this.dataSource = new MatTableDataSource(x);
+        this.isLoaded = true;
+      });
+  }
 
-    else if(this.element.itemType === CatalogItemType.Movie){
-      this.http
-      .post<any>("http://localhost:8090/catalog/returnMovie", this.element)
+  returnItem(element){
+    this.http
+      .post<any>("http://localhost:8090/catalog/return", element)
       .subscribe(updateSuccess => {
-        console.log(updateSuccess)
         if (updateSuccess) {
-            this.openSnackBar("Movie Return Completed!", "Close");
-            this.router.navigate(["/"]);
+          this.openSnackBar("Book Return Completed!", "Close");
+          this.isLoaded = false;
+          this.getAllLoanedItems();
         } else {
-            this.openSnackBar("Error with Return", "Close");
-            console.log("Failed to return Movie.")
+          this.openSnackBar("Error with Return", "Close");
+          console.log("Failed to return Book.")
         }
-    });
-    }
-
-    else if(this.element.itemType === CatalogItemType.Music){
-      this.http
-      .post<any>("http://localhost:8090/catalog/returnMusic", this.element)
-      .subscribe(updateSuccess => {
-        console.log(updateSuccess)
-        if (updateSuccess) {
-            this.openSnackBar("Music Return Completed!", "Close");
-            this.router.navigate(["/"]);
-        } else {
-            this.openSnackBar("Error with Return", "Close");
-            console.log("Failed to return Music.")
-        }
-    });
-    }
+      });
   }
 
   openSnackBar(message: string, action: string) {
@@ -171,7 +140,7 @@ getAllLoanedItems() {
   }
 
 
-  ngOnInit() {  
+  ngOnInit() {
     this.getAllLoanedItems();
   }
 }

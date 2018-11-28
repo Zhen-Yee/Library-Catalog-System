@@ -64,6 +64,7 @@ import {ItemContainerComponent} from "./item-details/item-container/item-contain
 import { UserAuthenticateGuard } from "./_services/guards/user-authenticate.guard";
 import { MatBadgeModule } from '@angular/material';
 import { ReturnComponent } from './return/return.component';
+import { ReturnItemComponent } from './return/return-item/return-item.component';
 
 @NgModule({
    declarations: [
@@ -107,6 +108,7 @@ import { ReturnComponent } from './return/return.component';
       MagazineDetailsComponent,
       ItemContainerComponent,
       ReturnComponent,
+      ReturnItemComponent,
    ],
    imports: [
       MatCheckboxModule,
