@@ -568,8 +568,8 @@ public class MovieGateway {
     }
 
     public Movie get(int id){
-        
-        connector = DbConnection.get(SQL_GET_ALL_MOVIES);
+        String SQL_GET_ID = "SELECT  * from testdb.movie WHERE id = '" + id + "'";
+        connector = DbConnection.get(SQL_GET_ID);
         ResultSet resultSet = connector.getResultSet();
         return buildResultSet(resultSet);
         

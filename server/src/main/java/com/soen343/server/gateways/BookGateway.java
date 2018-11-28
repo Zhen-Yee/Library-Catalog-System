@@ -153,11 +153,10 @@ public class BookGateway {
     }
 
     public Book get(int id){
-        
-        connector = DbConnection.get(SQL_GET_ALL_BOOKS);
+        String SQL_GET_ID = "SELECT  * from testdb.book WHERE id = '" + id + "'";
+        connector = DbConnection.get(SQL_GET_ID);
         ResultSet resultSet = connector.getResultSet();
         return buildResultSet(resultSet);
-        
     }
     
     // change for a DataSource later?
