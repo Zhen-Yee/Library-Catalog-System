@@ -272,22 +272,60 @@ public class MusicGateway {
     public List<Music> search(SearchCriteria search){
         System.out.print("Entered gateway");
         List<Music> musicArrayList = new ArrayList<>();
-       
+
         if(search.getTitle().equals("title") ||
-        search.getType().equals("type") ||
-        search.getArtist().equals("artist") ||
-        search.getLabel().equals("label") ||
-        search.getReleaseDate().equals("releaseDate") ||
-        search.getAsin().equals("asin")){
-        
-        String filter = buildFilterString(search);
-        connector = DbConnection.get(filter);
+                search.getType().equals("type") ||
+                search.getArtist().equals("artist") ||
+                search.getLabel().equals("label") ||
+                search.getReleaseDate().equals("releaseDate") ||
+                search.getAsin().equals("asin")){
+
+            String filter = buildFilterString(search);
+            connector = DbConnection.get(filter);
+            ResultSet resultSet = connector.getResultSet();
+            try {
+                while (resultSet.next()) {
+
+                    // Creates object for each row in database music table
+                    Music music = new Music(
+                            resultSet.getString("title"),
+                            resultSet.getInt("qty_in_stock"),
+                            resultSet.getInt("qty_on_loan"),
+                            resultSet.getString("type"),
+                            resultSet.getString("artist"),
+                            resultSet.getString("label"),
+                            resultSet.getString("release_date"),
+                            resultSet.getString("asin")
+                    );
+
+                    music.setId(resultSet.getInt("id"));
+
+                    musicArrayList.add(music);
+                }
+            } catch (SQLException e) {
+                System.out.println("Unable to query from result set.");
+                e.printStackTrace();
+            } finally {
+                connector.close();
+            }
+        }
+        return musicArrayList;
+    }
+
+    public Music get(int id){
+        String SQL_GET_ID = "SELECT  * from testdb.music WHERE id = '" + id + "'";
+        connector = DbConnection.get(SQL_GET_ID);
         ResultSet resultSet = connector.getResultSet();
+        return buildResultSet(resultSet);
+    }
+
+    public Music buildResultSet(ResultSet resultSet){
+        Music music= null;
         try {
             while (resultSet.next()) {
 
                 // Creates object for each row in database music table
-                Music music = new Music(
+                music = new Music(
                         resultSet.getString("title"),
                         resultSet.getInt("qty_in_stock"),
                         resultSet.getInt("qty_on_loan"),
@@ -297,55 +335,16 @@ public class MusicGateway {
                         resultSet.getString("release_date"),
                         resultSet.getString("asin")
                 );
-
                 music.setId(resultSet.getInt("id"));
-
-                musicArrayList.add(music);
             }
+
         } catch (SQLException e) {
             System.out.println("Unable to query from result set.");
             e.printStackTrace();
         } finally {
             connector.close();
         }
+        return music;
     }
-        return musicArrayList;
-    }
-
-    public Music get(int id){
-        connector = DbConnection.get(SQL_GET_ALL_MUSICS);
-        ResultSet resultSet = connector.getResultSet();
-        return buildResultSet(resultSet); 
-    }
-public Music buildResultSet(ResultSet resultSet){
-    Music music= null;
-    try {
-        while (resultSet.next()) {
-
-            // Creates object for each row in database music table
-            music = new Music(
-                    resultSet.getString("title"),
-                    resultSet.getInt("qty_in_stock"),
-                    resultSet.getInt("qty_on_loan"),
-                    resultSet.getString("type"),
-                    resultSet.getString("artist"),
-                    resultSet.getString("label"),
-                    resultSet.getString("release_date"),
-                    resultSet.getString("asin")
-            );
-
-            music.setId(resultSet.getInt("id"));
-
-        
-        }
-
-    } catch (SQLException e) {
-        System.out.println("Unable to query from result set.");
-        e.printStackTrace();
-    } finally {
-        connector.close();
-    }
-    return music;
-}
 
 }

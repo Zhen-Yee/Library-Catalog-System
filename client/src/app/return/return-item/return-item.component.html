@@ -1,0 +1,59 @@
+<div *ngIf="item">
+  <div class = "title" >{{item.catalogItem.title}}</div>
+  <div>
+    <tr>
+      <th>{{item.catalogItem.qtyInStock}} in Stock </th>
+      <th>{{item.catalogItem.qtyOnLoan}} on Loan </th>
+    </tr>
+  </div>
+
+    <mat-card class="example-card" *ngIf="item" >
+      <mat-card-header>
+        <div mat-card-avatar class="book-header-image" *ngIf="item.itemType == 'book'"></div>
+        <div mat-card-avatar class="music-header-image" *ngIf="item.itemType == 'music'"></div>
+        <div mat-card-avatar class="movie-header-image" *ngIf="item.itemType == 'movie'"></div>
+        <mat-card-title> {{item.catalogItem.title}}</mat-card-title>
+        <mat-card-subtitle>{{item.itemType}}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="http://bestanimations.com/Books/pretty-book-bench-nature-water-outdoors-animated-gif.gif" alt="Photo of a Shiba Inu" *ngIf="item.itemType == 'book'">
+      <img mat-card-image src="https://media.giphy.com/media/5ehBR5qtLEXBe/giphy.gif" alt="Drake dancing" *ngIf="item.itemType == 'music'">
+      <img mat-card-image src="https://i.redd.it/rgz4xyzgn2r11.gif" alt="Photo of a Shiba Inu" *ngIf="item.itemType == 'movie'">
+      <mat-card-content *ngIf="item.itemType == 'book'">
+        <pre>
+      <span>Author: {{item.catalogItem.author}}</span>
+      <span>Format: {{item.catalogItem.format}}</span>
+      <span>Pages: {{item.catalogItem.pages}}</span>
+      <span>Publisher:{{item.catalogItem.publisher}}</span>
+      <span>Year of Publication:{{item.catalogItem.yearOfPublication}}</span>
+      <span>Language: {{item.catalogItem.language}}</span>
+      <span>ISBN10: {{item.catalogItem.isbn10}}</span>
+      <span>ISBN13: {{item.catalogItem.isbn13}}</span>
+    </pre>
+      </mat-card-content>
+      <mat-card-content *ngIf="item.itemType == 'music'" class="face back">
+        <pre>
+      <span>Type: {{item.catalogItem.type}}</span>
+      <span>Artist: {{item.catalogItem.artist}}</span>
+      <span>Label: {{item.catalogItem.label}}</span>
+      <span>Release Date:{{item.catalogItem.releaseDate}}</span>
+      <span>ASIN:{{item.catalogItem.asin}}</span>
+    </pre>
+      </mat-card-content>
+      <mat-card-content *ngIf="item.itemType == 'movie'" class="face back">
+        <pre>
+      <span>Director: {{item.catalogItem.director}}</span>
+      <span>Actors: {{item.catalogItem.actors}}</span>
+      <span>Producers: {{item.catalogItem.producers}}</span>
+      <span>Language:{{item.catalogItem.language}}</span>
+      <span>Subtitles:{{item.catalogItem.subtitles}}</span>
+      <span>Dubs: {{item.catalogItem.dubs}}</span>
+      <span>Release Date: {{item.catalogItem.releaseDate}}</span>
+      <span>Runtime: {{item.catalogItem.runTime}}</span>
+    </pre>
+      </mat-card-content>
+      <mat-card-actions>
+        <pre> <button mat-stroked-button (click)="return()">Return item</button> </pre>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+

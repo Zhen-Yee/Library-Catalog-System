@@ -1,16 +1,15 @@
 package com.soen343.server.controller;
 
-import com.soen343.server.Catalog;
-import com.soen343.server.models.SearchCriteria;
-import com.soen343.server.models.Transaction;
-import com.soen343.server.models.catalog.*;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+        import com.soen343.server.Catalog;
+        import com.soen343.server.models.SearchCriteria;
+        import com.soen343.server.models.Transaction;
+        import com.soen343.server.models.catalog.*;
+        import org.json.JSONArray;
+        import org.json.JSONObject;
+        import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
+        import java.util.List;
+        import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -181,21 +180,32 @@ public class CatalogController {
         return catalog.checkout(userMap.getString("userEmail"), catalog.cartMapToList(cartMap));
     }
 
-    @PostMapping("/testCheckout")
-    public boolean testCheckout(@RequestBody String item) {
-            System.out.println(item);
-        return true;
-    }
-
     @PostMapping("/userTransactions")
     public List<Transaction> getuserTransactions(@RequestBody String userEmail){
-    try{
-        return catalog.getuserTransactions(userEmail);
-    } 
-    catch(Exception exception){
-        System.out.print(exception);
-        return null;
-}
+        try{
+            return catalog.getUserTransactions(userEmail);
+        }
+        catch(Exception exception){
+            exception.printStackTrace();
+            return null;
+        }
     }
 
+    @PostMapping("/allLoanedItems")
+    public List<Transaction> getAllLoanedItems(@RequestBody String userEmail){
+        try{
+            return catalog.getAllLoanedItems(userEmail);
+        }
+        catch(Exception exception){
+            exception.printStackTrace();
+            return null;
+        }
+    }
+
+    @PostMapping("/return")
+    public Boolean returnCatalogItem(@RequestBody String catalogItem){
+        JSONObject jsonObject = new JSONObject(catalogItem);
+        JSONObject userMap = (JSONObject) jsonObject.get("catalogItem");
+        return catalog.returnCatalogItem(jsonObject.getInt("id"),userMap);
+    }
 }

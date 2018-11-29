@@ -63,6 +63,8 @@ import { ObjectDetailsService } from "./_services/object-details.service";
 import {ItemContainerComponent} from "./item-details/item-container/item-container.component";
 import { UserAuthenticateGuard } from "./_services/guards/user-authenticate.guard";
 import { MatBadgeModule } from '@angular/material';
+import { ReturnComponent } from './return/return.component';
+import { ReturnItemComponent } from './return/return-item/return-item.component';
 
 @NgModule({
    declarations: [
@@ -104,7 +106,9 @@ import { MatBadgeModule } from '@angular/material';
       MovieDetailsComponent,
       BookDetailsComponent,
       MagazineDetailsComponent,
-      ItemContainerComponent
+      ItemContainerComponent,
+      ReturnComponent,
+      ReturnItemComponent,
    ],
    imports: [
       MatCheckboxModule,
@@ -126,7 +130,6 @@ import { MatBadgeModule } from '@angular/material';
       RouterModule.forRoot([]),
       routing,
       ReactiveFormsModule,
-      
       MatListModule,
       MatIconModule,
       MatTableModule,
@@ -142,7 +145,8 @@ import { MatBadgeModule } from '@angular/material';
       ConfirmationComponent,
       RegistrationErrorComponent,
       DeleteItemPromptDialogComponent,
-      CheckoutComponent
+      CheckoutComponent,
+      ReturnComponent
    ],
    providers: [
       UserService,

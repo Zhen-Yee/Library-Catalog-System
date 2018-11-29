@@ -48,6 +48,10 @@ redirectTransactions() {
     this.router.navigate(["/catalog"]);
   }
 
+  redirectReturnItemsPage() {
+    this.router.navigate(["/returns"]);
+  }
+
   openDialog() {
     const dialogRef = this.dialog.open(LoginComponent);
 

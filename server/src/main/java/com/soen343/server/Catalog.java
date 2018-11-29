@@ -114,6 +114,7 @@ public class Catalog {
         return catalogItems;
     }
 
+
     public List<Book> getAllBooks() {
         return bookGateway.getAll();
     }
@@ -142,6 +143,42 @@ public class Catalog {
             movieGateway.delete((Movie)catalogItem);
         }
         isDatabaseChange = true;
+    }
+
+    public synchronized Boolean returnCatalogItem(int transactionId, JSONObject jsonObject) {
+        CatalogItem catalogItem = buildFromJObject(jsonObject);
+        if (catalogItem != null) {
+            catalogItem.returnItem();
+            updateCatalogItem(catalogItem);
+            updateTransaction(transactionId);
+            isDatabaseChange = true;
+        } else {
+            populateIdentityMap();
+            catalogItem = buildFromJObject(jsonObject);
+            if (catalogItem == null) {
+                return  Boolean.FALSE;
+            }
+        }
+        return Boolean.TRUE;
+    }
+
+
+
+    //If you get a List<Long> of ID, turn each ID into a CatalogItem
+
+    public List<CatalogItem> getCatalogItemFromID(List<Long> ids) {
+        List<CatalogItem> catalogItemList = new ArrayList<>();
+        for (Long id : ids) {
+            if (identityMap.containsKey(id)){
+                catalogItemList.add(identityMap.get(id));
+            } else { //repopulate it and check again
+                populateIdentityMap();
+                if (identityMap.containsKey(id)){
+                    catalogItemList.add(identityMap.get(id));
+                }
+            }
+        }
+        return catalogItemList;
     }
 
     /**
@@ -219,6 +256,12 @@ public class Catalog {
         transactionGateway.insert(new Transaction(email, catalogItem));
     }
 
+
+    //Update Method
+    public void updateTransaction(int id){
+        transactionGateway.update(id);
+    }
+
     /**
      *  Identity Map Utilities
      *  Concerning the identity map
@@ -280,7 +323,13 @@ public class Catalog {
         return transactionGateway.getAllTransactions();
     }
 
-    public List <Transaction> getuserTransactions(String userEmail){
-        return transactionGateway.getuserTransactions(userEmail);
-        }
+    public List <Transaction> getUserTransactions(String userEmail){
+        return transactionGateway.getUserTransactions(userEmail);
+    }
+
+    public List <Transaction> getAllLoanedItems(String userEmail){
+        return transactionGateway.getAllLoanedItems(userEmail);
+    }
 }
+
+    

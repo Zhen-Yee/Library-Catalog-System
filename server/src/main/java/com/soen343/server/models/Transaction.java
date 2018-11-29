@@ -24,7 +24,7 @@ public class Transaction {
     public String checkoutDbDate;
     public String dueDbDate;
     public String returnedDbDate;
-    
+
 
     public Transaction() {}
 
@@ -35,7 +35,8 @@ public class Transaction {
         this.dueDate = generateDueDate(catalogItem, this.checkoutDate);
     }
 
-    public Transaction(String userEmail, String itemType, int item_id, String checkoutDate, String dueDate, String returned_date) {
+    public Transaction(long id, String userEmail, String itemType, int item_id, String checkoutDate, String dueDate, String returned_date) {
+        this.id = id;
         this.userEmail = userEmail;
         this.itemType = itemType;
         this.item_id = item_id;
@@ -52,6 +53,17 @@ public class Transaction {
         this.itemType = itemType;
         this.returnedDbDate = returned_date;
     }
+
+    public Transaction(Transaction transaction, CatalogItem catalogItem) {
+        this.id = transaction.id;
+        this.item_id = (int) catalogItem.getId();
+        this.userEmail = transaction.userEmail;
+        this.itemType = transaction.itemType;
+        this.checkoutDbDate = transaction.checkoutDbDate;
+        this.dueDbDate = transaction.dueDbDate;
+        this.catalogItem = catalogItem;
+    }
+
 
     /**
      * Generates the due date based on item type
@@ -125,4 +137,6 @@ public class Transaction {
     public void setDateReturned(Date dateReturned) {
         this.dateReturned = dateReturned;
     }
+
+
 }
