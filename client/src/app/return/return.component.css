@@ -4,10 +4,6 @@ h1
     font-size: 40px;
 }
 
-div {
-    text-align:center;
-}
-
 table {
     width: 100%;
   }
@@ -51,7 +47,7 @@ table {
   .example-element-description {
     padding: 16px;
     white-space: pre-line;
-    width: 100%;
+    width: 70%;
     display: flex;
     margin: auto;
   }
@@ -101,4 +97,3 @@ table {
   .left-wrapper table {
     padding-top: 20px;
   }
-  
