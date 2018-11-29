@@ -24,9 +24,8 @@ export class ItemContainerComponent implements OnInit, OnDestroy {
     private snack: MatSnackBar
   ) {}
 
-  itemType;
-  addtocart;
-  fromSortType;
+  itemType = this.dataArray.getData()[this.details.index].itemType;
+
   ngOnInit() {
     this.router.events
     .pipe(filter(e => e instanceof RoutesRecognized))

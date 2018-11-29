@@ -123,12 +123,11 @@ export class ReturnComponent implements OnInit {
       .post<any>("http://localhost:8090/catalog/return", element)
       .subscribe(updateSuccess => {
         if (updateSuccess) {
-          this.openSnackBar("Book Return Completed!", "Close");
+          this.openSnackBar( element.itemType.charAt(0).toLocaleUpperCase() + element.itemType.slice(1) + " has been returned successfully!", "Close");
           this.isLoaded = false;
           this.getAllLoanedItems();
         } else {
-          this.openSnackBar("Error with Return", "Close");
-          console.log("Failed to return Book.")
+          this.openSnackBar(element.itemType.charAt(0).toLocaleUpperCase() + element.itemType.slice(1) + " has failed to be returned", "Close");
         }
       });
   }
