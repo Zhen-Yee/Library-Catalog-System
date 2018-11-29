@@ -19,6 +19,7 @@ import { MovieDetailsComponent } from "./item-details/movie-details/movie-detail
 import { MusicDetailsComponent } from "./item-details/music-details/music-details.component";
 import { ItemContainerComponent } from "./item-details/item-container/item-container.component";
 import { ShoppingCartComponent } from "./shopping-cart/shopping-cart.component";
+import { ReturnComponent } from "./return/return.component";
 
 
 const appRoutes: Routes = [
@@ -123,9 +124,13 @@ const appRoutes: Routes = [
     {
       path: "Music/:title",
       component: MusicDetailsComponent
-    }
+    },
   ]
-  }
+  },
+  {
+    path: "returns",
+    component: ReturnComponent
+  },
 ];
 
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

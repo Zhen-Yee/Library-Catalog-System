@@ -1,0 +1,30 @@
+.example-card {
+  max-width: 400px;
+  margin: auto;
+  transition: all .25s linear;
+  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.4);
+}
+
+.example-header-image {
+  background-image: url('https://semantic-ui.com/images/avatar/large/steve.jpg');
+  background-size: cover;
+}
+
+.book-header-image {
+  background-image: url('https://d1nz104zbf64va.cloudfront.net/dt/a/o/top-7-books-that-changed-the-world.jpg');
+  background-size: cover;
+}
+
+.music-header-image {
+   background-image: url('https://media.giphy.com/media/3o85xJohCZUc524lSU/giphy.gif');
+   background-size: cover;
+ }
+
+.movie-header-image {
+  background-image: url('https://66.media.tumblr.com/ad136bc0caba359ce2a4990b179b3205/tumblr_pcpsrgrpTD1r5zq6ao3_500.gif');
+  background-size: cover;
+}
+
+.example-card:hover{
+  box-shadow: -1px 10px 29px 0px rgba(0,0,0,0.8);
+}

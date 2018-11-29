@@ -1,0 +1,99 @@
+h1
+{
+    font-family: Times;
+    font-size: 40px;
+}
+
+table {
+    width: 100%;
+  }
+  
+  tr.example-detail-row {
+    height: 0;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):hover {
+    background: #f5f5f5;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+  }
+  
+  .example-element-row td {
+    border-bottom-width: 0;
+  }
+  
+  .example-element-detail {
+    overflow: hidden;
+    display: flex;
+  }
+  
+  .example-element-diagram {
+    min-width: 80px;
+    border: 2px solid black;
+    padding: 8px;
+    font-weight: lighter;
+    margin: 8px 0;
+    height: 104px;
+  }
+  
+  .example-element-symbol {
+    font-weight: bold;
+    font-size: 40px;
+    line-height: normal;
+  }
+  
+  .example-element-description {
+    padding: 16px;
+    white-space: pre-line;
+    width: 70%;
+    display: flex;
+    margin: auto;
+  }
+  
+  .example-element-description-attribution {
+    opacity: 0.5;
+  }
+  
+  .edit-box {
+    padding-top: 50px;
+    padding-bottom: 80px;
+    padding-left: 140px;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24), 0 0 2px rgba(0, 0, 0, 0.12);
+    margin: 40px;
+    width: 40%;
+  }
+  
+  .delete {
+    margin-top: 30px;
+  }
+  
+  /* This concerns the wrapper */
+  .left-wrapper {
+    float: left;
+    width:40%;
+    text-align: left;
+    margin-bottom: 40px;
+  }
+  
+  .right-wrapper {
+    width:60%;
+    margin-top: 40px;
+  }
+  
+  
+  .title {
+    font-size:20px;
+    font-weight: bold;
+    padding:20px;
+  }
+  
+  .left-wrapper th { 
+    width:70%;
+  }
+  
+  .left-wrapper table {
+    padding-top: 20px;
+  }
